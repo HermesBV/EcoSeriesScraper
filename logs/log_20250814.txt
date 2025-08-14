@@ -1,0 +1,228 @@
+20250814_191027|SISTEMA|INICIO|Inicio del proceso de descarga
+20250814_191028|166.1_ARO_NACUTO_0_0_16|OK|Registros descargados: 18
+20250814_191029|166.1_F_BRUTAIJO_0_0_19|OK|Registros descargados: 18
+20250814_191029|166.1_VEXISTEIAS_0_0_15|OK|Registros descargados: 18
+20250814_191030|166.1_OBJETOS_VASOS_A_0_0_16_13|OK|Registros descargados: 18
+20250814_191030|4.1_IT_2004_A_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=4.1_IT_2004_A_13&format=csv&limit=1000
+20250814_191031|4.1_MGCP_2004_A_25|OK|Registros descargados: 19
+20250814_191032|4.1_DGCP_2004_A_30|OK|Registros descargados: 19
+20250814_191032|4.1_DGIT_2004_A_25|OK|Registros descargados: 19
+20250814_191033|143.3_NO_PR_2004_A_31|OK|Registros descargados: 257
+20250814_191034|80.1_IIVNG_0_A_30|OK|Registros descargados: 35
+20250814_191034|80.1_IIPNG_0_A_31|OK|Registros descargados: 35
+20250814_191035|80.1_IICNG_0_A_33|OK|Registros descargados: 35
+20250814_191035|81.1_IIVNIG_0_A_44|OK|Registros descargados: 35
+20250814_191036|81.1_IIPING_0_A_45|OK|Registros descargados: 35
+20250814_191037|81.1_IICING_0_A_47|OK|Registros descargados: 35
+20250814_191037|3.2_IT_D_2004_T_14|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_14&format=csv&limit=1000
+20250814_191037|3.2_OGP_D_2004_T_18|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_18&format=csv&limit=1000
+20250814_191038|3.2_IT_D_2004_T_15|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_15&format=csv&limit=1000
+20250814_191038|3.2_OGP_D_2004_T_19|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_19&format=csv&limit=1000
+20250814_191038|3.2_IT_D_2004_T_16|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_16&format=csv&limit=1000
+20250814_191039|3.2_OGP_D_2004_T_20|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_20&format=csv&limit=1000
+20250814_191039|3.2_IT_D_2004_T_17|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_17&format=csv&limit=1000
+20250814_191039|3.2_OGP_D_2004_T_21|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_21&format=csv&limit=1000
+20250814_191039|3.2_IT_D_2004_T_18|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_18&format=csv&limit=1000
+20250814_191040|3.2_OGP_D_2004_T_22|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_22&format=csv&limit=1000
+20250814_191040|3.2_IT_D_2004_T_19|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_19&format=csv&limit=1000
+20250814_191040|3.2_OGP_D_2004_T_23|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_23&format=csv&limit=1000
+20250814_191041|3.2_IT_D_2004_T_20|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_20&format=csv&limit=1000
+20250814_191041|3.2_OGP_D_2004_T_24|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_24&format=csv&limit=1000
+20250814_191041|3.2_IT_D_2004_T_21|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_21&format=csv&limit=1000
+20250814_191042|3.2_OGP_D_2004_T_25|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_25&format=csv&limit=1000
+20250814_191042|3.2_IT_D_2004_T_22|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_22&format=csv&limit=1000
+20250814_191042|3.2_OGP_D_2004_T_26|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_26&format=csv&limit=1000
+20250814_191042|3.2_IT_D_2004_T_23|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_23&format=csv&limit=1000
+20250814_191043|3.2_OGP_D_2004_T_27|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_27&format=csv&limit=1000
+20250814_191043|3.2_IT_D_2004_T_24|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_24&format=csv&limit=1000
+20250814_191044|3.2_OGP_D_2004_T_28|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_28&format=csv&limit=1000
+20250814_191044|3.2_IT_D_2004_T_25|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_25&format=csv&limit=1000
+20250814_191044|3.2_OGP_D_2004_T_29|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_29&format=csv&limit=1000
+20250814_191044|3.2_IT_D_2004_T_26|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_26&format=csv&limit=1000
+20250814_191045|3.2_OGP_D_2004_T_30|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_30&format=csv&limit=1000
+20250814_191045|3.2_IT_D_2004_T_27|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_27&format=csv&limit=1000
+20250814_191045|3.2_OGP_D_2004_T_31|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_31&format=csv&limit=1000
+20250814_191046|3.2_IT_D_2004_T_28|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_28&format=csv&limit=1000
+20250814_191046|3.2_OGP_D_2004_T_32|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_32&format=csv&limit=1000
+20250814_191046|3.2_IT_D_2004_T_29|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_29&format=csv&limit=1000
+20250814_191047|3.2_OGP_D_2004_T_33|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_33&format=csv&limit=1000
+20250814_191047|3.2_IT_D_2004_T_30|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_30&format=csv&limit=1000
+20250814_191047|3.2_OGP_D_2004_T_34|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_34&format=csv&limit=1000
+20250814_191048|9.1_POB_2004_A_9|OK|Registros descargados: 21
+20250814_191048|9.1_IT_2004_A_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=9.1_IT_2004_A_13&format=csv&limit=1000
+20250814_191048|3.2_IT_D_2004_T_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_13&format=csv&limit=1000
+20250814_191049|3.2_OGP_D_2004_T_17|OK|Registros descargados: 85
+20250814_191050|145.3_INGNACUAL_DICI_M_38|OK|Registros descargados: 103
+20250814_191050|145.3_INGNACUAL_DICI_M_39|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_39&format=csv&limit=1000
+20250814_191050|145.3_INGNACUAL_DICI_M_40|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_40&format=csv&limit=1000
+20250814_191051|145.3_INGNACUAL_DICI_M_41|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_41&format=csv&limit=1000
+20250814_191051|145.3_INGNACUAL_DICI_M_42|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_42&format=csv&limit=1000
+20250814_191051|145.3_INGNACUAL_DICI_M_43|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_43&format=csv&limit=1000
+20250814_191051|145.3_INGNACUAL_DICI_M_44|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_44&format=csv&limit=1000
+20250814_191052|145.3_INGNACUAL_DICI_M_45|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_45&format=csv&limit=1000
+20250814_191052|145.3_INGNACUAL_DICI_M_46|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_46&format=csv&limit=1000
+20250814_191052|145.3_INGNACUAL_DICI_M_47|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_47&format=csv&limit=1000
+20250814_191053|145.3_INGNACUAL_DICI_M_48|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_48&format=csv&limit=1000
+20250814_191053|145.3_INGNACUAL_DICI_M_49|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_49&format=csv&limit=1000
+20250814_191053|145.3_INGNACUAL_DICI_M_50|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_50&format=csv&limit=1000
+20250814_191054|145.3_INGNACUAL_DICI_M_51|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_51&format=csv&limit=1000
+20250814_191054|145.3_INGNACUAL_DICI_M_52|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_52&format=csv&limit=1000
+20250814_191054|145.3_INGNACUAL_DICI_M_53|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_53&format=csv&limit=1000
+20250814_191054|145.3_INGNACUAL_DICI_M_54|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_54&format=csv&limit=1000
+20250814_191055|145.3_INGNACUAL_DICI_M_55|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_55&format=csv&limit=1000
+20250814_191055|174.1_ICE_TIEMPO_0_0_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=174.1_ICE_TIEMPO_0_0_13&format=csv&limit=1000
+20250814_191057|174.1_RRVAS_IDOS_0_0_36|OK|Registros descargados: 1022
+20250814_191058|143.1_ICE_SERVIA_2004_A_25|OK|Registros descargados: 20
+20250814_191058|116.1_TCRMA_0_A_36|OK|Registros descargados: 28
+20250814_191059|9.1_IPC_2004_A_25|OK|Registros descargados: 21
+20250814_191059|160.1_TL_CUENNTE_0_A_22|OK|Registros descargados: 19
+20250814_191100|160.1_CTA_CORFOB_0_A_59|OK|Registros descargados: 19
+20250814_191101|160.1_CTA_CORRFOB_0_A_59|OK|Registros descargados: 19
+20250814_191101|160.1_CTA_CORNES_0_A_46|OK|Registros descargados: 19
+20250814_191102|82.1_ITI_2004_A_27|OK|Registros descargados: 39
+20250814_191103|82.1_IPE_2004_A_26|OK|Registros descargados: 39
+20250814_191103|82.1_IPI_2004_A_26|OK|Registros descargados: 39
+20250814_191104|161.1_TL_DEUDRNA_0_0_19|OK|Registros descargados: 74
+20250814_191105|161.1_TL_DEUDRAL_0_0_28|OK|Registros descargados: 74
+20250814_191106|161.1_TL_DEUDRAL_0_0_25|OK|Registros descargados: 74
+20250814_191106|161.1_TL_DEUDRAL_0_0_53|OK|Registros descargados: 74
+20250814_191107|161.1_TL_DEUDRAS_0_0_39|OK|Registros descargados: 74
+20250814_191108|161.1_TL_DEUDRAS_0_0_37|OK|Registros descargados: 74
+20250814_191108|160.2_CTA_CORFOB_0_T_59|OK|Registros descargados: 77
+20250814_191109|160.2_CTA_CORIOS_0_T_52|OK|Registros descargados: 77
+20250814_191110|243.1_VFIS_EXTAL_0_0_18|OK|Registros descargados: 20
+20250814_191111|160.1_CTA_FINCTA_0_A_41|OK|Registros descargados: 19
+20250814_191111|160.1_CTA_FINERA_0_A_41|OK|Registros descargados: 19
+20250814_191112|160.1_CTA_FINROS_0_A_36|OK|Registros descargados: 19
+20250814_191113|160.1_CTA_FINION_0_A_38|OK|Registros descargados: 19
+20250814_191113|160.1_AVOS_RERVA_0_A_15|OK|Registros descargados: 19
+20250814_191114|160.1_ERES_OMTOS_0_A_23|OK|Registros descargados: 19
+20250814_191115|160.1_TL_CUENERA_0_A_23|OK|Registros descargados: 19
+20250814_191116|160.1_CTA_CORION_0_A_58|OK|Registros descargados: 19
+20250814_191116|182.1_C_K_FINC_CINC_NO_FINAN_0_M_56|OK|Registros descargados: 269
+20250814_191117|453.1_SERIE_ORIGNAL_0_0_14_46|OK|Registros descargados: 114
+20250814_191118|145.1_IPC_NG_NACNAL_DICI_T_15|OK|Registros descargados: 34
+20250814_191119|115.1_TCRM_0_A_29|OK|Registros descargados: 25
+20250814_191119|115.2_TCRM_0_T_29|OK|Registros descargados: 100
+20250814_191120|439.1_SUPERAVIT_TAL_DEVE_0_20_67|OK|Registros descargados: 16
+20250814_191121|439.1_RESULTADOADO_DEVE_0_9_87|OK|Registros descargados: 16
+20250814_191122|379.1_RESULTADO_006__41_58|OK|Registros descargados: 14
+20250814_191122|379.2_RESULTADO_014__41_8|OK|Registros descargados: 8
+20250814_191123|379.3_RESULTADO_017__36_42|OK|Registros descargados: 10
+20250814_191124|90.1_BMT_0_0_20|OK|Registros descargados: 270
+20250814_191125|90.1_AMTM2_0_0_31|OK|Registros descargados: 270
+20250814_191125|SISTEMA|FIN|Proceso completado. Series: 112 | Exitosas: 57 | Fallidas: 55
+20250814_191451|SISTEMA|INICIO|Inicio del proceso de descarga
+20250814_191451|166.1_ARO_NACUTO_0_0_16|OK|Registros descargados: 18
+20250814_191451|166.1_F_BRUTAIJO_0_0_19|OK|Registros descargados: 18
+20250814_191451|166.1_VEXISTEIAS_0_0_15|OK|Registros descargados: 18
+20250814_191452|166.1_OBJETOS_VASOS_A_0_0_16_13|OK|Registros descargados: 18
+20250814_191452|4.1_IT_2004_A_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=4.1_IT_2004_A_13&format=csv&limit=1000
+20250814_191452|4.1_MGCP_2004_A_25|OK|Registros descargados: 19
+20250814_191452|4.1_DGCP_2004_A_30|OK|Registros descargados: 19
+20250814_191452|4.1_DGIT_2004_A_25|OK|Registros descargados: 19
+20250814_191452|143.3_NO_PR_2004_A_31|OK|Registros descargados: 257
+20250814_191452|80.1_IIVNG_0_A_30|OK|Registros descargados: 35
+20250814_191453|80.1_IIPNG_0_A_31|OK|Registros descargados: 35
+20250814_191453|80.1_IICNG_0_A_33|OK|Registros descargados: 35
+20250814_191453|81.1_IIVNIG_0_A_44|OK|Registros descargados: 35
+20250814_191453|81.1_IIPING_0_A_45|OK|Registros descargados: 35
+20250814_191453|81.1_IICING_0_A_47|OK|Registros descargados: 35
+20250814_191453|3.2_IT_D_2004_T_14|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_14&format=csv&limit=1000
+20250814_191454|3.2_OGP_D_2004_T_18|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_18&format=csv&limit=1000
+20250814_191454|3.2_IT_D_2004_T_15|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_15&format=csv&limit=1000
+20250814_191454|3.2_OGP_D_2004_T_19|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_19&format=csv&limit=1000
+20250814_191455|3.2_IT_D_2004_T_16|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_16&format=csv&limit=1000
+20250814_191455|3.2_OGP_D_2004_T_20|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_20&format=csv&limit=1000
+20250814_191455|3.2_IT_D_2004_T_17|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_17&format=csv&limit=1000
+20250814_191456|3.2_OGP_D_2004_T_21|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_21&format=csv&limit=1000
+20250814_191456|3.2_IT_D_2004_T_18|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_18&format=csv&limit=1000
+20250814_191456|3.2_OGP_D_2004_T_22|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_22&format=csv&limit=1000
+20250814_191457|3.2_IT_D_2004_T_19|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_19&format=csv&limit=1000
+20250814_191457|3.2_OGP_D_2004_T_23|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_23&format=csv&limit=1000
+20250814_191458|3.2_IT_D_2004_T_20|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_20&format=csv&limit=1000
+20250814_191458|3.2_OGP_D_2004_T_24|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_24&format=csv&limit=1000
+20250814_191458|3.2_IT_D_2004_T_21|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_21&format=csv&limit=1000
+20250814_191459|3.2_OGP_D_2004_T_25|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_25&format=csv&limit=1000
+20250814_191459|3.2_IT_D_2004_T_22|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_22&format=csv&limit=1000
+20250814_191459|3.2_OGP_D_2004_T_26|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_26&format=csv&limit=1000
+20250814_191500|3.2_IT_D_2004_T_23|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_23&format=csv&limit=1000
+20250814_191500|3.2_OGP_D_2004_T_27|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_27&format=csv&limit=1000
+20250814_191500|3.2_IT_D_2004_T_24|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_24&format=csv&limit=1000
+20250814_191501|3.2_OGP_D_2004_T_28|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_28&format=csv&limit=1000
+20250814_191501|3.2_IT_D_2004_T_25|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_25&format=csv&limit=1000
+20250814_191501|3.2_OGP_D_2004_T_29|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_29&format=csv&limit=1000
+20250814_191502|3.2_IT_D_2004_T_26|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_26&format=csv&limit=1000
+20250814_191502|3.2_OGP_D_2004_T_30|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_30&format=csv&limit=1000
+20250814_191502|3.2_IT_D_2004_T_27|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_27&format=csv&limit=1000
+20250814_191503|3.2_OGP_D_2004_T_31|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_31&format=csv&limit=1000
+20250814_191503|3.2_IT_D_2004_T_28|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_28&format=csv&limit=1000
+20250814_191504|3.2_OGP_D_2004_T_32|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_32&format=csv&limit=1000
+20250814_191504|3.2_IT_D_2004_T_29|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_29&format=csv&limit=1000
+20250814_191504|3.2_OGP_D_2004_T_33|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_33&format=csv&limit=1000
+20250814_191505|3.2_IT_D_2004_T_30|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_30&format=csv&limit=1000
+20250814_191505|3.2_OGP_D_2004_T_34|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_OGP_D_2004_T_34&format=csv&limit=1000
+20250814_191505|9.1_POB_2004_A_9|OK|Registros descargados: 21
+20250814_191505|9.1_IT_2004_A_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=9.1_IT_2004_A_13&format=csv&limit=1000
+20250814_191506|3.2_IT_D_2004_T_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=3.2_IT_D_2004_T_13&format=csv&limit=1000
+20250814_191506|3.2_OGP_D_2004_T_17|OK|Registros descargados: 85
+20250814_191506|145.3_INGNACUAL_DICI_M_38|OK|Registros descargados: 103
+20250814_191506|145.3_INGNACUAL_DICI_M_39|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_39&format=csv&limit=1000
+20250814_191507|145.3_INGNACUAL_DICI_M_40|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_40&format=csv&limit=1000
+20250814_191507|145.3_INGNACUAL_DICI_M_41|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_41&format=csv&limit=1000
+20250814_191507|145.3_INGNACUAL_DICI_M_42|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_42&format=csv&limit=1000
+20250814_191508|145.3_INGNACUAL_DICI_M_43|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_43&format=csv&limit=1000
+20250814_191508|145.3_INGNACUAL_DICI_M_44|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_44&format=csv&limit=1000
+20250814_191508|145.3_INGNACUAL_DICI_M_45|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_45&format=csv&limit=1000
+20250814_191509|145.3_INGNACUAL_DICI_M_46|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_46&format=csv&limit=1000
+20250814_191509|145.3_INGNACUAL_DICI_M_47|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_47&format=csv&limit=1000
+20250814_191509|145.3_INGNACUAL_DICI_M_48|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_48&format=csv&limit=1000
+20250814_191510|145.3_INGNACUAL_DICI_M_49|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_49&format=csv&limit=1000
+20250814_191510|145.3_INGNACUAL_DICI_M_50|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_50&format=csv&limit=1000
+20250814_191510|145.3_INGNACUAL_DICI_M_51|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_51&format=csv&limit=1000
+20250814_191511|145.3_INGNACUAL_DICI_M_52|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_52&format=csv&limit=1000
+20250814_191511|145.3_INGNACUAL_DICI_M_53|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_53&format=csv&limit=1000
+20250814_191511|145.3_INGNACUAL_DICI_M_54|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_54&format=csv&limit=1000
+20250814_191512|145.3_INGNACUAL_DICI_M_55|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=145.3_INGNACUAL_DICI_M_55&format=csv&limit=1000
+20250814_191512|174.1_ICE_TIEMPO_0_0_13|ERROR|400 Client Error: Bad Request for url: https://apis.datos.gob.ar/series/api/series/?ids=174.1_ICE_TIEMPO_0_0_13&format=csv&limit=1000
+20250814_191512|174.1_RRVAS_IDOS_0_0_36|OK|Registros descargados: 1022
+20250814_191513|143.1_ICE_SERVIA_2004_A_25|OK|Registros descargados: 20
+20250814_191513|116.1_TCRMA_0_A_36|OK|Registros descargados: 28
+20250814_191513|9.1_IPC_2004_A_25|OK|Registros descargados: 21
+20250814_191513|160.1_TL_CUENNTE_0_A_22|OK|Registros descargados: 19
+20250814_191513|160.1_CTA_CORFOB_0_A_59|OK|Registros descargados: 19
+20250814_191513|160.1_CTA_CORRFOB_0_A_59|OK|Registros descargados: 19
+20250814_191513|160.1_CTA_CORNES_0_A_46|OK|Registros descargados: 19
+20250814_191513|82.1_ITI_2004_A_27|OK|Registros descargados: 39
+20250814_191513|82.1_IPE_2004_A_26|OK|Registros descargados: 39
+20250814_191513|82.1_IPI_2004_A_26|OK|Registros descargados: 39
+20250814_191513|161.1_TL_DEUDRNA_0_0_19|OK|Registros descargados: 74
+20250814_191514|161.1_TL_DEUDRAL_0_0_28|OK|Registros descargados: 74
+20250814_191514|161.1_TL_DEUDRAL_0_0_25|OK|Registros descargados: 74
+20250814_191514|161.1_TL_DEUDRAL_0_0_53|OK|Registros descargados: 74
+20250814_191514|161.1_TL_DEUDRAS_0_0_39|OK|Registros descargados: 74
+20250814_191514|161.1_TL_DEUDRAS_0_0_37|OK|Registros descargados: 74
+20250814_191514|160.2_CTA_CORFOB_0_T_59|OK|Registros descargados: 77
+20250814_191514|160.2_CTA_CORIOS_0_T_52|OK|Registros descargados: 77
+20250814_191514|243.1_VFIS_EXTAL_0_0_18|OK|Registros descargados: 20
+20250814_191514|160.1_CTA_FINCTA_0_A_41|OK|Registros descargados: 19
+20250814_191514|160.1_CTA_FINERA_0_A_41|OK|Registros descargados: 19
+20250814_191514|160.1_CTA_FINROS_0_A_36|OK|Registros descargados: 19
+20250814_191515|160.1_CTA_FINION_0_A_38|OK|Registros descargados: 19
+20250814_191515|160.1_AVOS_RERVA_0_A_15|OK|Registros descargados: 19
+20250814_191515|160.1_ERES_OMTOS_0_A_23|OK|Registros descargados: 19
+20250814_191515|160.1_TL_CUENERA_0_A_23|OK|Registros descargados: 19
+20250814_191515|160.1_CTA_CORION_0_A_58|OK|Registros descargados: 19
+20250814_191515|182.1_C_K_FINC_CINC_NO_FINAN_0_M_56|OK|Registros descargados: 269
+20250814_191515|453.1_SERIE_ORIGNAL_0_0_14_46|OK|Registros descargados: 114
+20250814_191515|145.1_IPC_NG_NACNAL_DICI_T_15|OK|Registros descargados: 34
+20250814_191515|115.1_TCRM_0_A_29|OK|Registros descargados: 25
+20250814_191515|115.2_TCRM_0_T_29|OK|Registros descargados: 100
+20250814_191515|439.1_SUPERAVIT_TAL_DEVE_0_20_67|OK|Registros descargados: 16
+20250814_191516|439.1_RESULTADOADO_DEVE_0_9_87|OK|Registros descargados: 16
+20250814_191516|379.1_RESULTADO_006__41_58|OK|Registros descargados: 14
+20250814_191516|379.2_RESULTADO_014__41_8|OK|Registros descargados: 8
+20250814_191516|379.3_RESULTADO_017__36_42|OK|Registros descargados: 10
+20250814_191516|90.1_BMT_0_0_20|OK|Registros descargados: 270
+20250814_191516|90.1_AMTM2_0_0_31|OK|Registros descargados: 270
+20250814_191516|SISTEMA|FIN|Proceso completado. Series: 112 | Exitosas: 57 | Fallidas: 55
