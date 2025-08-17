@@ -202,19 +202,19 @@ def procesar_datos():
             ws = wb.active
             red_font = Font(color="FF0000")
             
-            # Leer el archivo asegurando que la columna Ubicación sea de tipo texto
             df_codigos = pd.read_excel(
                 codigos_file,
                 usecols=["ID", "Pestaña BD", "Serie"],
                 dtype={"ID": str, "Pestaña BD": str, "Serie": str}
             )
+            # Asegurar que Pestaña BD no tenga valores NaN o 'nan'
+            df_codigos["Pestaña BD"] = df_codigos["Pestaña BD"].fillna("Otros")
+            df_codigos["Pestaña BD"] = df_codigos["Pestaña BD"].replace({"nan": "Otros", "": "Otros"})
             
-            # Asegurar que la columna Ubicación exista y sea de tipo texto
+            # Asegurar columna Ubicación
             if "Ubicación" not in df_codigos.columns:
                 df_codigos["Ubicación"] = ""
             df_codigos["Ubicación"] = df_codigos["Ubicación"].astype(str)
-            
-            df_codigos["Pestaña BD"] = df_codigos["Pestaña BD"].fillna("Otros")
             
         except Exception as e:
             error_msg = f"Error al leer Codigos.xlsx: {str(e)}"
@@ -225,9 +225,21 @@ def procesar_datos():
         # Cargar o inicializar BD
         try:
             bd_hojas = pd.read_excel("BD.xlsx", sheet_name=None)
+            
+            # Migrar datos de hojas 'nan' a 'Otros'
+            for hoja in list(bd_hojas.keys()):  # Usamos list() para evitar RuntimeError
+                if pd.isna(hoja) or str(hoja).strip().lower() in ["nan", ""]:
+                    datos = bd_hojas.pop(hoja)
+                    if "Otros" not in bd_hojas:
+                        bd_hojas["Otros"] = datos
+                    else:
+                        bd_hojas["Otros"] = pd.concat([bd_hojas["Otros"], datos])
+            
+            # Asegurar columna 'fecha' en todas las hojas
             for hoja in bd_hojas:
                 if 'fecha' not in bd_hojas[hoja].columns:
                     bd_hojas[hoja]['fecha'] = pd.NaT
+                    
         except FileNotFoundError:
             bd_hojas = {"Otros": pd.DataFrame(columns=['fecha'])}
         except Exception as e:
@@ -241,7 +253,7 @@ def procesar_datos():
         series_fallidas = 0
         filas_con_error = []
         ids_no_encontrados = set(df_codigos["ID"].unique())
-        ubicaciones = {}
+        ubicaciones = {}  # Diccionario para guardar ubicaciones de los IDs
 
         # Procesar cada archivo Excel descargado
         for nombre_archivo, ruta_archivo in archivos_descargados.items():
@@ -261,7 +273,10 @@ def procesar_datos():
                         mask = df_codigos["ID"].astype(str) == id_serie
                         fila_idx = df_codigos[mask].index[0]
                         fila_codigo = df_codigos.loc[fila_idx]
-                        pestaña = str(fila_codigo["Pestaña BD"]).strip() or "Otros"
+                        
+                        # Asegurar que pestaña sea válida o "Otros"
+                        pestaña = str(fila_codigo["Pestaña BD"]).strip()
+                        pestaña = "Otros" if not pestaña or pestaña.lower() == "nan" else pestaña
                         serie_nombre = fila_codigo["Serie"]
                         
                         categorias_api, valores_api = extraer_serie_excel(id_serie, excel_data)
@@ -291,7 +306,8 @@ def procesar_datos():
                             df_merged.loc[mask, serie_nombre] = df_merged.loc[mask, f"{serie_nombre}_nuevo"]
                             df_merged.drop(columns=[f"{serie_nombre}_nuevo"], inplace=True, errors='ignore')
 
-                        df_merged.drop(columns=[col for col in df_merged.columns if '_existente' in col], inplace=True, errors='ignore')
+                        df_merged.drop(columns=[col for col in df_merged.columns if '_existente' in col], 
+                                      inplace=True, errors='ignore')
                         df_merged = df_merged.sort_values('fecha').drop_duplicates('fecha', keep='first')
                         bd_hojas[pestaña] = df_merged
                         
@@ -325,14 +341,19 @@ def procesar_datos():
             for id_no_encontrado in ids_no_encontrados:
                 escribir_log(id_no_encontrado, "NO_ENCONTRADO", "ID no encontrado en ningún archivo")
                 fila_idx = df_codigos[df_codigos["ID"].astype(str) == id_no_encontrado].index[0]
-                filas_con_error.append(fila_idx + 2)
+                filas_con_error.append(fila_idx + 2)  # +2 porque Excel empieza en 1 y la primera fila es encabezado
 
         # Guardar resultados
         try:
             # Guardar BD
             with pd.ExcelWriter("BD.xlsx", engine='openpyxl') as writer:
                 for hoja, datos in bd_hojas.items():
-                    hoja_str = str(hoja).strip()[:31] or "Otros"
+                    # Asegurar que siempre vaya a "Otros" si es NaN o "nan"
+                    hoja_str = str(hoja).strip() if pd.notna(hoja) else "Otros"
+                    hoja_str = hoja_str[:31] if hoja_str else "Otros"
+                    if hoja_str.lower() == "nan":
+                        hoja_str = "Otros"
+                    
                     datos.to_excel(writer, sheet_name=hoja_str, index=False)
             
             # Actualizar columna Ubicación en el archivo original
