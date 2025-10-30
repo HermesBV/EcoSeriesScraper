@@ -1,0 +1,116 @@
+20250817_213848|SISTEMA|INICIO|Inicio del proceso de extracción
+20250817_213949|81.1_IIVNIG_0_A_44|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_213953|160.2_CTA_CORFOB_0_T_59|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_213956|160.1_CTA_CORION_0_A_58|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_213957|160.1_CTA_CORNES_0_A_46|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214000|160.1_CTA_FINCTA_0_A_41|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214002|82.1_IPE_2004_A_26|OK|Encontrado en sector_externo.xlsx. Registros: 39
+20250817_214005|182.1_C_K_FINC_CINC_NO_FINAN_0_M_56|OK|Encontrado en sector_externo.xlsx. Registros: 269
+20250817_214006|161.1_TL_DEUDRAS_0_0_39|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214008|81.1_IICING_0_A_47|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_214014|160.1_CTA_CORRFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214015|160.1_CTA_FINROS_0_A_36|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214015|160.1_TL_CUENNTE_0_A_22|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214017|160.1_CTA_FINERA_0_A_41|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214023|82.1_IPI_2004_A_26|OK|Encontrado en sector_externo.xlsx. Registros: 39
+20250817_214023|80.1_IIVNG_0_A_30|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_214027|160.1_CTA_FINION_0_A_38|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214027|80.1_IIPNG_0_A_31|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_214029|161.1_TL_DEUDRAL_0_0_28|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214030|81.1_IIPING_0_A_45|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_214030|160.1_ERES_OMTOS_0_A_23|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214033|161.1_TL_DEUDRAS_0_0_37|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214033|82.1_ITI_2004_A_27|OK|Encontrado en sector_externo.xlsx. Registros: 39
+20250817_214035|161.1_TL_DEUDRAL_0_0_53|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214037|161.1_TL_DEUDRNA_0_0_19|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214038|161.1_TL_DEUDRAL_0_0_25|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214040|160.1_AVOS_RERVA_0_A_15|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214041|160.1_TL_CUENERA_0_A_23|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214041|80.1_IICNG_0_A_33|OK|Encontrado en sector_externo.xlsx. Registros: 35
+20250817_214042|160.2_CTA_CORIOS_0_T_52|OK|Encontrado en sector_externo.xlsx. Registros: 77
+20250817_214045|160.1_CTA_CORFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20250817_214145|90.1_AMTM2_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 270
+20250817_214150|90.1_BMT_0_0_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 270
+20250817_214224|174.1_RRVAS_IDOS_0_0_36|OK|Encontrado en dinero_bancos.xlsx. Registros: 932
+20250817_214226|174.1_ICE_TIEMPO_0_0_13|OK|Encontrado en dinero_bancos.xlsx. Registros: 1022
+20250817_214309|115.1_TCRM_0_A_29|OK|Encontrado en precios.xlsx. Registros: 25
+20250817_214316|145.3_INGNACUAL_DICI_M_38|OK|Encontrado en precios.xlsx. Registros: 0
+20250817_214330|116.1_TCRMA_0_A_36|OK|Encontrado en precios.xlsx. Registros: 28
+20250817_214352|115.2_TCRM_0_T_29|OK|Encontrado en precios.xlsx. Registros: 401
+20250817_214410|145.1_IPC_NG_NACNAL_DICI_T_15|OK|Encontrado en precios.xlsx. Registros: 34
+20250817_214627|379.1_RESULTADO_006__41_58|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20250817_214627|439.1_RESULTADOADO_DEVE_0_9_87|OK|Encontrado en finanzas_publicas.xlsx. Registros: 16
+20250817_214627|439.1_SUPERAVIT_TAL_DEVE_0_20_67|OK|Encontrado en finanzas_publicas.xlsx. Registros: 16
+20250817_214641|379.2_RESULTADO_014__41_8|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20250817_214646|379.3_RESULTADO_017__36_42|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20250817_214740|166.1_OBJETOS_VASOS_A_0_0_16_13|OK|Encontrado en actividad.xlsx. Registros: 18
+20250817_214814|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_214836|453.1_SERIE_ORIGNAL_0_0_14_46|OK|Encontrado en actividad.xlsx. Registros: 114
+20250817_214917|4.1_IT_2004_A_13|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_214918|9.1_IPC_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_214931|9.1_POB_2004_A_9|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_215024|9.1_IT_2004_A_13|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_215057|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 257
+20250817_215107|3.2_IT_D_2004_T_13|OK|Encontrado en actividad.xlsx. Registros: 85
+20250817_215107|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20250817_215136|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_215226|166.1_VEXISTEIAS_0_0_15|OK|Encontrado en actividad.xlsx. Registros: 18
+20250817_215256|143.1_ICE_SERVIA_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_215256|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20250817_215256|166.1_ARO_NACUTO_0_0_16|OK|Encontrado en actividad.xlsx. Registros: 18
+20250817_215256|166.1_F_BRUTAIJO_0_0_19|OK|Encontrado en actividad.xlsx. Registros: 18
+20250817_215401|3.2_IT_D_2004_T_25|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_16|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_28|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_14|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_53|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_33|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_18|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_41|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_19|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|Datos Argentina - Dinero y Bancos|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_21|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_17|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_19|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_26|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_32|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_29|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_27|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_24|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|243.1_VFIS_EXTAL_0_0_18|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_50|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_52|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|Índices de Tipo de Cambio Multilateral|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_26|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_27|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_23|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_22|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_18|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_46|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_20|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_22|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_44|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_25|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_34|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_49|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_20|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_45|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_54|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_30|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_42|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_24|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_43|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_23|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_28|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_29|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_21|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_39|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_40|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_47|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_51|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_55|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_30|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|145.3_INGNACUAL_DICI_M_48|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_OGP_D_2004_T_31|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|3.2_IT_D_2004_T_15|NO_ENCONTRADO|ID no encontrado en ningún archivo
+20250817_215401|SISTEMA|FIN|Proceso completado. Series: 128 | Exitosas: 60 | Fallidas: 54

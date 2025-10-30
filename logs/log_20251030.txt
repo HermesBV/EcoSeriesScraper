@@ -1,0 +1,296 @@
+20251030_200025|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_200717|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_200717|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_200717|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_200717|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_200717|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200718|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200718|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200718|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200718|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200718|49.1_TOTAL_AGLOTES_0_S_45_28|ERROR|ID 49.1_TOTAL_AGLOTES_0_S_45_28 encontrado pero sin datos asociados
+20251030_200718|49.1_TOTAL_AGLOTES_0_S_48_98|ERROR|ID 49.1_TOTAL_AGLOTES_0_S_48_98 encontrado pero sin datos asociados
+20251030_200718|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_200718|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_200718|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_200719|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_200719|49.2_TOTAL_AGLODOS_0_T_33_90|ERROR|ID 49.2_TOTAL_AGLODOS_0_T_33_90 encontrado pero sin datos asociados
+20251030_200719|49.2_TOTAL_AGLOTES_0_T_45_1|ERROR|ID 49.2_TOTAL_AGLOTES_0_T_45_1 encontrado pero sin datos asociados
+20251030_200719|49.2_TOTAL_AGLOTES_0_T_48_13|ERROR|ID 49.2_TOTAL_AGLOTES_0_T_48_13 encontrado pero sin datos asociados
+20251030_200719|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200719|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200720|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200720|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_200720|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_200726|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 374
+20251030_200732|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 730
+20251030_200737|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 658
+20251030_200744|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_200753|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_200800|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_200808|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_200808|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200808|4.1_DE_2004_A_24|ERROR|ID 4.1_DE_2004_A_24 encontrado pero sin datos asociados
+20251030_200808|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_200808|4.2_DE_2004_T_24|ERROR|ID 4.2_DE_2004_T_24 encontrado pero sin datos asociados
+20251030_200819|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200828|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200836|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200844|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200852|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200900|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_200908|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_200916|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_200926|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_200937|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_200948|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_200958|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_201008|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_201018|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_201028|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201036|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201044|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201052|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201100|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201108|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_201115|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201123|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201130|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201138|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201145|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201152|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_201153|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 65 | Fallidas: 7
+20251030_201921|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_202145|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_202145|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_202145|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_202145|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_202145|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_202145|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_202145|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202145|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_202145|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_202146|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 374
+20251030_202146|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 730
+20251030_202146|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 658
+20251030_202146|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_202146|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_202147|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_202147|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_202147|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 3
+20251030_202147|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.2_DE_2004_T_24|ERROR|ID 4.2_DE_2004_T_24 encontrado en (37, 22), pero no se encontraron datos válidos (fecha y valor) en las 20 filas siguientes.
+20251030_202147|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_202147|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_202147|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_202147|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_202147|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202147|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_202148|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 71 | Fallidas: 1
+20251030_203347|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_203606|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_203606|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_203606|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_203606|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_203606|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_203606|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_203606|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_203606|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 0
+20251030_203606|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 374
+20251030_203606|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 730
+20251030_203607|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 658
+20251030_203607|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_203607|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_203607|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_203607|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_203607|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 3
+20251030_203607|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203607|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 14
+20251030_203607|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203607|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_203607|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_203608|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_203608|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_203608|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203608|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203608|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203608|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203608|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203608|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_203609|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 72 | Fallidas: 0
+20251030_204307|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_204459|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_204459|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_204459|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_204459|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_204459|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_204459|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_204459|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 19
+20251030_204459|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 19
+20251030_204459|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 19
+20251030_204459|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 19
+20251030_204459|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 18
+20251030_204459|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 18
+20251030_204459|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 18
+20251030_204459|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_204459|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 53
+20251030_204500|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 374
+20251030_204500|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 730
+20251030_204500|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 658
+20251030_204500|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_204500|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_204500|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_204500|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_204500|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 3
+20251030_204501|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 14
+20251030_204501|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_204501|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_204501|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_204501|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_204501|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_204501|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 72 | Fallidas: 0
