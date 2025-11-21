@@ -294,3 +294,299 @@
 20251030_204501|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
 20251030_204501|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
 20251030_204501|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 72 | Fallidas: 0
+20251030_210536|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_210749|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_210749|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_210749|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_210749|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 43
+20251030_210749|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_210749|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 16
+20251030_210749|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 84
+20251030_210749|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 84
+20251030_210749|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 84
+20251030_210749|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 84
+20251030_210749|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 83
+20251030_210749|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 83
+20251030_210749|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 83
+20251030_210749|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 23
+20251030_210749|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 53
+20251030_210749|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 374
+20251030_210749|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 730
+20251030_210750|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 658
+20251030_210750|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_210750|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_210750|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_210750|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx (Empleo e Ingresos: Apendice3A). Registros: 31
+20251030_210750|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 3
+20251030_210750|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 14
+20251030_210750|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 85
+20251030_210750|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_210750|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 260
+20251030_210750|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 21
+20251030_210750|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210750|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx (Actividad: Actividad_IED). Registros: 86
+20251030_210751|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 72 | Fallidas: 0
+20251030_211214|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_211428|42.1_EPAT_0_A_27|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|42.1_EPET_0_A_24|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|42.1_EPDT_0_A_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|42.1_EPST_0_A_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TAEP_0_0_37|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TAEP_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TAEO_0_0_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TAED_0_0_33|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TOTAL_AGLODOS_0_S_33_15|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TOTAL_AGLOTES_0_S_45_28|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.1_TOTAL_AGLOTES_0_S_48_98|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TAEP_0_0_37|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TAEP_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TAEO_0_0_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TAED_0_0_33|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TOTAL_AGLODOS_0_T_33_90|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TOTAL_AGLOTES_0_T_45_1|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|49.2_TOTAL_AGLOTES_0_T_48_13|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|50.1_IT_0_0_12|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|50.1_II_0_0_16|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|50.1_IC_0_0_19|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|50.1_ICS_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|56.1_NGMD_2012_T_22|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|158.1_REPTE_0_0_5|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|57.1_SMVMM_0_M_34|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|58.1_MP_0_M_24|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|60.1_IH_0_0_18|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|60.1_PH_0_0_14|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|60.1_IP_0_0_20|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|60.1_PP_0_0_15|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_OGP_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_OGI_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_MGCP_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_DGCP_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_DGIT_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_DGE_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_VE_2004_A_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.1_DE_2004_A_24|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_OGP_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_OGI_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_MGCP_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_DGCP_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_DGIT_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_DGE_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_VE_2004_T_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.2_DE_2004_T_24|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_OGP_D_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_OGI_D_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_DGE_D_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_DGI_D_2004_A_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_DGCP_D_2004_A_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.1_DGCP_D_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_OGP_D_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_OGI_D_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_DGE_D_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_DGI_D_2004_T_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_DGCP_D_2004_T_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|3.2_DGCP_D_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|143.3_NO_PR_2004_A_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|143.3_NO_PR_2004_A_31|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_OGP_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_OGI_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_DGCP_2004_A_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_DGCP_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_DGI_2004_A_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.3_DGE_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_OGP_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_OGI_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_DGCP_2004_T_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_DGCP_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_DGI_2004_T_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|4.4_DGE_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_211428|SISTEMA|ERROR|Error al guardar archivos: At least one sheet must be visible
+20251030_211753|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_212012|42.1_EPAT_0_A_27|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|42.1_EPET_0_A_24|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|42.1_EPDT_0_A_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|42.1_EPST_0_A_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TAEP_0_0_37|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TAEP_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TAEO_0_0_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TAED_0_0_33|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TOTAL_AGLODOS_0_S_33_15|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TOTAL_AGLOTES_0_S_45_28|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.1_TOTAL_AGLOTES_0_S_48_98|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TAEP_0_0_37|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TAEP_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TAEO_0_0_30|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TAED_0_0_33|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TOTAL_AGLODOS_0_T_33_90|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TOTAL_AGLOTES_0_T_45_1|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|49.2_TOTAL_AGLOTES_0_T_48_13|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|50.1_IT_0_0_12|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|50.1_II_0_0_16|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|50.1_IC_0_0_19|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|50.1_ICS_0_0_25|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|56.1_NGMD_2012_T_22|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|158.1_REPTE_0_0_5|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|57.1_SMVMM_0_M_34|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|58.1_MP_0_M_24|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|60.1_IH_0_0_18|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|60.1_PH_0_0_14|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|60.1_IP_0_0_20|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|60.1_PP_0_0_15|ERROR|"Valor 'Empleo e Ingresos: Apendice3A' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_OGP_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_OGI_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_MGCP_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_DGCP_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_DGIT_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_DGE_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_VE_2004_A_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.1_DE_2004_A_24|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_OGP_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_OGI_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_MGCP_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_DGCP_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_DGIT_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_DGE_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_VE_2004_T_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.2_DE_2004_T_24|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_OGP_D_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_OGI_D_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_DGE_D_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_DGI_D_2004_A_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_DGCP_D_2004_A_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.1_DGCP_D_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_OGP_D_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_OGI_D_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_DGE_D_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_DGI_D_2004_T_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_DGCP_D_2004_T_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|3.2_DGCP_D_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|143.3_NO_PR_2004_A_21|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|143.3_NO_PR_2004_A_31|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_OGP_2004_A_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_OGI_2004_A_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_DGCP_2004_A_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_DGCP_2004_A_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_DGI_2004_A_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.3_DGE_2004_A_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_OGP_2004_T_17|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_OGI_2004_T_25|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_DGCP_2004_T_27|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_DGCP_2004_T_30|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_DGI_2004_T_19|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|4.4_DGE_2004_T_26|ERROR|"Valor 'Actividad: Actividad_IED' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251030_212012|SISTEMA|ERROR|Error al guardar archivos: At least one sheet must be visible
+20251030_212640|SISTEMA|INICIO|Inicio del proceso de extracción
+20251030_212910|42.1_EPAT_0_A_27|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251030_212910|42.1_EPET_0_A_24|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251030_212910|42.1_EPDT_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251030_212910|42.1_EPST_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251030_212910|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251030_212910|50.1_IT_0_0_12|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251030_212910|50.1_II_0_0_16|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251030_212910|50.1_IC_0_0_19|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251030_212910|50.1_ICS_0_0_25|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251030_212910|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251030_212911|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251030_212911|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251030_212911|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251030_212911|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251030_212911|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251030_212911|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251030_212911|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251030_212911|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212911|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251030_212912|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251030_212912|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251030_212912|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251030_212912|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212912|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212913|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212913|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212913|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212913|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251030_212913|SISTEMA|FIN|Proceso completado. Series: 72 | Exitosas: 64 | Fallidas: 8

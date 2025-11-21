@@ -1,0 +1,915 @@
+20251121_131723|SISTEMA|INICIO|Inicio del proceso de extracción
+20251121_131939|42.1_EPAT_0_A_27|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_131939|42.1_EPET_0_A_24|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_131939|42.1_EPDT_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_131939|42.1_EPST_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_131939|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131939|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131940|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131940|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_131940|50.1_IT_0_0_12|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_131940|50.1_II_0_0_16|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_131940|50.1_IC_0_0_19|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_131940|50.1_ICS_0_0_25|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_131940|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251121_131940|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251121_131940|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251121_131941|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251121_131941|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_131941|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_131941|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_131941|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_131941|145.1_IPC_NG_NACNAL_DICI_T_15|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|147.1_IPC_BIENESNAL_DICI_T_19|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|147.1_IPC_SERVICNAL_DICI_T_22|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|148.1_IPC_NIVEL_NAL_DICI_T_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|114.1_CPA_0_0_25|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|116.1_TCRMA_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|117.1_ENGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|117.1_ENGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|118.1_INGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|118.1_INGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|119.1_IPE_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|119.1_IPI_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|119.1_TI_0_A_20|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|110.1_IPC_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|111.1_IPB_1993_A_14|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|111.1_IPS_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|115.1_TCRM_0_A_29|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|430.1_REM_IPC_NAL_T_M_0_0_25_28|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|431.1_EXPECTATIVDIO_M_0_0_30_56|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|169.1_MALVAL_0_0_6|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|168.1_T_CAMBI500_D_0_0_17|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|168.1_T_CAMBIOR_D_0_0_26|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.1_RESULTADO_006__23_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.2_RESULTADO_014__23_28|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.3_RESULTADO_017__18_83|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|398.1_RESULTADO_ERO_DEVE_A_20_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.1_ING_ANTES_006__31_92|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.2_ING_ANTES_014__31_66|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.3_ING_ANTES_017__26_5|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.1_GTOS_ANTES006__32_18|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.2_GTOS_ANTES014__32_67|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.3_GTOS_ANTES017__27_95|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.1_SUPERAVIT_006__28_89|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.2_SUPERAVIT_014__28_63|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|379.3_SUPERAVIT_017__23_25|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|142.1_GANAN_2001_A_9|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|142.1_IVA_2001_A_3|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|142.1_CREDI_2001_A_24|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|172.1_SRIDAD_IAL_0_0_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|142.1_DEREC_2001_A_20|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|142.1_DEREC_2001_A_26|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|172.1_TL_RECAION_0_0_17|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|452.2_GANANCIASIAS_0_T_9_12|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|429.1_RECAUDACIO969_A_0_0_38_99|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|186.1_TOTAL_POLISOS_0_0_23|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|187.1_TOTAL_JUBIINO_0_0_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|463.1_AUH_ASIGNA019_0_M_66_38|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.1_ING_ANTES_006__31_56|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.2_ING_ANTES_014__31_61|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.3_ING_ANTES_017__26_97|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.1_GTOS_ANTES006__32_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.2_GTOS_ANTES014__32_40|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.3_GTOS_ANTES017__27_1|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.1_SUPERAVIT_006__28_10|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.2_SUPERAVIT_014__28_86|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.3_SUPERAVIT_017__23_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.1_RESULTADO_006__23_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.2_RESULTADO_014__23_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|372.3_RESULTADO_017__18_43|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_131941|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_131941|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_131941|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_131941|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_131941|74.1_IET_0_A_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|74.2_IET_0_T_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|74.3_IET_0_M_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|74.1_IIT_0_A_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|74.2_IIT_0_T_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|74.3_IIT_0_M_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_CTA_CORFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_CTA_CORIOS_0_A_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_CTA_CORRFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_CTA_CORIOS_0_A_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_TL_CUENNTE_0_A_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_TL_CUENERA_0_A_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.1_AVOS_RERVA_0_A_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_CTA_CORFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_CTA_CORIOS_0_T_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_CTA_CORRFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_CTA_CORIOS_0_T_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_TL_CUENNTE_0_T_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_TL_CUENERA_0_T_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|160.2_AVOS_RERVA_0_T_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|161.1_TL_DEUDRNA_0_0_19|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|313.1_TOTALTAL_0_T_5|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|89.2_TS_INTELAR_0_D_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_BMT_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_BMCMT_0_0_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_BMCCB_0_0_36|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_AMTM2_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_AMTM3_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTPPUB_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTPPRI_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTPT_0_0_29|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTDPUB_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTDPRI_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DTDT_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DET_DESAGRTAL_0_0_38|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|90.1_DET_DESAGRTAL_0_0_44|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|91.1_PEFPC_0_0_35|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|91.1_DETALLE_PRPOT_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_RESERVAS_IRES_0_0_32_40|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_PASIVOS_MOIOS_0_0_18_34|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_PASIVOS_MOSOS_0_0_31_15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_PASIVOS_MORES_0_0_33_100|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_OTROS_DEPORNO_0_0_24_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|92.2_TIPO_CAMBIION_0_0_21_24|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|94.2_CD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|94.2_UVAD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|175.1_DR_ESTANSE_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|175.1_DR_REFE500_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|331.2_SALDO_BASERIA__15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131941|331.2_TOTAL_VARIION__27|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_131942|SISTEMA|FIN|Proceso completado. Series: 181 | Exitosas: 64 | Fallidas: 117
+20251121_132820|SISTEMA|INICIO|Inicio del proceso de extracción
+20251121_133037|42.1_EPAT_0_A_27|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_133037|42.1_EPET_0_A_24|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_133037|42.1_EPDT_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_133037|42.1_EPST_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_133037|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133037|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133038|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133038|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_133038|50.1_IT_0_0_12|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_133038|50.1_II_0_0_16|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_133038|50.1_IC_0_0_19|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_133038|50.1_ICS_0_0_25|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_133038|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251121_133038|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251121_133038|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251121_133039|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251121_133039|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_133039|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_133039|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_133039|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_133039|145.1_IPC_NG_NACNAL_DICI_T_15|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|147.1_IPC_BIENESNAL_DICI_T_19|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|147.1_IPC_SERVICNAL_DICI_T_22|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|148.1_IPC_NIVEL_NAL_DICI_T_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|114.1_CPA_0_0_25|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|116.1_TCRMA_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|117.1_ENGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|117.1_ENGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|118.1_INGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|118.1_INGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|119.1_IPE_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|119.1_IPI_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|119.1_TI_0_A_20|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|110.1_IPC_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|111.1_IPB_1993_A_14|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|111.1_IPS_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|115.1_TCRM_0_A_29|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|430.1_REM_IPC_NAL_T_M_0_0_25_28|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|431.1_EXPECTATIVDIO_M_0_0_30_56|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|169.1_MALVAL_0_0_6|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|168.1_T_CAMBI500_D_0_0_17|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|168.1_T_CAMBIOR_D_0_0_26|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.1_RESULTADO_006__23_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.2_RESULTADO_014__23_28|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.3_RESULTADO_017__18_83|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|398.1_RESULTADO_ERO_DEVE_A_20_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.1_ING_ANTES_006__31_92|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.2_ING_ANTES_014__31_66|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.3_ING_ANTES_017__26_5|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.1_GTOS_ANTES006__32_18|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.2_GTOS_ANTES014__32_67|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.3_GTOS_ANTES017__27_95|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.1_SUPERAVIT_006__28_89|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.2_SUPERAVIT_014__28_63|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|379.3_SUPERAVIT_017__23_25|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|142.1_GANAN_2001_A_9|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|142.1_IVA_2001_A_3|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|142.1_CREDI_2001_A_24|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|172.1_SRIDAD_IAL_0_0_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|142.1_DEREC_2001_A_20|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|142.1_DEREC_2001_A_26|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|172.1_TL_RECAION_0_0_17|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|452.2_GANANCIASIAS_0_T_9_12|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|429.1_RECAUDACIO969_A_0_0_38_99|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|186.1_TOTAL_POLISOS_0_0_23|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|187.1_TOTAL_JUBIINO_0_0_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|463.1_AUH_ASIGNA019_0_M_66_38|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.1_ING_ANTES_006__31_56|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.2_ING_ANTES_014__31_61|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.3_ING_ANTES_017__26_97|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.1_GTOS_ANTES006__32_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.2_GTOS_ANTES014__32_40|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.3_GTOS_ANTES017__27_1|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.1_SUPERAVIT_006__28_10|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.2_SUPERAVIT_014__28_86|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.3_SUPERAVIT_017__23_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.1_RESULTADO_006__23_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.2_RESULTADO_014__23_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|372.3_RESULTADO_017__18_43|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133039|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133039|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133039|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_133039|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_133040|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_133040|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_133040|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_133040|74.1_IET_0_A_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|74.2_IET_0_T_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|74.3_IET_0_M_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|74.1_IIT_0_A_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|74.2_IIT_0_T_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|74.3_IIT_0_M_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_CTA_CORFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_CTA_CORIOS_0_A_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_CTA_CORRFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_CTA_CORIOS_0_A_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_TL_CUENNTE_0_A_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_TL_CUENERA_0_A_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.1_AVOS_RERVA_0_A_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_CTA_CORFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_CTA_CORIOS_0_T_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_CTA_CORRFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_CTA_CORIOS_0_T_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_TL_CUENNTE_0_T_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_TL_CUENERA_0_T_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|160.2_AVOS_RERVA_0_T_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|161.1_TL_DEUDRNA_0_0_19|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|313.1_TOTALTAL_0_T_5|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|89.2_TS_INTELAR_0_D_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_BMT_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_BMCMT_0_0_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_BMCCB_0_0_36|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_AMTM2_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_AMTM3_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTPPUB_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTPPRI_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTPT_0_0_29|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTDPUB_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTDPRI_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DTDT_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DET_DESAGRTAL_0_0_38|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|90.1_DET_DESAGRTAL_0_0_44|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|91.1_PEFPC_0_0_35|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|91.1_DETALLE_PRPOT_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_RESERVAS_IRES_0_0_32_40|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_PASIVOS_MOIOS_0_0_18_34|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_PASIVOS_MOSOS_0_0_31_15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_PASIVOS_MORES_0_0_33_100|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_OTROS_DEPORNO_0_0_24_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|92.2_TIPO_CAMBIION_0_0_21_24|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|94.2_CD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|94.2_UVAD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|175.1_DR_ESTANSE_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|175.1_DR_REFE500_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|331.2_SALDO_BASERIA__15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|331.2_TOTAL_VARIION__27|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_133040|SISTEMA|FIN|Proceso completado. Series: 181 | Exitosas: 64 | Fallidas: 117
+20251121_133639|SISTEMA|INICIO|Inicio del proceso de extracción
+20251121_134207|42.1_EPAT_0_A_27|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_134207|42.1_EPET_0_A_24|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_134207|42.1_EPDT_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_134207|42.1_EPST_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_134207|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_134207|50.1_IT_0_0_12|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_134207|50.1_II_0_0_16|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_134207|50.1_IC_0_0_19|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_134207|50.1_ICS_0_0_25|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_134207|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251121_134208|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251121_134208|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251121_134208|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251121_134208|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_134208|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_134208|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_134208|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_134208|145.1_IPC_NG_NACNAL_DICI_T_15|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|147.1_IPC_BIENESNAL_DICI_T_19|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|147.1_IPC_SERVICNAL_DICI_T_22|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|148.1_IPC_NIVEL_NAL_DICI_T_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|114.1_CPA_0_0_25|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|116.1_TCRMA_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|117.1_ENGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|117.1_ENGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|118.1_INGV_0_A_33|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|118.1_INGC_0_A_36|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|119.1_IPE_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|119.1_IPI_0_A_26|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|119.1_TI_0_A_20|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|110.1_IPC_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|111.1_IPB_1993_A_14|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|111.1_IPS_1993_A_17|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|115.1_TCRM_0_A_29|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|430.1_REM_IPC_NAL_T_M_0_0_25_28|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|431.1_EXPECTATIVDIO_M_0_0_30_56|ERROR|"Valor 'Precios: Apendice4' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|169.1_MALVAL_0_0_6|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|168.1_T_CAMBI500_D_0_0_17|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|168.1_T_CAMBIOR_D_0_0_26|ERROR|"Valor 'Finanzas: Apendice-Financiero' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.1_RESULTADO_006__23_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.2_RESULTADO_014__23_28|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.3_RESULTADO_017__18_83|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|398.1_RESULTADO_ERO_DEVE_A_20_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.1_ING_ANTES_006__31_92|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.2_ING_ANTES_014__31_66|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.3_ING_ANTES_017__26_5|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.1_GTOS_ANTES006__32_18|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.2_GTOS_ANTES014__32_67|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.3_GTOS_ANTES017__27_95|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.1_SUPERAVIT_006__28_89|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.2_SUPERAVIT_014__28_63|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|379.3_SUPERAVIT_017__23_25|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|142.1_GANAN_2001_A_9|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|142.1_IVA_2001_A_3|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|142.1_CREDI_2001_A_24|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|172.1_SRIDAD_IAL_0_0_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|142.1_DEREC_2001_A_20|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|142.1_DEREC_2001_A_26|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|172.1_TL_RECAION_0_0_17|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|452.2_GANANCIASIAS_0_T_9_12|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|429.1_RECAUDACIO969_A_0_0_38_99|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|186.1_TOTAL_POLISOS_0_0_23|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|187.1_TOTAL_JUBIINO_0_0_58|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|463.1_AUH_ASIGNA019_0_M_66_38|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.1_ING_ANTES_006__31_56|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.2_ING_ANTES_014__31_61|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.3_ING_ANTES_017__26_97|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.1_GTOS_ANTES006__32_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.2_GTOS_ANTES014__32_40|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.3_GTOS_ANTES017__27_1|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.1_SUPERAVIT_006__28_10|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.2_SUPERAVIT_014__28_86|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.3_SUPERAVIT_017__23_94|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.1_RESULTADO_006__23_78|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.2_RESULTADO_014__23_16|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134208|372.3_RESULTADO_017__18_43|ERROR|"Valor 'Finanzas Públicas: Apendice6' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_134209|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_134209|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_134209|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_134209|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_134209|74.1_IET_0_A_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|74.2_IET_0_T_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|74.3_IET_0_M_16|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|74.1_IIT_0_A_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|74.2_IIT_0_T_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|74.3_IIT_0_M_25|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_CTA_CORFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_CTA_CORIOS_0_A_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_CTA_CORRFOB_0_A_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_CTA_CORIOS_0_A_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_TL_CUENNTE_0_A_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_TL_CUENERA_0_A_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.1_AVOS_RERVA_0_A_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_CTA_CORFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_CTA_CORIOS_0_T_52|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_CTA_CORRFOB_0_T_59|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_CTA_CORIOS_0_T_51|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_TL_CUENNTE_0_T_22|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_TL_CUENERA_0_T_23|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|160.2_AVOS_RERVA_0_T_15|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|161.1_TL_DEUDRNA_0_0_19|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|313.1_TOTALTAL_0_T_5|ERROR|"Valor 'Sector Externo: Apendice5' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|89.2_TS_INTELAR_0_D_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_BMT_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_BMCMT_0_0_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_BMCCB_0_0_36|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_AMTM2_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_AMTM3_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTPPUB_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTPPRI_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTPT_0_0_29|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTDPUB_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTDPRI_0_0_33|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DTDT_0_0_31|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DET_DESAGRTAL_0_0_38|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|90.1_DET_DESAGRTAL_0_0_44|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|91.1_PEFPC_0_0_35|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|91.1_DETALLE_PRPOT_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_RESERVAS_IRES_0_0_32_40|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_PASIVOS_MOIOS_0_0_18_34|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_PASIVOS_MOSOS_0_0_31_15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_PASIVOS_MORES_0_0_33_100|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_OTROS_DEPORNO_0_0_24_42|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|92.2_TIPO_CAMBIION_0_0_21_24|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|94.2_CD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|94.2_UVAD_D_0_0_10|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|175.1_DR_ESTANSE_0_0_20|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|175.1_DR_REFE500_0_0_25|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|331.2_SALDO_BASERIA__15|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134209|331.2_TOTAL_VARIION__27|ERROR|"Valor 'Dinero y Bancos: Apendice8' no encontrado en MAPEO_ORIGEN_ARCHIVO"
+20251121_134210|SISTEMA|FIN|Proceso completado. Series: 181 | Exitosas: 64 | Fallidas: 117
+20251121_134530|SISTEMA|INICIO|Inicio del proceso de extracción
+20251121_135147|42.1_EPAT_0_A_27|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_135147|42.1_EPET_0_A_24|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_135147|42.1_EPDT_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_135147|42.1_EPST_0_A_30|ERROR|No se encontraron datos válidos debajo del ID en EPH
+20251121_135147|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_135147|50.1_IT_0_0_12|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_135147|50.1_II_0_0_16|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_135147|50.1_IC_0_0_19|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_135147|50.1_ICS_0_0_25|ERROR|No se encontraron datos válidos debajo del ID en EIL - Sector
+20251121_135147|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251121_135147|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251121_135148|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251121_135148|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251121_135148|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_135148|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_135148|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_135148|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_135148|145.1_IPC_NG_NACNAL_DICI_T_15|OK|Encontrado en precios.xlsx. Registros: 34
+20251121_135148|147.1_IPC_BIENESNAL_DICI_T_19|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|147.1_IPC_SERVICNAL_DICI_T_22|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|148.1_IPC_NIVEL_NAL_DICI_T_26|OK|Encontrado en precios.xlsx. Registros: 32
+20251121_135148|114.1_CPA_0_0_25|OK|Encontrado en precios.xlsx. Registros: 24
+20251121_135148|116.1_TCRMA_0_A_36|OK|Encontrado en precios.xlsx. Registros: 28
+20251121_135148|117.1_ENGV_0_A_33|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|117.1_ENGC_0_A_36|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|118.1_INGV_0_A_33|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|118.1_INGC_0_A_36|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_135148|119.1_IPE_0_A_26|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_135148|119.1_IPI_0_A_26|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_135148|119.1_TI_0_A_20|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_135148|110.1_IPC_1993_A_17|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_135148|111.1_IPB_1993_A_14|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_135148|111.1_IPS_1993_A_17|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_135148|115.1_TCRM_0_A_29|OK|Encontrado en precios.xlsx. Registros: 25
+20251121_135148|430.1_REM_IPC_NAL_T_M_0_0_25_28|OK|Encontrado en precios.xlsx. Registros: 111
+20251121_135148|431.1_EXPECTATIVDIO_M_0_0_30_56|OK|Encontrado en precios.xlsx. Registros: 230
+20251121_135152|169.1_MALVAL_0_0_6|OK|Encontrado en finanzas.xlsx. Registros: 7137
+20251121_135157|168.1_T_CAMBI500_D_0_0_17|OK|Encontrado en finanzas.xlsx. Registros: 8607
+20251121_135202|168.1_T_CAMBIOR_D_0_0_26|OK|Encontrado en finanzas.xlsx. Registros: 8607
+20251121_135202|379.1_RESULTADO_006__23_58|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|379.2_RESULTADO_014__23_28|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|379.3_RESULTADO_017__18_83|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|398.1_RESULTADO_ERO_DEVE_A_20_94|OK|Encontrado en finanzas_publicas.xlsx. Registros: 26
+20251121_135202|379.1_ING_ANTES_006__31_92|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|379.2_ING_ANTES_014__31_66|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|379.3_ING_ANTES_017__26_5|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|379.1_GTOS_ANTES006__32_18|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|379.2_GTOS_ANTES014__32_67|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|379.3_GTOS_ANTES017__27_95|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|379.1_SUPERAVIT_006__28_89|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|379.2_SUPERAVIT_014__28_63|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|379.3_SUPERAVIT_017__23_25|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|142.1_GANAN_2001_A_9|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|142.1_IVA_2001_A_3|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|142.1_CREDI_2001_A_24|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|172.1_SRIDAD_IAL_0_0_16|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|142.1_DEREC_2001_A_20|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|142.1_DEREC_2001_A_26|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|172.1_TL_RECAION_0_0_17|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_135202|452.2_GANANCIASIAS_0_T_9_12|OK|Encontrado en finanzas_publicas.xlsx. Registros: 9
+20251121_135202|429.1_RECAUDACIO969_A_0_0_38_99|OK|Encontrado en finanzas_publicas.xlsx. Registros: 38
+20251121_135202|186.1_TOTAL_POLISOS_0_0_23|OK|Encontrado en finanzas_publicas.xlsx. Registros: 21
+20251121_135202|187.1_TOTAL_JUBIINO_0_0_58|OK|Encontrado en finanzas_publicas.xlsx. Registros: 26
+20251121_135202|463.1_AUH_ASIGNA019_0_M_66_38|OK|Encontrado en finanzas_publicas.xlsx. Registros: 71
+20251121_135202|372.1_ING_ANTES_006__31_56|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|372.2_ING_ANTES_014__31_61|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|372.3_ING_ANTES_017__26_97|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|372.1_GTOS_ANTES006__32_78|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|372.2_GTOS_ANTES014__32_40|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|372.3_GTOS_ANTES017__27_1|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135202|372.1_SUPERAVIT_006__28_10|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135202|372.2_SUPERAVIT_014__28_86|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135202|372.3_SUPERAVIT_017__23_94|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135203|372.1_RESULTADO_006__23_78|OK|Encontrado en finanzas_publicas.xlsx. Registros: 14
+20251121_135203|372.2_RESULTADO_014__23_16|OK|Encontrado en finanzas_publicas.xlsx. Registros: 8
+20251121_135203|372.3_RESULTADO_017__18_43|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_135203|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_135203|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_135203|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_135203|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_135203|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135203|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135204|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135204|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135204|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135204|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_135204|74.1_IET_0_A_16|OK|Encontrado en sector_externo.xlsx. Registros: 115
+20251121_135204|74.2_IET_0_T_16|ERROR|No se extrajeron datos válidos para el ID '74.2_IET_0_T_16'
+20251121_135204|74.3_IET_0_M_16|OK|Encontrado en sector_externo.xlsx. Registros: 406
+20251121_135204|74.1_IIT_0_A_25|OK|Encontrado en sector_externo.xlsx. Registros: 115
+20251121_135204|74.2_IIT_0_T_25|ERROR|No se extrajeron datos válidos para el ID '74.2_IIT_0_T_25'
+20251121_135205|74.3_IIT_0_M_25|OK|Encontrado en sector_externo.xlsx. Registros: 406
+20251121_135205|160.1_CTA_CORFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_CTA_CORIOS_0_A_52|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_CTA_CORRFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_CTA_CORIOS_0_A_51|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_TL_CUENNTE_0_A_22|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_TL_CUENERA_0_A_23|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.1_AVOS_RERVA_0_A_15|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_135205|160.2_CTA_CORFOB_0_T_59|ERROR|No se extrajeron datos válidos para el ID '160.2_CTA_CORFOB_0_T_59'
+20251121_135205|160.2_CTA_CORIOS_0_T_52|ERROR|No se extrajeron datos válidos para el ID '160.2_CTA_CORIOS_0_T_52'
+20251121_135205|160.2_CTA_CORRFOB_0_T_59|ERROR|No se extrajeron datos válidos para el ID '160.2_CTA_CORRFOB_0_T_59'
+20251121_135205|160.2_CTA_CORIOS_0_T_51|ERROR|No se extrajeron datos válidos para el ID '160.2_CTA_CORIOS_0_T_51'
+20251121_135205|160.2_TL_CUENNTE_0_T_22|ERROR|No se extrajeron datos válidos para el ID '160.2_TL_CUENNTE_0_T_22'
+20251121_135205|160.2_TL_CUENERA_0_T_23|ERROR|No se extrajeron datos válidos para el ID '160.2_TL_CUENERA_0_T_23'
+20251121_135205|160.2_AVOS_RERVA_0_T_15|ERROR|No se extrajeron datos válidos para el ID '160.2_AVOS_RERVA_0_T_15'
+20251121_135205|161.1_TL_DEUDRNA_0_0_19|ERROR|No se extrajeron datos válidos para el ID '161.1_TL_DEUDRNA_0_0_19'
+20251121_135205|313.1_TOTALTAL_0_T_5|ERROR|No se extrajeron datos válidos para el ID '313.1_TOTALTAL_0_T_5'
+20251121_135209|89.2_TS_INTELAR_0_D_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135210|90.1_BMT_0_0_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135210|90.1_BMCMT_0_0_42|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135210|90.1_BMCCB_0_0_36|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135210|90.1_AMTM2_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_AMTM3_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_DTPPUB_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_DTPPRI_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_DTPT_0_0_29|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_DTDPUB_0_0_33|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135211|90.1_DTDPRI_0_0_33|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135212|90.1_DTDT_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135212|90.1_DET_DESAGRTAL_0_0_38|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135212|90.1_DET_DESAGRTAL_0_0_44|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135212|91.1_PEFPC_0_0_35|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135212|91.1_DETALLE_PRPOT_0_0_25|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_135218|92.2_RESERVAS_IRES_0_0_32_40|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135223|92.2_PASIVOS_MOIOS_0_0_18_34|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135227|92.2_PASIVOS_MOSOS_0_0_31_15|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135232|92.2_PASIVOS_MORES_0_0_33_100|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135237|92.2_OTROS_DEPORNO_0_0_24_42|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135242|92.2_TIPO_CAMBIION_0_0_21_24|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135247|94.2_CD_D_0_0_10|OK|Encontrado en dinero_bancos.xlsx. Registros: 8340
+20251121_135251|94.2_UVAD_D_0_0_10|OK|Encontrado en dinero_bancos.xlsx. Registros: 8340
+20251121_135304|175.1_DR_ESTANSE_0_0_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 20389
+20251121_135317|175.1_DR_REFE500_0_0_25|OK|Encontrado en dinero_bancos.xlsx. Registros: 20389
+20251121_135321|331.2_SALDO_BASERIA__15|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135326|331.2_TOTAL_VARIION__27|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_135333|SISTEMA|FIN|Proceso completado. Series: 181 | Exitosas: 162 | Fallidas: 19
+20251121_141925|SISTEMA|INICIO|Inicio del proceso de extracción
+20251121_142540|42.1_EPAT_0_A_27|OK|Encontrado en empleo_ingresos.xlsx. Registros: 43
+20251121_142540|42.1_EPET_0_A_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 43
+20251121_142540|42.1_EPDT_0_A_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 43
+20251121_142540|42.1_EPST_0_A_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 43
+20251121_142541|49.1_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TOTAL_AGLODOS_0_S_33_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TOTAL_AGLOTES_0_S_45_28|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.1_TOTAL_AGLOTES_0_S_48_98|OK|Encontrado en empleo_ingresos.xlsx. Registros: 110
+20251121_142541|49.2_TAEP_0_0_37|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TAEP_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TAEO_0_0_30|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TAED_0_0_33|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TOTAL_AGLODOS_0_T_33_90|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TOTAL_AGLOTES_0_T_45_1|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|49.2_TOTAL_AGLOTES_0_T_48_13|OK|Encontrado en empleo_ingresos.xlsx. Registros: 39
+20251121_142541|50.1_IT_0_0_12|OK|Encontrado en empleo_ingresos.xlsx. Registros: 23
+20251121_142541|50.1_II_0_0_16|OK|Encontrado en empleo_ingresos.xlsx. Registros: 23
+20251121_142541|50.1_IC_0_0_19|OK|Encontrado en empleo_ingresos.xlsx. Registros: 23
+20251121_142541|50.1_ICS_0_0_25|OK|Encontrado en empleo_ingresos.xlsx. Registros: 23
+20251121_142541|56.1_NGMD_2012_T_22|OK|Encontrado en empleo_ingresos.xlsx. Registros: 53
+20251121_142541|158.1_REPTE_0_0_5|OK|Encontrado en empleo_ingresos.xlsx. Registros: 374
+20251121_142542|57.1_SMVMM_0_M_34|OK|Encontrado en empleo_ingresos.xlsx. Registros: 730
+20251121_142542|58.1_MP_0_M_24|OK|Encontrado en empleo_ingresos.xlsx. Registros: 658
+20251121_142542|60.1_IH_0_0_18|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_142542|60.1_PH_0_0_14|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_142542|60.1_IP_0_0_20|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_142542|60.1_PP_0_0_15|OK|Encontrado en empleo_ingresos.xlsx. Registros: 31
+20251121_142542|145.1_IPC_NG_NACNAL_DICI_T_15|OK|Encontrado en precios.xlsx. Registros: 34
+20251121_142542|147.1_IPC_BIENESNAL_DICI_T_19|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|147.1_IPC_SERVICNAL_DICI_T_22|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|148.1_IPC_NIVEL_NAL_DICI_T_26|OK|Encontrado en precios.xlsx. Registros: 32
+20251121_142542|114.1_CPA_0_0_25|OK|Encontrado en precios.xlsx. Registros: 24
+20251121_142542|116.1_TCRMA_0_A_36|OK|Encontrado en precios.xlsx. Registros: 28
+20251121_142542|117.1_ENGV_0_A_33|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|117.1_ENGC_0_A_36|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|118.1_INGV_0_A_33|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|118.1_INGC_0_A_36|OK|Encontrado en precios.xlsx. Registros: 35
+20251121_142542|119.1_IPE_0_A_26|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_142542|119.1_IPI_0_A_26|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_142542|119.1_TI_0_A_20|OK|Encontrado en precios.xlsx. Registros: 39
+20251121_142542|110.1_IPC_1993_A_17|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_142542|111.1_IPB_1993_A_14|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_142542|111.1_IPS_1993_A_17|OK|Encontrado en precios.xlsx. Registros: 20
+20251121_142542|115.1_TCRM_0_A_29|OK|Encontrado en precios.xlsx. Registros: 25
+20251121_142542|430.1_REM_IPC_NAL_T_M_0_0_25_28|OK|Encontrado en precios.xlsx. Registros: 111
+20251121_142543|431.1_EXPECTATIVDIO_M_0_0_30_56|OK|Encontrado en precios.xlsx. Registros: 230
+20251121_142547|169.1_MALVAL_0_0_6|OK|Encontrado en finanzas.xlsx. Registros: 7137
+20251121_142552|168.1_T_CAMBI500_D_0_0_17|OK|Encontrado en finanzas.xlsx. Registros: 8607
+20251121_142556|168.1_T_CAMBIOR_D_0_0_26|OK|Encontrado en finanzas.xlsx. Registros: 8607
+20251121_142556|379.1_RESULTADO_006__23_58|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142556|379.2_RESULTADO_014__23_28|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142556|379.3_RESULTADO_017__18_83|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142556|398.1_RESULTADO_ERO_DEVE_A_20_94|OK|Encontrado en finanzas_publicas.xlsx. Registros: 26
+20251121_142557|379.1_ING_ANTES_006__31_92|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|379.2_ING_ANTES_014__31_66|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|379.3_ING_ANTES_017__26_5|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|379.1_GTOS_ANTES006__32_18|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|379.2_GTOS_ANTES014__32_67|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|379.3_GTOS_ANTES017__27_95|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|379.1_SUPERAVIT_006__28_89|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|379.2_SUPERAVIT_014__28_63|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|379.3_SUPERAVIT_017__23_25|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|142.1_GANAN_2001_A_9|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|142.1_IVA_2001_A_3|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|142.1_CREDI_2001_A_24|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|172.1_SRIDAD_IAL_0_0_16|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|142.1_DEREC_2001_A_20|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|142.1_DEREC_2001_A_26|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|172.1_TL_RECAION_0_0_17|OK|Encontrado en finanzas_publicas.xlsx. Registros: 28
+20251121_142557|452.2_GANANCIASIAS_0_T_9_12|OK|Encontrado en finanzas_publicas.xlsx. Registros: 9
+20251121_142557|429.1_RECAUDACIO969_A_0_0_38_99|OK|Encontrado en finanzas_publicas.xlsx. Registros: 85
+20251121_142557|186.1_TOTAL_POLISOS_0_0_23|OK|Encontrado en finanzas_publicas.xlsx. Registros: 21
+20251121_142557|187.1_TOTAL_JUBIINO_0_0_58|OK|Encontrado en finanzas_publicas.xlsx. Registros: 26
+20251121_142557|463.1_AUH_ASIGNA019_0_M_66_38|OK|Encontrado en finanzas_publicas.xlsx. Registros: 71
+20251121_142557|372.1_ING_ANTES_006__31_56|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|372.2_ING_ANTES_014__31_61|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|372.3_ING_ANTES_017__26_97|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|372.1_GTOS_ANTES006__32_78|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|372.2_GTOS_ANTES014__32_40|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|372.3_GTOS_ANTES017__27_1|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|372.1_SUPERAVIT_006__28_10|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|372.2_SUPERAVIT_014__28_86|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|372.3_SUPERAVIT_017__23_94|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|372.1_RESULTADO_006__23_78|OK|Encontrado en finanzas_publicas.xlsx. Registros: 32
+20251121_142557|372.2_RESULTADO_014__23_16|OK|Encontrado en finanzas_publicas.xlsx. Registros: 18
+20251121_142557|372.3_RESULTADO_017__18_43|OK|Encontrado en finanzas_publicas.xlsx. Registros: 10
+20251121_142557|4.1_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_MGCP_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_DGIT_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_VE_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.1_DE_2004_A_24|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|4.2_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_MGCP_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_DGIT_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_VE_2004_T_21|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|4.2_DE_2004_T_24|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142557|3.1_OGP_D_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.1_OGI_D_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.1_DGE_D_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.1_DGI_D_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.1_DGCP_D_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.1_DGCP_D_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142557|3.2_OGP_D_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|3.2_OGI_D_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|3.2_DGE_D_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|3.2_DGI_D_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|3.2_DGCP_D_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|3.2_DGCP_D_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 85
+20251121_142557|143.3_NO_PR_2004_A_21|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_142558|143.3_NO_PR_2004_A_31|OK|Encontrado en actividad.xlsx. Registros: 260
+20251121_142558|4.3_OGP_2004_A_17|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.3_OGI_2004_A_25|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.3_DGCP_2004_A_27|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.3_DGCP_2004_A_30|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.3_DGI_2004_A_19|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.3_DGE_2004_A_26|OK|Encontrado en actividad.xlsx. Registros: 21
+20251121_142558|4.4_OGP_2004_T_17|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|4.4_OGI_2004_T_25|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|4.4_DGCP_2004_T_27|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|4.4_DGCP_2004_T_30|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|4.4_DGI_2004_T_19|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|4.4_DGE_2004_T_26|OK|Encontrado en actividad.xlsx. Registros: 86
+20251121_142558|74.1_IET_0_A_16|OK|Encontrado en sector_externo.xlsx. Registros: 115
+20251121_142558|74.2_IET_0_T_16|OK|Encontrado en sector_externo.xlsx. Registros: 541
+20251121_142558|74.3_IET_0_M_16|OK|Encontrado en sector_externo.xlsx. Registros: 406
+20251121_142558|74.1_IIT_0_A_25|OK|Encontrado en sector_externo.xlsx. Registros: 115
+20251121_142559|74.2_IIT_0_T_25|OK|Encontrado en sector_externo.xlsx. Registros: 541
+20251121_142559|74.3_IIT_0_M_25|OK|Encontrado en sector_externo.xlsx. Registros: 406
+20251121_142559|160.1_CTA_CORFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_CTA_CORIOS_0_A_52|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_CTA_CORRFOB_0_A_59|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_CTA_CORIOS_0_A_51|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_TL_CUENNTE_0_A_22|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_TL_CUENERA_0_A_23|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.1_AVOS_RERVA_0_A_15|OK|Encontrado en sector_externo.xlsx. Registros: 19
+20251121_142559|160.2_CTA_CORFOB_0_T_59|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_CTA_CORIOS_0_T_52|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_CTA_CORRFOB_0_T_59|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_CTA_CORIOS_0_T_51|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_TL_CUENNTE_0_T_22|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_TL_CUENERA_0_T_23|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|160.2_AVOS_RERVA_0_T_15|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|161.1_TL_DEUDRNA_0_0_19|OK|Encontrado en sector_externo.xlsx. Registros: 78
+20251121_142559|313.1_TOTALTAL_0_T_5|OK|Encontrado en sector_externo.xlsx. Registros: 64
+20251121_142604|89.2_TS_INTELAR_0_D_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142604|90.1_BMT_0_0_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142604|90.1_BMCMT_0_0_42|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142604|90.1_BMCCB_0_0_36|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142604|90.1_AMTM2_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_AMTM3_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTPPUB_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTPPRI_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTPT_0_0_29|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTDPUB_0_0_33|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTDPRI_0_0_33|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142605|90.1_DTDT_0_0_31|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142606|90.1_DET_DESAGRTAL_0_0_38|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142606|90.1_DET_DESAGRTAL_0_0_44|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142606|91.1_PEFPC_0_0_35|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142606|91.1_DETALLE_PRPOT_0_0_25|OK|Encontrado en dinero_bancos.xlsx. Registros: 274
+20251121_142611|92.2_RESERVAS_IRES_0_0_32_40|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142615|92.2_PASIVOS_MOIOS_0_0_18_34|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142620|92.2_PASIVOS_MOSOS_0_0_31_15|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142624|92.2_PASIVOS_MORES_0_0_33_100|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142631|92.2_OTROS_DEPORNO_0_0_24_42|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142637|92.2_TIPO_CAMBIION_0_0_21_24|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142641|94.2_CD_D_0_0_10|OK|Encontrado en dinero_bancos.xlsx. Registros: 8340
+20251121_142646|94.2_UVAD_D_0_0_10|OK|Encontrado en dinero_bancos.xlsx. Registros: 8340
+20251121_142658|175.1_DR_ESTANSE_0_0_20|OK|Encontrado en dinero_bancos.xlsx. Registros: 20389
+20251121_142709|175.1_DR_REFE500_0_0_25|OK|Encontrado en dinero_bancos.xlsx. Registros: 20389
+20251121_142714|331.2_SALDO_BASERIA__15|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142719|331.2_TOTAL_VARIION__27|OK|Encontrado en dinero_bancos.xlsx. Registros: 8339
+20251121_142726|SISTEMA|FIN|Proceso completado. Series: 181 | Exitosas: 181 | Fallidas: 0

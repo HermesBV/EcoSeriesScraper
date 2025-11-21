@@ -4,18 +4,17 @@ import numpy as np
 import re
 from datetime import datetime
 from openpyxl import load_workbook
-from openpyxl.styles import Font
+from openpyxl.styles import Font, PatternFill
 import requests
 import urllib3
 from tqdm import tqdm
 import warnings
-import io # Importado del primer script, aunque no se usa aquí, es buena práctica tenerlo si se usara requests.get().text
 
 # Configuración inicial
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-# Diccionario de URLs y nombres de archivos (sin cambios)
+# Diccionario de URLs y nombres de archivos
 EXCEL_URLS = {
     "empleo_ingresos.xlsx": "https://www.economia.gob.ar/download/infoeco/apendice3a.xlsx",
     "sector_externo.xlsx": "https://www.economia.gob.ar/download/infoeco/apendice5.xlsx",
@@ -27,21 +26,61 @@ EXCEL_URLS = {
     "actividad.xlsx": "https://www.economia.gob.ar/download/infoeco/actividad_ied.xlsx"
 }
 
-# Mapeo de 'Excel Origen' (de Codigos.xlsx) a los nombres de archivo locales.
-# --- ¡Este es el bloque modificado por el usuario, se respeta! ---
+# --- LIBRERÍA DE MAPEO ---
+# Conecta el valor de la columna 'Excel Origen' (en Codigos.xlsx) 
+# con el nombre del archivo que descarga el script (en EXCEL_URLS).
+# **Asegúrate de que las claves aquí coincidan con tu Excel 'Codigos.xlsx'**
+# --- LIBRERÍA DE MAPEO ACTUALIZADA ---
+# Conecta el valor EXACTO de la columna 'Excel Origen' (en Codigos.xlsx) 
+# con el nombre del archivo descargado.
 MAPEO_ORIGEN_ARCHIVO = {
-    # Mapeos probables (basados en las URLs de EXCEL_URLS)
+    # Mapeos existentes que funcionaban
     "Empleo e Ingresos: Apendice3A": "empleo_ingresos.xlsx",
-    "Sector Externo: Apendice5": "sector_externo.xlsx",
-    "Economía Internacional: internacional_ied": "internacional.xlsx",
-    "Dinero y Bancos: Apendice8": "dinero_bancos.xlsx",
+    "Actividad: Actividad_IED": "actividad.xlsx",
+    "Contexto Internacional": "internacional.xlsx",
+    
+    # --- CORRECCIONES BASADAS EN LOS LOGS ---
     "Precios: Apendice4": "precios.xlsx",
     "Finanzas: Apendice-Financiero": "finanzas.xlsx",
     "Finanzas Públicas: Apendice6": "finanzas_publicas.xlsx",
-    "Actividad: Actividad_IED": "actividad.xlsx",
+    "Sector Externo: Apendice5": "sector_externo.xlsx",
+    "Dinero y Bancos: Apendice8": "dinero_bancos.xlsx",
+    
+    # Mapeos alternativos por si acaso (redundancia)
+    "Precios": "precios.xlsx",
+    "Finanzas": "finanzas.xlsx",
+    "Finanzas Públicas": "finanzas_publicas.xlsx",
+    "Sector Externo": "sector_externo.xlsx",
+    "Dinero y Bancos": "dinero_bancos.xlsx"
 }
 
+def limpiar_nombres_definidos(ruta_archivo):
+    """
+    Elimina los 'Defined Names' (rangos con nombre) que causan conflictos
+    al abrir los archivos de gobierno en Excel.
+    """
+    try:
+        # Cargar sin leer datos, solo estructura, para ser rápido
+        wb = load_workbook(ruta_archivo)
+        
+        # Lista de nombres a eliminar
+        nombres = list(wb.defined_names.keys())
+        
+        if nombres:
+            for nombre in nombres:
+                # Eliminar el nombre definido
+                del wb.defined_names[nombre]
+            
+            # Guardar el archivo limpio
+            wb.save(ruta_archivo)
+            # print(f"Limpiados {len(nombres)} nombres conflictivos en {os.path.basename(ruta_archivo)}")
+            
+    except Exception as e:
+        # Si falla (ej. formato muy viejo), lo ignoramos y seguimos
+        pass
 
+# --- DÓNDE PONERLO EN TU CÓDIGO ---
+# Dentro de la función descargar_excels(), justo después del 'with open...'
 def crear_carpeta_logs():
     """Crea la carpeta de logs si no existe"""
     if not os.path.exists('logs'):
@@ -51,6 +90,34 @@ def crear_carpeta_excels():
     """Crea la carpeta para los excels si no existe"""
     if not os.path.exists('Excels_IED'):
         os.makedirs('Excels_IED')
+
+def limpiar_nombres_definidos(ruta_archivo):
+    """
+    Elimina los 'Defined Names' (rangos con nombre) que causan conflictos
+    al abrir los archivos de gobierno en Excel.
+    """
+    try:
+        # Cargar sin leer datos, solo estructura, para ser rápido
+        wb = load_workbook(ruta_archivo)
+        
+        # Lista de nombres a eliminar
+        nombres = list(wb.defined_names.keys())
+        
+        if nombres:
+            for nombre in nombres:
+                # Eliminar el nombre definido
+                del wb.defined_names[nombre]
+            
+            # Guardar el archivo limpio
+            wb.save(ruta_archivo)
+            # print(f"Limpiados {len(nombres)} nombres conflictivos en {os.path.basename(ruta_archivo)}")
+            
+    except Exception as e:
+        # Si falla (ej. formato muy viejo), lo ignoramos y seguimos
+        pass
+
+# --- DÓNDE PONERLO EN TU CÓDIGO ---
+# Dentro de la función descargar_excels(), justo después del 'with open...'
 
 def descargar_excels():
     """Descarga todos los archivos Excel sobrescribiendo los existentes"""
@@ -66,11 +133,15 @@ def descargar_excels():
             
             with open(destino, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:  # Filtrar chunks vacíos
+                    if chunk:
                         f.write(chunk)
             
+            # --- NUEVO: LIMPIEZA ---
+            # Limpiamos el archivo justo después de bajarlo
+            limpiar_nombres_definidos(destino)
+            # -----------------------
+
             descargados[nombre_archivo] = destino
-            print(f"\nDescargado: {nombre_archivo}")
             
         except Exception as e:
             error_msg = f"Error al descargar {nombre_archivo}: {str(e)}"
@@ -97,21 +168,24 @@ def parse_fechas(fechas):
         '%Y-%m-%d', '%d/%m/%Y', '%m/%d/%Y',
         '%b-%y', '%b %Y', '%m-%Y',
         '%Y',
-        'I %y', 'II %y', 'III %y', 'IV %y'
     ]
     
-    fechas_limpias = [str(f).strip() for f in fechas]
-    
-    for fmt in formatos_conocidos:
-        try:
-            # Intentar parsear todo el vector
-            return pd.to_datetime(fechas_limpias, format=fmt, errors='raise')
-        except (ValueError, TypeError):
-            continue
-    
-    # Si no funciona con formatos conocidos, aplicamos el parser manual
+    # Intento de conversión masiva primero (mucho más rápido)
+    try:
+        fechas_dt = pd.to_datetime(fechas, errors='coerce')
+        # Si la mayoría no son NaT, usamos este resultado
+        if fechas_dt.notna().mean() > 0.8:
+             # Forzar fin de mes para los que parecen ser mensuales/trimestrales/anuales
+            for i, fecha in enumerate(fechas_dt):
+                if not pd.isna(fecha) and fecha.day == 1:
+                    fechas_dt[i] = fecha + pd.offsets.MonthEnd(0)
+            return fechas_dt
+    except Exception:
+        pass # Continuar con el parseo manual si falla
+
+    # Si no funciona con formatos conocidos o falló la conversión masiva, aplicamos el parser manual
     fechas_parseadas = []
-    for fecha in fechas_limpias:
+    for fecha in fechas:
         fecha_parseada = parse_fecha_manual(fecha)
         fechas_parseadas.append(fecha_parseada if not pd.isna(fecha_parseada) else pd.NaT)
     
@@ -121,216 +195,231 @@ def parse_fecha_manual(s):
     """Parser manual para formatos de fecha no estándar"""
     try:
         s = str(s).strip()
-        # Caso 1: Timestamp de Excel (número flotante o entero)
-        if re.match(r'^\d+(\.\d+)?$', s):
-             # 45000 es aprox 2023. Asumimos que es una fecha si es > 10000 (aprox 1927)
-            if float(s) > 10000:
-                try:
-                    return pd.to_datetime(float(s), unit='D', origin='1899-12-30')
-                except:
-                    pass # Seguir a otros métodos
-
-        # Caso 2: año de 4 dígitos
+        
+        # Caso 0: Ya es una fecha (ej. 1993-01-31 00:00:00)
+        if re.match(r'^\d{4}-\d{2}-\d{2}', s):
+            return pd.to_datetime(s)
+            
+        # Caso 1: año de 4 dígitos
         if re.match(r'^\d{4}$', s):
             year = int(s)
             return pd.Timestamp(year=year, month=12, day=31)
-        
-        # --- OPTIMIZACIÓN ---
-        # Caso 3: trimestre (I 24, II 24, I 2024, etc.)
-        # Se cambia \d{2} por \d{2,4} para aceptar años de 2 o 4 dígitos
-        elif re.match(r'^[IVXLCDM]+\s+\d{2,4}$', s, re.IGNORECASE):
-            partes = s.upper().split()
-            trimestre = partes[0]
-            año_corto = int(partes[1])
-            año = 2000 + año_corto if año_corto < 100 else año_corto # Manejar '24' (2024) y '2024'
-            if año_corto > 50 and año_corto < 100: # Asumir siglo XX para años > 50 (ej. 99 -> 1999)
-                 año = 1900 + año_corto
-
-            if trimestre == 'I':
-                return pd.Timestamp(año, 3, 31)
-            elif trimestre == 'II':
-                return pd.Timestamp(año, 6, 30)
-            elif trimestre == 'III':
-                return pd.Timestamp(año, 9, 30)
-            elif trimestre == 'IV':
-                return pd.Timestamp(año, 12, 31)
-            else:
-                return pd.NaT
-        
-        # --- ¡MODIFICACIÓN! ---
-        # Caso 3b: trimestre formato "IV.02", "I.24" (visto en imagen)
-        elif re.match(r'^[IVXLCDM]+\.\d{2}$', s, re.IGNORECASE):
-            partes = s.upper().split('.')
-            trimestre = partes[0]
-            año_corto = int(partes[1])
-            año = 2000 + año_corto
-            if año_corto > 50: # Asumir siglo XX para años > 50 (ej. 99 -> 1999)
-                 año = 1900 + año_corto
             
-            if trimestre == 'I':
-                return pd.Timestamp(año, 3, 31)
-            elif trimestre == 'II':
-                return pd.Timestamp(año, 6, 30)
-            elif trimestre == 'III':
-                return pd.Timestamp(año, 9, 30)
-            elif trimestre == 'IV':
-                return pd.Timestamp(año, 12, 31)
+        # --- NUEVO CASO AGREGADO: Trimestre con guion (I-92, IV-24) ---
+        match_trim_guion = re.match(r'^(I|II|III|IV)-(\d{2}|\d{4})$', s, re.IGNORECASE)
+        if match_trim_guion:
+            trimestre = match_trim_guion.group(1).upper()
+            año_str = match_trim_guion.group(2)
+            año = int(año_str)
+            if len(año_str) == 2:
+                año = 2000 + año if año < 50 else 1900 + año 
+                
+            if trimestre == 'I': return pd.Timestamp(año, 3, 31)
+            elif trimestre == 'II': return pd.Timestamp(año, 6, 30)
+            elif trimestre == 'III': return pd.Timestamp(año, 9, 30)
+            elif trimestre == 'IV': return pd.Timestamp(año, 12, 31)
+        # -------------------------------------------------------------
+
+        # Caso 2: trimestre con espacio (I 24, II 24)
+        match_trim = re.match(r'^(I|II|III|IV)\s+(\d{2}|\d{4})$', s, re.IGNORECASE)
+        if match_trim:
+            trimestre = match_trim.group(1).upper()
+            año_str = match_trim.group(2)
+            año = int(año_str)
+            if len(año_str) == 2:
+                año = 2000 + año if año < 50 else 1900 + año
+                
+            if trimestre == 'I': return pd.Timestamp(año, 3, 31)
+            elif trimestre == 'II': return pd.Timestamp(año, 6, 30)
+            elif trimestre == 'III': return pd.Timestamp(año, 9, 30)
+            elif trimestre == 'IV': return pd.Timestamp(año, 12, 31)
+
+        # Caso 3: Trimestre con punto (IV.02, I.23)
+        match_trim_punto = re.match(r'^(I|II|III|IV)\.(\d{2}|\d{4})$', s, re.IGNORECASE)
+        if match_trim_punto:
+            trimestre = match_trim_punto.group(1).upper()
+            año_corto = int(match_trim_punto.group(2))
+            # Manejo si viene 2 o 4 digitos en el punto
+            if len(str(año_corto)) == 4:
+                año = año_corto
             else:
-                return pd.NaT
-        
+                año = 2000 + año_corto if año_corto < 50 else 1900 + año_corto
+            
+            if trimestre == 'I': return pd.Timestamp(año, 3, 31)
+            elif trimestre == 'II': return pd.Timestamp(año, 6, 30)
+            elif trimestre == 'III': return pd.Timestamp(año, 9, 30)
+            elif trimestre == 'IV': return pd.Timestamp(año, 12, 31)
+
         # Caso 4: meses (Ene-24, Ene 24, etc.)
-        else:
-            meses_esp = {
-                'ENE': 'Jan', 'FEB': 'Feb', 'MAR': 'Mar', 'ABR': 'Apr', 
-                'MAY': 'May', 'JUN': 'Jun', 'JUL': 'Jul', 'AGO': 'Aug', 
-                'SEP': 'Sep', 'OCT': 'Oct', 'NOV': 'Nov', 'DIC': 'Dec'
-            }
-            s_upper = s.upper()
-            for mes_esp, mes_eng in meses_esp.items():
-                if s_upper.startswith(mes_esp):
-                    s_eng = s_upper.replace(mes_esp, mes_eng)
-                    # Intentar formatos comunes de mes-año
-                    for fmt in ['%b %y', '%b-%y', '%b%y', '%b %Y', '%b-%Y']:
-                        try:
-                            fecha = pd.to_datetime(s_eng, format=fmt, errors='raise')
-                            return fecha + pd.offsets.MonthEnd(0)
-                        except:
-                            continue
-            # Último intento con el parser genérico de pandas
-            return pd.to_datetime(s, errors='coerce')
-    except:
+        meses_esp = {
+            'Ene': 'Jan', 'Feb': 'Feb', 'Mar': 'Mar', 'Abr': 'Apr', 
+            'May': 'May', 'Jun': 'Jun', 'Jul': 'Jul', 'Ago': 'Aug', 
+            'Sep': 'Sep', 'Oct': 'Oct', 'Nov': 'Nov', 'Dic': 'Dec',
+            'Enero': 'Jan', 'Febrero': 'Feb', 'Marzo': 'Mar', 'Abril': 'Apr',
+            'Mayo': 'May', 'Junio': 'Jun', 'Julio': 'Jul', 'Agosto': 'Aug',
+            'Septiembre': 'Sep', 'Octubre': 'Oct', 'Noviembre': 'Nov', 'Diciembre': 'Dec'
+        }
+        for mes_esp, mes_eng in meses_esp.items():
+            if s.lower().startswith(mes_esp.lower()):
+                s_eng = re.sub(f'^{mes_esp}', mes_eng, s, flags=re.IGNORECASE)
+                # Intentar varios formatos, agregando soporte para guiones extraños
+                for fmt in ['%b %y', '%b-%y', '%b %Y', '%b-%Y', '%b.%y', '%b.%Y']:
+                    try:
+                        fecha = pd.to_datetime(s_eng, format=fmt)
+                        return fecha + pd.offsets.MonthEnd(0)
+                    except ValueError:
+                        continue
+                        
+        # Caso 5: Formatos estándar (último recurso)
+        return pd.to_datetime(s, dayfirst=True, errors='coerce')
+        
+    except Exception:
         return pd.NaT
 
-# --- ¡NUEVA FUNCIÓN DE OPTIMIZACIÓN! ---
 def crear_indice_excel(excel_data):
     """
-    Recorre un archivo Excel (cargado como diccionario de DataFrames) UNA VEZ
-    y crea un índice (diccionario) de todos los IDs encontrados.
-    El índice mapea: id_limpio -> (sheet_name, fila, columna)
+    Crea un índice (diccionario) de todos los valores en todas las hojas 
+    de un archivo Excel para búsqueda rápida.
+    El índice mapea: valor -> (nombre_hoja, fila, columna)
     """
-    indice_local = {}
+    indice = {}
     for sheet_name, df in excel_data.items():
-        # Usar .values para iteración rápida sobre numpy array
-        df_values = df.values
-        for r in range(df_values.shape[0]):
-            for c in range(df_values.shape[1]):
-                valor = df_values[r, c]
-                
-                # Heurística para detectar un posible ID
-                if valor and isinstance(valor, str):
-                    valor_limpio = valor.strip()
-                    # Un ID debe tener > 4 caracteres, no ser "nan", y contener un número O un punto.
-                    # Esto evita strings simples como "Total", "Fecha", "Enero", etc.
-                    if len(valor_limpio) > 4 and valor_limpio.lower() != 'nan' and (re.search(r'\d', valor_limpio) or '.' in valor_limpio):
-                        if valor_limpio not in indice_local: # Guardar solo la primera aparición
-                            indice_local[valor_limpio] = (sheet_name, r, c)
-    return indice_local
+        # Iterar sobre el DataFrame (más rápido que itertuples/iterrows para numpy)
+        for r_idx, fila in enumerate(df.values):
+            for c_idx, celda in enumerate(fila):
+                valor = str(celda).strip()
+                if valor and valor not in indice:
+                    # Guardar la ubicación 0-based del DataFrame
+                    indice[valor] = (sheet_name, r_idx, c_idx)
+    return indice
 
-# --- ¡FUNCIÓN MODIFICADA! ---
-def extraer_serie_desde_indice(id_serie, excel_data, ubicacion):
+def extraer_serie_desde_indice(excel_data, ubicacion):
     """
-    Extrae datos de una serie usando la ubicación exacta (hoja, fila, col)
-    obtenida del índice.
-    AHORA MANEJA FILAS VACÍAS ENTRE EL ID Y LOS DATOS.
+    Extrae una serie de datos (fechas, valores) usando la ubicación exacta.
+    Detecta automáticamente si la fecha está en Columna A (0) o B (1).
     """
     sheet_name, fila_id, col_id = ubicacion
-    df = excel_data[sheet_name] # Acceso directo a la hoja correcta
+    df = excel_data[sheet_name]
     
-    valores = []
     fechas = []
+    valores = []
     
-    # --- ¡MODIFICACIÓN! ---
-    # Buscar la primera fila de datos válida y la columna de fecha
+    # --- 1. DETECCIÓN INTELIGENTE DE COLUMNA DE FECHA ---
+    # A veces la Columna A (0) está vacía y la fecha está en la B (1).
+    # Revisamos las 20 filas siguientes al ID para ver cuál tiene datos.
+    col_fecha = 0 # Por defecto columna A
     
-    col_fecha = 0
-    fila_inicio_datos = -1
-    max_filas_a_buscar = 100 # Límite de búsqueda de 100 filas vacías (antes 20)
+    conteo_col0 = 0
+    conteo_col1 = 0
+    start_check = fila_id + 1
+    end_check = min(fila_id + 25, df.shape[0])
     
-    for r_temp in range(fila_id + 1, min(fila_id + 1 + max_filas_a_buscar, df.shape[0])):
-        valor_val_temp = df.iat[r_temp, col_id]
+    for r_check in range(start_check, end_check):
+        val0 = df.iat[r_check, 0]
+        val1 = df.iat[r_check, 1]
         
-        # Si la columna de valor no está vacía
-        if not pd.isna(valor_val_temp) and str(valor_val_temp).strip() != "":
+        if pd.notna(val0) and str(val0).strip() != "":
+            conteo_col0 += 1
+        if pd.notna(val1) and str(val1).strip() != "":
+            conteo_col1 += 1
             
-            # Ahora, encontrar la columna de fecha en esta fila
-            fecha_encontrada = False
-            for c_fecha in range(min(3, df.shape[1])): # Revisar primeras 3 columnas
-                if not pd.isna(df.iat[r_temp, c_fecha]):
-                    col_fecha = c_fecha
-                    fecha_encontrada = True
-                    break
-            
-            # Si encontramos un valor Y una fecha, esta es nuestra fila de inicio
-            if fecha_encontrada:
-                fila_inicio_datos = r_temp
-                break
-                
-    if fila_inicio_datos == -1:
-        raise ValueError(f"ID {id_serie} encontrado en ({fila_id}, {col_id}), pero no se encontraron datos válidos (fecha y valor) en las {max_filas_a_buscar} filas siguientes.")
-    # --- FIN MODIFICACIÓN ---
+    # Si la columna A está vacía y la B tiene datos, cambiamos a la B
+    if conteo_col0 == 0 and conteo_col1 > 0:
+        col_fecha = 1
+        # print(f"   -> Detectado: Fechas en Columna B para {sheet_name}")
 
-    # Iterar hacia abajo desde la primera fila de datos encontrada
+    # --- 2. ENCONTRAR EL INICIO DE LOS DATOS ---
+    fila_inicio_datos = -1
+    # Aumentamos el rango de búsqueda por si hay mucho espacio vacío
+    max_filas_a_buscar = 1000 
+    
+    for r_offset in range(1, max_filas_a_buscar + 1):
+        r = fila_id + r_offset
+        if r >= df.shape[0]:
+            break 
+
+        # Miramos la columna de fecha detectada
+        fecha_val = df.iat[r, col_fecha]
+        
+        # Si hay algo en la celda de fecha, asumimos que aquí arrancan los datos
+        if (pd.notna(fecha_val) and str(fecha_val).strip() != ""):
+            fila_inicio_datos = r
+            break
+            
+    if fila_inicio_datos == -1:
+        raise ValueError(f"No se encontraron datos válidos debajo del ID en {sheet_name} (Buscando fecha en Columna {col_fecha})")
+
+    # --- 3. EXTRACCIÓN Y LIMPIEZA (CON SOPORTE DE PORCENTAJES) ---
     r = fila_inicio_datos
     while r < df.shape[0]:
-        valor_val = df.iat[r, col_id] # Usar col_id
-        # Parar si encontramos un NaN o nulo en la columna de valores
-        if pd.isna(valor_val) or str(valor_val).strip() == "":
-            break
-
         fecha_val = df.iat[r, col_fecha]
-        # Parar si la fecha es nula
+        
+        # Condición de parada: fecha vacía
         if pd.isna(fecha_val) or str(fecha_val).strip() == "":
-            break
-        
-        # --- ¡MODIFICACIÓN! Manejo robusto de porcentajes y texto ---
-        
-        valor_val_limpio = valor_val
-        if isinstance(valor_val, str):
-            valor_val_limpio = valor_val.strip()
+            # Pequeño chequeo: si la fila siguiente SÍ tiene fecha, no paramos (es un hueco)
+            if r + 1 < df.shape[0]:
+                next_val = df.iat[r+1, col_fecha]
+                if pd.notna(next_val) and str(next_val).strip() != "":
+                    r += 1
+                    continue # Saltamos esta fila vacía
+            break # Si no, terminamos
 
-        try:
-            # 1. Intento de conversión directa (para números 5.5, 10, etc.)
-            valor_num = float(valor_val_limpio)
-            valores.append(valor_num)
-        except (ValueError, TypeError):
-            # 2. Si falla, ¿es un porcentaje?
-            if isinstance(valor_val_limpio, str):
-                if valor_val_limpio.endswith('%'):
-                    try:
-                        # Intentar convertir el número del porcentaje (ej "5.5%" -> 5.5)
-                        valor_num_pct = float(valor_val_limpio.replace('%', '').strip())
-                        valores.append(valor_num_pct)
-                    except (ValueError, TypeError):
-                        # Es un string con % pero no numérico (ej. "N/A %")
-                        valores.append(np.nan)
-                
-                # 3. ¿Es un string vacío o un guión?
-                elif valor_val_limpio == '-' or valor_val_limpio == '':
-                    valores.append(np.nan)
-                
-                # 4. Es otro string (ej. "N/D", "Preliminar")
-                else:
-                    # Convertir cualquier otro texto a NaN para mantener la columna numérica
-                    valores.append(np.nan)
-            
-            # 5. No es string y no es float (ej. un objeto de error de Excel?)
-            else:
-                valores.append(np.nan)
-        
-        # --- FIN MODIFICACIÓN ---
+        valor_val = df.iat[r, col_id] 
         
         fechas.append(fecha_val)
+        
+        # Limpieza de Valor (Porcentajes, Miles, etc.)
+        if pd.isna(valor_val):
+            valores.append(np.nan)
+        
+        elif isinstance(valor_val, (int, float)):
+            valores.append(float(valor_val))
+            
+        else:
+            valor_val_limpio = str(valor_val).strip()
+            
+            # Caso Porcentaje (ej: "38,4%")
+            if '%' in valor_val_limpio:
+                try:
+                    num_str = valor_val_limpio.replace('%', '').strip()
+                    # Si tiene coma, asumimos formato europeo/latam
+                    if ',' in num_str:
+                        num_str = num_str.replace('.', '')  # Quitar punto de miles
+                        num_str = num_str.replace(',', '.') # Coma a punto
+                    valores.append(float(num_str))
+                except:
+                    valores.append(np.nan)
+            
+            # Caso Número Texto con coma (ej: "1.234,56")
+            elif re.match(r'^-?[\d\.,]+$', valor_val_limpio):
+                try:
+                    # Si tiene punto y coma, el punto es miles y la coma decimal
+                    if '.' in valor_val_limpio and ',' in valor_val_limpio:
+                         num_str = valor_val_limpio.replace('.', '').replace(',', '.')
+                    # Si solo tiene coma, es decimal
+                    elif ',' in valor_val_limpio:
+                         num_str = valor_val_limpio.replace(',', '.')
+                    else:
+                         num_str = valor_val_limpio
+                    
+                    valores.append(float(num_str))
+                except:
+                    valores.append(np.nan)
+
+            elif valor_val_limpio == "":
+                valores.append(np.nan)
+            else:
+                valores.append(valor_val_limpio) # Guardar texto tal cual (s/d, etc)
+        
         r += 1
     
     if not fechas:
-        # Este error no debería ocurrir si fila_inicio_datos se encontró
-        raise ValueError(f"ID {id_serie} encontrado pero sin datos asociados debajo.")
-
+        raise ValueError("No se extrajo ninguna fecha/valor")
+    
     fechas_dt = parse_fechas(fechas)
     
-    # Crear un DataFrame temporal para limpiar NaNs
     df_temp = pd.DataFrame({'fecha': fechas_dt, 'valor': valores})
-    df_temp = df_temp.dropna(subset=['fecha', 'valor']) # Eliminar filas donde fecha O valor sea NaN
+    df_temp = df_temp.dropna(subset=['fecha'])
     
     return df_temp['fecha'], df_temp['valor']
 
@@ -339,34 +428,12 @@ def cargar_excel_completo(ruta):
     """Carga un archivo Excel completo con todas sus hojas"""
     excel_data = {}
     try:
-        # Usar openpyxl para data_only=True para obtener valores de fórmulas
-        wb = load_workbook(ruta, data_only=True, read_only=True) # read_only para más velocidad
-        for sheet_name in wb.sheetnames:
-            ws = wb[sheet_name]
-            data = ws.values
-            # Convertir a DataFrame
-            cols = next(data, []) # Obtener encabezados si existen (aunque usamos header=None)
-            df = pd.DataFrame(data, columns=cols)
-            excel_data[sheet_name] = df
-        
-        # Fallback si openpyxl falla (ej. formato muy antiguo)
-        if not excel_data:
-             raise Exception("Fallback a pd.ExcelFile")
-             
+        with pd.ExcelFile(ruta) as xls:
+            for sheet_name in xls.sheet_names:
+                excel_data[sheet_name] = pd.read_excel(xls, sheet_name, header=None)
         return excel_data
-        
-    except Exception as e_openpyxl:
-        # Fallback a pandas.ExcelFile
-        print(f"Advertencia: Falló carga con openpyxl para {os.path.basename(ruta)} ({e_openpyxl}), reintentando con pd.ExcelFile. Los valores de fórmulas pueden no ser correctos.")
-        try:
-            excel_data_pd = {}
-            with pd.ExcelFile(ruta) as xls:
-                for sheet_name in xls.sheet_names:
-                    excel_data_pd[sheet_name] = pd.read_excel(xls, sheet_name, header=None)
-            return excel_data_pd
-        except Exception as e_pandas:
-             raise ValueError(f"Error al cargar archivo {os.path.basename(ruta)} con ambos motores: {str(e_pandas)}")
-
+    except Exception as e:
+        raise ValueError(f"Error al cargar archivo {os.path.basename(ruta)}: {str(e)}")
 
 def procesar_datos():
     """Función principal que orquesta todo el proceso"""
@@ -379,33 +446,45 @@ def procesar_datos():
         if not archivos_descargados:
             raise Exception("No se pudo descargar ningún archivo Excel")
         
-        # --- LÓGICA MODIFICADA ---
+        # Cargar todos los excels a la memoria
+        todos_los_excels_cargados = {}
+        for nombre_archivo, ruta_archivo in tqdm(archivos_descargados.items(), desc="Cargando Excels en memoria"):
+            try:
+                todos_los_excels_cargados[nombre_archivo] = cargar_excel_completo(ruta_archivo)
+            except Exception as e:
+                error_msg = f"Error al cargar {nombre_archivo} en memoria: {str(e)}"
+                print(f"\n{error_msg}")
+                escribir_log("SISTEMA", "ERROR_CARGA", error_msg)
+        
+        if not todos_los_excels_cargados:
+            raise Exception("No se pudo cargar ningún archivo Excel en memoria")
+
+        # --- Creación de Índices ---
+        todos_los_indices = {}
+        for nombre_archivo, excel_data in tqdm(todos_los_excels_cargados.items(), desc="Creando índices de búsqueda"):
+            todos_los_indices[nombre_archivo] = crear_indice_excel(excel_data)
+        
         # Cargar archivo Excel con los códigos
         codigos_file = "Codigos.xlsx"
         try:
             wb = load_workbook(codigos_file)
             ws = wb.active
+            # Estilos para marcado de errores
             red_font = Font(color="FF0000")
-            
+            red_fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
+            no_fill = PatternFill(fill_type=None)
+            no_font = Font(color="000000")
+
+            columnas_requeridas = ["Excel Origen", "ID", "Variable", "Pestaña Renombrada"]
             df_codigos = pd.read_excel(
                 codigos_file,
-                # Leer las 4 nuevas columnas
-                usecols=["Excel Origen", "ID", "Variable", "Pestaña Renombrada"],
-                dtype={
-                    "Excel Origen": str,
-                    "ID": str,
-                    "Variable": str,
-                    "Pestaña Renombrada": str
-                }
+                usecols=columnas_requeridas,
+                dtype={col: str for col in columnas_requeridas} # Leer todo como texto
             )
             
-            # Limpiar datos de Codigos.xlsx
+            # Limpieza de datos de Codigos.xlsx
             df_codigos["Pestaña Renombrada"] = df_codigos["Pestaña Renombrada"].fillna("Otros")
             df_codigos["Pestaña Renombrada"] = df_codigos["Pestaña Renombrada"].replace({"nan": "Otros", "": "Otros"})
-            df_codigos["Excel Origen"] = df_codigos["Excel Origen"].str.strip()
-            df_codigos["ID"] = df_codigos["ID"].str.strip()
-            
-            # --- MODIFICACIÓN: Lógica de "Ubicación" eliminada ---
             
         except Exception as e:
             error_msg = f"Error al leer Codigos.xlsx: {str(e)}"
@@ -430,7 +509,7 @@ def procesar_datos():
             for hoja in bd_hojas:
                 if 'fecha' not in bd_hojas[hoja].columns:
                     bd_hojas[hoja]['fecha'] = pd.NaT
-                # Convertir fecha a datetime
+                # Convertir fecha a datetime para merges
                 bd_hojas[hoja]['fecha'] = pd.to_datetime(bd_hojas[hoja]['fecha'])
                 
         except FileNotFoundError:
@@ -441,90 +520,72 @@ def procesar_datos():
             escribir_log("SISTEMA", "ERROR", error_msg)
             bd_hojas = {"Otros": pd.DataFrame(columns=['fecha'])}
 
-        # --- LÓGICA DE PROCESAMIENTO OPTIMIZADA ---
-        
-        # 1. Cargar TODOS los excels descargados en memoria primero
-        todos_los_excels_cargados = {}
-        print("\nCargando archivos Excel descargados en memoria...")
-        for nombre_archivo, ruta_archivo in archivos_descargados.items():
-            try:
-                todos_los_excels_cargados[nombre_archivo] = cargar_excel_completo(ruta_archivo)
-                print(f" · {nombre_archivo} cargado.")
-            except Exception as e:
-                error_msg = f"Error al cargar {nombre_archivo} en memoria: {str(e)}"
-                print(error_msg)
-                escribir_log("SISTEMA", "ERROR_CARGA_MEMORIA", error_msg)
-
-        if not todos_los_excels_cargados:
-             raise Exception("Falló la carga de todos los archivos Excel. Abortando.")
-
-        # --- ¡NUEVO! PASO 2: Crear índices para cada archivo cargado ---
-        indices_por_archivo = {}
-        print("\nCreando índices de búsqueda para los archivos...")
-        for nombre_archivo, excel_data in tqdm(todos_los_excels_cargados.items(), desc="Indexando archivos"):
-            indices_por_archivo[nombre_archivo] = crear_indice_excel(excel_data)
-        print("Índices creados.")
-
-
         total_series = len(df_codigos)
         series_exitosas = 0
         series_fallidas = 0
         filas_con_error = []
+        filas_exitosas = [] # Para limpiar errores previos
 
+        # --- Procesamiento principal (Iterando sobre Codigos.xlsx) ---
         print("\nProcesando series desde Codigos.xlsx...")
-        # 3. Iterar sobre el DataFrame df_codigos
-        for fila_idx, fila_codigo in tqdm(df_codigos.iterrows(), total=total_series, desc="Procesando series"):
+        for fila_idx, fila_codigo in tqdm(df_codigos.iterrows(), total=total_series, desc="Procesando IDs"):
             
-            id_serie = str(fila_codigo["ID"])
-            fila_excel_num = fila_idx + 2 # +2 porque Excel empieza en 1 y la fila 1 es encabezado
+            id_serie = str(fila_codigo["ID"]).strip()
+            excel_origen = str(fila_codigo["Excel Origen"]).strip()
+            variable_nombre = str(fila_codigo["Variable"]).strip()
+            pestaña = str(fila_codigo["Pestaña Renombrada"]).strip()
             
+            # Validaciones de la fila
+            if not id_serie or id_serie.lower() == "nan":
+                error_msg = "ID vacío"
+                filas_con_error.append((fila_idx, error_msg))
+                continue
+            if not excel_origen or excel_origen.lower() == "nan":
+                error_msg = f"Excel Origen vacío para ID {id_serie}"
+                filas_con_error.append((fila_idx, error_msg))
+                continue
+            if not variable_nombre or variable_nombre.lower() == "nan":
+                error_msg = f"Nombre de Variable vacío para ID {id_serie}"
+                filas_con_error.append((fila_idx, error_msg))
+                continue
+            if not pestaña or pestaña.lower() == "nan":
+                pestaña = "Otros" # Default a 'Otros'
+            
+            # Fila de excel 1-based + 1 de header
+            fila_excel = fila_idx + 2 
+
             try:
-                # Obtener datos de la fila de Codigos.xlsx
-                excel_origen_key = str(fila_codigo["Excel Origen"]).strip()
-                variable_nombre = str(fila_codigo["Variable"]).strip() # Nuevo
-                pestaña = str(fila_codigo["Pestaña Renombrada"]).strip() # Nuevo
-                pestaña = "Otros" if not pestaña or pestaña.lower() == "nan" else pestaña
+                # 1. Encontrar el archivo Excel correcto usando el mapeo
+                nombre_archivo = MAPEO_ORIGEN_ARCHIVO.get(excel_origen)
+                if not nombre_archivo:
+                    raise KeyError(f"Valor '{excel_origen}' no encontrado en MAPEO_ORIGEN_ARCHIVO")
+                
+                # 2. Obtener los datos del Excel y el Índice correspondientes
+                excel_data = todos_los_excels_cargados.get(nombre_archivo)
+                indice = todos_los_indices.get(nombre_archivo)
+                if not excel_data or not indice:
+                    raise FileNotFoundError(f"Archivo '{nombre_archivo}' no fue cargado o indexado")
 
-                # Validaciones
-                if not id_serie or id_serie.lower() == 'nan':
-                     raise ValueError(f"Fila {fila_excel_num}: ID está vacío")
-                if not variable_nombre or variable_nombre.lower() == 'nan':
-                    raise ValueError(f"La columna 'Variable' está vacía para el ID {id_serie} (Fila {fila_excel_num})")
-                if not excel_origen_key or excel_origen_key.lower() == 'nan':
-                    raise ValueError(f"'Excel Origen' está vacío para el ID {id_serie} (Fila {fila_excel_num})")
-
-                # Encontrar el archivo local usando el mapeo
-                if excel_origen_key not in MAPEO_ORIGEN_ARCHIVO:
-                    raise ValueError(f"'{excel_origen_key}' (de 'Excel Origen') no se reconoce. Revise MAPEO_ORIGEN_ARCHIVO y Codigos.xlsx (Fila {fila_excel_num})")
-                
-                nombre_archivo_local = MAPEO_ORIGEN_ARCHIVO[excel_origen_key]
-                
-                # Verificar que el archivo se haya cargado e indexado
-                if nombre_archivo_local not in todos_los_excels_cargados:
-                    raise ValueError(f"El archivo '{nombre_archivo_local}' (mapeado desde '{excel_origen_key}') no pudo ser cargado o descargado.")
-                if nombre_archivo_local not in indices_por_archivo:
-                     raise ValueError(f"No se pudo crear un índice para '{nombre_archivo_local}'.")
-                
-                excel_data = todos_los_excels_cargados[nombre_archivo_local]
-                indice_del_archivo = indices_por_archivo[nombre_archivo_local]
-
-                # --- ¡OPTIMIZACIÓN! Búsqueda instantánea en el índice ---
-                ubicacion = indice_del_archivo.get(id_serie)
-                
+                # 3. Buscar el ID en el índice (Búsqueda instantánea)
+                ubicacion = indice.get(id_serie)
                 if not ubicacion:
-                    raise ValueError(f"ID {id_serie} no encontrado en el índice de {nombre_archivo_local}")
+                    raise ValueError(f"ID '{id_serie}' no encontrado en el índice de '{nombre_archivo}'")
 
-                # Extraer la serie usando la ubicación exacta
-                categorias_api, valores_api = extraer_serie_desde_indice(id_serie, excel_data, ubicacion)
+                # 4. Extraer la serie usando la ubicación
+                categorias_api, valores_api = extraer_serie_desde_indice(excel_data, ubicacion)
                 
-                # Crear DataFrame con los datos (Usando 'variable_nombre')
+                # Crear DataFrame con los datos
                 df_api = pd.DataFrame({
                     'fecha': categorias_api,
                     variable_nombre: valores_api
                 })
-                df_api['fecha'] = pd.to_datetime(df_api['fecha'])
+                # Eliminar filas donde la fecha no se pudo parsear
+                df_api = df_api.dropna(subset=['fecha'])
                 
-                # Actualizar la BD
+                if df_api.empty:
+                     raise ValueError(f"No se extrajeron datos válidos para el ID '{id_serie}'")
+
+                # 5. Actualizar la BD
                 if pestaña not in bd_hojas:
                     bd_hojas[pestaña] = pd.DataFrame(columns=['fecha'])
                     bd_hojas[pestaña]['fecha'] = pd.to_datetime(bd_hojas[pestaña]['fecha'])
@@ -532,105 +593,126 @@ def procesar_datos():
                 # Asegurar que la fecha de la hoja BD sea datetime
                 bd_hojas[pestaña]['fecha'] = pd.to_datetime(bd_hojas[pestaña]['fecha'])
 
-                # --- Lógica de Merge (Actualizada) ---
+                # Lógica de actualización para preservar datos manuales antiguos
                 
-                # 1. Eliminar la columna 'variable_nombre' si ya existe en la hoja destino
-                if variable_nombre in bd_hojas[pestaña].columns:
-                     bd_hojas[pestaña] = bd_hojas[pestaña].drop(columns=[variable_nombre])
-                     
-                # 2. Hacer el merge (outer)
-                df_merged = pd.merge(
-                    bd_hojas[pestaña],
-                    df_api,
-                    on='fecha',
-                    how='outer'
-                )
+                df_bd_existente = bd_hojas[pestaña] # DataFrame de la hoja actual
+                
+                # 1. Verificar si la columna ya existe
+                if variable_nombre not in df_bd_existente.columns:
+                    # Caso 1: La serie es nueva. Simplemente hacer merge.
+                    df_merged = pd.merge(
+                        df_bd_existente,
+                        df_api,
+                        on='fecha',
+                        how='outer'
+                    )
+                else:
+                    # Caso 2: La serie ya existe. Preservar datos manuales.
+                    
+                    # 2a. Encontrar la fecha de corte (el primer día de la *nueva* data)
+                    if df_api.empty or df_api['fecha'].isna().all():
+                        df_merged = df_bd_existente
+                    else:
+                        primera_fecha_nueva = df_api['fecha'].min()
+                        
+                        # 2b. Separar los datos existentes en dos:
+                        #    - Lo que queremos preservar (todo ANTES de la fecha de corte)
+                        #    - Lo que vamos a sobreescribir (todo DESDE la fecha de corte)
+                        df_preservar = df_bd_existente[df_bd_existente['fecha'] < primera_fecha_nueva].copy()
+                        df_a_actualizar = df_bd_existente[df_bd_existente['fecha'] >= primera_fecha_nueva].copy()
+                        
+                        # 2c. De la parte a actualizar, nos quedamos con las *otras* columnas
+                        # (eliminamos la data vieja de la serie que estamos actualizando)
+                        if variable_nombre in df_a_actualizar.columns:
+                            df_a_actualizar = df_a_actualizar.drop(columns=[variable_nombre])
+                        
+                        # 2d. Hacemos merge de las *otras columnas* con la *nueva data*
+                        # Usamos 'outer' para asegurar que se incluyan todas las fechas
+                        df_actualizado = pd.merge(
+                            df_a_actualizar, # Base con otras series y fechas >= corte
+                            df_api,          # Data nueva (con 'fecha' y 'variable_nombre')
+                            on='fecha',
+                            how='outer'
+                        )
+                        
+                        # 2e. Juntamos lo preservado (datos manuales) con lo actualizado
+                        df_merged = pd.concat([df_preservar, df_actualizado], ignore_index=True)
 
                 # Ordenar por fecha y asegurarse que fecha es la primera columna
                 df_merged = df_merged.sort_values('fecha').reset_index(drop=True)
                 
-                # Reordenar columnas para que 'fecha' esté primero
-                cols = ['fecha'] + [col for col in df_merged.columns if col != 'fecha']
-                bd_hojas[pestaña] = df_merged[cols]
+                # Re-colocar 'fecha' al principio si se movió
+                if 'fecha' in df_merged.columns:
+                    cols = ['fecha'] + [col for col in df_merged.columns if col != 'fecha']
+                    df_merged = df_merged[cols]
 
-                # Registrar éxito
-                series_exitosas += 1
-                escribir_log(id_serie, "OK", f"Encontrado en {nombre_archivo_local} ({excel_origen_key}). Registros: {len(df_api)}")
+                bd_hojas[pestaña] = df_merged
                 
-                # --- MODIFICACIÓN: Lógica de "Ubicación" eliminada ---
+                series_exitosas += 1
+                filas_exitosas.append(fila_idx)
+                escribir_log(id_serie, "OK", f"Encontrado en {nombre_archivo}. Registros: {len(df_api)}")
                 
             except Exception as e:
-                # Registrar falla
-                series_fallidas += 1
                 error_msg = str(e)
-                # No imprimir en tqdm, solo log
+                # print(f"Error procesando ID {id_serie}: {error_msg}") # Descomentar para debug
                 escribir_log(id_serie, "ERROR", error_msg)
-                filas_con_error.append(fila_excel_num)
+                filas_con_error.append((fila_idx, error_msg))
                 continue
-        
-        # --- FIN LÓGICA DE PROCESAMIENTO MODIFICADA ---
-
-        if series_fallidas > 0:
-             print(f"\nSe produjeron {series_fallidas} errores. Revise el log.")
+                
+        series_fallidas = len(filas_con_error)
 
         # Guardar resultados
         try:
             # Guardar BD
-            with pd.ExcelWriter("BD.xlsx", engine='openpyxl') as writer:
-                for hoja, datos in bd_hojas.items():
-                    hoja_str = str(hoja).strip() if pd.notna(hoja) else "Otros"
-                    hoja_str = hoja_str[:31] if hoja_str else "Otros"
-                    if hoja_str.lower() == "nan":
-                        hoja_str = "Otros"
+            with pd.ExcelWriter("BD.xlsx", engine='openpyxl', datetime_format='YYYY-MM-DD') as writer:
+                for hoja_original, datos in bd_hojas.items():
+                    hoja_str = str(hoja_original).strip()[:31] # Limitar a 31 chars
                     
-                    # --- ¡MODIFICACIÓN! No crear hojas vacías (como "Otros" si no tiene series) ---
-                    if datos.shape[1] <= 1: # Si solo tiene la columna 'fecha'
-                        continue
-                    
-                    # Eliminar filas donde la fecha es NaT
-                    datos_limpios = datos.dropna(subset=['fecha']).copy() # .copy() para evitar warnings
+                    # Omitir pestañas vacías o sin datos
+                    columnas_de_datos = [col for col in datos.columns if col != 'fecha']
+                    if datos.empty or not columnas_de_datos:
+                        continue # No guardar esta pestaña
 
-                    # --- ¡MODIFICACIÓN! Formatear fecha según la frecuencia de la pestaña ---
-                    frecuencia = ''
-                    if hoja_str: # Asegurarse que hoja_str no esté vacía
-                        frecuencia = hoja_str[-1].upper()
+                    # --- Formateo de Fecha basado en Frecuencia ---
+                    # Asumimos que la frecuencia está en el último carácter del nombre
+                    frecuencia = hoja_str[-1].upper()
                     
-                    if frecuencia in ['A', 'T', 'M']: # Anual, Trimestral, Mensual
-                        datos_limpios['fecha'] = datos_limpios['fecha'].dt.strftime('%Y-%m')
-                    else: # Default for D (Diaria), S (Semanal), or others
-                        datos_limpios['fecha'] = datos_limpios['fecha'].dt.strftime('%Y-%m-%d')
+                    # Copiar datos para no modificar el df en memoria
+                    datos_a_guardar = datos.copy()
                     
-                    datos_limpios.to_excel(writer, sheet_name=hoja_str, index=False)
+                    if frecuencia in ['A', 'M', 'T']: # Anual, Mensual, Trimestral
+                        # Formato YYYY-MM
+                        datos_a_guardar['fecha'] = pd.to_datetime(datos_a_guardar['fecha']).dt.to_period('M')
+                    else: # Diaria, Semanal, Otro
+                        # Formato YYYY-MM-DD
+                        datos_a_guardar['fecha'] = pd.to_datetime(datos_a_guardar['fecha']).dt.strftime('%Y-%m-%d')
+
+                    datos_a_guardar.to_excel(writer, sheet_name=hoja_str, index=False)
             
-            # --- MODIFICACIÓN: Lógica de "Ubicación" eliminada ---
-            # --- Nueva lógica para marcar/desmarcar errores en Codigos.xlsx
-            print(f"\nActualizando marcado de errores en '{codigos_file}'...")
-            normal_font = Font() # Fuente por defecto (sin color)
-            
-            # Iterar por todas las filas que lee df_codigos (fila_idx de 0 a len(df_codigos)-1)
-            for fila_idx in range(len(df_codigos)):
-                fila_excel = fila_idx + 2 # Fila de Excel
-                
-                # Determinar la fuente a aplicar
-                current_font = red_font if fila_excel in filas_con_error else normal_font
-                
+            # Actualizar Codigos.xlsx con errores
+            for fila_idx in filas_exitosas:
+                # Quitar formato de error si se corrigió
+                fila_excel = fila_idx + 2
                 for col in range(1, ws.max_column + 1):
-                    try:
-                        ws.cell(row=fila_excel, column=col).font = current_font
-                    except:
-                        pass # Ignorar si la celda no se puede marcar
-
+                    ws.cell(row=fila_excel, column=col).font = no_font
+                    ws.cell(row=fila_excel, column=col).fill = no_fill
+            
+            for fila_idx, error_msg in filas_con_error:
+                # Marcar fila con error
+                fila_excel = fila_idx + 2
+                for col in range(1, ws.max_column + 1):
+                    ws.cell(row=fila_excel, column=col).font = red_font
+                    # ws.cell(row=fila_excel, column=col).fill = red_fill # Opcional: fondo rojo
+            
             wb.save(codigos_file)
             
             if filas_con_error:
-                print(f"Se marcaron en rojo {len(filas_con_error)} filas con error.")
-            else:
-                print("Se limpió el formato de error (no se encontraron errores).")
-            # --- Fin nueva lógica de marcado ---
+                print(f"\nSe marcaron en rojo {len(filas_con_error)} IDs con errores en {codigos_file}")
             
             resumen = f"Proceso completado. Series: {total_series} | Exitosas: {series_exitosas} | Fallidas: {series_fallidas}"
             print(f"\n{resumen}")
             escribir_log("SISTEMA", "FIN", resumen)
+            
         except Exception as e:
             error_msg = f"Error al guardar archivos: {str(e)}"
             print(f"\n{error_msg}")
@@ -638,12 +720,13 @@ def procesar_datos():
 
     except KeyboardInterrupt:
         print("\nProceso interrumpido por el usuario")
-        escribir_log("SISTEMA", "INTERRUMPIDO", "Proceso detenido manually")
+        escribir_log("SISTEMA", "INTERRUMPIDO", "Proceso detenido manualmente")
     except Exception as e:
         import traceback
-        print(f"\nError crítico inesperado: {str(e)}")
-        print(traceback.format_exc())
-        escribir_log("SISTEMA", "ERROR_CRITICO", str(e) + " | " + traceback.format_exc())
+        print(f"\nError inesperado: {str(e)}")
+        print(traceback.format_exc()) # Imprimir stack trace para debug
+        escribir_log("SISTEMA", "ERROR_CRITICO", str(e))
 
 if __name__ == "__main__":
     procesar_datos()
+
