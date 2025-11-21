@@ -30,16 +30,12 @@ EXCEL_URLS = {
 # Conecta el valor de la columna 'Excel Origen' (en Codigos.xlsx) 
 # con el nombre del archivo que descarga el script (en EXCEL_URLS).
 # **Asegúrate de que las claves aquí coincidan con tu Excel 'Codigos.xlsx'**
-# --- LIBRERÍA DE MAPEO ACTUALIZADA ---
-# Conecta el valor EXACTO de la columna 'Excel Origen' (en Codigos.xlsx) 
-# con el nombre del archivo descargado.
+
 MAPEO_ORIGEN_ARCHIVO = {
     # Mapeos existentes que funcionaban
     "Empleo e Ingresos: Apendice3A": "empleo_ingresos.xlsx",
     "Actividad: Actividad_IED": "actividad.xlsx",
     "Contexto Internacional": "internacional.xlsx",
-    
-    # --- CORRECCIONES BASADAS EN LOS LOGS ---
     "Precios: Apendice4": "precios.xlsx",
     "Finanzas: Apendice-Financiero": "finanzas.xlsx",
     "Finanzas Públicas: Apendice6": "finanzas_publicas.xlsx",
@@ -661,48 +657,100 @@ def procesar_datos():
                 
         series_fallidas = len(filas_con_error)
 
-        # Guardar resultados
+        # --- BLOQUE DE GUARDADO FINAL CORREGIDO ---
         try:
-            # Guardar BD
+            print("\nGenerando hoja de Referencias e Índices...")
+
+            # 1. PREPARAR DATOS DE LA PRIMERA PESTAÑA (REFERENCIAS)
+            lista_ref = []
+            mapa_frecuencias = {
+                'A': 'Anual', 'S': 'Semestral', 'T': 'Trimestral', 
+                'M': 'Mensual', 'D': 'Diaria'
+            }
+
+            for _, fila in df_codigos.iterrows():
+                pestana_renombrada = str(fila.get("Pestaña Renombrada", "Otros")).strip()
+                origen_codigo = str(fila.get("Excel Origen", "")).strip()
+                
+                # A. Frecuencia
+                letra_frec = pestana_renombrada[-1].upper() if pestana_renombrada else ""
+                frecuencia = mapa_frecuencias.get(letra_frec, "Otra")
+                
+                # B. TEMA (Extraer texto antes de los dos puntos)
+                tema = origen_codigo.split(':')[0].strip()
+                
+                # C. URL
+                nombre_archivo_fisico = MAPEO_ORIGEN_ARCHIVO.get(origen_codigo)
+                url_fuente = EXCEL_URLS.get(nombre_archivo_fisico, "URL no encontrada")
+                
+                lista_ref.append({
+                    "Tema": tema,
+                    "Variable": fila.get("Variable"),
+                    "Frecuencia": frecuencia,
+                    "ID": fila.get("ID"),
+                    "Pestaña": pestana_renombrada,
+                    "Fuente": url_fuente
+                })
+
+            # Crear y Ordenar DataFrame Referencias
+            df_referencias = pd.DataFrame(lista_ref)
+            columnas_ordenadas = ["Tema", "Variable", "Frecuencia", "ID", "Pestaña", "Fuente"]
+            # Asegurarnos que existan todas las columnas (por si la lista vino vacía)
+            for col in columnas_ordenadas:
+                if col not in df_referencias.columns:
+                    df_referencias[col] = ""
+            
+            df_referencias = df_referencias[columnas_ordenadas]
+            df_referencias = df_referencias.sort_values(
+                by=["Tema", "Fuente", "Pestaña", "Variable", "Frecuencia"]
+            )
+
+            # 2. GUARDAR TODO EN EL EXCEL (BD.xlsx)
+            print("Guardando BD.xlsx...")
             with pd.ExcelWriter("BD.xlsx", engine='openpyxl', datetime_format='YYYY-MM-DD') as writer:
+                
+                # A. Escribir la hoja Referencias (NUEVA)
+                df_referencias.to_excel(writer, sheet_name='Referencias', index=False)
+                
+                # B. Escribir el resto de las hojas de datos
                 for hoja_original, datos in bd_hojas.items():
-                    hoja_str = str(hoja_original).strip()[:31] # Limitar a 31 chars
+                    hoja_str = str(hoja_original).strip()[:31]
                     
-                    # Omitir pestañas vacías o sin datos
+                    # --- CORRECCIÓN CRÍTICA AQUÍ ---
+                    # Si la hoja se llama 'Referencias', NO la guardamos en este ciclo
+                    # (porque es la versión vieja cargada en memoria y pisaría la nueva)
+                    if hoja_str == 'Referencias':
+                        continue
+                    # -------------------------------
+
                     columnas_de_datos = [col for col in datos.columns if col != 'fecha']
                     if datos.empty or not columnas_de_datos:
-                        continue # No guardar esta pestaña
+                        continue 
 
-                    # --- Formateo de Fecha basado en Frecuencia ---
-                    # Asumimos que la frecuencia está en el último carácter del nombre
-                    frecuencia = hoja_str[-1].upper()
-                    
-                    # Copiar datos para no modificar el df en memoria
+                    # Formateo de Fecha
+                    frecuencia_hoja = hoja_str[-1].upper()
                     datos_a_guardar = datos.copy()
                     
-                    if frecuencia in ['A', 'M', 'T']: # Anual, Mensual, Trimestral
-                        # Formato YYYY-MM
+                    if frecuencia_hoja in ['A', 'M', 'T']: 
                         datos_a_guardar['fecha'] = pd.to_datetime(datos_a_guardar['fecha']).dt.to_period('M')
-                    else: # Diaria, Semanal, Otro
-                        # Formato YYYY-MM-DD
+                    else: 
                         datos_a_guardar['fecha'] = pd.to_datetime(datos_a_guardar['fecha']).dt.strftime('%Y-%m-%d')
 
                     datos_a_guardar.to_excel(writer, sheet_name=hoja_str, index=False)
             
+            # --- FIN DE GUARDADO ---
+
             # Actualizar Codigos.xlsx con errores
             for fila_idx in filas_exitosas:
-                # Quitar formato de error si se corrigió
                 fila_excel = fila_idx + 2
                 for col in range(1, ws.max_column + 1):
                     ws.cell(row=fila_excel, column=col).font = no_font
                     ws.cell(row=fila_excel, column=col).fill = no_fill
             
             for fila_idx, error_msg in filas_con_error:
-                # Marcar fila con error
                 fila_excel = fila_idx + 2
                 for col in range(1, ws.max_column + 1):
                     ws.cell(row=fila_excel, column=col).font = red_font
-                    # ws.cell(row=fila_excel, column=col).fill = red_fill # Opcional: fondo rojo
             
             wb.save(codigos_file)
             
