@@ -1,2 +1,9 @@
 CopyBD.bat
 ~$*.xlsx
+fuentes_BD/
+logs/
+venv/
+.agents/
+.codex/
+__pycache__/
+*.py[cod]
