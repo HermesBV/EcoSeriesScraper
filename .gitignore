@@ -4,6 +4,7 @@ fuentes_BD/
 logs/
 venv/
 .agents/
+agents/
 .codex/
 __pycache__/
 *.py[cod]

@@ -14,14 +14,15 @@ from tqdm import tqdm
 
 
 RAIZ_PROYECTO = Path(__file__).resolve().parents[1]
-CARPETA_FUENTE = RAIZ_PROYECTO / "fuentes_BD" / "IED"
+CARPETA_FUENTE = RAIZ_PROYECTO / "fuentes_BD" / "MECON" / "IED"
 CARPETA_LOGS = RAIZ_PROYECTO / "logs"
 ARCHIVO_BD = RAIZ_PROYECTO / "BD.xlsx"
 ARCHIVO_CODIGOS = RAIZ_PROYECTO / "Codigos.xlsx"
 HOJAS_ADMINISTRATIVAS = {
     "Referencias", "Introduccion_Codigos", "Referencia_Codigos",
-    "Mapa_Tematico", "Codificacion",
+    "Mapa_Tematico", "Parentesco_Codigos", "Codificacion",
 }
+HOJAS_AJENAS_IED = {"Comunicaciones BCRA"}
 
 EXCEL_URLS = {
     "empleo_ingresos.xlsx": "https://www.economia.gob.ar/download/infoeco/apendice3a.xlsx",
@@ -361,36 +362,59 @@ def actualizar_serie(
     return preparar_hoja_bd(resultado, pestana)
 
 
-def crear_referencias(codigos: pd.DataFrame) -> pd.DataFrame:
-    frecuencias = {"A": "Anual", "S": "Semestral", "T": "Trimestral", "M": "Mensual", "D": "Diaria"}
-    filas = []
-    for _, fila in codigos.iterrows():
-        pestana = nombre_pestana(fila["Pestaña Renombrada"])
-        origen = str(fila["Excel Origen"]).strip()
-        archivo = MAPEO_ORIGEN_ARCHIVO.get(origen)
-        filas.append({
-            "Tema": origen.split(":")[0].strip(),
-            "Variable": fila["Variable"],
-            "Frecuencia": frecuencias.get(frecuencia_de_pestana(pestana), "Otra"),
-            "ID": fila["ID"],
-            "Pestaña": pestana,
-            "Fuente": EXCEL_URLS.get(archivo, "URL no encontrada"),
-        })
-    return pd.DataFrame(filas).sort_values(["Tema", "Fuente", "Pestaña", "Variable", "Frecuencia"])
-
-
 def aplicar_formatos_fecha(ruta: Path) -> None:
     """Muestra fechas sin hora conservando celdas de fecha comparables."""
     libro = load_workbook(ruta)
     formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
     for hoja in libro.worksheets:
-        if hoja.title == "Referencias":
+        if hoja.title in HOJAS_ADMINISTRATIVAS or hoja.title in HOJAS_AJENAS_IED:
             continue
         formato = formatos.get(frecuencia_de_pestana(hoja.title), "yyyy-mm-dd")
         for celda in hoja["A"][1:]:
             if celda.value is not None:
                 celda.number_format = formato
         hoja.column_dimensions["A"].width = max(10, len("fecha") + 2)
+    libro.save(ruta)
+
+
+def guardar_datos_preservando_formato(ruta: Path, hojas: dict[str, pd.DataFrame]) -> None:
+    """Actualiza valores de las series sin recrear hojas ni perder estilos manuales."""
+    libro = load_workbook(ruta)
+    formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
+
+    def valor_excel(valor: object) -> object:
+        if pd.isna(valor):
+            return None
+        if isinstance(valor, pd.Timestamp):
+            return valor.to_pydatetime()
+        if isinstance(valor, np.generic):
+            return valor.item()
+        return valor
+
+    for nombre, datos in hojas.items():
+        nombre_hoja = str(nombre).strip()[:31]
+        hoja = libro[nombre_hoja] if nombre_hoja in libro.sheetnames else libro.create_sheet(nombre_hoja)
+        columnas = list(datos.columns)
+        filas_nuevas = len(datos) + 1
+        filas_anteriores, columnas_anteriores = hoja.max_row, hoja.max_column
+
+        for columna, encabezado in enumerate(columnas, 1):
+            hoja.cell(1, columna).value = encabezado
+        for indice, fila in enumerate(datos.itertuples(index=False, name=None), 2):
+            for columna, valor in enumerate(fila, 1):
+                hoja.cell(indice, columna).value = valor_excel(valor)
+        for fila in range(filas_nuevas + 1, filas_anteriores + 1):
+            for columna in range(1, columnas_anteriores + 1):
+                hoja.cell(fila, columna).value = None
+        for columna in range(len(columnas) + 1, columnas_anteriores + 1):
+            for fila in range(1, max(filas_nuevas, filas_anteriores) + 1):
+                hoja.cell(fila, columna).value = None
+
+        formato = formatos.get(frecuencia_de_pestana(nombre_hoja), "yyyy-mm-dd")
+        for celda in hoja["A"][1:filas_nuevas]:
+            if celda.value is not None:
+                celda.number_format = formato
+
     libro.save(ruta)
 
 
@@ -415,12 +439,9 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
     codigos = pd.read_excel(ARCHIVO_CODIGOS, usecols=columnas, dtype=str)
     codigos["Pestaña Renombrada"] = codigos["Pestaña Renombrada"].fillna("Otros")
     hojas_existentes = pd.read_excel(ARCHIVO_BD, sheet_name=None) if ARCHIVO_BD.exists() else {}
-    codificacion_existente = None
-    if ARCHIVO_BD.exists() and "Codificacion" in hojas_existentes:
-        codificacion_existente = pd.read_excel(ARCHIVO_BD, sheet_name="Codificacion", header=None)
     bd: dict[str, pd.DataFrame] = {}
     for nombre, datos in hojas_existentes.items():
-        if nombre in HOJAS_ADMINISTRATIVAS:
+        if nombre in HOJAS_ADMINISTRATIVAS or nombre in HOJAS_AJENAS_IED:
             continue
         nombre_canonico = nombre_pestana(nombre)
         datos = preparar_hoja_bd(datos, nombre_canonico)
@@ -455,16 +476,12 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
             errores.append((indice_fila, str(exc)))
             escribir_log(id_serie, "ERROR", str(exc))
 
-    with pd.ExcelWriter(ARCHIVO_BD, engine="openpyxl", datetime_format="YYYY-MM-DD") as writer:
-        crear_referencias(codigos).to_excel(writer, sheet_name="Referencias", index=False)
-        # El generador posterior usa esta copia para conservar IDs y metadatos manuales.
-        if codificacion_existente is not None:
-            codificacion_existente.to_excel(writer, sheet_name="Codificacion", header=False, index=False)
-        for nombre, datos in bd.items():
-            datos = preparar_hoja_bd(datos, nombre)
-            if len(datos.columns) > 1 and not datos.empty:
-                datos.to_excel(writer, sheet_name=str(nombre).strip()[:31], index=False)
-    aplicar_formatos_fecha(ARCHIVO_BD)
+    hojas_salida = {
+        nombre: preparar_hoja_bd(datos, nombre)
+        for nombre, datos in bd.items()
+        if len(datos.columns) > 1 and not datos.empty
+    }
+    guardar_datos_preservando_formato(ARCHIVO_BD, hojas_salida)
     from tools.generar_codificacion import generar as generar_codificacion
     generar_codificacion()
 

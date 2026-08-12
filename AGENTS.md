@@ -1,17 +1,25 @@
 # Instrucciones de organización
 
 - Cada fuente debe tener un único módulo en `scrapers/`, nombrado `scraper_<FUENTE>.py` (por ejemplo, `scraper_IED.py`).
-- Cada fuente guarda todos sus archivos descargados en `fuentes_BD/<FUENTE>/` (por ejemplo, `fuentes_BD/IED/`). El módulo debe crear esa carpeta si no existe.
+- Cada fuente guarda sus archivos en `fuentes_BD/<INSTITUCION>/<FUENTE>/` (por ejemplo, `fuentes_BD/MECON/IED/` o `fuentes_BD/BCRA/Comunicaciones/`). El módulo debe crear esa carpeta si no existe.
 - `main.py` es el único archivo Python en la raíz: importa y ejecuta los scrapers. No colocar lógica específica de una fuente allí.
 - No crear scripts de debug permanentes. Las validaciones reutilizables deben vivir junto al scraper correspondiente o en tests.
 - Al agregar, renombrar o eliminar un scraper, actualizar siempre `README.md` con la fuente, el módulo y la carpeta de descargas.
-- La codificación se define en `Codificacion`; los catálogos globales están en `Referencia_Codigos` y la jerarquía padre-hijo en `Mapa_Tematico`, todas dentro de `BD.xlsx`.
+- La codificación se define en `Codificacion`; los catálogos globales están en `Referencia_Codigos` y la jerarquía institución → tema → subtema en `Parentesco_Codigos`, todas dentro de `BD.xlsx`.
 - El ID estable usa `IITTTTTTTTNNNVBBUEF`: institución, ruta temática, correlativo, valoración, año base, tipo/unidad, multiplicador y frecuencia. No agregar fechas ni estado al ID.
 - El correlativo `NNN` es local al par institución + ruta temática. Puede repetirse en otro contexto, pero nunca dentro del mismo par.
-- No agregar rutas temáticas ni correlativos a `Referencia_Codigos`: los temas se resuelven por su padre en `Mapa_Tematico` y el correlativo por la fila de `Codificacion`.
+- No agregar rutas temáticas ni correlativos a `Referencia_Codigos`: los temas se resuelven por su institución y parent en `Parentesco_Codigos`, y el correlativo por la fila de `Codificacion`.
 - En valoración usar `R` para precios constantes (también llamados reales), `C` para precios corrientes y `X` cuando no aplica.
 - Monedas y tipos de valor usan un solo carácter según la hoja `Referencia_Codigos` de `BD.xlsx`; no escribir `ARS`, `USD`, `%` ni símbolos dentro del ID.
+- La institución actual es `ME` = Ministerio de Economía de la Nación (MECON) y es el parent de todas las rutas existentes. No crear códigos para otras instituciones sin definición expresa del usuario.
+- La institución `BC` es el Banco Central de la República Argentina (BCRA). Sus rutas temáticas dependen de `I:BC` y no deben mezclarse con las de MECON.
+- `Comunicaciones BCRA` contiene una fila por comunicación y una única entrada agregada en `Codificacion`; nunca crear un ID por documento. El alcance, tipos y circulares se determinan por la configuración del scraper. `Circular asociada` se usa solamente para los agrupamientos temáticos reales, como CAMEX, OPASI o REFEX.
+- El módulo BCRA se llama `scraper_BCRA_comunicaciones.py`. Guarda el texto extraído en `fuentes_BD/BCRA/Comunicaciones/<TIPO>/`; reutiliza los TXT existentes y no vuelve a descargar una comunicación ya almacenada.
+- Los parámetros de búsqueda del BCRA se editan únicamente al inicio de `scraper_BCRA_comunicaciones.py`: `FECHA_DESDE`, `FECHA_HASTA`, `TIPOS_BUSQUEDA` y `CIRCULARES_BUSQUEDA`. `("ALL",)` significa todos; `("NONE",)` significa sin dato; también se permiten listas explícitas. La fecha final es inclusiva.
+- Los PDF del BCRA son temporales: después de validar la extracción se conserva solo el TXT. Si un PDF no contiene texto extraíble, se mantiene el PDF para no perder información y la ejecución debe informarlo.
 - Los únicos metadatos temporales/de relación previstos actualmente son: Fecha inicio, Fecha fin, Estado, Reemplaza por y Reemplaza a. Una serie vigente tiene Fecha fin vacía; al cerrarse se completa sin cambiar el ID.
+- `ID fuente` y `Fuente` son las dos últimas columnas de `Codificacion`; guardan respectivamente el identificador original y la URL. No recrear la hoja ni sobrescribir formatos manuales al actualizarla.
+- La columna `Origen` de `Codificacion` identifica la fuente o conjunto de origen; no volver a usar el nombre específico `Origen IED` porque la base reúne varias instituciones.
 - Al crear una serie, registrar todos los segmentos. Si un dato no está verificado, usar el código explícito de no asignado/no aplica y mantener el ID como provisorio.
 - Toda modificación del esquema o del diccionario debe actualizar las hojas correspondientes de `BD.xlsx`, este archivo y `README.md`.
 - Al agregar o modificar series, ejecutar `python tools/generar_codificacion.py` y revisar los IDs provisorios; el generador no reemplaza la verificación humana de institución, unidad, clasificación o vigencia.
