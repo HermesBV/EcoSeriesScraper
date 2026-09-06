@@ -19,7 +19,7 @@ CODE_SHEETS = {
     "Mapa_Tematico", "Referencias",
 }
 INVENTORY_COLUMNS = [
-    "ID", "Código fuente", "ID origen", "Nombre serie", "Variable", "Unidades", "Descripción",
+    "ID", "Código fuente", "ID origen", "Nombre serie", "Variable", "Unidades", "Valoración", "Descripción",
     "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Hoja origen",
     "Origen", "Fuente", "Catálogo ID", "Dataset ID", "Distribución ID",
     "Título dataset", "Tema dataset", "Responsable dataset", "Fuente de valores",
@@ -43,6 +43,7 @@ def _communication_row() -> dict[str, object]:
         "Nombre serie": "Comunicaciones BCRA",
         "Variable": "Comunicaciones BCRA tipos A, B, C y P",
         "Unidades": "Documentos",
+        "Valoración": "No aplica / no informado",
         "Descripción": "Inventario de comunicaciones publicadas por el BCRA.",
         "Frecuencia": "I",
         "Pestaña BD": "Comunicaciones BCRA",
@@ -88,7 +89,7 @@ def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
     for row_number, row in enumerate(inventory.itertuples(index=False, name=None), 2):
         for column, value in enumerate(row, 1):
             sheet.cell(row_number, column, None if pd.isna(value) else value)
-        for column in (22, 23):
+        for column in (23, 24):
             if sheet.cell(row_number, column).value is not None:
                 sheet.cell(row_number, column).number_format = "yyyy-mm-dd"
     if len(inventory):

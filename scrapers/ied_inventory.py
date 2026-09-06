@@ -68,6 +68,23 @@ def frequency_code(api_frequency: object, series_id: str) -> str:
     return matches[-1] if matches else "I"
 
 
+def valuation(*values: object) -> str:
+    """Clasifica la valoración sólo cuando la fuente aporta una señal inequívoca."""
+    text = " ".join(_text(value).casefold() for value in values)
+    constant_markers = (
+        "precios constantes", "pesos constantes", "moneda constante",
+        "valores constantes", "volumen encadenado", "a precios de 19", "a precios de 20",
+    )
+    current_markers = (
+        "precios corrientes", "pesos corrientes", "moneda corriente", "valores corrientes",
+    )
+    if any(marker in text for marker in constant_markers):
+        return "Precios constantes"
+    if any(marker in text for marker in current_markers):
+        return "Precios corrientes"
+    return "No aplica / no informado"
+
+
 def output_sheet_name(filename: str, source_sheet: str, frequency: str) -> str:
     prefixes = {
         "actividad.xlsx": "ACT", "empleo_ingresos.xlsx": "EMP",
@@ -167,6 +184,10 @@ def discover_and_extract(
                 "Nombre serie": meta("distribucion_titulo", meta("Nombre serie", meta("Variable", series_id))),
                 "Variable": meta("serie_titulo", meta("Variable", series_id)),
                 "Unidades": meta("serie_unidades", meta("Unidades")),
+                "Valoración": valuation(
+                    api_row.get("serie_unidades"), api_row.get("serie_descripcion"),
+                    api_row.get("distribucion_titulo"), source_sheet,
+                ),
                 "Descripción": meta("serie_descripcion", meta("Descripción")),
                 "Frecuencia": frequency,
                 "Pestaña BD": output_sheet,

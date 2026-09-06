@@ -11,7 +11,7 @@
 - La clave natural es (`Código fuente`, `ID origen`). `ID` se construye como `Código fuente::ID origen`.
 - Nunca inventar correlativos ni modificar el ID nativo para clasificar una serie.
 - Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas.
-- Registrar como mínimo nombre, variable, unidades, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
+- Registrar como mínimo nombre, variable, unidades, valoración, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
 - Una modificación del esquema exige actualizar el generador, la web, las pruebas y la documentación.
 
 ## IED

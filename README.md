@@ -22,7 +22,7 @@ Cada fuente nueva suma `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y gua
 
 `Codificacion`, dentro de `BD.xlsx`, es el inventario maestro. La identidad lógica es el par (`Código fuente`, `ID origen`) y `ID` se construye como `Código fuente::ID origen`. Esto conserva el identificador nativo, evita colisiones entre proveedores y elimina correlativos manuales.
 
-El inventario registra nombre, variable, unidades, descripción, frecuencia, ubicación física en la base, procedencia, dataset, distribución, rango temporal, estado y si los valores provinieron del Excel o del respaldo API.
+El inventario registra nombre, variable, unidades, valoración, descripción, frecuencia, ubicación física en la base, procedencia, dataset, distribución, rango temporal, estado y si los valores provinieron del Excel o del respaldo API. `Valoración` sólo clasifica precios corrientes o constantes cuando los metadatos aportan una señal inequívoca; en los demás casos indica que no aplica o no está informado.
 
 ## IED
 
