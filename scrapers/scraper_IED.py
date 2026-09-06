@@ -3,21 +3,28 @@
 from __future__ import annotations
 
 import re
+import ssl
+import warnings
 from datetime import datetime
 from pathlib import Path
+from zipfile import BadZipFile, ZipFile
 
+import certifi
 import numpy as np
 import pandas as pd
 import requests
 from openpyxl import load_workbook
+from requests.adapters import HTTPAdapter
 from tqdm import tqdm
+from urllib3.util.retry import Retry
+
+from scrapers.ied_inventory import discover_and_extract, load_existing_catalog
 
 
 RAIZ_PROYECTO = Path(__file__).resolve().parents[1]
 CARPETA_FUENTE = RAIZ_PROYECTO / "fuentes_BD" / "MECON" / "IED"
 CARPETA_LOGS = RAIZ_PROYECTO / "logs"
 ARCHIVO_BD = RAIZ_PROYECTO / "BD.xlsx"
-ARCHIVO_CODIGOS = RAIZ_PROYECTO / "Codigos.xlsx"
 HOJAS_ADMINISTRATIVAS = {
     "Referencias", "Introduccion_Codigos", "Referencia_Codigos",
     "Mapa_Tematico", "Parentesco_Codigos", "Codificacion",
@@ -95,30 +102,113 @@ def limpiar_nombres_definidos(ruta_archivo: Path) -> None:
         escribir_log("SISTEMA", "ADVERTENCIA_LIMPIEZA", f"{ruta_archivo.name}: {exc}")
 
 
+def _excel_valido(ruta: Path) -> bool:
+    """Comprueba que una descarga o copia local sea un libro Excel legible."""
+    if not ruta.is_file() or ruta.stat().st_size == 0:
+        return False
+    try:
+        with ZipFile(ruta) as archivo:
+            nombres = set(archivo.namelist())
+            if "[Content_Types].xml" not in nombres or "xl/workbook.xml" not in nombres:
+                return False
+            with archivo.open("xl/workbook.xml") as libro:
+                return bool(libro.read(1))
+    except (BadZipFile, OSError, KeyError):
+        return False
+
+
+class _AdaptadorSSL(HTTPAdapter):
+    """Adaptador que incorpora el almacén de certificados del sistema."""
+
+    def __init__(self, contexto_ssl: ssl.SSLContext, **opciones: object) -> None:
+        self.contexto_ssl = contexto_ssl
+        super().__init__(**opciones)
+
+    def init_poolmanager(self, *args: object, **opciones: object) -> None:
+        opciones["ssl_context"] = self.contexto_ssl
+        super().init_poolmanager(*args, **opciones)
+
+
+def _crear_sesion_descarga() -> requests.Session:
+    """Crea una sesión robusta usando también los certificados del sistema."""
+    contexto_ssl = ssl.create_default_context()
+    contexto_ssl.load_verify_locations(cafile=certifi.where())
+    reintentos = Retry(
+        total=None,
+        connect=3,
+        read=3,
+        status=3,
+        other=0,
+        backoff_factor=1,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset({"GET"}),
+    )
+    sesion = requests.Session()
+    # Ignora HTTP(S)_PROXY del entorno: puede apuntar a un proxy local
+    # inexistente aunque los enlaces funcionen desde el navegador.
+    sesion.trust_env = False
+    sesion.headers.update({"User-Agent": "EcoSeriesScraper/1.0 (datos públicos MECON)"})
+    sesion.mount(
+        "https://",
+        _AdaptadorSSL(contexto_ssl, max_retries=reintentos),
+    )
+    return sesion
+
+
 def descargar_excels() -> dict[str, Path]:
     """Descarga cada libro de forma atómica para no destruir una copia válida."""
     CARPETA_FUENTE.mkdir(parents=True, exist_ok=True)
     descargados: dict[str, Path] = {}
-    with requests.Session() as sesion:
+    with _crear_sesion_descarga() as sesion:
         for nombre, url in tqdm(EXCEL_URLS.items(), desc="Descargando IED"):
             destino = CARPETA_FUENTE / nombre
             temporal = destino.with_name(f"{destino.stem}.descarga.xlsx")
             try:
-                with sesion.get(url, stream=True, timeout=(15, 120)) as respuesta:
-                    respuesta.raise_for_status()
-                    with temporal.open("wb") as archivo:
-                        for bloque in respuesta.iter_content(chunk_size=64 * 1024):
-                            if bloque:
-                                archivo.write(bloque)
-                load_workbook(temporal, read_only=True).close()
+                try:
+                    respuesta = sesion.get(url, stream=True, timeout=(15, 120))
+                except requests.exceptions.SSLError:
+                    # El servidor de Economia entrega una cadena que algunas
+                    # instalaciones no pueden validar. Reintentamos solo este
+                    # caso para no dejar de actualizar los libros diarios.
+                    # La descarga sigue siendo HTTPS y el Excel se valida
+                    # antes de reemplazar la copia local.
+                    print(f"\nAdvertencia: certificado no verificable para {nombre}; se reintenta por HTTPS.")
+                    with requests.Session() as sesion_sin_verificacion:
+                        sesion_sin_verificacion.trust_env = False
+                        sesion_sin_verificacion.headers.update(sesion.headers)
+                        with warnings.catch_warnings():
+                            warnings.simplefilter("ignore")
+                            respuesta = sesion_sin_verificacion.get(
+                                url, stream=True, timeout=(15, 120), verify=False
+                            )
+                        _guardar_descarga(respuesta, temporal)
+                else:
+                    _guardar_descarga(respuesta, temporal)
+                if not _excel_valido(temporal):
+                    raise ValueError("la respuesta descargada no es un archivo Excel válido")
                 temporal.replace(destino)
                 limpiar_nombres_definidos(destino)
                 descargados[nombre] = destino
             except Exception as exc:
                 temporal.unlink(missing_ok=True)
-                escribir_log("SISTEMA", "ERROR_DESCARGA", f"{nombre}: {exc}")
-                print(f"\nNo se pudo descargar {nombre}: {exc}")
+                if _excel_valido(destino):
+                    descargados[nombre] = destino
+                    escribir_log("SISTEMA", "COPIA_LOCAL", f"{nombre}: {exc}")
+                    print(f"\nNo se pudo actualizar {nombre}; se usa la copia local válida: {exc}")
+                else:
+                    escribir_log("SISTEMA", "ERROR_DESCARGA", f"{nombre}: {exc}")
+                    print(f"\nNo se pudo descargar {nombre} y no hay copia local válida: {exc}")
     return descargados
+
+
+def _guardar_descarga(respuesta: requests.Response, temporal: Path) -> None:
+    """Escribe y cierra una respuesta HTTP, aun cuando falle la transferencia."""
+    with respuesta:
+        respuesta.raise_for_status()
+        with temporal.open("wb") as archivo:
+            for bloque in respuesta.iter_content(chunk_size=64 * 1024):
+                if bloque:
+                    archivo.write(bloque)
 
 
 def parse_fecha_manual(valor: object) -> pd.Timestamp | pd.NaT:
@@ -188,9 +278,14 @@ def nombre_pestana(nombre: object) -> str:
 def normalizar_fechas(fechas: pd.Series, frecuencia: str) -> pd.Series:
     fechas = pd.to_datetime(fechas, errors="coerce")
     if frecuencia == "A":
-        return fechas.map(lambda x: pd.Timestamp(x.year, 12, 1) if pd.notna(x) else pd.NaT)
+        return fechas.dt.to_period("Y").dt.start_time
+    if frecuencia == "S":
+        return fechas.map(
+            lambda x: pd.Timestamp(x.year, 1 if x.month <= 6 else 7, 1)
+            if pd.notna(x) else pd.NaT
+        )
     if frecuencia == "T":
-        return fechas.dt.to_period("Q").dt.end_time.dt.to_period("M").dt.start_time
+        return fechas.dt.to_period("Q").dt.start_time
     if frecuencia == "M":
         return fechas.dt.to_period("M").dt.start_time
     return fechas.dt.normalize()
@@ -377,10 +472,42 @@ def aplicar_formatos_fecha(ruta: Path) -> None:
     libro.save(ruta)
 
 
-def guardar_datos_preservando_formato(ruta: Path, hojas: dict[str, pd.DataFrame]) -> None:
-    """Actualiza valores de las series sin recrear hojas ni perder estilos manuales."""
+def _validar_guardado(ruta: Path, hojas: dict[str, pd.DataFrame], formatos: dict[str, str]) -> None:
+    """Reabre el resultado y comprueba dimensiones, fechas y filas vacías."""
+    libro = load_workbook(ruta, read_only=True, data_only=True)
+    try:
+        for nombre, datos in hojas.items():
+            hoja = libro[nombre]
+            if hoja.max_row != len(datos) + 1 or hoja.max_column != len(datos.columns):
+                raise ValueError(
+                    f"Dimensiones incorrectas en {nombre}: "
+                    f"{hoja.max_row}x{hoja.max_column}, esperado {len(datos) + 1}x{len(datos.columns)}"
+                )
+            if str(hoja.cell(1, 1).value).strip().casefold() != "fecha":
+                raise ValueError(f"La primera columna de {nombre} no es fecha")
+            for fila in hoja.iter_rows(min_row=2, values_only=False):
+                if all(celda.value is None for celda in fila):
+                    raise ValueError(f"Fila completamente vacía en {nombre}, fila {fila[0].row}")
+                if fila[0].value is None:
+                    raise ValueError(f"Fecha vacía en {nombre}, fila {fila[0].row}")
+                if fila[0].number_format != formatos[nombre]:
+                    raise ValueError(f"Formato de fecha incorrecto en {nombre}, fila {fila[0].row}")
+    finally:
+        libro.close()
+
+
+def guardar_datos_preservando_formato(
+    ruta: Path,
+    hojas: dict[str, pd.DataFrame],
+    frecuencias: dict[str, str] | None = None,
+    hojas_obsoletas: set[str] | None = None,
+) -> None:
+    """Recrea hojas limpias y publica el libro sólo después de validarlo."""
     libro = load_workbook(ruta)
+    temporal = ruta.with_name(f"{ruta.stem}.actualizacion{ruta.suffix}")
     formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
+    frecuencias = frecuencias or {nombre: frecuencia_de_pestana(nombre) for nombre in hojas}
+    formatos_hojas = {nombre: formatos.get(frecuencias.get(nombre, ""), "yyyy-mm-dd") for nombre in hojas}
 
     def valor_excel(valor: object) -> object:
         if pd.isna(valor):
@@ -391,31 +518,38 @@ def guardar_datos_preservando_formato(ruta: Path, hojas: dict[str, pd.DataFrame]
             return valor.item()
         return valor
 
+    for nombre in sorted((hojas_obsoletas or set()) - set(hojas)):
+        if nombre in libro.sheetnames and nombre not in HOJAS_ADMINISTRATIVAS | HOJAS_AJENAS_IED:
+            del libro[nombre]
+
     for nombre, datos in hojas.items():
         nombre_hoja = str(nombre).strip()[:31]
-        hoja = libro[nombre_hoja] if nombre_hoja in libro.sheetnames else libro.create_sheet(nombre_hoja)
+        if nombre_hoja in libro.sheetnames:
+            del libro[nombre_hoja]
+        hoja = libro.create_sheet(nombre_hoja)
         columnas = list(datos.columns)
         filas_nuevas = len(datos) + 1
-        filas_anteriores, columnas_anteriores = hoja.max_row, hoja.max_column
 
         for columna, encabezado in enumerate(columnas, 1):
             hoja.cell(1, columna).value = encabezado
         for indice, fila in enumerate(datos.itertuples(index=False, name=None), 2):
             for columna, valor in enumerate(fila, 1):
                 hoja.cell(indice, columna).value = valor_excel(valor)
-        for fila in range(filas_nuevas + 1, filas_anteriores + 1):
-            for columna in range(1, columnas_anteriores + 1):
-                hoja.cell(fila, columna).value = None
-        for columna in range(len(columnas) + 1, columnas_anteriores + 1):
-            for fila in range(1, max(filas_nuevas, filas_anteriores) + 1):
-                hoja.cell(fila, columna).value = None
-
-        formato = formatos.get(frecuencia_de_pestana(nombre_hoja), "yyyy-mm-dd")
+        formato = formatos_hojas[nombre]
         for celda in hoja["A"][1:filas_nuevas]:
             if celda.value is not None:
                 celda.number_format = formato
+        hoja.freeze_panes = "B2"
 
-    libro.save(ruta)
+    try:
+        libro.save(temporal)
+        libro.close()
+        _validar_guardado(temporal, hojas, formatos_hojas)
+        temporal.replace(ruta)
+    except Exception:
+        libro.close()
+        temporal.unlink(missing_ok=True)
+        raise
 
 
 def procesar_datos(descargar: bool = True) -> dict[str, int]:
@@ -435,61 +569,33 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
         libros[nombre] = cargar_excel_completo(ruta)
         indices[nombre] = crear_indice_excel(libros[nombre])
 
-    columnas = ["Excel Origen", "ID", "Variable", "Pestaña Renombrada"]
-    codigos = pd.read_excel(ARCHIVO_CODIGOS, usecols=columnas, dtype=str)
-    codigos["Pestaña Renombrada"] = codigos["Pestaña Renombrada"].fillna("Otros")
-    hojas_existentes = pd.read_excel(ARCHIVO_BD, sheet_name=None) if ARCHIVO_BD.exists() else {}
-    bd: dict[str, pd.DataFrame] = {}
-    for nombre, datos in hojas_existentes.items():
-        if nombre in HOJAS_ADMINISTRATIVAS or nombre in HOJAS_AJENAS_IED:
-            continue
-        nombre_canonico = nombre_pestana(nombre)
-        datos = preparar_hoja_bd(datos, nombre_canonico)
-        if nombre_canonico in bd:
-            datos = pd.concat([bd[nombre_canonico], datos], ignore_index=True)
-            datos = preparar_hoja_bd(datos, nombre_canonico)
-        bd[nombre_canonico] = datos
-
-    exitosas, errores = 0, []
-    for indice_fila, fila in tqdm(codigos.iterrows(), total=len(codigos), desc="Procesando IDs IED"):
-        id_serie = str(fila["ID"]).strip()
-        origen = str(fila["Excel Origen"]).strip()
-        variable = str(fila["Variable"]).strip()
-        pestana = nombre_pestana(fila["Pestaña Renombrada"])
-        try:
-            if not id_serie or id_serie.lower() == "nan":
-                raise ValueError("ID vacío")
-            if not variable or variable.lower() == "nan":
-                raise ValueError("Variable vacía")
-            nombre_archivo = MAPEO_ORIGEN_ARCHIVO.get(origen)
-            if nombre_archivo is None:
-                raise KeyError(f"Origen sin mapear: {origen}")
-            ubicacion = indices[nombre_archivo].get(id_serie)
-            if ubicacion is None:
-                raise ValueError(f"ID no encontrado en {nombre_archivo}: {id_serie}")
-            serie = extraer_serie_desde_indice(libros[nombre_archivo], ubicacion)
-            base = bd.get(pestana, pd.DataFrame(columns=["fecha"]))
-            bd[pestana] = actualizar_serie(base, serie, variable, pestana)
-            exitosas += 1
-            escribir_log(id_serie, "OK", f"{nombre_archivo}; registros: {len(serie)}")
-        except Exception as exc:
-            errores.append((indice_fila, str(exc)))
-            escribir_log(id_serie, "ERROR", str(exc))
-
-    hojas_salida = {
-        nombre: preparar_hoja_bd(datos, nombre)
-        for nombre, datos in bd.items()
-        if len(datos.columns) > 1 and not datos.empty
+    existentes = load_existing_catalog(ARCHIVO_BD)
+    hojas_obsoletas = set(existentes.get("Pestaña BD", pd.Series(dtype=str)).dropna().astype(str))
+    hojas_salida, inventario, errores = discover_and_extract(
+        libros, indices, existentes, extraer_serie_desde_indice, normalizar_fechas
+    )
+    frecuencias = {
+        pestana: str(grupo["Frecuencia"].iloc[0])
+        for pestana, grupo in inventario.groupby("Pestaña BD")
     }
-    guardar_datos_preservando_formato(ARCHIVO_BD, hojas_salida)
+    guardar_datos_preservando_formato(
+        ARCHIVO_BD, hojas_salida, frecuencias=frecuencias, hojas_obsoletas=hojas_obsoletas
+    )
     from tools.generar_codificacion import generar as generar_codificacion
-    generar_codificacion()
+    generar_codificacion(inventario)
 
-    resumen = {"total": len(codigos), "exitosas": exitosas, "fallidas": len(errores)}
+    for id_serie, error in errores:
+        escribir_log(id_serie, "ERROR", error)
+    resumen = {"total": len(inventario) + len(errores), "exitosas": len(inventario), "fallidas": len(errores)}
     escribir_log("SISTEMA", "FIN", str(resumen))
-    print(f"\nIED terminado: {exitosas}/{len(codigos)} series; errores: {len(errores)}")
+    print(f"\nIED terminado: {len(inventario)}/{resumen['total']} series; errores: {len(errores)}")
     return resumen
 
 
 def ejecutar() -> None:
-    procesar_datos(descargar=True)
+    resumen = procesar_datos(descargar=True)
+    if resumen["fallidas"]:
+        raise RuntimeError(
+            f"IED terminó con {resumen['fallidas']} de {resumen['total']} series fallidas; "
+            "consulte el log para ver el detalle"
+        )

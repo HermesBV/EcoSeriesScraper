@@ -28,7 +28,7 @@ BASE_URL = "https://www.bcra.gob.ar"
 
 # ========================= CONFIGURACIÓN DE LA BÚSQUEDA =========================
 # Fecha inicial INCLUSIVE. Para traer todo el histórico del BCRA usar date(2006, 1, 1).
-FECHA_DESDE = date(2026, 1, 1)
+FECHA_DESDE = date(2006, 1, 1)
 # Fecha final INCLUSIVE. Se actualiza automáticamente al día en que se ejecuta el scraper.
 # Para fijar una fecha manual, reemplazar date.today() por date(AAAA, MM, DD).
 FECHA_HASTA = date.today()

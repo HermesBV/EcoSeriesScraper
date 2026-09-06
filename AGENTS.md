@@ -1,27 +1,30 @@
 # Instrucciones de organización
 
-- Cada fuente debe tener un único módulo en `scrapers/`, nombrado `scraper_<FUENTE>.py` (por ejemplo, `scraper_IED.py`).
-- Cada fuente guarda sus archivos en `fuentes_BD/<INSTITUCION>/<FUENTE>/` (por ejemplo, `fuentes_BD/MECON/IED/` o `fuentes_BD/BCRA/Comunicaciones/`). El módulo debe crear esa carpeta si no existe.
-- `main.py` es el único archivo Python en la raíz: importa y ejecuta los scrapers. No colocar lógica específica de una fuente allí.
-- No crear scripts de debug permanentes. Las validaciones reutilizables deben vivir junto al scraper correspondiente o en tests.
-- Al agregar, renombrar o eliminar un scraper, actualizar siempre `README.md` con la fuente, el módulo y la carpeta de descargas.
-- La codificación se define en `Codificacion`; los catálogos globales están en `Referencia_Codigos` y la jerarquía institución → tema → subtema en `Parentesco_Codigos`, todas dentro de `BD.xlsx`.
-- El ID estable usa `IITTTTTTTTNNNVBBUEF`: institución, ruta temática, correlativo, valoración, año base, tipo/unidad, multiplicador y frecuencia. No agregar fechas ni estado al ID.
-- El correlativo `NNN` es local al par institución + ruta temática. Puede repetirse en otro contexto, pero nunca dentro del mismo par.
-- No agregar rutas temáticas ni correlativos a `Referencia_Codigos`: los temas se resuelven por su institución y parent en `Parentesco_Codigos`, y el correlativo por la fila de `Codificacion`.
-- En valoración usar `R` para precios constantes (también llamados reales), `C` para precios corrientes y `X` cuando no aplica.
-- Monedas y tipos de valor usan un solo carácter según la hoja `Referencia_Codigos` de `BD.xlsx`; no escribir `ARS`, `USD`, `%` ni símbolos dentro del ID.
-- La institución actual es `ME` = Ministerio de Economía de la Nación (MECON) y es el parent de todas las rutas existentes. No crear códigos para otras instituciones sin definición expresa del usuario.
-- La institución `BC` es el Banco Central de la República Argentina (BCRA). Sus rutas temáticas dependen de `I:BC` y no deben mezclarse con las de MECON.
-- `Comunicaciones BCRA` contiene una fila por comunicación y una única entrada agregada en `Codificacion`; nunca crear un ID por documento. El alcance, tipos y circulares se determinan por la configuración del scraper. `Circular asociada` se usa solamente para los agrupamientos temáticos reales, como CAMEX, OPASI o REFEX.
-- El módulo BCRA se llama `scraper_BCRA_comunicaciones.py`. Guarda el texto extraído en `fuentes_BD/BCRA/Comunicaciones/<TIPO>/`; reutiliza los TXT existentes y no vuelve a descargar una comunicación ya almacenada.
-- Los parámetros de búsqueda del BCRA se editan únicamente al inicio de `scraper_BCRA_comunicaciones.py`: `FECHA_DESDE`, `FECHA_HASTA`, `TIPOS_BUSQUEDA` y `CIRCULARES_BUSQUEDA`. `("ALL",)` significa todos; `("NONE",)` significa sin dato; también se permiten listas explícitas. La fecha final es inclusiva.
-- Los PDF del BCRA son temporales: después de validar la extracción se conserva solo el TXT. Si un PDF no contiene texto extraíble, se mantiene el PDF para no perder información y la ejecución debe informarlo.
-- Los únicos metadatos temporales/de relación previstos actualmente son: Fecha inicio, Fecha fin, Estado, Reemplaza por y Reemplaza a. Una serie vigente tiene Fecha fin vacía; al cerrarse se completa sin cambiar el ID.
-- `ID fuente` y `Fuente` son las dos últimas columnas de `Codificacion`; guardan respectivamente el identificador original y la URL. No recrear la hoja ni sobrescribir formatos manuales al actualizarla.
-- La columna `Origen` de `Codificacion` identifica la fuente o conjunto de origen; no volver a usar el nombre específico `Origen IED` porque la base reúne varias instituciones.
-- Al crear una serie, registrar todos los segmentos. Si un dato no está verificado, usar el código explícito de no asignado/no aplica y mantener el ID como provisorio.
-- Toda modificación del esquema o del diccionario debe actualizar las hojas correspondientes de `BD.xlsx`, este archivo y `README.md`.
-- Al agregar o modificar series, ejecutar `python tools/generar_codificacion.py` y revisar los IDs provisorios; el generador no reemplaza la verificación humana de institución, unidad, clasificación o vigencia.
-- Las fechas de `BD.xlsx` deben seguir siendo fechas reales comparables, nunca strings: `yyyy` para anuales; `yyyy-mm` para semestrales, trimestrales y mensuales; `yyyy-mm-dd` para diarias.
-- `Codigos.xlsx` es una entrada operativa temporal del scraper IED y debe permanecer separado de `BD.xlsx` hasta que la extracción deje de depender de una lista manual de IDs. No confundirlo con la hoja `Referencia_Codigos`, que documenta la nueva codificación.
+- Cada fuente tiene un único módulo `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y guarda entradas en `fuentes_BD/<INSTITUCION>/<FUENTE>/`.
+- `main.py` sólo orquesta scrapers; no contiene lógica de una fuente.
+- No dejar scripts de depuración en la raíz. Las validaciones reutilizables pertenecen a `tests/` o al módulo correspondiente.
+- Al agregar, renombrar o quitar una fuente, actualizar este archivo y `README.md`.
+
+## Inventario multi-fuente
+
+- `Codificacion` en `BD.xlsx` es el inventario maestro.
+- La clave natural es (`Código fuente`, `ID origen`). `ID` se construye como `Código fuente::ID origen`.
+- Nunca inventar correlativos ni modificar el ID nativo para clasificar una serie.
+- Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas.
+- Registrar como mínimo nombre, variable, unidades, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
+- Una modificación del esquema exige actualizar el generador, la web, las pruebas y la documentación.
+
+## IED
+
+- IED comprende los ocho libros definidos en `EXCEL_URLS`.
+- Las series se descubren cruzando IDs presentes en los libros con `series-tiempo-metadatos.csv`; no usar una lista manual tipo `Codigos.xlsx`.
+- Los valores vienen del Excel IED y la API se usa sólo como respaldo ante un fallo de interpretación.
+- Separar hojas de salida por libro, hoja fuente y frecuencia.
+- Las fechas son valores comparables, nunca strings: inicio del año, semestre, trimestre o mes; fecha exacta para datos diarios.
+- Guardar de forma atómica y reabrir el temporal para validar dimensiones, encabezados, fechas, formato y filas vacías.
+
+## BCRA
+
+- `scraper_BCRA_comunicaciones.py` guarda textos en `fuentes_BD/BCRA/Comunicaciones/<TIPO>/` y reutiliza los existentes.
+- Los PDF son temporales; si no contienen texto extraíble, conservar el PDF e informar el caso.
+- `Comunicaciones BCRA` tiene una única fila agregada en el inventario, no una por documento.
