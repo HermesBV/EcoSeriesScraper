@@ -8,7 +8,7 @@
 ## Inventario multi-fuente
 
 - `Codificacion` en `BD.xlsx` es el inventario maestro.
-- La clave natural es (`Código fuente`, `ID origen`). `ID` se construye como `Código fuente::ID origen`.
+- La clave natural es (`Código fuente`, `ID`). `ID` conserva el identificador nativo; si la fuente no publica uno, se asigna un identificador estable y descriptivo, nunca un correlativo.
 - Nunca inventar correlativos ni modificar el ID nativo para clasificar una serie.
 - Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas.
 - Registrar como mínimo nombre, variable, unidades, valoración, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
@@ -28,3 +28,11 @@
 - `scraper_BCRA_comunicaciones.py` guarda textos en `fuentes_BD/BCRA/Comunicaciones/<TIPO>/` y reutiliza los existentes.
 - Los PDF son temporales; si no contienen texto extraíble, conservar el PDF e informar el caso.
 - `Comunicaciones BCRA` tiene una única fila agregada en el inventario, no una por documento.
+- `scraper_BCRA_indices_tipo_cambio.py` administra ITCRM, ITCNM, sus bilaterales y ponderadores desde los dos Excel oficiales.
+- La vista Heymann de SeriesMacro consume el promedio mensual de `ITCRB Estados Unidos`; conservar estable su identidad nativa y la hoja mensual.
+
+## IIEP
+
+- `scraper_IIEP_tipo_cambio_real.py` administra la serie mensual histórica de TCR bilateral con Estados Unidos.
+- El tramo `Importación (implícito)` se reescala en enero de 1997 y sólo se usa antes de esa fecha; desde enero de 1997 se conserva el promedio mensual BCRA sin modificaciones.
+- La vista Heymann consume la serie empalmada con código fuente `iiep` e ID `itcrb-eeuu-empalmado-importacion-m`.

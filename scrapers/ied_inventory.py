@@ -52,7 +52,7 @@ def load_existing_catalog(path: Path) -> pd.DataFrame:
     result = raw.iloc[int(header[0]) + 1 :].copy()
     result.columns = raw.iloc[int(header[0])]
     result = result.dropna(how="all")
-    origin_column = "ID origen" if "ID origen" in result else "ID fuente"
+    origin_column = "ID origen" if "ID origen" in result else "ID"
     if origin_column not in result:
         return pd.DataFrame()
     result[origin_column] = result[origin_column].astype(str).str.strip()
@@ -180,7 +180,7 @@ def discover_and_extract(
 
             inventory.append({
                 "Código fuente": "datos.gob.ar",
-                "ID origen": series_id,
+                "ID": series_id,
                 "Nombre serie": meta("distribucion_titulo", meta("Nombre serie", meta("Variable", series_id))),
                 "Variable": meta("serie_titulo", meta("Variable", series_id)),
                 "Unidades": meta("serie_unidades", meta("Unidades")),

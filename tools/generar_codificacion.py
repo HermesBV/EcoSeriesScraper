@@ -19,7 +19,7 @@ CODE_SHEETS = {
     "Mapa_Tematico", "Referencias",
 }
 INVENTORY_COLUMNS = [
-    "ID", "Código fuente", "ID origen", "Nombre serie", "Variable", "Unidades", "Valoración", "Descripción",
+    "ID", "Código fuente", "Nombre serie", "Variable", "Unidades", "Valoración", "Descripción",
     "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Hoja origen",
     "Origen", "Fuente", "Catálogo ID", "Dataset ID", "Distribución ID",
     "Título dataset", "Tema dataset", "Responsable dataset", "Fuente de valores",
@@ -37,9 +37,8 @@ def _load_current_inventory() -> pd.DataFrame:
 
 def _communication_row() -> dict[str, object]:
     return {
-        "ID": "bcra::comunicaciones-A-B-C-P-desde-2006",
+        "ID": "comunicaciones-A-B-C-P-desde-2006",
         "Código fuente": "bcra",
-        "ID origen": "comunicaciones-A-B-C-P-desde-2006",
         "Nombre serie": "Comunicaciones BCRA",
         "Variable": "Comunicaciones BCRA tipos A, B, C y P",
         "Unidades": "Documentos",
@@ -62,15 +61,19 @@ def _communication_row() -> dict[str, object]:
 
 def _normalize_inventory(inventory: pd.DataFrame) -> pd.DataFrame:
     result = inventory.copy()
-    if "ID origen" not in result:
-        raise ValueError("El inventario no contiene 'ID origen'")
-    result["ID origen"] = result["ID origen"].astype(str).str.strip()
+    # Migra el esquema anterior: el ID visible pasa a ser exclusivamente el
+    # identificador nativo, o el estable asignado por nosotros si no existe uno.
+    if "ID origen" in result:
+        result["ID"] = result["ID origen"]
+        result = result.drop(columns=["ID origen"])
+    if "ID" not in result:
+        raise ValueError("El inventario no contiene 'ID'")
+    result["ID"] = result["ID"].astype(str).str.strip()
     if "Código fuente" not in result:
         result["Código fuente"] = "datos.gob.ar"
     result["Código fuente"] = result["Código fuente"].astype(str).str.strip()
-    result["ID"] = result["Código fuente"] + "::" + result["ID origen"]
-    result = result[result["ID origen"].ne("") & result["ID origen"].ne("nan")]
-    result = result.drop_duplicates(["Código fuente", "ID origen"], keep="last")
+    result = result[result["ID"].ne("") & result["ID"].ne("nan")]
+    result = result.drop_duplicates(["Código fuente", "ID"], keep="last")
     for column in INVENTORY_COLUMNS:
         if column not in result:
             result[column] = None
@@ -89,7 +92,7 @@ def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
     for row_number, row in enumerate(inventory.itertuples(index=False, name=None), 2):
         for column, value in enumerate(row, 1):
             sheet.cell(row_number, column, None if pd.isna(value) else value)
-        for column in (23, 24):
+        for column in (22, 23):
             if sheet.cell(row_number, column).value is not None:
                 sheet.cell(row_number, column).number_format = "yyyy-mm-dd"
     if len(inventory):
@@ -104,7 +107,17 @@ def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
         sheet.column_dimensions[get_column_letter(column)].width = 22
 
 def generar(inventory: pd.DataFrame | None = None) -> None:
-    data = _load_current_inventory() if inventory is None else inventory
+    current = _load_current_inventory()
+    if inventory is None:
+        data = current
+    else:
+        data = inventory.copy()
+        # Un scraper que entrega su inventario completo administra sólo los códigos
+        # presentes en él; las fuentes incorporadas por otros módulos se preservan.
+        managed_codes = set(data.get("Código fuente", pd.Series(dtype=str)).dropna().astype(str))
+        if managed_codes and "Código fuente" in current:
+            foreign = current[~current["Código fuente"].astype(str).isin(managed_codes)]
+            data = pd.concat([foreign, data], ignore_index=True)
     if "Pestaña BD" in data:
         data = data[data["Pestaña BD"].ne("Comunicaciones BCRA")]
     book = load_workbook(DB_FILE)
@@ -119,12 +132,17 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
         del book["Codificacion"]
     sheet = book.create_sheet("Codificacion", 0)
     _write_inventory(sheet, data)
+    # La serie operativa de Heymann queda junto al inventario, no perdida al
+    # final de una base con cientos de pestañas.
+    if "IIEP ITCRB EEUU M" in book.sheetnames:
+        heymann_sheet = book["IIEP ITCRB EEUU M"]
+        book.move_sheet(heymann_sheet, offset=1 - book.index(heymann_sheet))
 
     try:
         book.save(TEMP_FILE)
         book.close()
         check = pd.read_excel(TEMP_FILE, sheet_name="Codificacion")
-        if len(check) != len(data) or check["ID"].duplicated().any():
+        if len(check) != len(data) or check.duplicated(["Código fuente", "ID"]).any():
             raise ValueError("La validación del inventario guardado falló")
         TEMP_FILE.replace(DB_FILE)
     finally:
