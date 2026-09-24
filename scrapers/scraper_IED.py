@@ -445,16 +445,30 @@ def actualizar_serie(
     nueva["fecha"] = normalizar_fechas(nueva["fecha"], frecuencia_de_pestana(pestana))
     nueva = compactar_fechas(nueva)
 
-    if variable not in existente:
-        resultado = pd.merge(existente, nueva, on="fecha", how="outer")
-    else:
-        fecha_corte = nueva["fecha"].min()
-        anterior = existente[existente["fecha"] < fecha_corte]
-        actual = existente[existente["fecha"] >= fecha_corte].drop(columns=[variable])
-        resultado = pd.concat(
-            [anterior, pd.merge(actual, nueva, on="fecha", how="outer")], ignore_index=True
-        )
+    resultado = nueva.set_index("fecha").combine_first(existente.set_index("fecha"))
+    resultado = resultado.reset_index()
     return preparar_hoja_bd(resultado, pestana)
+
+
+def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: str) -> pd.DataFrame:
+    """Conserva el historial y prioriza cada valor publicado en el Excel nuevo."""
+    if "fecha" not in nueva or "fecha" not in existente:
+        raise ValueError("Las hojas de datos deben contener una columna fecha")
+    for nombre, datos in (("existente", existente), ("nueva", nueva)):
+        if not datos.columns.is_unique:
+            raise ValueError(f"La hoja {nombre} contiene encabezados duplicados")
+
+    def preparar(datos: pd.DataFrame) -> pd.DataFrame:
+        resultado = datos.copy()
+        resultado["fecha"] = normalizar_fechas(resultado["fecha"], frecuencia)
+        resultado = compactar_fechas(resultado)
+        return resultado.set_index("fecha")
+
+    anterior, actual = preparar(existente), preparar(nueva)
+    fusion = actual.combine_first(anterior)
+    columnas = [*nueva.columns, *(col for col in existente if col not in nueva)]
+    fusion = fusion.reindex(columns=columnas[1:]).sort_index().reset_index()
+    return fusion.dropna(how="all", subset=columnas[1:]).reset_index(drop=True)
 
 
 def aplicar_formatos_fecha(ruta: Path) -> None:
@@ -508,6 +522,7 @@ def guardar_datos_preservando_formato(
     formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
     frecuencias = frecuencias or {nombre: frecuencia_de_pestana(nombre) for nombre in hojas}
     formatos_hojas = {nombre: formatos.get(frecuencias.get(nombre, ""), "yyyy-mm-dd") for nombre in hojas}
+    hojas_guardadas: dict[str, pd.DataFrame] = {}
 
     def valor_excel(valor: object) -> object:
         if pd.isna(valor):
@@ -525,7 +540,15 @@ def guardar_datos_preservando_formato(
     for nombre, datos in hojas.items():
         nombre_hoja = str(nombre).strip()[:31]
         if nombre_hoja in libro.sheetnames:
+            anterior = pd.DataFrame(libro[nombre_hoja].values)
+            if not anterior.empty and anterior.iat[0, 0] == "fecha":
+                anterior.columns = anterior.iloc[0]
+                anterior = anterior.iloc[1:].reset_index(drop=True)
+                datos = fusionar_hoja_bd(anterior, datos, frecuencias.get(nombre, "D"))
+            elif not anterior.isna().all().all():
+                raise ValueError(f"La hoja {nombre_hoja} existente no tiene encabezado fecha")
             del libro[nombre_hoja]
+        hojas_guardadas[nombre] = datos
         hoja = libro.create_sheet(nombre_hoja)
         columnas = list(datos.columns)
         filas_nuevas = len(datos) + 1
@@ -544,7 +567,7 @@ def guardar_datos_preservando_formato(
     try:
         libro.save(temporal)
         libro.close()
-        _validar_guardado(temporal, hojas, formatos_hojas)
+        _validar_guardado(temporal, hojas_guardadas, formatos_hojas)
         temporal.replace(ruta)
     except Exception:
         libro.close()

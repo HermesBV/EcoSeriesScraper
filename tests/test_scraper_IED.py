@@ -27,6 +27,41 @@ class RespuestaFalsa:
 
 
 class ScraperIEDTests(unittest.TestCase):
+    def test_guardado_fusiona_historia_y_prioriza_valores_nuevos(self) -> None:
+        ruta = Path(__file__).parent / "_BD_fusion_prueba.xlsx"
+        temporal = Path(__file__).parent / "_BD_fusion_prueba.actualizacion.xlsx"
+        self.addCleanup(ruta.unlink, missing_ok=True)
+        self.addCleanup(temporal.unlink, missing_ok=True)
+        libro = Workbook()
+        hoja = libro.active
+        hoja.title = "Serie M"
+        hoja.append(["fecha", "serie", "otra"])
+        hoja.append([pd.Timestamp(2020, 1, 1), 10, 100])
+        hoja.append([pd.Timestamp(2020, 2, 1), 20, 200])
+        hoja.append([pd.Timestamp(2020, 3, 1), 30, 300])
+        ajena = libro.create_sheet("Otra fuente")
+        ajena["A1"] = "intacta"
+        libro.save(ruta)
+        libro.close()
+
+        nueva = pd.DataFrame({
+            "fecha": [pd.Timestamp(2020, 2, 1), pd.Timestamp(2020, 3, 1),
+                      pd.Timestamp(2020, 4, 1)],
+            "serie": [22, None, 40],
+        })
+        scraper_IED.guardar_datos_preservando_formato(ruta, {"Serie M": nueva})
+
+        actualizado = load_workbook(ruta, data_only=True)
+        filas = list(actualizado["Serie M"].values)
+        self.assertEqual(filas[0], ("fecha", "serie", "otra"))
+        self.assertEqual(
+            [(fila[0].strftime("%Y-%m-%d"), *fila[1:]) for fila in filas[1:]],
+            [("2020-01-01", 10, 100), ("2020-02-01", 22, 200),
+             ("2020-03-01", 30, 300), ("2020-04-01", 40, None)],
+        )
+        self.assertEqual(actualizado["Otra fuente"]["A1"].value, "intacta")
+        actualizado.close()
+
     def test_guardar_descarga_escribe_bloques_y_cierra_respuesta(self) -> None:
         destino = Path(__file__).parent / "_descarga_prueba.xlsx"
         self.addCleanup(destino.unlink, missing_ok=True)

@@ -7,7 +7,7 @@
 
 ## Inventario multi-fuente
 
-- `Codificacion` en `BD.xlsx` es el inventario maestro.
+- `Codificacion` en `IndiceSeries.xlsx` es el inventario maestro; `BD.xlsx` contiene sólo datos.
 - La clave natural es (`Código fuente`, `ID`). `ID` conserva el identificador nativo; si la fuente no publica uno, se asigna un identificador estable y descriptivo, nunca un correlativo.
 - Nunca inventar correlativos ni modificar el ID nativo para clasificar una serie.
 - Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas.
@@ -30,6 +30,16 @@
 - `Comunicaciones BCRA` tiene una única fila agregada en el inventario, no una por documento.
 - `scraper_BCRA_indices_tipo_cambio.py` administra ITCRM, ITCNM, sus bilaterales y ponderadores desde los dos Excel oficiales.
 - La vista Heymann de SeriesMacro consume el promedio mensual de `ITCRB Estados Unidos`; conservar estable su identidad nativa y la hoja mensual.
+- `scraper_BCRA_datos_monetarios_diarios.py` administra todas las series de `series.xlsm`.
+- Conservar los IDs nativos de `API_Series`; para columnas sin correspondencia usar un ID estable basado en hoja y columna.
+- `scraper_BCRA_tasas_depositos.py` administra las 19 hojas de datos de `pas2026.xls`.
+- En `pas2026.xls`, identificar cada serie con `hoja|código publicado`, porque los códigos se repiten entre hojas.
+- `scraper_BCRA_com3500.py`, `scraper_BCRA_bandas_cambiarias.py` y `scraper_BCRA_mercado_cambios.py` administran sus respectivos libros oficiales.
+
+## INDEC y MECON
+
+- `scraper_INDEC_emae.py`, `scraper_INDEC_sipm.py`, `scraper_INDEC_isac.py`, `scraper_INDEC_ipi_manufacturero.py`, `scraper_INDEC_supermercados.py` y `scraper_INDEC_comercio_exterior.py` administran sus respectivas tablas INDEC.
+- `scraper_MECON_hacienda.py` administra las series de los informes de Hacienda.
 
 ## IIEP
 

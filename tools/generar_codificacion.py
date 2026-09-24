@@ -1,4 +1,4 @@
-"""Actualiza el inventario maestro de series dentro de BD.xlsx."""
+"""Actualiza el inventario maestro en un libro separado de la base de datos."""
 
 from __future__ import annotations
 
@@ -13,7 +13,8 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_FILE = ROOT / "BD.xlsx"
-TEMP_FILE = ROOT / ".BD_codificacion.tmp.xlsx"
+INDEX_FILE = ROOT / "IndiceSeries.xlsx"
+TEMP_FILE = ROOT / ".IndiceSeries.tmp.xlsx"
 CODE_SHEETS = {
     "Referencia_Codigos", "Parentesco_Codigos", "Introduccion_Codigos",
     "Mapa_Tematico", "Referencias",
@@ -28,11 +29,16 @@ INVENTORY_COLUMNS = [
 
 
 def _load_current_inventory() -> pd.DataFrame:
-    with pd.ExcelFile(DB_FILE) as book:
+    source = INDEX_FILE if INDEX_FILE.is_file() else DB_FILE
+    with pd.ExcelFile(source) as book:
         if "Codificacion" not in book.sheet_names:
             return pd.DataFrame(columns=INVENTORY_COLUMNS)
         data = pd.read_excel(book, sheet_name="Codificacion", dtype=object)
     return data if "ID" in data.columns else pd.DataFrame(columns=INVENTORY_COLUMNS)
+
+
+def cargar_indice() -> pd.DataFrame:
+    return _load_current_inventory()
 
 
 def _communication_row() -> dict[str, object]:
@@ -82,6 +88,25 @@ def _normalize_inventory(inventory: pd.DataFrame) -> pd.DataFrame:
     )
 
 
+def _conservar_rangos_historicos(data: pd.DataFrame, current: pd.DataFrame) -> pd.DataFrame:
+    """Mantiene en el inventario las fechas ya registradas para la misma serie."""
+    claves = ["Código fuente", "ID", "Pestaña BD", "Columna BD"]
+    fechas = ["Fecha inicio", "Fecha fin"]
+    if not all(col in data and col in current for col in claves + fechas):
+        return data
+    previo = current[claves + fechas].drop_duplicates(claves, keep="last")
+    resultado = data.merge(previo, on=claves, how="left", suffixes=("", "_anterior"), sort=False)
+    for columna, funcion in (("Fecha inicio", "min"), ("Fecha fin", "max")):
+        ambas = pd.concat(
+            [pd.to_datetime(resultado[columna], errors="coerce"),
+             pd.to_datetime(resultado[f"{columna}_anterior"], errors="coerce")],
+            axis=1,
+        )
+        resultado[columna] = getattr(ambas, funcion)(axis=1)
+    resultado = resultado.drop(columns=[f"{columna}_anterior" for columna in fechas])
+    return resultado
+
+
 def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
     header_fill = PatternFill("solid", fgColor="1F4E78")
     for column, name in enumerate(INVENTORY_COLUMNS, 1):
@@ -120,10 +145,18 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
             data = pd.concat([foreign, data], ignore_index=True)
     if "Pestaña BD" in data:
         data = data[data["Pestaña BD"].ne("Comunicaciones BCRA")]
-    book = load_workbook(DB_FILE)
-    if "Comunicaciones BCRA" in book.sheetnames:
+    data = _conservar_rangos_historicos(data, current)
+    data_book = load_workbook(DB_FILE, read_only=True)
+    if "Comunicaciones BCRA" in data_book.sheetnames:
         data = pd.concat([data, pd.DataFrame([_communication_row()])], ignore_index=True)
+    data_book.close()
     data = _normalize_inventory(data)
+
+    if INDEX_FILE.is_file():
+        book = load_workbook(INDEX_FILE)
+    else:
+        from openpyxl import Workbook
+        book = Workbook()
 
     for name in CODE_SHEETS:
         if name in book.sheetnames:
@@ -132,11 +165,11 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
         del book["Codificacion"]
     sheet = book.create_sheet("Codificacion", 0)
     _write_inventory(sheet, data)
+    for name in list(book.sheetnames):
+        if name != "Codificacion":
+            del book[name]
     # La serie operativa de Heymann queda junto al inventario, no perdida al
     # final de una base con cientos de pestañas.
-    if "IIEP ITCRB EEUU M" in book.sheetnames:
-        heymann_sheet = book["IIEP ITCRB EEUU M"]
-        book.move_sheet(heymann_sheet, offset=1 - book.index(heymann_sheet))
 
     try:
         book.save(TEMP_FILE)
@@ -144,10 +177,29 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
         check = pd.read_excel(TEMP_FILE, sheet_name="Codificacion")
         if len(check) != len(data) or check.duplicated(["Código fuente", "ID"]).any():
             raise ValueError("La validación del inventario guardado falló")
-        TEMP_FILE.replace(DB_FILE)
+        TEMP_FILE.replace(INDEX_FILE)
     finally:
         TEMP_FILE.unlink(missing_ok=True)
 
 
+def separar_indice_de_bd() -> None:
+    if not INDEX_FILE.is_file() or not DB_FILE.is_file():
+        return
+    book = load_workbook(DB_FILE)
+    if "Codificacion" not in book.sheetnames:
+        book.close()
+        return
+    del book["Codificacion"]
+    temporal = DB_FILE.with_name(".BD_sin_indice.tmp.xlsx")
+    try:
+        book.save(temporal)
+        book.close()
+        temporal.replace(DB_FILE)
+    finally:
+        book.close()
+        temporal.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     generar()
+    separar_indice_de_bd()

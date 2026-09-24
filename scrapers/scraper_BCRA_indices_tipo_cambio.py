@@ -169,7 +169,8 @@ def procesar(descargar: bool = True) -> dict[str, int]:
     hojas, inventario = construir_salida(archivos)
     _guardar_hojas(hojas)
     from tools.generar_codificacion import generar
-    actual = pd.read_excel(ARCHIVO_BD, sheet_name="Codificacion", dtype=object)
+    from tools.generar_codificacion import cargar_indice
+    actual = cargar_indice()
     actual = actual[actual["Código fuente"].astype(str).ne(CODIGO_FUENTE)]
     generar(pd.concat([actual, inventario], ignore_index=True))
     resumen = {"series": len(inventario), "hojas": len(hojas)}

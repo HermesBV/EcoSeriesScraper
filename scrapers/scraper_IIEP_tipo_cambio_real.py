@@ -72,7 +72,8 @@ def procesar() -> dict[str, object]:
         hojas_obsoletas={HOJA_SALIDA},
     )
 
-    actual = pd.read_excel(ARCHIVO_BD, sheet_name="Codificacion", dtype=object)
+    from tools.generar_codificacion import cargar_indice
+    actual = cargar_indice()
     actual = actual[
         ~(
             actual["Código fuente"].astype(str).eq(CODIGO_FUENTE)
@@ -84,7 +85,7 @@ def procesar() -> dict[str, object]:
     fila = {
         "Código fuente": CODIGO_FUENTE,
         "ID": ID_ORIGEN,
-        "Nombre serie": "Tipo de cambio real bilateral con Estados Unidos, serie histórica empalmada",
+        "Nombre serie": "ITCRB Estados Unidos + IIEP",
         "Variable": "itcrb_estados_unidos_empalmado",
         "Unidades": "Índice, base BCRA 17-dic-2015=100",
         "Valoración": "No aplica / no informado",

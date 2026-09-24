@@ -14,6 +14,7 @@ import requests
 
 API_URL = "https://apis.datos.gob.ar/series/api/series/"
 METADATA_FILE = Path(__file__).resolve().parents[1] / "series-tiempo-metadatos.csv"
+INDEX_FILE = Path(__file__).resolve().parents[1] / "IndiceSeries.xlsx"
 
 
 def _text(value: object, fallback: str = "") -> str:
@@ -24,6 +25,8 @@ def _text(value: object, fallback: str = "") -> str:
 
 
 def load_api_catalog(path: Path = METADATA_FILE) -> pd.DataFrame:
+    if path.name == "BD.xlsx" and INDEX_FILE.is_file():
+        path = INDEX_FILE
     if not path.is_file():
         raise FileNotFoundError(f"Falta el catálogo de series de la API: {path}")
     catalog = pd.read_csv(path, dtype=str, low_memory=False)
