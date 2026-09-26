@@ -85,15 +85,11 @@ def procesar() -> dict[str, object]:
     fila = {
         "Código fuente": CODIGO_FUENTE,
         "ID": ID_ORIGEN,
-        "Nombre serie": "ITCRB Estados Unidos + IIEP",
+        "Nombre serie": "ITCRB Estados Unidos (mensual)",
         "Variable": "itcrb_estados_unidos_empalmado",
-        "Unidades": "Índice, base BCRA 17-dic-2015=100",
-        "Valoración": "No aplica / no informado",
-        "Descripción": (
-            f"Serie mensual empalmada por el IIEP. Desde {inicio_iiep:%Y-%m} hasta 1996-12 usa "
-            f"'Importación (implícito)' del archivo IIEP, reescalada en {inicio_bcra:%Y-%m}; "
-            f"desde {inicio_bcra:%Y-%m} usa el promedio mensual oficial ITCRB Estados Unidos del BCRA."
-        ),
+        "Unidad": "Índice 17-dic-2015=100",
+        "Valoración": "No aplica",
+        "Descripción": "ITCRB Estados Unidos, empalme IIEP (hasta 1996-12) y BCRA (desde 1997-01) índice Laspeyres geométrico encadenado.",
         "Frecuencia": "M",
         "Pestaña BD": HOJA_SALIDA,
         "Columna BD": COLUMNA_SALIDA,

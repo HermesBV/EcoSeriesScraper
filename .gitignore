@@ -8,3 +8,7 @@ agents/
 .codex/
 __pycache__/
 *.py[cod]
+BD.backup-*.xlsx
+IndiceSeries.backup-*.xlsx
+.BD_sin_indice.tmp.xlsx
+.IndiceSeries.tmp.xlsx

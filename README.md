@@ -1,6 +1,6 @@
 # EcoSeriesScraper
 
-Descarga series y documentos económicos desde distintas fuentes y actualiza `BD.xlsx`. IED es la primera fuente de series incorporada con el inventario multi-fuente; también se procesan las comunicaciones del BCRA.
+Descarga series y documentos económicos desde distintas fuentes y actualiza `BD.xlsx`. IED es la primera fuente de series incorporada con el inventario multi-fuente.
 
 ## Organización
 
@@ -8,7 +8,6 @@ Descarga series y documentos económicos desde distintas fuentes y actualiza `BD
 main.py                         Ejecuta todos los scrapers
 scrapers/scraper_IED.py         Procesa los ocho Excel del IED
 scrapers/ied_inventory.py       Descubre series, metadatos y respaldo API
-scrapers/scraper_BCRA_comunicaciones.py
 scrapers/scraper_BCRA_indices_tipo_cambio.py
 scrapers/scraper_BCRA_datos_monetarios_diarios.py
 scrapers/scraper_BCRA_tasas_depositos.py
@@ -24,7 +23,6 @@ scrapers/scraper_INDEC_supermercados.py
 scrapers/scraper_INDEC_comercio_exterior.py
 scrapers/scraper_MECON_hacienda.py
 fuentes_BD/MECON/IED/           Excel fuente del IED
-fuentes_BD/BCRA/Comunicaciones/ Textos de comunicaciones
 fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
 fuentes_BD/BCRA/DatosMonetariosDiarios/ Libro oficial de datos monetarios diarios
 fuentes_BD/IIEP/TipoCambioReal/    Serie histórica utilizada para el empalme IIEP
@@ -40,17 +38,13 @@ Cada fuente nueva suma `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y gua
 
 `Codificacion`, dentro de `IndiceSeries.xlsx`, es el inventario maestro. La identidad lógica es el par (`Código fuente`, `ID`). `ID` conserva el identificador nativo de la fuente; cuando la fuente no publica uno se asigna un identificador estable y descriptivo, nunca un correlativo. La combinación con `Código fuente` evita colisiones entre proveedores sin agregar un ID compuesto visible.
 
-El inventario registra nombre, variable, unidades, valoración, descripción, frecuencia, ubicación física en la base, procedencia, dataset, distribución, rango temporal, estado y si los valores provinieron del Excel o del respaldo API. `Valoración` sólo clasifica precios corrientes o constantes cuando los metadatos aportan una señal inequívoca; en los demás casos indica que no aplica o no está informado.
+El inventario registra nombre, variable, unidad, valoración, descripción, frecuencia, ubicación física, procedencia, dataset, distribución, período desde/hasta y estado. También conserva institución, área, tres niveles de subárea y tema. La clasificación existente se mantiene al regenerar el índice y se hereda para nuevas series del mismo dataset. `Valoración` sólo clasifica precios corrientes o constantes cuando los metadatos o el recurso oficial aportan una señal inequívoca. Usa `No aplica` para unidades físicas, tasas e índices, y `No informado` cuando la unidad es monetaria o ambigua pero no se conoce si está a precios corrientes o constantes. Las canastas de los datasets 444, 445 y 446 y los rubros en pesos del recurso 458.1 se verificaron como valores corrientes; la descripción general de un dataset no se aplica a todos sus recursos porque puede mezclar valores corrientes, constantes e índices.
 
 ## IED
 
 El scraper descubre todas las series de los ocho libros IED cruzando sus IDs con `series-tiempo-metadatos.csv`. Extrae los valores prioritariamente de los Excel. Si un bloque existe pero su formato no puede interpretarse, consulta la API para esa serie. Nombre, unidades y descripción provienen del catálogo API.
 
 Las hojas de salida se separan por archivo, hoja fuente y frecuencia. Las fechas se normalizan al inicio del período y se guardan como fechas reales. Antes de publicar `BD.xlsx`, el proceso reabre el temporal y comprueba dimensiones, encabezados, formatos, fechas presentes y ausencia de filas completamente vacías.
-
-## Comunicaciones BCRA
-
-`scraper_BCRA_comunicaciones.py` consulta el período, tipos y circulares configurados al inicio del módulo. Guarda texto en `fuentes_BD/BCRA/Comunicaciones/<TIPO>/`, reutiliza archivos existentes y conserva una sola entrada agregada en `Codificacion`.
 
 ## Índices de tipo de cambio BCRA
 
@@ -68,11 +62,11 @@ Las hojas de salida se separan por archivo, hoja fuente y frecuencia. Las fechas
 
 `scraper_IIEP_tipo_cambio_real.py` empalma la serie mensual `Importación (implícito)` del IIEP con el promedio mensual oficial del ITCRB Estados Unidos. Reescala el tramo histórico en enero de 1997 y conserva sin cambios la serie BCRA desde ese mes. Esta serie alimenta la vista Daniel Heymann de SeriesMacro.
 
-El inventario publica `ITCRB Estados Unidos + IIEP` como serie adicional, con datos IIEP desde enero de 1958 hasta diciembre de 1996 y datos BCRA desde enero de 1997. La serie BCRA `ITCRB Estados Unidos` conserva su identidad y cobertura propias.
+El inventario publica `ITCRB Estados Unidos (mensual)` como serie adicional, con unidad `Índice 17-dic-2015=100`. Su detalle es: «ITCRB Estados Unidos, empalme IIEP (hasta 1996-12) y BCRA (desde 1997-01) índice Laspeyres geométrico encadenado». Desde 1958-01 hasta 1996-12 usa `Importación (implícito)` del archivo IIEP, reescalada en 1997-01; desde 1997-01 usa el promedio mensual oficial ITCRB Estados Unidos del BCRA. La serie BCRA `ITCRB Estados Unidos` conserva su identidad y cobertura propias.
 
 ## Otras fuentes
 
-Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambios procesan sus libros oficiales. Los scrapers INDEC incorporan EMAE, SIPM, ISAC, IPI manufacturero, supermercados y comercio exterior. El scraper MECON Hacienda procesa los informes de Hacienda. Cada módulo guarda sus descargas en `fuentes_BD/` y actualiza sólo las hojas que administra.
+Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambios procesan sus libros oficiales. Los scrapers INDEC incorporan EMAE, SIPM, ISAC, IPI manufacturero, supermercados y comercio exterior. El scraper MECON Hacienda permanece en pausa y fuera de la ejecución general hasta recibir nuevas instrucciones. Cada módulo guarda sus descargas en `fuentes_BD/` y actualiza sólo las hojas que administra.
 
 ## Uso
 

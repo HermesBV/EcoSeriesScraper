@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 import pandas as pd
 from openpyxl import load_workbook
@@ -20,12 +21,43 @@ CODE_SHEETS = {
     "Mapa_Tematico", "Referencias",
 }
 INVENTORY_COLUMNS = [
-    "ID", "Código fuente", "Nombre serie", "Variable", "Unidades", "Valoración", "Descripción",
+    "ID", "Código fuente", "Nombre serie", "Variable", "Unidad", "Valoración", "Descripción",
     "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Hoja origen",
     "Origen", "Fuente", "Catálogo ID", "Dataset ID", "Distribución ID",
     "Título dataset", "Tema dataset", "Responsable dataset", "Fuente de valores",
-    "Fecha inicio", "Fecha fin", "Estado",
+    "Fecha inicio", "Fecha fin", "Estado", "Institución", "Área",
+    "Subárea 1", "Subárea 2", "Subárea 3", "Tema", "Desde", "Hasta",
 ]
+CLASSIFICATION_COLUMNS = ["Institución", "Área", "Subárea 1", "Subárea 2", "Subárea 3", "Tema"]
+
+
+def _normalizar_valoracion(
+    valor: object, unidad: object, codigo_fuente: object = None,
+    dataset_id: object = None, distribucion_id: object = None,
+) -> str:
+    """Separa ausencia de dato de magnitudes sin valoración nominal/real."""
+    actual = str(valor).strip() if pd.notna(valor) else ""
+    if actual and actual not in {"No aplica / no informado", "No informado"}:
+        return actual
+    texto = str(unidad).casefold().strip() if pd.notna(unidad) else ""
+    if str(codigo_fuente).strip() == "datos.gob.ar":
+        # Canastas: datos.gob.ar/dataset/sspm_444 y datasets 445/446.
+        # Rubros: datos.gob.ar/dataset/sspm_458/archivo/sspm_458.1.
+        if str(dataset_id).strip() in {"444", "445", "446"} and texto == "pesos":
+            return "Precios corrientes"
+        if str(distribucion_id).strip() == "458.1" and texto == "pesos":
+            return "Precios corrientes"
+    monetaria = ("peso", "dólar", "dolar", "usd", "ars", "moneda", "$", "u$s")
+    if any(marca in texto for marca in monetaria):
+        return "No informado"
+    if re.fullmatch(r"(?:19|20)\d{2}\s*=\s*100", texto):
+        return "No aplica"
+    sin_valoracion = (
+        "%", "porcentaje", "variación porcentual", "índice", "indice",
+        "tonelada", "personas", "hogares", "unidades", "prestaciones",
+        "metros cúbicos", "m3", "gwh", "días", "dias", "años", "tasas",
+    )
+    return "No aplica" if any(marca in texto for marca in sin_valoracion) else "No informado"
 
 
 def _load_current_inventory() -> pd.DataFrame:
@@ -41,48 +73,79 @@ def cargar_indice() -> pd.DataFrame:
     return _load_current_inventory()
 
 
-def _communication_row() -> dict[str, object]:
-    return {
-        "ID": "comunicaciones-A-B-C-P-desde-2006",
-        "Código fuente": "bcra",
-        "Nombre serie": "Comunicaciones BCRA",
-        "Variable": "Comunicaciones BCRA tipos A, B, C y P",
-        "Unidades": "Documentos",
-        "Valoración": "No aplica / no informado",
-        "Descripción": "Inventario de comunicaciones publicadas por el BCRA.",
-        "Frecuencia": "I",
-        "Pestaña BD": "Comunicaciones BCRA",
-        "Columna BD": "",
-        "Archivo origen": "",
-        "Hoja origen": "",
-        "Origen": "BCRA: Buscador de comunicaciones",
-        "Fuente": "https://www.bcra.gob.ar/buscador-de-comunicaciones/",
-        "Catálogo ID": "bcra",
-        "Fuente de valores": "API BCRA",
-        "Fecha inicio": pd.Timestamp(2006, 1, 1),
-        "Fecha fin": None,
-        "Estado": "VIGENTE",
-    }
-
-
-def _normalize_inventory(inventory: pd.DataFrame) -> pd.DataFrame:
+def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None = None) -> pd.DataFrame:
     result = inventory.copy()
-    # Migra el esquema anterior: el ID visible pasa a ser exclusivamente el
-    # identificador nativo, o el estable asignado por nosotros si no existe uno.
     if "ID origen" in result:
         result["ID"] = result["ID origen"]
         result = result.drop(columns=["ID origen"])
     if "ID" not in result:
         raise ValueError("El inventario no contiene 'ID'")
-    result["ID"] = result["ID"].astype(str).str.strip()
+    if "Unidad" not in result and "Unidades" in result:
+        result = result.rename(columns={"Unidades": "Unidad"})
     if "Código fuente" not in result:
         result["Código fuente"] = "datos.gob.ar"
+    result["ID"] = result["ID"].astype(str).str.strip()
     result["Código fuente"] = result["Código fuente"].astype(str).str.strip()
     result = result[result["ID"].ne("") & result["ID"].ne("nan")]
     result = result.drop_duplicates(["Código fuente", "ID"], keep="last")
     for column in INVENTORY_COLUMNS:
         if column not in result:
             result[column] = None
+    result["Valoración"] = [
+        _normalizar_valoracion(valor, unidad, codigo, dataset, distribucion)
+        for valor, unidad, codigo, dataset, distribucion in zip(
+            result["Valoración"], result["Unidad"], result["Código fuente"],
+            result["Dataset ID"], result["Distribución ID"],
+        )
+    ]
+
+    if current is not None and not current.empty:
+        previous = current.copy()
+        if "Unidad" not in previous and "Unidades" in previous:
+            previous = previous.rename(columns={"Unidades": "Unidad"})
+        for column in INVENTORY_COLUMNS:
+            if column not in previous:
+                previous[column] = None
+        keys = ["Código fuente", "ID"]
+        for frame in (result, previous):
+            frame["Código fuente"] = frame["Código fuente"].fillna("").astype(str).str.strip()
+            frame["ID"] = frame["ID"].fillna("").astype(str).str.strip()
+        exact = previous[keys + CLASSIFICATION_COLUMNS].drop_duplicates(keys, keep="last")
+        result = result.merge(exact, on=keys, how="left", suffixes=("", "_previo"), sort=False)
+        for column in CLASSIFICATION_COLUMNS:
+            prior = result[f"{column}_previo"]
+            empty = result[column].isna() | result[column].astype(str).str.strip().eq("")
+            result.loc[empty, column] = prior.loc[empty]
+            result = result.drop(columns=[f"{column}_previo"])
+
+        dataset_keys = ["Código fuente", "Archivo origen", "Tema dataset", "Título dataset"]
+        mapped = previous.groupby(dataset_keys, dropna=False)[CLASSIFICATION_COLUMNS].agg(
+            lambda values: next((value for value in values if pd.notna(value) and str(value).strip()), None)
+        ).reset_index()
+        result = result.merge(mapped, on=dataset_keys, how="left", suffixes=("", "_dataset"), sort=False)
+        for column in CLASSIFICATION_COLUMNS:
+            inherited = result[f"{column}_dataset"]
+            empty = result[column].isna() | result[column].astype(str).str.strip().eq("")
+            result.loc[empty, column] = inherited.loc[empty]
+            result = result.drop(columns=[f"{column}_dataset"])
+
+    def format_period(value, frequency):
+        date = pd.to_datetime(value, errors="coerce")
+        if pd.isna(date):
+            return None
+        frequency = str(frequency).strip()
+        if frequency == "A":
+            return date.strftime("%Y")
+        if frequency == "S":
+            return f"{date.year:04d}-{1 if date.month <= 6 else 7:02d}"
+        if frequency == "T":
+            return f"{date.year:04d}-{((date.month - 1) // 3) * 3 + 1:02d}"
+        if frequency == "M":
+            return date.strftime("%Y-%m")
+        return date.strftime("%Y-%m-%d")
+
+    result["Desde"] = [format_period(value, freq) for value, freq in zip(result["Fecha inicio"], result["Frecuencia"])]
+    result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )
@@ -146,11 +209,7 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
     if "Pestaña BD" in data:
         data = data[data["Pestaña BD"].ne("Comunicaciones BCRA")]
     data = _conservar_rangos_historicos(data, current)
-    data_book = load_workbook(DB_FILE, read_only=True)
-    if "Comunicaciones BCRA" in data_book.sheetnames:
-        data = pd.concat([data, pd.DataFrame([_communication_row()])], ignore_index=True)
-    data_book.close()
-    data = _normalize_inventory(data)
+    data = _normalize_inventory(data, current)
 
     if INDEX_FILE.is_file():
         book = load_workbook(INDEX_FILE)

@@ -13,7 +13,7 @@ def descubrir_scrapers() -> list[str]:
     return sorted(
         modulo.name
         for modulo in pkgutil.iter_modules(scrapers.__path__)
-        if modulo.name.startswith("scraper_")
+        if modulo.name.startswith("scraper_") and modulo.name not in {"scraper_BCRA_comunicaciones", "scraper_MECON_hacienda"}
     )
 
 
