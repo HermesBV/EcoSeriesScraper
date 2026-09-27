@@ -11,6 +11,11 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
+if __package__:
+    from .metadata_series import mejorar_metadatos
+else:
+    from metadata_series import mejorar_metadatos
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_FILE = ROOT / "BD.xlsx"
@@ -146,6 +151,7 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
 
     result["Desde"] = [format_period(value, freq) for value, freq in zip(result["Fecha inicio"], result["Frecuencia"])]
     result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
+    result = mejorar_metadatos(result)
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )
