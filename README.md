@@ -21,6 +21,13 @@ scrapers/scraper_INDEC_isac.py
 scrapers/scraper_INDEC_ipi_manufacturero.py
 scrapers/scraper_INDEC_supermercados.py
 scrapers/scraper_INDEC_comercio_exterior.py
+scrapers/scraper_INDEC_ipc.py
+scrapers/scraper_INDEC_pib.py
+scrapers/scraper_INDEC_cuentas_internacionales.py
+scrapers/scraper_INDEC_salarios.py
+scrapers/scraper_MCH_sipa.py
+scrapers/scraper_MCH_ripte.py
+scrapers/scraper_FRED_cpiaucsl.py
 scrapers/scraper_MECON_hacienda.py
 fuentes_BD/MECON/IED/           Excel fuente del IED
 fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
@@ -67,6 +74,10 @@ El inventario publica `ITCRB Estados Unidos (mensual)` como serie adicional, con
 ## Otras fuentes
 
 Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambios procesan sus libros oficiales. Los scrapers INDEC incorporan EMAE, SIPM, ISAC, IPI manufacturero, supermercados y comercio exterior. El scraper MECON Hacienda permanece en pausa y fuera de la ejecución general hasta recibir nuevas instrucciones. Cada módulo guarda sus descargas en `fuentes_BD/` y actualiza sólo las hojas que administra.
+
+La segunda iteración suma IPC, PIB, cuentas internacionales y salarios del INDEC, y SIPA y RIPTE del Ministerio de Capital Humano. Los libros cuyo nombre depende del período se buscan desde el mes o trimestre actual hacia atrás, validando que la respuesta sea un Excel y no una página HTML de error. Cada hoja se examina para detectar fechas en filas o columnas. RIPTE se obtiene del PDF enlazado desde su página oficial y conserva la serie mensual desde julio de 1994. Las series nuevas incluyen clasificación institucional y valoración según los títulos y unidades publicados; cuando la evidencia no alcanza, la valoración queda sin informar.
+
+`scraper_FRED_cpiaucsl.py` descarga la serie mensual CPIAUCSL desde el CSV de FRED con fecha final abierta, por lo que incorpora automáticamente nuevas observaciones. La fuente original es U.S. Bureau of Labor Statistics; se trata de un índice desestacionalizado con base 1982-1984=100.
 
 ## Uso
 

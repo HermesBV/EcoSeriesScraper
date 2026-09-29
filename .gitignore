@@ -10,5 +10,9 @@ __pycache__/
 *.py[cod]
 BD.backup-*.xlsx
 IndiceSeries.backup-*.xlsx
+2da Iteración.xlsx
+/Pendientes.md
 .BD_sin_indice.tmp.xlsx
+.BD.actualizacion.xlsx
+BD.actualizacion.xlsx
 .IndiceSeries.tmp.xlsx

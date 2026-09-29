@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import re
+import time
 
 import pandas as pd
 from openpyxl import load_workbook
@@ -134,6 +135,21 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
             result.loc[empty, column] = inherited.loc[empty]
             result = result.drop(columns=[f"{column}_dataset"])
 
+    # El apéndice 4 deja sin clasificación las primeras hojas de los capítulos
+    # 4.8 y 4.9, aunque sus hojas vecinas sí indican la sección correspondiente.
+    appendix = result["Código fuente"].eq("datos.gob.ar") & result["Archivo origen"].eq("precios.xlsx")
+    for source_sheet, subarea, theme in (
+        ("4.8.1", "Dinero y Bancos", "Moneda y sistema financiero"),
+        ("4.9.1", "Sector Externo", "Sector externo"),
+        ("4.9.2", "Sector Externo", "Sector externo"),
+        ("4.9.3", "Sector Externo", "Sector externo"),
+    ):
+        matching = appendix & result["Hoja origen"].astype(str).str.strip().eq(source_sheet)
+        missing_subarea = result["Subárea 1"].isna() | result["Subárea 1"].astype(str).str.strip().eq("")
+        result.loc[matching & missing_subarea, "Subárea 1"] = subarea
+        missing_theme = result["Tema"].isna() | result["Tema"].astype(str).str.strip().isin(("", "Sin clasificar"))
+        result.loc[matching & missing_theme, "Tema"] = theme
+
     def format_period(value, frequency):
         date = pd.to_datetime(value, errors="coerce")
         if pd.isna(date):
@@ -152,6 +168,8 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
     result["Desde"] = [format_period(value, freq) for value, freq in zip(result["Fecha inicio"], result["Frecuencia"])]
     result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
     result = mejorar_metadatos(result)
+    theme = result["Tema"].fillna("").astype(str).str.strip().str.casefold()
+    result.loc[theme.eq("tipo de cambio"), "Tema"] = "Sector externo"
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )
@@ -242,7 +260,16 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
         check = pd.read_excel(TEMP_FILE, sheet_name="Codificacion")
         if len(check) != len(data) or check.duplicated(["Código fuente", "ID"]).any():
             raise ValueError("La validación del inventario guardado falló")
-        TEMP_FILE.replace(INDEX_FILE)
+        # En Windows un lector de la web puede mantener abierto el índice unos
+        # segundos; reintentar el reemplazo atómico evita perder la actualización.
+        for attempt in range(8):
+            try:
+                TEMP_FILE.replace(INDEX_FILE)
+                break
+            except PermissionError:
+                if attempt == 7:
+                    raise
+                time.sleep(min(attempt + 1, 5))
     finally:
         TEMP_FILE.unlink(missing_ok=True)
 

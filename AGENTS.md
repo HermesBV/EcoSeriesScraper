@@ -38,6 +38,16 @@
 
 - `scraper_INDEC_emae.py`, `scraper_INDEC_sipm.py`, `scraper_INDEC_isac.py`, `scraper_INDEC_ipi_manufacturero.py`, `scraper_INDEC_supermercados.py` y `scraper_INDEC_comercio_exterior.py` administran sus respectivas tablas INDEC.
 - `scraper_MECON_hacienda.py` está en pausa: no incluirlo en la ejecución general ni publicar sus series hasta recibir nuevas instrucciones.
+- `scraper_INDEC_ipc.py`, `scraper_INDEC_pib.py`, `scraper_INDEC_cuentas_internacionales.py` y `scraper_INDEC_salarios.py` incorporan los libros de la segunda iteración. Para nombres con mes o trimestre, prueban períodos anteriores hasta encontrar un Excel válido; los datos pueden venir en filas o columnas.
+
+## Ministerio de Capital Humano
+
+- `scraper_MCH_sipa.py` incorpora las estadísticas SIPA del último libro mensual válido.
+- `scraper_MCH_ripte.py` localiza el enlace PDF vigente en la página oficial y extrae la serie mensual histórica RIPTE.
+
+## Estados Unidos
+
+- `scraper_FRED_cpiaucsl.py` descarga el CSV CPIAUCSL de FRED, conserva el ID nativo y atribuye la serie a U.S. Bureau of Labor Statistics.
 
 ## IIEP
 

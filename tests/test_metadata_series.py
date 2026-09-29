@@ -6,6 +6,23 @@ from tools.metadata_series import mejorar_metadatos
 
 
 class MetadataSeriesTests(unittest.TestCase):
+    def test_titulo_iiep_permanece_exacto_con_titulo_bcra_duplicado(self):
+        rows = pd.DataFrame([
+            {"ID": "itcrb-eeuu-empalmado-importacion-m", "Código fuente": "iiep",
+             "Nombre serie": "ITCRB Estados Unidos (mensual)",
+             "Descripción": "Empalme IIEP con BCRA", "Variable": "itcrb_empalmado",
+             "Frecuencia": "M", "Valoración": "No aplica", "Unidad": "Índice"},
+            {"ID": "itcrb-eeuu-m", "Código fuente": "bcra-itc",
+             "Nombre serie": "ITCRB Estados Unidos (mensual)",
+             "Descripción": "Serie BCRA", "Variable": "itcrb_bcra",
+             "Frecuencia": "M", "Valoración": "No aplica", "Unidad": "Índice"},
+        ])
+        result = mejorar_metadatos(rows)
+        self.assertEqual(result.loc[0, "Nombre serie"], "ITCRB Estados Unidos (mensual)")
+        self.assertEqual(result.loc[0, "Descripción"], "Empalme IIEP con BCRA")
+        self.assertEqual(mejorar_metadatos(result).loc[0, "Nombre serie"],
+                         "ITCRB Estados Unidos (mensual)")
+
     def test_titulo_identifica_variable_y_frecuencia(self):
         rows = pd.DataFrame([
             {"Nombre serie": "Intercambio Comercial Argentino. Valores anuales", "Descripción": "Exportaciones totales. En millones de dólares.", "Variable": "ica_expo_totales", "Frecuencia": "A", "Valoración": "No informado", "Unidad": "Millones de dólares", "Código fuente": "datos.gob.ar"},

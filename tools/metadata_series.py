@@ -63,6 +63,13 @@ def mejorar_titulos(inventory: pd.DataFrame) -> pd.DataFrame:
             title = updated.loc[index]
             revised = re.sub(r"\((?:19|20)\d{2}[-–](?:19|20)\d{2}\)", f"({period})", title, count=1)
             result.at[index, "Nombre serie"] = revised if revised != title else f"{title} | {period}"
+    # El título de la serie empalmada fue fijado para la vista pública.
+    # Su detalle, institución y período ya la distinguen de la serie BCRA.
+    ids = result.get("ID", pd.Series("", index=result.index)).astype(str)
+    iiep = result["Código fuente"].astype(str).eq("iiep") & ids.isin({
+        "itcrb-eeuu-empalmado-importacion-m", "iiep::itcrb-eeuu-empalmado-importacion-m",
+    })
+    result.loc[iiep, "Nombre serie"] = "ITCRB Estados Unidos (mensual)"
     return result
 
 
