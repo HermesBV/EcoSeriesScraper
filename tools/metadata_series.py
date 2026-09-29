@@ -16,63 +16,6 @@ def _plain(value: object) -> str:
     return unicodedata.normalize("NFKD", _text(value)).encode("ascii", "ignore").decode().casefold()
 
 
-def _descriptor(row: pd.Series) -> str:
-    description = _text(row.get("Descripción"))
-    description = re.sub(r"^Datos (?:de )?(?=exportaciones|importaciones)", "", description, flags=re.I).strip()
-    description = re.split(r"\.\s*(?:En |Metodolog[ií]a |Base \d|Fuente:)", description, maxsplit=1, flags=re.I)[0]
-    description = description.strip(" .;:-")
-    title = _text(row.get("Nombre serie"))
-    if not description or _plain(description) == _plain(title):
-        description = _text(row.get("Variable")).replace("_", " ")
-    if len(description) > 170:
-        shorter = description[:170].rsplit(" ", 1)[0]
-        description = shorter if len(shorter) >= 80 else description
-    return description.strip(" .;:-")
-
-
-def mejorar_titulos(inventory: pd.DataFrame) -> pd.DataFrame:
-    """Pone la variable concreta en cada título compartido por varias series."""
-    result = inventory.copy()
-    titles = result["Nombre serie"].fillna("").astype(str).str.strip()
-    repeated = titles.ne("") & titles.duplicated(keep=False)
-    for index in result.index[repeated]:
-        descriptor = _descriptor(result.loc[index])
-        if descriptor and _plain(descriptor) not in _plain(titles.loc[index]):
-            result.at[index, "Nombre serie"] = f"{descriptor} | {titles.loc[index]}"
-    # Si la descripción publicada se repite, la variable suele identificar la
-    # desagregación (provincia, rubro, país, etc.).
-    updated = result["Nombre serie"].fillna("").astype(str)
-    repeated = updated.ne("") & updated.duplicated(keep=False)
-    for index in result.index[repeated]:
-        variable = _text(result.at[index, "Variable"]).replace("_", " ")
-        if variable and _plain(variable) not in _plain(updated.loc[index]):
-            result.at[index, "Nombre serie"] = f"{updated.loc[index]} | {variable}"
-    updated = result["Nombre serie"].fillna("").astype(str)
-    repeated = updated.ne("") & updated.duplicated(keep=False)
-    frequency_names = {"A": "anual", "S": "semestral", "T": "trimestral", "M": "mensual", "D": "diaria", "I": "irregular"}
-    for index in result.index[repeated]:
-        frequency = frequency_names.get(_text(result.at[index, "Frecuencia"]))
-        if frequency and frequency not in _plain(updated.loc[index]):
-            result.at[index, "Nombre serie"] = f"{updated.loc[index]} | {frequency}"
-    updated = result["Nombre serie"].fillna("").astype(str)
-    repeated = updated.ne("") & updated.duplicated(keep=False)
-    for index in result.index[repeated]:
-        start, end = _text(result.at[index, "Desde"]), _text(result.at[index, "Hasta"])
-        if re.fullmatch(r"(?:19|20)\d{2}", start) and re.fullmatch(r"(?:19|20)\d{2}", end):
-            period = f"{start}-{end}"
-            title = updated.loc[index]
-            revised = re.sub(r"\((?:19|20)\d{2}[-–](?:19|20)\d{2}\)", f"({period})", title, count=1)
-            result.at[index, "Nombre serie"] = revised if revised != title else f"{title} | {period}"
-    # El título de la serie empalmada fue fijado para la vista pública.
-    # Su detalle, institución y período ya la distinguen de la serie BCRA.
-    ids = result.get("ID", pd.Series("", index=result.index)).astype(str)
-    iiep = result["Código fuente"].astype(str).eq("iiep") & ids.isin({
-        "itcrb-eeuu-empalmado-importacion-m", "iiep::itcrb-eeuu-empalmado-importacion-m",
-    })
-    result.loc[iiep, "Nombre serie"] = "ITCRB Estados Unidos (mensual)"
-    return result
-
-
 def mejorar_valoracion(inventory: pd.DataFrame) -> pd.DataFrame:
     """Completa precios corrientes/constantes sólo con evidencia del metadato."""
     result = inventory.copy()
@@ -139,4 +82,6 @@ def mejorar_valoracion(inventory: pd.DataFrame) -> pd.DataFrame:
 
 
 def mejorar_metadatos(inventory: pd.DataFrame) -> pd.DataFrame:
-    return mejorar_valoracion(mejorar_titulos(inventory))
+    # El título es descriptivo y puede repetirse; la identidad está en
+    # (Código fuente, ID). Conservar el nombre provisto por cada fuente.
+    return mejorar_valoracion(inventory)

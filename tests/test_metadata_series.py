@@ -18,12 +18,11 @@ class MetadataSeriesTests(unittest.TestCase):
              "Frecuencia": "M", "Valoración": "No aplica", "Unidad": "Índice"},
         ])
         result = mejorar_metadatos(rows)
-        self.assertEqual(result.loc[0, "Nombre serie"], "ITCRB Estados Unidos (mensual)")
+        self.assertEqual(result["Nombre serie"].tolist(), ["ITCRB Estados Unidos (mensual)"] * 2)
         self.assertEqual(result.loc[0, "Descripción"], "Empalme IIEP con BCRA")
-        self.assertEqual(mejorar_metadatos(result).loc[0, "Nombre serie"],
-                         "ITCRB Estados Unidos (mensual)")
+        self.assertEqual(mejorar_metadatos(result)["Nombre serie"].tolist(), result["Nombre serie"].tolist())
 
-    def test_titulo_identifica_variable_y_frecuencia(self):
+    def test_titulos_repetidos_se_conservan_aunque_varien_variable_frecuencia_o_periodo(self):
         rows = pd.DataFrame([
             {"Nombre serie": "Intercambio Comercial Argentino. Valores anuales", "Descripción": "Exportaciones totales. En millones de dólares.", "Variable": "ica_expo_totales", "Frecuencia": "A", "Valoración": "No informado", "Unidad": "Millones de dólares", "Código fuente": "datos.gob.ar"},
             {"Nombre serie": "Intercambio Comercial Argentino. Valores anuales", "Descripción": "Importaciones totales. En millones de dólares.", "Variable": "ica_importaciones_totales", "Frecuencia": "A", "Valoración": "No informado", "Unidad": "Millones de dólares", "Código fuente": "datos.gob.ar"},
@@ -33,11 +32,7 @@ class MetadataSeriesTests(unittest.TestCase):
             {"Nombre serie": "Cuenta AIF (1990-1992)", "Descripción": "Ahorro", "Variable": "ahorro", "Frecuencia": "A", "Desde": "1990", "Hasta": "1992", "Valoración": "No informado", "Unidad": "Variación Porcentual", "Código fuente": "datos.gob.ar"},
         ])
         result = mejorar_metadatos(rows)
-        self.assertTrue(result.loc[0, "Nombre serie"].startswith("Exportaciones totales |"))
-        self.assertTrue(result.loc[1, "Nombre serie"].startswith("Importaciones totales |"))
-        self.assertEqual(result["Nombre serie"].nunique(), 6)
-        self.assertIn("1987-1989", result.loc[4, "Nombre serie"])
-        self.assertIn("1990-1992", result.loc[5, "Nombre serie"])
+        self.assertEqual(result["Nombre serie"].tolist(), rows["Nombre serie"].tolist())
         self.assertEqual(result.loc[0, "Valoración"], "Precios corrientes")
 
     def test_valoracion_conservadora(self):
