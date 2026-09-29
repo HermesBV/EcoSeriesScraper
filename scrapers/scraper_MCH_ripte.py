@@ -116,7 +116,7 @@ def procesar(fetch: bool = True) -> dict[str, int]:
         "Fuente de valores": "PDF oficial", "Fecha inicio": frame["fecha"].min(),
         "Fecha fin": frame["fecha"].max(), "Estado": "VIGENTE",
         "Institución": "Ministerio de Capital Humano", "Área": "Trabajo",
-        "Subárea 1": "Seguridad social", "Subárea 2": "RIPTE", "Tema": "Salarios",
+        "Subárea 1": "Seguridad social", "Subárea 2": "RIPTE", "Tema": "Trabajo e ingresos",
     }])
     current = cargar_indice()
     obsolete = set(current.loc[current["Código fuente"].eq(CODE), "Pestaña BD"].dropna()) if not current.empty else set()

@@ -50,6 +50,8 @@ Cada fuente nueva suma `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y gua
 
 El inventario registra nombre, variable, unidad, valoración, descripción, frecuencia, ubicación física, procedencia, dataset, distribución, período desde/hasta y estado. También conserva institución, área, tres niveles de subárea y tema. La clasificación existente se mantiene al regenerar el índice y se hereda para nuevas series del mismo dataset. Los títulos pueden repetirse; la identidad de cada serie está en (`Código fuente`, `ID`) y las diferencias de fuente, frecuencia o período quedan en sus metadatos. `Valoración` clasifica precios corrientes o constantes cuando hay una señal explícita o el concepto es un importe contable nominal; usa `No aplica` para unidades físicas, tasas e índices, y `No informado` si falta evidencia suficiente. Las canastas de los datasets 444, 445 y 446 y los rubros en pesos del recurso 458.1 se verificaron como valores corrientes; la descripción general de un dataset no se aplica a todos sus recursos porque puede mezclar valores corrientes, constantes e índices.
 
+Los temas públicos son ocho: Actividad, Economía internacional, Finanzas públicas, Mercados financieros, Moneda y sistema financiero, Precios, Sector externo y Trabajo e ingresos; además se admite «Sin clasificar». El generador reasigna variantes conocidas a esos temas y rechaza cualquier etiqueta nueva para que se revise antes de ampliar la taxonomía.
+
 ## IED
 
 El scraper descubre todas las series de los ocho libros IED cruzando sus IDs con `series-tiempo-metadatos.csv`. Extrae los valores prioritariamente de los Excel. Si un bloque existe pero su formato no puede interpretarse, consulta la API para esa serie. Nombre, unidades y descripción provienen del catálogo API.

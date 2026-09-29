@@ -14,8 +14,10 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 
 if __package__:
     from .metadata_series import mejorar_metadatos
+    from .temas import normalizar_tema
 else:
     from metadata_series import mejorar_metadatos
+    from temas import normalizar_tema
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -181,8 +183,7 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
     result["Desde"] = [format_period(value, freq) for value, freq in zip(result["Fecha inicio"], result["Frecuencia"])]
     result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
     result = mejorar_metadatos(result)
-    theme = result["Tema"].fillna("").astype(str).str.strip().str.casefold()
-    result.loc[theme.eq("tipo de cambio"), "Tema"] = "Sector externo"
+    result["Tema"] = result["Tema"].map(normalizar_tema)
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )

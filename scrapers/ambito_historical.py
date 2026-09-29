@@ -277,7 +277,7 @@ def process(source: Source, fetch: bool = True) -> dict[str, int]:
             "Fecha inicio": present.min(), "Fecha fin": present.max(), "Estado": "VIGENTE",
             "Institución": source.origin, "Área": "Economía", "Subárea 1": "Mercados",
             "Subárea 2": source.topic,
-            "Tema": "Sector externo" if source.topic == "Tipo de cambio" else source.topic,
+            "Tema": {"Riesgo país": "Mercados financieros", "Tipo de cambio": "Sector externo"}[source.topic],
         })
     if not rows:
         raise ValueError("No hay series numéricas en el histórico")

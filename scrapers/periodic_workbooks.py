@@ -316,7 +316,7 @@ def process(source: Source, fetch: bool = True, write_data: bool = True) -> dict
     index["Institución"] = source.institution if source.institution == "INDEC" else source.origin
     index["Tema"] = {
         "indec-ipc": "Precios", "indec-pib": "Actividad", "indec-cin": "Sector externo",
-        "indec-salarios": "Salarios", "mch-sipa": "Trabajo",
+        "indec-salarios": "Trabajo e ingresos", "mch-sipa": "Trabajo e ingresos",
     }[source.code]
     for row in index.index:
         description = str(index.at[row, "Descripción"]).casefold()
