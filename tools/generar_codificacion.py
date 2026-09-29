@@ -150,6 +150,19 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
         missing_theme = result["Tema"].isna() | result["Tema"].astype(str).str.strip().isin(("", "Sin clasificar"))
         result.loc[matching & missing_theme, "Tema"] = theme
 
+    public_finance = result["Código fuente"].eq("datos.gob.ar") & result["Archivo origen"].eq("finanzas_publicas.xlsx")
+    for source_sheet, subarea, detail in (
+        ("AUH-AUE", "Finanzas Públicas", "Política de Ingresos. Asignación Universal Por Hijo para la Protección Social y por Embarazo."),
+        ("RECA_HISTORICA", "Finanzas Públicas", "Recursos tributarios totales y por tributo"),
+        ("SPA_Dev_93", "Sector Público", "Base Devengado"),
+    ):
+        matching = public_finance & result["Hoja origen"].astype(str).str.strip().eq(source_sheet)
+        for column, value in (("Subárea 1", subarea), ("Subárea 2", detail)):
+            empty = result[column].isna() | result[column].astype(str).str.strip().eq("")
+            result.loc[matching & empty, column] = value
+        empty_theme = result["Tema"].isna() | result["Tema"].astype(str).str.strip().isin(("", "Sin clasificar"))
+        result.loc[matching & empty_theme, "Tema"] = "Finanzas públicas"
+
     def format_period(value, frequency):
         date = pd.to_datetime(value, errors="coerce")
         if pd.isna(date):
