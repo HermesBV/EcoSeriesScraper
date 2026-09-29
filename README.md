@@ -28,6 +28,9 @@ scrapers/scraper_INDEC_salarios.py
 scrapers/scraper_MCH_sipa.py
 scrapers/scraper_MCH_ripte.py
 scrapers/scraper_FRED_cpiaucsl.py
+scrapers/scraper_Ambito_riesgo_pais.py
+scrapers/scraper_Ambito_dolar_blue.py
+scrapers/scraper_Ambito_dolar_mep.py
 scrapers/scraper_MECON_hacienda.py
 fuentes_BD/MECON/IED/           Excel fuente del IED
 fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
@@ -78,6 +81,8 @@ Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambio
 La segunda iteración suma IPC, PIB, cuentas internacionales y salarios del INDEC, y SIPA y RIPTE del Ministerio de Capital Humano. Los libros cuyo nombre depende del período se buscan desde el mes o trimestre actual hacia atrás, validando que la respuesta sea un Excel y no una página HTML de error. Cada hoja se examina para detectar fechas en filas o columnas. RIPTE se obtiene del PDF enlazado desde su página oficial y conserva la serie mensual desde julio de 1994. Las series nuevas incluyen clasificación institucional y valoración según los títulos y unidades publicados; cuando la evidencia no alcanza, la valoración queda sin informar.
 
 `scraper_FRED_cpiaucsl.py` descarga la serie mensual CPIAUCSL desde el CSV de FRED con fecha final abierta, por lo que incorpora automáticamente nuevas observaciones. La fuente original es U.S. Bureau of Labor Statistics; se trata de un índice desestacionalizado con base 1982-1984=100.
+
+Los tres scrapers de Ámbito incorporan Riesgo País (en puntos), Dólar Blue (compra y venta) y Dólar MEP (referencia). La primera descarga conserva todo el historial que entrega cada fuente; luego se consulta desde siete días antes del último dato guardado y se reemplazan las fechas repetidas. Cuando la API bloquea la consulta directa, se usa Chrome en modo oculto. Las cotizaciones repetidas de una misma fecha se promedian. La referencia MEP comienza en marzo de 2020; la API rechaza el 13 al 17 de agosto de 2025 y esas fechas se registran en `fechas_no_disponibles.txt`.
 
 ## Uso
 

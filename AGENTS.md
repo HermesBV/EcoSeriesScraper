@@ -49,6 +49,12 @@
 
 - `scraper_FRED_cpiaucsl.py` descarga el CSV CPIAUCSL de FRED, conserva el ID nativo y atribuye la serie a U.S. Bureau of Labor Statistics.
 
+## Ámbito
+
+- `scraper_Ambito_riesgo_pais.py`, `scraper_Ambito_dolar_blue.py` y `scraper_Ambito_dolar_mep.py` descargan sus históricos de la API de Ámbito con Chrome oculto cuando la consulta directa recibe 403.
+- La primera descarga conserva todo el histórico disponible. Las siguientes reanudan desde siete días antes de la última observación y reemplazan las fechas repetidas; dos cotizaciones de la misma fecha se promedian.
+- El endpoint de referencia MEP empieza en 2020 y puede fallar en tramos con datos faltantes. La descarga inicial separa años y luego tramos más chicos; las fechas que la API rechaza se registran sin inventar valores.
+
 ## IIEP
 
 - `scraper_IIEP_tipo_cambio_real.py` administra la serie mensual histórica de TCR bilateral con Estados Unidos.
