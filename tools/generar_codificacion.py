@@ -13,9 +13,11 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 if __package__:
+    from .agrupaciones import completar_agrupaciones
     from .metadata_series import mejorar_metadatos
     from .temas import normalizar_tema
 else:
+    from agrupaciones import completar_agrupaciones
     from metadata_series import mejorar_metadatos
     from temas import normalizar_tema
 
@@ -30,7 +32,8 @@ CODE_SHEETS = {
 }
 INVENTORY_COLUMNS = [
     "ID", "Código fuente", "Nombre serie", "Variable", "Unidad", "Valoración", "Descripción",
-    "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Hoja origen",
+    "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Grupo de hojas",
+    "Hoja origen", "Grupo de series 1", "Grupo de series 2",
     "Origen", "Fuente", "Catálogo ID", "Dataset ID", "Distribución ID",
     "Título dataset", "Tema dataset", "Responsable dataset", "Fuente de valores",
     "Fecha inicio", "Fecha fin", "Estado", "Institución", "Área",
@@ -184,6 +187,7 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
     result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
     result = mejorar_metadatos(result)
     result["Tema"] = result["Tema"].map(normalizar_tema)
+    result = completar_agrupaciones(result)
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )
@@ -218,7 +222,8 @@ def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
     for row_number, row in enumerate(inventory.itertuples(index=False, name=None), 2):
         for column, value in enumerate(row, 1):
             sheet.cell(row_number, column, None if pd.isna(value) else value)
-        for column in (22, 23):
+        for column in (INVENTORY_COLUMNS.index("Fecha inicio") + 1,
+                       INVENTORY_COLUMNS.index("Fecha fin") + 1):
             if sheet.cell(row_number, column).value is not None:
                 sheet.cell(row_number, column).number_format = "yyyy-mm-dd"
     if len(inventory):
