@@ -1,4 +1,8 @@
-"""Descarga incrementalmente las comunicaciones del BCRA desde 2026."""
+"""Descarga incrementalmente las comunicaciones del BCRA.
+
+No forma parte de la ejecución de SeriesScraper (``main.py`` lo excluye) ni alimenta
+SeriesMacro: se conserva porque lo usa otro repositorio. No eliminar.
+"""
 
 from __future__ import annotations
 

@@ -53,21 +53,6 @@ MAPEO_ORIGEN_ARCHIVO = {
     "Dinero y Bancos: Apendice8": "dinero_bancos.xlsx",
 }
 
-# Correcciones de nombres históricos cuya frecuencia no coincidía con los datos.
-RENOMBRES_PESTANAS = {
-    "EPH Puntual - Pel M": "EPH Puntual - Pel S",
-    "IPC Mensual M": "IPC Trimestral T",
-    "TCN D": "TCN A",
-    "ITCRM D": "ITCRM A",
-    "EXPO IMPO P Y Q T": "EXPO IMPO P Y Q A",
-    "TDI T": "TDI A",
-    "IPI T": "IPI A",
-    "8.8. Tipos de cambio historicos": "8.8 Tipos de cambio D",
-    "8.8. Tipos de cambio historicos D": "8.8 Tipos de cambio D",
-    "8.3 Prest. de Entidades finac.": "8.3 Préstamos entidades M",
-    "8.3 Prest. de Entidades finac. M": "8.3 Préstamos entidades M",
-}
-
 MESES = {
     "ene": "Jan", "enero": "Jan", "feb": "Feb", "febrero": "Feb",
     "mar": "Mar", "marzo": "Mar", "abr": "Apr", "abril": "Apr",
@@ -256,23 +241,9 @@ def parse_fecha_manual(valor: object) -> pd.Timestamp | pd.NaT:
         return pd.NaT
 
 
-def parse_fechas(fechas: list[object] | pd.Series) -> pd.DatetimeIndex:
-    serie = pd.Series(fechas, dtype="object")
-    resultado = pd.to_datetime(serie, format="mixed", dayfirst=True, errors="coerce")
-    faltantes = resultado.isna() & serie.notna()
-    if faltantes.any():
-        resultado.loc[faltantes] = serie.loc[faltantes].map(parse_fecha_manual)
-    return pd.DatetimeIndex(resultado)
-
-
 def frecuencia_de_pestana(nombre: str) -> str:
     coincidencia = re.search(r"(?:^|\s)([ASTMD])$", nombre.strip(), re.I)
     return coincidencia.group(1).upper() if coincidencia else ""
-
-
-def nombre_pestana(nombre: object) -> str:
-    limpio = str(nombre).strip() or "Otros"
-    return RENOMBRES_PESTANAS.get(limpio, limpio)[:31].strip()
 
 
 def normalizar_fechas(fechas: pd.Series, frecuencia: str) -> pd.Series:
@@ -419,37 +390,6 @@ def compactar_fechas(dataframe: pd.DataFrame) -> pd.DataFrame:
     return dataframe.sort_values("fecha").reset_index(drop=True)
 
 
-def preparar_hoja_bd(dataframe: pd.DataFrame, pestana: str) -> pd.DataFrame:
-    dataframe = dataframe.copy()
-    if "fecha" not in dataframe:
-        dataframe.insert(0, "fecha", pd.NaT)
-    dataframe["fecha"] = normalizar_fechas(dataframe["fecha"], frecuencia_de_pestana(pestana))
-    hoy = pd.Timestamp.today().normalize()
-    dataframe = dataframe[
-        dataframe["fecha"].notna()
-        & (dataframe["fecha"].dt.year >= 1800)
-        & (dataframe["fecha"] <= hoy)
-    ]
-    dataframe = compactar_fechas(dataframe)
-    columnas_datos = [columna for columna in dataframe if columna != "fecha"]
-    if columnas_datos:
-        dataframe = dataframe.dropna(how="all", subset=columnas_datos)
-    return dataframe
-
-
-def actualizar_serie(
-    existente: pd.DataFrame, nueva: pd.DataFrame, variable: str, pestana: str
-) -> pd.DataFrame:
-    existente = preparar_hoja_bd(existente, pestana)
-    nueva = nueva.rename(columns={"valor": variable})
-    nueva["fecha"] = normalizar_fechas(nueva["fecha"], frecuencia_de_pestana(pestana))
-    nueva = compactar_fechas(nueva)
-
-    resultado = nueva.set_index("fecha").combine_first(existente.set_index("fecha"))
-    resultado = resultado.reset_index()
-    return preparar_hoja_bd(resultado, pestana)
-
-
 def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: str) -> pd.DataFrame:
     """Conserva el historial y prioriza cada valor publicado en el Excel nuevo."""
     if "fecha" not in nueva or "fecha" not in existente:
@@ -469,21 +409,6 @@ def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: s
     columnas = [*nueva.columns, *(col for col in existente if col not in nueva)]
     fusion = fusion.reindex(columns=columnas[1:]).sort_index().reset_index()
     return fusion.dropna(how="all", subset=columnas[1:]).reset_index(drop=True)
-
-
-def aplicar_formatos_fecha(ruta: Path) -> None:
-    """Muestra fechas sin hora conservando celdas de fecha comparables."""
-    libro = load_workbook(ruta)
-    formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
-    for hoja in libro.worksheets:
-        if hoja.title in HOJAS_ADMINISTRATIVAS or hoja.title in HOJAS_AJENAS_IED:
-            continue
-        formato = formatos.get(frecuencia_de_pestana(hoja.title), "yyyy-mm-dd")
-        for celda in hoja["A"][1:]:
-            if celda.value is not None:
-                celda.number_format = formato
-        hoja.column_dimensions["A"].width = max(10, len("fecha") + 2)
-    libro.save(ruta)
 
 
 def _validar_guardado(ruta: Path, hojas: dict[str, pd.DataFrame], formatos: dict[str, str]) -> None:
