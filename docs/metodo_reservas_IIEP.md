@@ -14,7 +14,15 @@ Base del Documento de Trabajo IIEP N° 126: Impávido, Monteforte y Romero (2026
 | Netas según planilla | Brutas + II.1 + II.2 + II.3 | Sí |
 | Líquidas | Brutas − oro − DEG − porción no activada del swap chino (Anexo A.9 del DT) | Sí |
 | Propias líquidas | Líquidas − custodia | Sí |
-| RIN-EFF | BCRA, sólo por pedido de información pública (Trámite 10.532) | **No**: queda fija hasta 2026-07 |
+| RIN-EFF | BCRA, serie oficial no publicada: los 68 meses (2020-12 a 2026-07) vienen del Trámite 10.532, a precios de la segunda revisión del EFF | **No**: sólo se extiende con un nuevo pedido |
+
+## RIN-EFF
+
+Es la reserva neta con la definición del Acuerdo de Facilidades Extendidas (EFF) con el FMI: valúa a precios y tipos de cambio fijados por el programa, resta los desembolsos netos del FMI y los pasivos de vencimiento original hasta un año, no resta los depósitos del Tesoro y excluye del activo la porción no activada del swap chino (DT, Sección 3 y Anexo A.7). El DT no la reconstruye: «se toma de la serie oficial».
+
+- El cuerpo del DT usa la serie de la primera revisión, disponible hasta 2025-07 y obtenida por pedido de acceso a la información (Cuadro A1: «BCRA, serie oficial, no reconstruida, 2020-12/2025-07»).
+- La base publicada (nota metodológica, Sección VII) usa otra entrega: «segunda revisión del BCRA (Trámite 10.532), de 2020M12 a 2026M7». Reemplaza la serie completa, no sólo agrega meses: dic-2024 pasa de −2.066,4 a 989,8; abr-2025, de −8.146,3 a −5.094,1; jun-2025, de −4.644,3 a −2.178,0.
+- La nota indica para la actualización mensual «RIN-EFF, solo con dato del BCRA». El Anexo A.7 explica que no puede reconstruirse con la planilla (oro libre o en garantía, activos comprometidos, vencimiento original de los pasivos) y que «continuarla exige repetir el pedido».
 
 ## Actualización
 

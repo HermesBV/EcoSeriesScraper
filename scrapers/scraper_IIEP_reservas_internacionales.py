@@ -74,9 +74,11 @@ SERIES = (
     Serie("netas_planilla", "Reservas netas según planilla", "Reservas internacionales netas según planilla IRFCL",
           "Brutas más las Secciones II.1, II.2 y II.3 de la planilla IRFCL, tal como se publican y sin ajustes."),
     Serie("rin_eff", "RIN-EFF", "Reservas internacionales netas RIN-EFF",
-          "Reservas netas con la definición del programa con el FMI (Facilidades Extendidas), a precios de programa. Dato "
-          "oficial del BCRA obtenido por pedido de acceso a la información pública (Trámite 10.532, segunda revisión). "
-          "No se publica: no se actualiza automáticamente."),
+          "Reservas netas con la definición del Acuerdo de Facilidades Extendidas con el FMI, a precios de programa. "
+          "Serie oficial del BCRA que no se publica: toda la serie (2020-12 a 2026-07) proviene del pedido de acceso a "
+          "la información pública Trámite 10.532, con la valuación de la segunda revisión del acuerdo. Reemplaza a la "
+          "serie de la primera revisión que usa el cuerpo del DT (hasta 2025-07), cuyos valores difieren. Sólo se "
+          "extiende con un nuevo pedido al BCRA: no se actualiza automáticamente."),
     Serie("liquidas", "Reservas líquidas", "Reservas internacionales líquidas",
           "Brutas menos oro, DEG y porción no activada del swap con China, con el criterio del FMI (DT, Sección V y "
           "Anexo A.9). Oro y DEG de 2000-09 a 2025-07 provienen del Trámite 9455 del BCRA."),
