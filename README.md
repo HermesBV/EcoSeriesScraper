@@ -1,6 +1,6 @@
 # EcoSeriesScraper
 
-Descarga series y documentos económicos desde distintas fuentes y actualiza `BD.xlsx`. IED es la primera fuente de series incorporada con el inventario multi-fuente.
+Descarga series económicas de distintas fuentes, actualiza `BD.xlsx` y mantiene el inventario multi-fuente `IndiceSeries.xlsx` que consume SeriesMacro.
 
 ## Organización
 
@@ -14,7 +14,10 @@ scrapers/scraper_BCRA_tasas_depositos.py
 scrapers/scraper_BCRA_com3500.py
 scrapers/scraper_BCRA_bandas_cambiarias.py
 scrapers/scraper_BCRA_mercado_cambios.py
+scrapers/scraper_BCRA_cotizaciones.py
+scrapers/scraper_BCRA_irfcl.py
 scrapers/scraper_IIEP_tipo_cambio_real.py
+scrapers/scraper_IIEP_reservas_internacionales.py
 scrapers/scraper_INDEC_emae.py
 scrapers/scraper_INDEC_sipm.py
 scrapers/scraper_INDEC_isac.py
@@ -35,7 +38,11 @@ scrapers/scraper_MECON_hacienda.py
 fuentes_BD/MECON/IED/           Excel fuente del IED
 fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
 fuentes_BD/BCRA/DatosMonetariosDiarios/ Libro oficial de datos monetarios diarios
+fuentes_BD/BCRA/Cotizaciones/      Cotizaciones diarias descargadas de la API cambiaria
+fuentes_BD/BCRA/IRFCL/             Dataset IRFCL del FMI, PDF mensuales y caché de notas
 fuentes_BD/IIEP/TipoCambioReal/    Serie histórica utilizada para el empalme IIEP
+fuentes_BD/IIEP/ReservasInternacionales/ Base histórica del DT-IIEP N° 126
+docs/                           Guía para incorporar fuentes y notas de método
 series-tiempo-metadatos.csv     Catálogo de IDs y metadatos de datos.gob.ar
 BD.xlsx                         Datos consolidados
 IndiceSeries.xlsx               Inventario maestro multi-fuente
@@ -77,6 +84,12 @@ Las hojas de salida se separan por archivo, hoja fuente y frecuencia. Las fechas
 `scraper_IIEP_tipo_cambio_real.py` empalma la serie mensual `Importación (implícito)` del IIEP con el promedio mensual oficial del ITCRB Estados Unidos. Reescala el tramo histórico en enero de 1997 y conserva sin cambios la serie BCRA desde ese mes. Esta serie alimenta la vista Daniel Heymann de SeriesMacro.
 
 El inventario publica `ITCRB Estados Unidos (mensual)` como serie adicional, con unidad `Índice 17-dic-2015=100`. Su detalle es: «ITCRB Estados Unidos, empalme IIEP (hasta 1996-12) y BCRA (desde 1997-01) índice Laspeyres geométrico encadenado». Desde 1958-01 hasta 1996-12 usa `Importación (implícito)` del archivo IIEP, reescalada en 1997-01; desde 1997-01 usa el promedio mensual oficial ITCRB Estados Unidos del BCRA. La serie BCRA `ITCRB Estados Unidos` conserva su identidad y cobertura propias.
+
+## Reservas internacionales
+
+`scraper_BCRA_irfcl.py` incorpora la planilla de Reservas Internacionales y Liquidez en Moneda Extranjera (IRFCL) del BCRA: activos de reserva y su composición, drenajes predeterminados de la Sección II (con las bandas de vencimiento de II.2) y las tres partidas de custodia que el BCRA declara en las notas del país. Las partidas numéricas provienen del dataset IRFCL del FMI, donde el BCRA declara la misma planilla con su historia revisada; las notas sólo existen en los PDF del BCRA. `scraper_BCRA_cotizaciones.py` incorpora el tipo de pase y la cotización diaria del yuan.
+
+`scraper_IIEP_reservas_internacionales.py` publica la base del DT-IIEP N° 126 (Impávido, Monteforte y Romero): reservas brutas, custodia, propias, prestadas, netas, netas según planilla, RIN-EFF, líquidas y propias líquidas. El pasado es la base entregada por los autores; los meses siguientes se calculan con su método. RIN-EFF no tiene fuente pública y queda fija. Detalle y validación en `docs/metodo_reservas_IIEP.md`.
 
 ## Otras fuentes
 

@@ -33,6 +33,10 @@
 - En `pas2026.xls`, identificar cada serie con `hoja|código publicado`, porque los códigos se repiten entre hojas.
 - `scraper_BCRA_com3500.py`, `scraper_BCRA_bandas_cambiarias.py` y `scraper_BCRA_mercado_cambios.py` administran sus respectivos libros oficiales.
 - El generador conserva la clasificación de series existentes por (`Código fuente`, `ID`) y la hereda para nuevas series del mismo dataset.
+- `scraper_BCRA_comunicaciones.py` no se usa en este repositorio: `main.py` lo excluye y sus documentos no se publican en SeriesMacro. Se conserva porque lo usa otro repositorio; no eliminarlo.
+- `scraper_BCRA_cotizaciones.py` descarga de la API cambiaria del BCRA el tipo de pase y el tipo de cotización diarios de las monedas en `MONEDAS` (hoy CNY), por año y con siete días de solapamiento.
+- `scraper_BCRA_irfcl.py` administra la planilla IRFCL: las partidas numéricas vienen del dataset IRFCL del FMI (sector autoridad monetaria, declarado por el BCRA, historia revisada desde 2000-09) y las partidas de custodia de la nota del país sobre II.1, leídas de los PDF mensuales del BCRA (desde 2007-10). Conserva los signos publicados.
+- Las series que miden saldo, composición o variación de reservas llevan Tema «Sector externo» para todas las instituciones (`unificar_tema_reservas` en `tools/temas.py`); los pasivos y contrapartidas del balance del BCRA siguen en «Moneda y sistema financiero». Área y subáreas no se modifican.
 
 ## INDEC y MECON
 
@@ -60,3 +64,8 @@
 - `scraper_IIEP_tipo_cambio_real.py` administra la serie mensual histórica de TCR bilateral con Estados Unidos.
 - El tramo `Importación (implícito)` se reescala en enero de 1997 y sólo se usa antes de esa fecha; desde enero de 1997 se conserva el promedio mensual BCRA sin modificaciones.
 - La vista Heymann consume la serie empalmada con código fuente `iiep` e ID `itcrb-eeuu-empalmado-importacion-m`.
+- `scraper_IIEP_reservas_internacionales.py` (código `iiep-rin`) publica las nueve series del DT-IIEP N° 126. Hasta `CORTE_HISTORICO` usa la base de los autores; después calcula con su método desde las hojas `BCRA IRFCL M` y `BCRA Cotizaciones D`, por lo que debe correr después de los scrapers BCRA. RIN-EFF no se actualiza. El método y su validación están en `docs/metodo_reservas_IIEP.md`.
+
+## Documentación de trabajo
+
+- `docs/guia_incorporar_fuentes.md` reúne el recorrido y las decisiones habituales para sumar fuentes. Ampliarla cuando una fuente nueva enseñe algo reutilizable.
