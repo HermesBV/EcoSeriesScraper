@@ -411,16 +411,20 @@ def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: s
     return fusion.dropna(how="all", subset=columnas[1:]).reset_index(drop=True)
 
 
-def _validar_guardado(ruta: Path, hojas: dict[str, pd.DataFrame], formatos: dict[str, str]) -> None:
-    """Reabre el resultado y comprueba dimensiones, fechas y filas vacías."""
+def _validar_guardado(ruta: Path, dimensiones: dict[str, tuple[int, int]], formatos: dict[str, str]) -> None:
+    """Reabre el resultado y comprueba dimensiones, fechas y filas vacías.
+
+    ``dimensiones`` trae (filas, columnas) de cada hoja escrita; no se retienen
+    los DataFrame para no duplicar la base en memoria durante el volcado.
+    """
     libro = load_workbook(ruta, read_only=True, data_only=True)
     try:
-        for nombre, datos in hojas.items():
+        for nombre, (filas, columnas) in dimensiones.items():
             hoja = libro[nombre]
-            if hoja.max_row != len(datos) + 1 or hoja.max_column != len(datos.columns):
+            if hoja.max_row != filas + 1 or hoja.max_column != columnas:
                 raise ValueError(
                     f"Dimensiones incorrectas en {nombre}: "
-                    f"{hoja.max_row}x{hoja.max_column}, esperado {len(datos) + 1}x{len(datos.columns)}"
+                    f"{hoja.max_row}x{hoja.max_column}, esperado {filas + 1}x{columnas}"
                 )
             if str(hoja.cell(1, 1).value).strip().casefold() != "fecha":
                 raise ValueError(f"La primera columna de {nombre} no es fecha")
@@ -441,13 +445,21 @@ def guardar_datos_preservando_formato(
     frecuencias: dict[str, str] | None = None,
     hojas_obsoletas: set[str] | None = None,
 ) -> None:
-    """Recrea hojas limpias y publica el libro sólo después de validarlo."""
+    """Recrea hojas limpias y publica el libro sólo después de validarlo.
+
+    Dentro de un lote (``tools.lote.abrir``, lo usa ``main.py``) las hojas se
+    acumulan fusionadas y el libro se escribe una sola vez al final.
+    """
+    from tools import lote
+    frecuencias = frecuencias or {nombre: frecuencia_de_pestana(nombre) for nombre in hojas}
+    if lote.activo():
+        lote.actual().encolar(ruta, hojas, frecuencias, hojas_obsoletas or set(), fusionar_hoja_bd)
+        return
     libro = load_workbook(ruta)
     temporal = ruta.with_name(f"{ruta.stem}.actualizacion{ruta.suffix}")
     formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
-    frecuencias = frecuencias or {nombre: frecuencia_de_pestana(nombre) for nombre in hojas}
     formatos_hojas = {nombre: formatos.get(frecuencias.get(nombre, ""), "yyyy-mm-dd") for nombre in hojas}
-    hojas_guardadas: dict[str, pd.DataFrame] = {}
+    hojas_guardadas: dict[str, tuple[int, int]] = {}
 
     def valor_excel(valor: object) -> object:
         if pd.isna(valor):
@@ -473,7 +485,7 @@ def guardar_datos_preservando_formato(
             elif not anterior.isna().all().all():
                 raise ValueError(f"La hoja {nombre_hoja} existente no tiene encabezado fecha")
             del libro[nombre_hoja]
-        hojas_guardadas[nombre] = datos
+        hojas_guardadas[nombre] = (len(datos), len(datos.columns))
         hoja = libro.create_sheet(nombre_hoja)
         columnas = list(datos.columns)
         filas_nuevas = len(datos) + 1
@@ -540,10 +552,17 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
     return resumen
 
 
+PROPORCION_FALLIDAS_TOLERADA = 0.02
+
+
 def ejecutar() -> None:
     resumen = procesar_datos(descargar=True)
     if resumen["fallidas"]:
-        raise RuntimeError(
-            f"IED terminó con {resumen['fallidas']} de {resumen['total']} series fallidas; "
-            "consulte el log para ver el detalle"
-        )
+        mensaje = (f"IED terminó con {resumen['fallidas']} de {resumen['total']} series fallidas; "
+                   "consulte el log para ver el detalle")
+        # Unas pocas series sin valores (datasets que datos.gob.ar dejó de
+        # cargar, como 41.2 «Productos industriales») no son una falla de la
+        # corrida: quedan en el log y el índice las conserva como discontinuadas.
+        if resumen["fallidas"] > PROPORCION_FALLIDAS_TOLERADA * resumen["total"]:
+            raise RuntimeError(mensaje)
+        print(f"AVISO: {mensaje}", flush=True)

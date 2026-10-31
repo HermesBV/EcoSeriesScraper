@@ -17,6 +17,7 @@ import pandas as pd
 from scrapers.scraper_BCRA_cotizaciones import SHEET as HOJA_COTIZACIONES, columnas as columnas_cotizacion
 from scrapers.scraper_BCRA_irfcl import COLUMNAS_NOTAS, SHEET as HOJA_IRFCL
 from scrapers.scraper_IED import guardar_datos_preservando_formato
+from tools import lote
 from tools.generar_codificacion import generar
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -97,7 +98,7 @@ def leer_historico(ruta: Path = ARCHIVO_HISTORICO) -> pd.DataFrame:
             raise ValueError(f"La base IIEP no trae las columnas {sorted(faltantes)}")
         datos = datos.rename(columns=COLUMNAS)[["fecha", *COLUMNAS.values()]]
     else:
-        datos = pd.read_excel(ARCHIVO_BD, sheet_name=HOJA)
+        datos = lote.leer_hoja(ARCHIVO_BD, HOJA)
         datos["fecha"] = pd.to_datetime(datos["fecha"])
     datos["fecha"] = datos["fecha"].dt.to_period("M").dt.to_timestamp()
     return datos[datos["fecha"].le(CORTE_HISTORICO)].sort_values("fecha").reset_index(drop=True)
@@ -166,9 +167,10 @@ def calcular_meses(irfcl: pd.DataFrame, cny: pd.Series, desde: pd.Timestamp) -> 
 
 
 def leer_hojas_bcra() -> tuple[pd.DataFrame, pd.Series]:
-    with pd.ExcelFile(ARCHIVO_BD) as libro:
-        irfcl = pd.read_excel(libro, sheet_name=HOJA_IRFCL)
-        cotizaciones = pd.read_excel(libro, sheet_name=HOJA_COTIZACIONES)
+    # Vía el lote: en una corrida completa toma las hojas BCRA recién
+    # actualizadas aunque todavía no estén escritas en BD.xlsx.
+    irfcl = lote.leer_hoja(ARCHIVO_BD, HOJA_IRFCL)
+    cotizaciones = lote.leer_hoja(ARCHIVO_BD, HOJA_COTIZACIONES)
     for datos in (irfcl, cotizaciones):
         datos["fecha"] = pd.to_datetime(datos["fecha"])
     irfcl["fecha"] = irfcl["fecha"].dt.to_period("M").dt.to_timestamp()

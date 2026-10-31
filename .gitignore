@@ -16,3 +16,7 @@ IndiceSeries.backup-*.xlsx
 .BD.actualizacion.xlsx
 BD.actualizacion.xlsx
 .IndiceSeries.tmp.xlsx
+coyuntura/bkp/
+coyuntura/logs/
+coyuntura/.trabajo/
+.lote/

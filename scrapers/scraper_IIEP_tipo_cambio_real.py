@@ -32,7 +32,8 @@ def leer_iiep(ruta: Path = ARCHIVO_IIEP) -> pd.DataFrame:
 
 
 def leer_bcra(ruta: Path = ARCHIVO_BD) -> pd.DataFrame:
-    datos = pd.read_excel(ruta, sheet_name=HOJA_BCRA)
+    from tools import lote
+    datos = lote.leer_hoja(ruta, HOJA_BCRA)
     if COLUMNA_BCRA not in datos.columns:
         raise ValueError(f"No se encontró la columna '{COLUMNA_BCRA}' en {HOJA_BCRA}")
     salida = datos.iloc[:, [0]].copy()

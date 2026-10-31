@@ -72,6 +72,9 @@ def _normalizar_valoracion(
 
 
 def _load_current_inventory() -> pd.DataFrame:
+    from tools import lote
+    if lote.activo() and lote.actual().inventario is not None:
+        return lote.actual().inventario.copy()
     source = INDEX_FILE if INDEX_FILE.is_file() else DB_FILE
     with pd.ExcelFile(source) as book:
         if "Codificacion" not in book.sheet_names:
@@ -238,6 +241,40 @@ def _write_inventory(sheet, inventory: pd.DataFrame) -> None:
     for column in range(1, len(INVENTORY_COLUMNS) + 1):
         sheet.column_dimensions[get_column_letter(column)].width = 22
 
+def _hojas_vigentes() -> set[str]:
+    """Pestañas que tendrá BD.xlsx tras el guardado en curso (lote incluido)."""
+    from tools import lote
+    hojas: set[str] = set()
+    if DB_FILE.is_file():
+        with pd.ExcelFile(DB_FILE) as book:
+            hojas = set(book.sheet_names)
+    if lote.activo():
+        hojas = (hojas - lote.actual().obsoletas) | set(lote.actual().hojas)
+    return hojas
+
+
+def _discontinuadas(current: pd.DataFrame, data: pd.DataFrame, managed_codes: set[str]) -> pd.DataFrame:
+    """Series de los códigos administrados que la fuente dejó de publicar.
+
+    Sus datos siguen en BD.xlsx (el guardado conserva las columnas ajenas a la
+    entrega nueva), así que se mantienen en el índice con Estado DISCONTINUADA
+    mientras exista su pestaña. Si vuelven a publicarse, la entrega las repone.
+    """
+    if "ID" not in current or "ID" not in data:
+        return pd.DataFrame(columns=current.columns)
+    propias = current[current["Código fuente"].astype(str).isin(managed_codes)]
+    claves_nuevas = set(zip(data["Código fuente"].astype(str), data["ID"].astype(str)))
+    perdidas = propias[[
+        (codigo, identificador) not in claves_nuevas
+        for codigo, identificador in zip(propias["Código fuente"].astype(str), propias["ID"].astype(str))
+    ]].copy()
+    if perdidas.empty:
+        return perdidas
+    perdidas = perdidas[perdidas["Pestaña BD"].astype(str).isin(_hojas_vigentes())]
+    perdidas["Estado"] = "DISCONTINUADA"
+    return perdidas
+
+
 def generar(inventory: pd.DataFrame | None = None) -> None:
     current = _load_current_inventory()
     if inventory is None:
@@ -249,12 +286,21 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
         managed_codes = set(data.get("Código fuente", pd.Series(dtype=str)).dropna().astype(str))
         if managed_codes and "Código fuente" in current:
             foreign = current[~current["Código fuente"].astype(str).isin(managed_codes)]
-            data = pd.concat([foreign, data], ignore_index=True)
+            data = pd.concat([foreign, data, _discontinuadas(current, data, managed_codes)], ignore_index=True)
     if "Pestaña BD" in data:
         data = data[data["Pestaña BD"].ne("Comunicaciones BCRA")]
     data = _conservar_rangos_historicos(data, current)
     data = _normalize_inventory(data, current)
+    from tools import lote
+    if lote.activo():
+        # Dentro del lote el inventario queda en memoria y se escribe al final.
+        lote.actual().inventario = data
+        return
+    escribir_indice(data)
 
+
+def escribir_indice(data: pd.DataFrame) -> None:
+    """Escribe ``Codificacion`` en ``IndiceSeries.xlsx`` de forma atómica y validada."""
     if INDEX_FILE.is_file():
         book = load_workbook(INDEX_FILE)
     else:

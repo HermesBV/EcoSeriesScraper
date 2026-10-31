@@ -1,7 +1,7 @@
 # Instrucciones de organización
 
 - Cada fuente tiene un único módulo `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y guarda entradas en `fuentes_BD/<INSTITUCION>/<FUENTE>/`.
-- `main.py` sólo orquesta scrapers; no contiene lógica de una fuente.
+- `main.py` sólo orquesta scrapers; no contiene lógica de una fuente. Corre los módulos dentro de `tools.lote.abrir()`: `guardar_datos_preservando_formato` y `generar` acumulan hojas e inventario en memoria y `BD.xlsx` e `IndiceSeries.xlsx` se escriben una sola vez al final (también si un scraper falló). Un scraper que lee hojas de otro debe usar `tools.lote.leer_hoja` para ver lo pendiente. Suelto, cada scraper sigue escribiendo en el acto.
 - No dejar scripts de depuración en la raíz. Las validaciones reutilizables pertenecen a `tests/` o al módulo correspondiente.
 - Al agregar, renombrar o quitar una fuente, actualizar este archivo y `README.md`.
 
@@ -10,7 +10,7 @@
 - `Codificacion` en `IndiceSeries.xlsx` es el inventario maestro; `BD.xlsx` contiene sólo datos.
 - La clave natural es (`Código fuente`, `ID`). `ID` conserva el identificador nativo; si la fuente no publica uno, se asigna un identificador estable y descriptivo, nunca un correlativo.
 - Nunca inventar correlativos ni modificar el ID nativo para clasificar una serie.
-- Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas.
+- Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas. Las series de un código que la entrega nueva ya no trae quedan en el índice con `Estado = DISCONTINUADA` mientras exista su pestaña (`_discontinuadas` en `tools/generar_codificacion.py`); nunca se borran datos de `BD.xlsx` por una serie que la fuente dejó de publicar.
 - Registrar como mínimo nombre, variable, unidades, valoración, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
 - Una modificación del esquema exige actualizar el generador, la web, las pruebas y la documentación.
 
@@ -41,7 +41,9 @@
 ## INDEC y MECON
 
 - `scraper_INDEC_emae.py`, `scraper_INDEC_sipm.py`, `scraper_INDEC_isac.py`, `scraper_INDEC_ipi_manufacturero.py`, `scraper_INDEC_supermercados.py` y `scraper_INDEC_comercio_exterior.py` administran sus respectivas tablas INDEC.
-- `scraper_MECON_hacienda.py` está en pausa: no incluirlo en la ejecución general ni publicar sus series hasta recibir nuevas instrucciones.
+- `scraper_MECON_hacienda.py` está en pausa: no incluirlo en la ejecución general ni publicar sus series hasta recibir nuevas instrucciones. `scraper_MECON_imig.py` reutiliza su descarga y publica sólo el Informe Mensual de Ingresos y Gastos (hoja `MECON IMIG M`, código `mecon-imig`, ID = slug del concepto): el informe más reciente revisa los meses anteriores y «Mensualizacion» cubre el año en curso.
+- `scraper_BCRA_datos_monetarios_diarios.py` conserva sólo las filas con «Tipo de serie» D; las filas PM/VFM/VPM del libro oficial pisaban los saldos del primer día de cada mes.
+- Las columnas de fechas de INDEC/MCH admiten texto («feb-15», «dic-25*») y trimestres provisorios («2025T4*»); sin eso SIPA A.4 se cortaba en 2015 y CIN Cuadro 1 en 2023.
 - `scraper_INDEC_ipc.py`, `scraper_INDEC_pib.py`, `scraper_INDEC_cuentas_internacionales.py` y `scraper_INDEC_salarios.py` incorporan los libros de la segunda iteración. Para nombres con mes o trimestre, prueban períodos anteriores hasta encontrar un Excel válido; los datos pueden venir en filas o columnas.
 
 ## Ministerio de Capital Humano
@@ -65,6 +67,14 @@
 - El tramo `Importación (implícito)` se reescala en enero de 1997 y sólo se usa antes de esa fecha; desde enero de 1997 se conserva el promedio mensual BCRA sin modificaciones.
 - La vista Heymann consume la serie empalmada con código fuente `iiep` e ID `itcrb-eeuu-empalmado-importacion-m`.
 - `scraper_IIEP_reservas_internacionales.py` (código `iiep-rin`) publica las nueve series del DT-IIEP N° 126. Hasta `CORTE_HISTORICO` usa la base de los autores; después calcula con su método desde las hojas `BCRA IRFCL M` y `BCRA Cotizaciones D`, por lo que debe correr después de los scrapers BCRA. RIN-EFF no se actualiza. El método y su validación están en `docs/metodo_reservas_IIEP.md`.
+
+## Excel de coyuntura
+
+- `coyuntura/coyuntura iiep reemplazar.xlsx` es el libro del economista; `python -m coyuntura.actualizador` lo actualiza desde `BD.xlsx` después de los scrapers (nunca vuelve a descargar fuentes). Requiere Excel (COM) y el libro cerrado.
+- El mapeo vive en `coyuntura/actualizador/mapeo.py` por (`Código fuente`, `ID`); al cambiar una fuente, correr `python -m coyuntura.herramientas.verificar_mapeo`.
+- Respetar el formato del economista: filas nuevas entre el último dato y la barra azul, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, COMEX con fechas hasta diciembre y barra fija. Criterios completos en `coyuntura/README.md`.
+- `bkp/` guarda una copia por actualización (sufijo AAMMDD); los meses cerrados se comprimen en zip y se conservan dos. `bkp/`, `logs/` y `.trabajo/` no se versionan.
+- El Excel publicado se copia a `SeriesMacro/coyuntura/` para la descarga con «abrete sesamo».
 
 ## Documentación de trabajo
 

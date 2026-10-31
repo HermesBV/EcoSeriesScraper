@@ -98,7 +98,8 @@ def _period(value: object, previous_year: int | None = None) -> pd.Timestamp | N
     if isinstance(value, (datetime, date, pd.Timestamp)):
         return pd.Timestamp(value).replace(day=1)
     value = text(value)
-    match = re.fullmatch(r"(20\d{2}|19\d{2})\s*T\s*([1-4])", value, re.I)
+    # INDEC marca los trimestres provisorios con un asterisco («2025T4*»).
+    match = re.fullmatch(r"(20\d{2}|19\d{2})\s*T\s*([1-4])\s*\**", value, re.I)
     if match:
         return pd.Timestamp(int(match[1]), (int(match[2]) - 1) * 3 + 1, 1)
     match = re.search(r"([1-4])\s*[°ºª]?\s*trimestre", value, re.I)

@@ -40,6 +40,22 @@ def _month(value: object) -> int | None:
     return next((number for name, number in MONTHS.items() if name.startswith(normalized) and len(normalized) >= 3), None)
 
 
+def _month_year_text(value: object) -> pd.Timestamp:
+    """Interpreta «feb-15», «dic-25*» o «Ene 2026» como el primer día del mes."""
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return pd.NaT
+    match = re.fullmatch(r"([A-Za-zÁÉÍÓÚáéíóú]{3,})[\s\-/]*((?:19|20)?\d{2})\s*\**", text(value))
+    if not match:
+        return pd.NaT
+    month = _month(match[1])
+    if month is None:
+        return pd.NaT
+    year = int(match[2])
+    if year < 100:
+        year += 2000 if year < 70 else 1900
+    return pd.Timestamp(year, month, 1)
+
+
 def _find_year_month(raw: pd.DataFrame) -> tuple[list[pd.Timestamp], int, int] | None:
     best = None
     for month_col in range(min(4, raw.shape[1])):
@@ -95,6 +111,9 @@ def extract_tables(
             )
             direct_dates = pd.to_datetime(date_candidates, errors="coerce")
             direct_dates = direct_dates.where(direct_dates.dt.year.between(1900, 2100))
+            # Algunos cuadros (SIPA) continúan la columna de fechas con texto
+            # «feb-15» o «dic-25*» cuando el dato es provisorio.
+            direct_dates = direct_dates.fillna(date_candidates.map(_month_year_text))
             direct_count = int(direct_dates.notna().sum())
             year_month = _find_year_month(raw)
             ym_count = sum(pd.notna(value) for value in year_month[0]) if year_month else 0

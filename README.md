@@ -35,7 +35,10 @@ scrapers/scraper_Ambito_riesgo_pais.py
 scrapers/scraper_Ambito_dolar_blue.py
 scrapers/scraper_Ambito_dolar_mep.py
 scrapers/scraper_MECON_hacienda.py
+scrapers/scraper_MECON_imig.py
+coyuntura/                      Excel de coyuntura del IIEP y su actualizador (ver coyuntura/README.md)
 fuentes_BD/MECON/IED/           Excel fuente del IED
+fuentes_BD/MECON/Hacienda/      Informes mensuales de Hacienda (IMIG y Base Caja)
 fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
 fuentes_BD/BCRA/DatosMonetariosDiarios/ Libro oficial de datos monetarios diarios
 fuentes_BD/BCRA/Cotizaciones/      Cotizaciones diarias descargadas de la API cambiaria
@@ -93,7 +96,7 @@ El inventario publica `ITCRB Estados Unidos (mensual)` como serie adicional, con
 
 ## Otras fuentes
 
-Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambios procesan sus libros oficiales. Los scrapers INDEC incorporan EMAE, SIPM, ISAC, IPI manufacturero, supermercados y comercio exterior. El scraper MECON Hacienda permanece en pausa y fuera de la ejecución general hasta recibir nuevas instrucciones. Cada módulo guarda sus descargas en `fuentes_BD/` y actualiza sólo las hojas que administra.
+Los scrapers BCRA de tipo de cambio A3500, bandas cambiarias y mercado de cambios procesan sus libros oficiales. El libro de datos monetarios diarios agrega debajo de las filas diarias promedios y variaciones mensuales («PM», «VFM», «VPM») fechados el primer día del mes; sólo se conservan las filas «D». Los scrapers INDEC incorporan EMAE, SIPM, ISAC, IPI manufacturero, supermercados y comercio exterior. El scraper MECON Hacienda permanece en pausa y fuera de la ejecución general hasta recibir nuevas instrucciones; `scraper_MECON_imig.py` reutiliza su descarga y publica sólo el Informe Mensual de Ingresos y Gastos (ingresos, gastos, resultados e intereses con sus aperturas, desde 2016), tomando de cada informe el mes publicado, el mismo mes del año anterior y, desde 2026, la hoja de mensualización del año en curso; el informe más reciente revisa a los anteriores. Cada módulo guarda sus descargas en `fuentes_BD/` y actualiza sólo las hojas que administra.
 
 La segunda iteración suma IPC, PIB, cuentas internacionales y salarios del INDEC, y SIPA y RIPTE del Ministerio de Capital Humano. Los libros cuyo nombre depende del período se buscan desde el mes o trimestre actual hacia atrás, validando que la respuesta sea un Excel y no una página HTML de error. Cada hoja se examina para detectar fechas en filas o columnas. RIPTE se obtiene del PDF enlazado desde su página oficial y conserva la serie mensual desde julio de 1994. Las series nuevas incluyen clasificación institucional y valoración según los títulos y unidades publicados; cuando la evidencia no alcanza, la valoración queda sin informar.
 
@@ -101,8 +104,16 @@ La segunda iteración suma IPC, PIB, cuentas internacionales y salarios del INDE
 
 Los tres scrapers de Ámbito incorporan Riesgo País (en puntos), Dólar Blue (compra y venta) y Dólar MEP (referencia). La primera descarga conserva todo el historial que entrega cada fuente; luego se consulta desde siete días antes del último dato guardado y se reemplazan las fechas repetidas. Cuando la API bloquea la consulta directa, se usa Chrome en modo oculto. Las cotizaciones repetidas de una misma fecha se promedian. La referencia MEP comienza en marzo de 2020; la API rechaza el 13 al 17 de agosto de 2025 y esas fechas se registran en `fechas_no_disponibles.txt`.
 
+## Excel de coyuntura
+
+`coyuntura/coyuntura iiep reemplazar.xlsx` es el libro con el que el IIEP arma el informe de coyuntura. `python -m coyuntura.actualizador` lo completa con las series de `BD.xlsx` respetando su formato: filas nuevas entre el último dato y la barra azul que delimita los gráficos, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, cuadros anuales de COMEX y Fiscal extendidos por año. Guarda una copia fechada en `coyuntura/bkp/` (meses cerrados en zip, se conservan dos) y copia el libro a `SeriesMacro/coyuntura/` para su descarga desde la web. Necesita Excel instalado (edición por COM). Detalles y criterios en `coyuntura/README.md`.
+
 ## Uso
 
-Instalar dependencias con `pip install -r requirements.txt` y ejecutar `python main.py`.
+Instalar dependencias con `pip install -r requirements.txt` y ejecutar `python main.py`; después, `python -m coyuntura.actualizador` para el Excel de coyuntura.
+
+`main.py` ejecuta los scrapers dentro de un lote (`tools/lote.py`): cada módulo fusiona sus hojas contra lo ya publicado, las deja en `.lote/` (un pickle por hoja, para no cargar la base entera en memoria) y `BD.xlsx` e `IndiceSeries.xlsx` se escriben y validan una sola vez al terminar, también cuando algún scraper falla. Antes cada módulo reescribía el libro de 40 MB (unos cinco minutos por scraper, más de dos horas por corrida); con el lote el tiempo lo fija la descarga. Un scraper ejecutado suelto escribe en el acto, como siempre. `main.py` informa la hora de inicio, la duración de cada módulo y el total; reintenta cada scraper que falla (`--reintentos 2 --espera 60`) y escribe la base cada diez scrapers (`--volcar-cada N`; `0` = una sola vez al final) para acotar la memoria del servidor.
+
+Las series que una fuente deja de publicar no se borran del índice: quedan con `Estado = DISCONTINUADA` mientras su pestaña siga en `BD.xlsx` (el guardado conserva las columnas que la entrega nueva no trae). El IED tolera hasta un 2 % de series sin valores (hoy, el dataset 41.2 «Productos industriales» de datos.gob.ar) y las deja en el log en vez de marcar la corrida como fallida.
 
 El scraper IED valida cada descarga antes de reemplazar la copia local. Si una actualización falla por red o TLS, reutiliza el último Excel válido y lo registra en el log.

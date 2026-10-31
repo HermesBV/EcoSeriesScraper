@@ -6,3 +6,4 @@ requests==2.33.1
 certifi==2026.2.25
 tqdm==4.67.3
 xlrd==2.0.2
+pywin32==312

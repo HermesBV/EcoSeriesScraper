@@ -117,6 +117,15 @@ def _encabezado_estable(hoja, columna: int) -> str:
     return " - ".join(partes) or _texto(hoja.cell(9, columna).value) or get_column_letter(columna)
 
 
+def _columna_tipo_serie(hoja) -> int | None:
+    """Columna «Tipo de serie» (D, PM, VFM, VPM) si la hoja la publica."""
+    for fila in range(1, 10):
+        for columna in range(1, hoja.max_column + 1):
+            if _texto(hoja.cell(fila, columna).value).casefold().startswith("tipo de serie"):
+                return columna
+    return None
+
+
 def _columnas_publicadas(hoja, catalogo_hoja: pd.DataFrame) -> list[dict[str, str]]:
     por_columna = {fila.columna: fila for fila in catalogo_hoja.itertuples(index=False)}
     columnas: list[dict[str, str]] = []
@@ -147,8 +156,13 @@ def construir_salida(ruta: Path) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]
             hoja = libro[hoja_origen]
             columnas = _columnas_publicadas(hoja, catalogo[catalogo["hoja"].eq(hoja_origen)])
             indices = [1] + [column_index_from_string(item["letra"]) for item in columnas]
+            # Debajo de las filas diarias («D») el libro agrega promedios y
+            # variaciones mensuales («PM», «VFM», «VPM») fechados el primer día del
+            # mes; sin este filtro pisaban el saldo diario de esas fechas.
+            columna_tipo = _columna_tipo_serie(hoja)
             filas = ([hoja.cell(fila, columna).value for columna in indices]
-                     for fila in range(10, hoja.max_row + 1))
+                     for fila in range(10, hoja.max_row + 1)
+                     if columna_tipo is None or _texto(hoja.cell(fila, columna_tipo).value) in {"", "D"})
             datos = pd.DataFrame(filas, columns=["fecha"] + [item["nombre"] for item in columnas])
             datos["fecha"] = pd.to_datetime(datos["fecha"], errors="coerce")
             for columna in datos.columns[1:]:
