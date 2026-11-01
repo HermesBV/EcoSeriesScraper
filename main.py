@@ -58,17 +58,23 @@ def main(argv: list[str] | None = None) -> None:
     # Cada grupo es un lote: los scrapers acumulan sus hojas y BD.xlsx e
     # IndiceSeries.xlsx se escriben una vez por grupo, también si uno falló.
     for grupo in grupos:
-        with lote.abrir():
-            for nombre in grupo:
-                nombre_completo = f"scrapers.{nombre}"
-                print(f"\n=== Ejecutando {nombre_completo} ({time.strftime('%H:%M:%S')}) ===", flush=True)
-                inicio = time.time()
-                try:
-                    ejecutar_modulo(nombre_completo, args.reintentos, args.espera)
-                except Exception as exc:
-                    errores.append((nombre_completo, exc))
-                    print(f"ERROR en {nombre_completo}: {exc}", flush=True)
-                print(f"--- {nombre_completo}: {time.time() - inicio:.0f} s", flush=True)
+        # Si falla el volcado (BD.xlsx bloqueado, validación) se pierde ese
+        # grupo, pero los siguientes corren y escriben sobre la base en disco.
+        try:
+            with lote.abrir():
+                for nombre in grupo:
+                    nombre_completo = f"scrapers.{nombre}"
+                    print(f"\n=== Ejecutando {nombre_completo} ({time.strftime('%H:%M:%S')}) ===", flush=True)
+                    inicio = time.time()
+                    try:
+                        ejecutar_modulo(nombre_completo, args.reintentos, args.espera)
+                    except Exception as exc:
+                        errores.append((nombre_completo, exc))
+                        print(f"ERROR en {nombre_completo}: {exc}", flush=True)
+                    print(f"--- {nombre_completo}: {time.time() - inicio:.0f} s", flush=True)
+        except Exception as exc:
+            errores.append((f"volcado de {', '.join(grupo)}", exc))
+            print(f"ERROR al volcar el lote: {exc}", flush=True)
     print(f"\nTiempo total: {(time.time() - inicio_total) / 60:.1f} min", flush=True)
 
     if errores:

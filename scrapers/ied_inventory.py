@@ -25,8 +25,6 @@ def _text(value: object, fallback: str = "") -> str:
 
 
 def load_api_catalog(path: Path = METADATA_FILE) -> pd.DataFrame:
-    if path.name == "BD.xlsx" and INDEX_FILE.is_file():
-        path = INDEX_FILE
     if not path.is_file():
         raise FileNotFoundError(f"Falta el catálogo de series de la API: {path}")
     catalog = pd.read_csv(path, dtype=str, low_memory=False)
@@ -41,8 +39,12 @@ def load_api_catalog(path: Path = METADATA_FILE) -> pd.DataFrame:
     return catalog.dropna(subset=["serie_id"]).drop_duplicates("serie_id", keep="last").set_index("serie_id")
 
 
-def load_existing_catalog(path: Path) -> pd.DataFrame:
-    """Recupera asignaciones previas, incluidos IDs que ya no están en la API."""
+def load_existing_catalog(path: Path = INDEX_FILE, source_code: str | None = "datos.gob.ar") -> pd.DataFrame:
+    """Recupera asignaciones previas, incluidos IDs que ya no están en la API.
+
+    Se lee del índice (``Codificacion`` ya no vive en BD.xlsx) y sólo las filas
+    del IED: con las de otras fuentes, sus pestañas pasarían por obsoletas.
+    """
     if not path.is_file():
         return pd.DataFrame()
     with pd.ExcelFile(path) as book:
@@ -55,6 +57,8 @@ def load_existing_catalog(path: Path) -> pd.DataFrame:
     result = raw.iloc[int(header[0]) + 1 :].copy()
     result.columns = raw.iloc[int(header[0])]
     result = result.dropna(how="all")
+    if source_code and "Código fuente" in result:
+        result = result[result["Código fuente"].astype(str).eq(source_code)]
     origin_column = "ID origen" if "ID origen" in result else "ID"
     if origin_column not in result:
         return pd.DataFrame()

@@ -146,7 +146,7 @@ HOJAS: list[Hoja] = [
         "V": Columna(Serie("indec-ipc", "indices-ipc-cobertura-nacional|total-nacional-estacional")),
         "Z": Columna(Serie("indec-ipc", "indices-ipc-cobertura-nacional|total-nacional-regulados")),
         "AD": Columna(Serie("indec-sipm", "IPIM|NG")),
-    }),
+    }, calendario=["F"]),  # el IPIM sale antes que el IPC: un mes sin IPC no abre fila
     Hoja("EMAE", "M", "A", 2, {
         "B": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|3")),
         "F": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|5")),

@@ -249,7 +249,7 @@ def _hojas_vigentes() -> set[str]:
         with pd.ExcelFile(DB_FILE) as book:
             hojas = set(book.sheet_names)
     if lote.activo():
-        hojas = (hojas - lote.actual().obsoletas) | set(lote.actual().hojas)
+        hojas |= set(lote.actual().hojas)  # las obsoletas no se borran: siguen vigentes
     return hojas
 
 

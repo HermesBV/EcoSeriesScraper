@@ -67,7 +67,8 @@ def extract_bcra(path: Path, code: str, route: str, prefix: str, url: str,
                 parts = []
                 for value in headers.iloc[:, col].tail(8):
                     part = _text(value)
-                    if part and part.casefold() not in {p.casefold() for p in parts}:
+                    # _text convierte una celda vacía en «nan»; no es parte del nombre.
+                    if part and part != "nan" and part.casefold() not in {p.casefold() for p in parts}:
                         parts.append(part)
                 name = " - ".join(parts) or f"{sheet} {native or col + 1}"
                 if name in data:

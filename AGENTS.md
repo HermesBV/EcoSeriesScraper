@@ -73,6 +73,7 @@
 - `coyuntura/coyuntura iiep reemplazar.xlsx` es el libro del economista; `python -m coyuntura.actualizador` lo actualiza desde `BD.xlsx` después de los scrapers (nunca vuelve a descargar fuentes). Requiere Excel (COM) y el libro cerrado.
 - El mapeo vive en `coyuntura/actualizador/mapeo.py` por (`Código fuente`, `ID`); al cambiar una fuente, correr `python -m coyuntura.herramientas.verificar_mapeo`.
 - Respetar el formato del economista: filas nuevas entre el último dato y la barra azul, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, COMEX con fechas hasta diciembre y barra fija. Criterios completos en `coyuntura/README.md`.
+- La hoja «Fuentes y Esquema» vive aparte en `coyuntura/coyuntura iiep fuentes y esquema.xlsx`, ignorada por git en los dos repositorios: no volver a incluirla en el libro publicado ni versionarla.
 - `bkp/` guarda una copia por actualización (sufijo AAMMDD); los meses cerrados se comprimen en zip y se conservan dos. `bkp/`, `logs/` y `.trabajo/` no se versionan.
 - El Excel publicado se copia a `SeriesMacro/coyuntura/` para la descarga con «abrete sesamo».
 

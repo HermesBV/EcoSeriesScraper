@@ -10,12 +10,15 @@ import pandas as pd
 import requests
 import xlrd
 
+from scrapers.indec_workbooks import urls_por_anio
+
 
 RAIZ_PROYECTO = Path(__file__).resolve().parents[1]
 ARCHIVO_BD = RAIZ_PROYECTO / "BD.xlsx"
 CARPETA_FUENTE = RAIZ_PROYECTO / "fuentes_BD" / "BCRA" / "TasasDepositos"
 ARCHIVO_FUENTE = CARPETA_FUENTE / "pas2026.xls"
-EXCEL_URL = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/pas2026.xls"
+# El BCRA nombra el libro con el año en curso; se prueba ese y los anteriores.
+EXCEL_URL = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/pas{anio}.xls"
 PAGINA_FUENTE = "https://www.bcra.gob.ar/publicaciones-y-estadisticas/series-diarias-de-tasas-de-interes-y-montos-colocados-saldos-de-depositos/"
 CODIGO_FUENTE = "bcra-pas"
 HOJAS_EXCLUIDAS = {"Indice", "Observaciones"}
@@ -44,20 +47,25 @@ def _excel_valido(ruta: Path) -> bool:
 def descargar_excel() -> Path:
     CARPETA_FUENTE.mkdir(parents=True, exist_ok=True)
     temporal = ARCHIVO_FUENTE.with_name("pas2026.descarga.xls")
+    error: Exception | None = None
     try:
-        with _sesion().get(EXCEL_URL, stream=True, timeout=(20, 240)) as respuesta:
-            respuesta.raise_for_status()
-            with temporal.open("wb") as archivo:
-                for bloque in respuesta.iter_content(64 * 1024):
-                    if bloque:
-                        archivo.write(bloque)
-        if not _excel_valido(temporal):
-            raise ValueError("La descarga no es el XLS de tasas y depositos del BCRA")
-        temporal.replace(ARCHIVO_FUENTE)
-    except (OSError, requests.RequestException, ValueError):
+        for url in urls_por_anio(EXCEL_URL):
+            try:
+                with _sesion().get(url, stream=True, timeout=(20, 240)) as respuesta:
+                    respuesta.raise_for_status()
+                    with temporal.open("wb") as archivo:
+                        for bloque in respuesta.iter_content(64 * 1024):
+                            if bloque:
+                                archivo.write(bloque)
+                if not _excel_valido(temporal):
+                    raise ValueError(f"{url} no es el XLS de tasas y depositos del BCRA")
+                temporal.replace(ARCHIVO_FUENTE)
+                return ARCHIVO_FUENTE
+            except (OSError, requests.RequestException, ValueError) as exc:
+                error = exc
         if not _excel_valido(ARCHIVO_FUENTE):
-            raise
-        print("BCRA PAS: se reutiliza la copia local de pas2026.xls", flush=True)
+            raise error or RuntimeError("No se pudo descargar el libro de tasas y depositos")
+        print(f"BCRA PAS: se reutiliza la copia local de pas2026.xls ({error})", flush=True)
     finally:
         temporal.unlink(missing_ok=True)
     return ARCHIVO_FUENTE

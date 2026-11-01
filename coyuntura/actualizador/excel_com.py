@@ -80,6 +80,33 @@ class Excel:
         formula = ws.Cells(fila_origen, columna).FormulaR1C1
         ws.Range(f"{col}{desde}:{col}{hasta}").FormulaR1C1 = formula
 
+    def ampliar_rangos(self, hoja: str, inicio: int, fin: int, nuevas: int) -> int:
+        """Lleva a ``fin + nuevas`` los rangos de ``hoja`` que terminan en ``fin``,
+        en fórmulas de todo el libro y en las series de los gráficos."""
+        from .formulas import ampliar_rangos
+
+        cambios = 0
+        for ws in self.libro.Worksheets:
+            usado = ws.UsedRange
+            formulas = usado.Formula
+            if not isinstance(formulas, tuple):
+                formulas = ((formulas,),)
+            for i, fila in enumerate(formulas):
+                for j, formula in enumerate(fila):
+                    if isinstance(formula, str) and formula.startswith("=") and ":" in formula:
+                        nueva = ampliar_rangos(formula, ws.Name, hoja, inicio, fin, nuevas)
+                        if nueva != formula:
+                            usado.Cells(i + 1, j + 1).Formula = nueva
+                            cambios += 1
+            for objeto in ws.ChartObjects():
+                for serie in objeto.Chart.SeriesCollection():
+                    formula = serie.Formula
+                    nueva = ampliar_rangos(formula, ws.Name, hoja, inicio, fin, nuevas)
+                    if nueva != formula:
+                        serie.Formula = nueva
+                        cambios += 1
+        return cambios
+
     def recalcular(self) -> None:
         self.app.Calculation = XL_CALCULATION_AUTOMATIC
         self.app.CalculateFull()

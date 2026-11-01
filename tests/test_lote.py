@@ -63,7 +63,8 @@ class LoteTests(unittest.TestCase):
             self.assertEqual(pendiente["serie a"].tolist(), [1.0, 2.0])
             self.assertEqual(set(generar_codificacion.cargar_indice()["Código fuente"]), {"fuente-1", "fuente-2"})
         with pd.ExcelFile(self.bd) as libro:
-            self.assertEqual(sorted(libro.sheet_names), ["Hoja A", "Hoja B"])
+            # Una hoja propia que la entrega no trae se conserva (AGENTS: no se borran datos).
+            self.assertEqual(sorted(libro.sheet_names), ["Hoja A", "Hoja B", "Vieja"])
             self.assertEqual(pd.read_excel(libro, sheet_name="Hoja A")["serie a"].tolist(), [1.0, 2.0])
         indice = pd.read_excel(generar_codificacion.INDEX_FILE, sheet_name="Codificacion")
         self.assertEqual(set(indice["Código fuente"]), {"fuente-1", "fuente-2"})
@@ -82,7 +83,8 @@ class LoteTests(unittest.TestCase):
         guardar_datos_preservando_formato(self.bd, {"Hoja B": pd.DataFrame({
             "fecha": [pd.Timestamp("2026-01-01")], "serie b": [3.0]})}, {"Hoja B": "D"}, {"Vieja"})
         with pd.ExcelFile(self.bd) as libro:
-            self.assertEqual(sorted(libro.sheet_names), ["Hoja A", "Hoja B"])
+            # Una hoja propia que la entrega no trae se conserva (AGENTS: no se borran datos).
+            self.assertEqual(sorted(libro.sheet_names), ["Hoja A", "Hoja B", "Vieja"])
 
 
 if __name__ == "__main__":

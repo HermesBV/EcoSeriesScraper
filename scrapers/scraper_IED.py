@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import ssl
+import time
 import warnings
 from datetime import datetime
 from pathlib import Path
@@ -439,6 +440,31 @@ def _validar_guardado(ruta: Path, dimensiones: dict[str, tuple[int, int]], forma
         libro.close()
 
 
+def avisar_hojas_obsoletas(obsoletas: set[str] | None, hojas, existentes) -> list[str]:
+    """Hojas propias que la entrega nueva no trajo. No se borran: AGENTS.md prohíbe
+    borrar datos de BD.xlsx porque la fuente dejó de publicarlos (una pestaña que
+    no se pudo leer o que la fuente renombró perdería toda su historia); sus
+    series quedan en el índice como DISCONTINUADA."""
+    escritas = {str(nombre).strip()[:31] for nombre in hojas}
+    sobrantes = sorted(({str(n).strip()[:31] for n in obsoletas or set()} - escritas) & set(existentes))
+    sobrantes = [n for n in sobrantes if n not in HOJAS_ADMINISTRATIVAS | HOJAS_AJENAS_IED]
+    if sobrantes:
+        print(f"Aviso: {len(sobrantes)} hojas propias sin datos nuevos se conservan: {', '.join(sobrantes[:10])}", flush=True)
+    return sobrantes
+
+
+def reemplazar_con_reintentos(temporal: Path, ruta: Path, intentos: int = 8) -> None:
+    """Reemplazo atómico; en Windows la web u otro lector puede tener abierto el libro unos segundos."""
+    for intento in range(intentos):
+        try:
+            temporal.replace(ruta)
+            return
+        except PermissionError:
+            if intento == intentos - 1:
+                raise
+            time.sleep(min(intento + 1, 5))
+
+
 def guardar_datos_preservando_formato(
     ruta: Path,
     hojas: dict[str, pd.DataFrame],
@@ -470,9 +496,7 @@ def guardar_datos_preservando_formato(
             return valor.item()
         return valor
 
-    for nombre in sorted((hojas_obsoletas or set()) - set(hojas)):
-        if nombre in libro.sheetnames and nombre not in HOJAS_ADMINISTRATIVAS | HOJAS_AJENAS_IED:
-            del libro[nombre]
+    avisar_hojas_obsoletas(hojas_obsoletas, hojas, libro.sheetnames)
 
     for nombre, datos in hojas.items():
         nombre_hoja = str(nombre).strip()[:31]
@@ -505,7 +529,7 @@ def guardar_datos_preservando_formato(
         libro.save(temporal)
         libro.close()
         _validar_guardado(temporal, hojas_guardadas, formatos_hojas)
-        temporal.replace(ruta)
+        reemplazar_con_reintentos(temporal, ruta)
     except Exception:
         libro.close()
         temporal.unlink(missing_ok=True)
@@ -529,7 +553,7 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
         libros[nombre] = cargar_excel_completo(ruta)
         indices[nombre] = crear_indice_excel(libros[nombre])
 
-    existentes = load_existing_catalog(ARCHIVO_BD)
+    existentes = load_existing_catalog()
     hojas_obsoletas = set(existentes.get("Pestaña BD", pd.Series(dtype=str)).dropna().astype(str))
     hojas_salida, inventario, errores = discover_and_extract(
         libros, indices, existentes, extraer_serie_desde_indice, normalizar_fechas

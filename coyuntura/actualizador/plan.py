@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 import math
 
 import pandas as pd
-from openpyxl.utils import column_index_from_string, get_column_letter
+from openpyxl.utils import column_index_from_string
 
 from .estructura import Estructura, Libro
 from .fuentes import Fuentes
@@ -39,7 +39,8 @@ class PlanHoja:
     estructura: Estructura
     filas_nuevas: list[tuple[int, pd.Timestamp]] = field(default_factory=list)
     escrituras: list[Escritura] = field(default_factory=list)
-    formulas: dict[str, int] = field(default_factory=dict)  # columna -> fila con la fórmula vigente
+    # columna -> (fila con la fórmula vigente, filas donde se copia); lo completa formulas.py
+    formulas: dict[str, tuple[int, list[int]]] = field(default_factory=dict)
     conservadas: list[tuple[int, str, object]] = field(default_factory=list)
     formulas_respetadas: int = 0
     avisos: list[str] = field(default_factory=list)
@@ -51,7 +52,7 @@ class PlanHoja:
 
     @property
     def cambia(self) -> bool:
-        return bool(self.filas_nuevas or self.escrituras)
+        return bool(self.filas_nuevas or self.escrituras or self.formulas)
 
 
 @dataclass
@@ -85,6 +86,15 @@ def fecha_desde_clave(valor, frecuencia: str, referencia: pd.Timestamp) -> pd.Ti
     return pd.Timestamp(anio, mes, monthrange(anio, mes)[1])
 
 
+# Feriados de fecha fija: el BCRA a veces publica el saldo del 1° de mes aunque
+# caiga en feriado o fin de semana; esas fechas no abren filas diarias.
+FERIADOS_FIJOS = {(1, 1), (5, 1), (12, 25)}
+
+
+def dia_habil(k) -> bool:
+    return k.weekday() < 5 and (k.month, k.day) not in FERIADOS_FIJOS
+
+
 def _iguales(a: object, b: float) -> bool:
     return isinstance(a, (int, float)) and not isinstance(a, bool) and math.isclose(float(a), b, rel_tol=TOLERANCIA, abs_tol=TOLERANCIA)
 
@@ -115,6 +125,8 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
     else:
         candidatas = {k for valores in series.values() for k in valores}
     nuevas = sorted(k for k in candidatas if k > ultima_clave and k not in existentes)
+    if frecuencia == "D":
+        nuevas = [k for k in nuevas if dia_habil(k)]
     if hoja.especial == "comex" and nuevas:
         anio_max = max(k[0] for k in nuevas)
         anio_ult, mes_ult = ultima_clave
@@ -149,7 +161,8 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
                 continue
             valor = valores[k]
             if fila not in estructura.fechas:
-                plan.escrituras.append(Escritura(fila, letra, valor, None, "nuevo"))
+                if valor != 0:  # un 0 de la fuente es «sin dato» también en filas nuevas
+                    plan.escrituras.append(Escritura(fila, letra, valor, None, "nuevo"))
             elif anterior is None or anterior == "":
                 # Un cero del BCRA en una fecha que el economista dejó vacía es
                 # «sin dato», no un valor: no se completa.
@@ -169,14 +182,6 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
                 else:
                     plan.escrituras.append(Escritura(fila, letra, valor, anterior, "reemplazo"))
 
-    # --- fórmulas que se copian hacia abajo en las filas nuevas
-    if plan.filas_nuevas:
-        for columna in range(1, estructura.max_col + 1):
-            letra = get_column_letter(columna)
-            if letra in hoja.columnas or letra == hoja.col_fecha:
-                continue
-            if letra in estructura.formulas:
-                plan.formulas[letra] = estructura.formulas[letra][0]
     plan.fechas_finales = sorted(estructura.fechas.values()) + [fecha for _, fecha in plan.filas_nuevas]
     return plan
 

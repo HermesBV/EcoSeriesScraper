@@ -13,6 +13,7 @@ import pandas as pd
 
 from coyuntura.actualizador import respaldo
 from coyuntura.actualizador.estructura import Libro
+from coyuntura.actualizador.formulas import ampliar_rangos, planificar_formulas, referencias, tramos
 from coyuntura.actualizador.fuentes import anualizar
 from coyuntura.actualizador.mapeo import Anual, BloqueAnual, Columna, Hoja, Serie
 from coyuntura.actualizador.plan import clave, fecha_desde_clave, planificar_bloque, planificar_hoja
@@ -83,7 +84,8 @@ class PlanHojaDiariaTests(unittest.TestCase):
         self.assertEqual(motivos[("C", 8)], ("nuevo", 2000.0, None))
         self.assertEqual(motivos[("C", 9)], ("nuevo", 2001.0, None))
         self.assertIn((5, "C", 7777), plan.conservadas)
-        self.assertEqual(set(plan.formulas), {"A", "D"})
+        planificar_formulas(libro_en_memoria(self.wb), [plan])
+        self.assertEqual(plan.formulas, {"A": (7, [8, 9]), "D": (7, [8, 9])})
         self.assertEqual(plan.fechas_finales[-1], pd.Timestamp("2026-09-30"))
 
     def test_las_formulas_del_economista_no_se_pisan_salvo_pedido(self) -> None:
@@ -160,7 +162,8 @@ class PlanComexTests(unittest.TestCase):
         self.assertEqual(plan.filas_nuevas[0][1], pd.Timestamp("2027-01-01"))
         self.assertEqual(plan.filas_nuevas[-1][1], pd.Timestamp("2027-12-01"))
         self.assertEqual(plan.filas_nuevas[0][0], estructura.fila_azul)
-        self.assertEqual(plan.formulas, {"A": estructura.ultima_fila})
+        planificar_formulas(libro_en_memoria(wb), [plan])
+        self.assertEqual(plan.formulas, {"A": (estructura.ultima_fila, [fila for fila, _ in plan.filas_nuevas])})
 
     def test_bloque_anual_suma_el_anio_cuando_hay_diciembre(self) -> None:
         wb, hoja = self.libro()
@@ -179,6 +182,95 @@ class PlanComexTests(unittest.TestCase):
         self.assertEqual(escrituras[("E", plan.fila_inicio)], ("reemplazo", 2024.0))
         self.assertEqual(escrituras[("E", plan.fila_inicio + 1)], ("completa", 2025.0))
         self.assertNotIn(("E", plan.fila_fin + 1), escrituras)  # 2026 no tiene cuatro trimestres
+
+
+def hoja_mensual(wb: Workbook, nombre: str, meses: int, datos: dict[str, int]) -> None:
+    """Hoja mensual desde 2026-01 con ``meses`` fechas; ``datos`` = columna -> meses con valor."""
+    ws = wb.create_sheet(nombre)
+    ws.append(["fecha"])
+    for i, mes in enumerate(pd.date_range("2026-01-01", periods=meses, freq="MS"), start=2):
+        ws.cell(i, 1, mes.to_pydatetime())
+        for col, hasta in datos.items():
+            if i - 1 <= hasta:
+                ws[f"{col}{i}"] = 100.0 + i
+    ws.row_dimensions[meses + 2].fill = AZUL
+
+
+class FormulasTests(unittest.TestCase):
+    """Qué fórmulas se extienden y dónde (los errores del 31/10 en IPC, Salarios y COMEX)."""
+
+    def libro(self) -> Workbook:
+        wb = Workbook()
+        wb.remove(wb.active)
+        # Salarios: B con 7 meses, C (SIPA) con 6; D viva sobre C; E abandonada en el mes 3.
+        hoja_mensual(wb, "Salarios", 7, {"B": 7, "C": 6})
+        ws = wb["Salarios"]
+        for fila in range(3, 8):
+            ws[f"D{fila}"] = f"=+C{fila}/C{fila - 1}-1"
+        for fila in range(3, 5):
+            ws[f"E{fila}"] = f"=+C{fila}/C{fila - 1}-1"
+        for fila in range(2, 8):
+            ws[f"F{fila}"] = f"=+B{fila}/IPC!B{fila}"   # deflactado con IPC, misma fila
+        # IPC: 6 meses (la fila 8 es la barra).
+        hoja_mensual(wb, "IPC", 6, {"B": 6})
+        return wb
+
+    def planes(self, wb: Workbook, salarios: dict, ipc: dict):
+        libro = libro_en_memoria(wb)
+        hojas = [Hoja("Salarios", "M", "A", 2, {"B": Columna(Serie("x", "B")), "C": Columna(Serie("x", "C"))}),
+                 Hoja("IPC", "M", "A", 2, {"B": Columna(Serie("x", "IPC"))}, calendario=["B"])]
+        series = {k: pd.Series(v, dtype=float) for k, v in {**salarios, **ipc}.items()}
+        fuentes = FuentesFalsas(series)
+        planes = {}
+        for hoja in hojas:
+            planes[hoja.nombre] = planificar_hoja(hoja, libro.analizar(hoja), fuentes, planes)
+        planificar_formulas(libro, list(planes.values()))
+        return planes
+
+    def test_completa_formulas_en_filas_existentes_y_no_revive_abandonadas(self) -> None:
+        wb = self.libro()
+        mes = lambda m: pd.Timestamp(f"2026-{m:02d}-01")
+        planes = self.planes(wb, {"B": {mes(8): 5.0}, "C": {mes(7): 9.0}}, {"IPC": {mes(7): 1.0}})
+        salarios = planes["Salarios"]
+        self.assertEqual([fila for fila, _ in salarios.filas_nuevas], [9])
+        # D: julio (fila 8) se completa porque llegó C; agosto (9) no tiene C.
+        self.assertEqual(salarios.formulas["D"], (7, [8]))
+        self.assertNotIn("E", salarios.formulas)  # abandonada en la fila 4
+        # F: julio tiene IPC (fila nueva 8 de IPC); agosto no.
+        self.assertEqual(salarios.formulas["F"], (7, [8]))
+
+    def test_sin_ipc_no_se_copia_la_formula_que_lo_usa(self) -> None:
+        wb = self.libro()
+        mes = lambda m: pd.Timestamp(f"2026-{m:02d}-01")
+        planes = self.planes(wb, {"B": {mes(8): 5.0}, "C": {}}, {"IPC": {}})
+        self.assertEqual(planes["IPC"].filas_nuevas, [])
+        self.assertNotIn("F", planes["Salarios"].formulas)
+        self.assertNotIn("D", planes["Salarios"].formulas)
+
+    def test_dias_no_habiles_no_abren_filas(self) -> None:
+        hoja = Hoja("Reservas diario", "D", "B", 2, {"C": Columna(Serie("bcra-dmd", "74"))})
+        estructura = libro_en_memoria(hoja_diaria()).analizar(hoja)
+        fuente = pd.Series({pd.Timestamp("2026-09-29"): 1.0, pd.Timestamp("2026-10-03"): 2.0,
+                            pd.Timestamp("2026-10-05"): 0.0})
+        plan = planificar_hoja(hoja, estructura, FuentesFalsas({"74": fuente}), {})
+        self.assertEqual([f.date() for _, f in plan.filas_nuevas], [date(2026, 9, 29), date(2026, 10, 5)])
+        self.assertEqual([(x.fila, x.valor) for x in plan.escrituras], [(8, 1.0)])  # el 0 no es dato
+
+    def test_referencias(self) -> None:
+        refs = referencias("=+LOG10(C5)/'TCR Mensual'!$S$2+IPC!$B1002-SUM(Z430:Z441)")
+        self.assertEqual([(r.hoja, r.col, r.fila, r.fila_relativa) for r in refs],
+                         [(None, "C", 5, True), ("TCR Mensual", "S", 2, False), ("IPC", "B", 1002, True),
+                          (None, "Z", 430, True), (None, "Z", 441, True)])
+        self.assertEqual(tramos([5, 3, 4, 9]), [(3, 5), (9, 9)])
+
+    def test_ampliar_rangos_del_cuadro_anual(self) -> None:
+        formula = "=+Y441/VLOOKUP(A441,$A$449:$AB$481,28,FALSE)+SUM($A$481:$A$481)"
+        self.assertEqual(ampliar_rangos(formula, "COMEX", "COMEX", 449, 481, 1),
+                         "=+Y441/VLOOKUP(A441,$A$449:$AB$482,28,FALSE)+SUM($A$481:$A$481)")
+        serie = "=SERIES(,COMEX!$B$459:$B$481,COMEX!$AQ$459:$AQ$481,1)"
+        self.assertEqual(ampliar_rangos(serie, "Gráficos", "COMEX", 449, 481, 2),
+                         "=SERIES(,COMEX!$B$459:$B$483,COMEX!$AQ$459:$AQ$483,1)")
+        self.assertEqual(ampliar_rangos("=SUM(C449:C481)", "Fiscal", "COMEX", 449, 481, 1), "=SUM(C449:C481)")
 
 
 class ClavesTests(unittest.TestCase):

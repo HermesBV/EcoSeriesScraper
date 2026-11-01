@@ -103,6 +103,8 @@ class Lote:
             self.hojas.guardar(nombre_hoja, datos)
             self.frecuencias[nombre_hoja] = frecuencias.get(nombre, "D")
             self.obsoletas.discard(nombre_hoja)
+        # Las hojas propias que la entrega no trajo se conservan (ver
+        # scraper_IED.avisar_hojas_obsoletas); sólo se anotan para el aviso.
         self.obsoletas |= {str(n).strip()[:31] for n in obsoletas} - set(self.hojas)
 
     def cerrar_lectura(self) -> None:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date
 from pathlib import Path
 import hashlib
 import re
@@ -13,6 +14,52 @@ import pandas as pd
 MONTHS = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
           "julio": 7, "agosto": 8, "septiembre": 9, "setiembre": 9,
           "octubre": 10, "noviembre": 11, "diciembre": 12}
+
+
+# Enlaces de navegación de los libros («Volver al índice»), no son rótulos.
+NAVEGACION = re.compile(r"^\W*(volver\s+al\s+)?[ií]ndice\W*$", re.I)
+
+
+def urls_por_anio(plantilla: str, hoy: date | None = None, anios: int = 3) -> list[str]:
+    """Libros con el año en el nombre (``sh_isac_{anio}.xls``): el del año en curso
+    primero y después los anteriores, porque en enero el nuevo puede no existir."""
+    anio = (hoy or date.today()).year
+    return [plantilla.format(anio=anio - atras) for atras in range(anios)]
+
+
+def descargar_anual(plantilla: str, archivo: Path, validar) -> str:
+    """Descarga el primer libro válido de ``urls_por_anio`` en ``archivo`` y
+    devuelve su URL. Si ninguno sirve, reutiliza la copia local (avisando)."""
+    import requests
+    archivo.parent.mkdir(parents=True, exist_ok=True)
+    temporal = archivo.with_name(archivo.stem + ".descarga" + archivo.suffix)
+    registro = archivo.with_name(archivo.name + ".url.txt")
+    try:
+        for url in urls_por_anio(plantilla):
+            try:
+                respuesta = requests.get(url, timeout=(20, 180))
+                respuesta.raise_for_status()
+                temporal.write_bytes(respuesta.content)
+                validar(temporal)  # el INDEC responde HTML con HTTP 200 si el archivo no existe
+            except Exception:
+                continue
+            temporal.replace(archivo)
+            registro.write_text(url, encoding="utf-8")
+            return url
+    finally:
+        temporal.unlink(missing_ok=True)
+    if not archivo.is_file():
+        raise RuntimeError(f"No se pudo descargar ningún libro de {plantilla}")
+    url = fuente_anual(plantilla, archivo)
+    print(f"Aviso: no se pudo descargar {plantilla}; se reutiliza la copia local ({url})", flush=True)
+    return url
+
+
+def fuente_anual(plantilla: str, archivo: Path) -> str:
+    registro = archivo.with_name(archivo.name + ".url.txt")
+    if registro.is_file():
+        return registro.read_text(encoding="utf-8").strip()
+    return urls_por_anio(plantilla)[0]
 
 
 def text(value: object) -> str:
@@ -134,6 +181,7 @@ def extract_tables(
             header_end = first_data
             header_matrix = raw.iloc[:header_end].ffill(axis=1)
             series: dict[str, pd.Series] = {}
+            auxiliares = False
             for col in range(raw.shape[1]):
                 if col in date_cols:
                     continue
@@ -143,9 +191,18 @@ def extract_tables(
                 parts: list[str] = []
                 for cell in header_matrix.iloc[:, col].tail(6):
                     part = text(cell)
-                    if part and part.casefold() not in {p.casefold() for p in parts}:
+                    if part and not NAVEGACION.match(part) and part.casefold() not in {p.casefold() for p in parts}:
                         parts.append(part)
                 label = " - ".join(parts) or f"Columna {col + 1}"
+                propio = any(text(cell) and not NAVEGACION.match(text(cell)) for cell in raw.iloc[:header_end, col])
+                tras_hueco = col > 0 and raw.iloc[:, col - 1].isna().all()
+                if propio:
+                    auxiliares = False
+                elif auxiliares or label in series or tras_hueco:
+                    # Cálculos auxiliares a la derecha del cuadro (SIPA A.2.2):
+                    # heredan el rótulo de la última columna y no son series.
+                    auxiliares = True
+                    continue
                 if label in series:
                     label = f"{label} ({col + 1})"
                 series[label] = values
