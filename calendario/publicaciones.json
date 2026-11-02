@@ -1,0 +1,2967 @@
+{
+ "generado": "2026-11-02T11:57:23",
+ "lecturas": {
+  "INDEC": {
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0",
+   "desde": "2026-08-01",
+   "hasta": "2027-03-01",
+   "publicaciones": 207
+  },
+  "BCRA": {
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/",
+   "desde": "2026-01-07",
+   "hasta": "2027-01-23",
+   "publicaciones": 74
+  },
+  "U.S. Bureau of Labor Statistics": {
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics",
+   "desde": "2025-01-15",
+   "hasta": "2026-12-11",
+   "publicaciones": 23
+  }
+ },
+ "errores": {},
+ "publicaciones": [
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Diciembre de 2024",
+   "fecha": "2025-01-15",
+   "hora": "10:30",
+   "periodo": "2024-12-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Enero de 2025",
+   "fecha": "2025-02-12",
+   "hora": "10:30",
+   "periodo": "2025-01-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Febrero de 2025",
+   "fecha": "2025-03-12",
+   "hora": "09:30",
+   "periodo": "2025-02-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Marzo de 2025",
+   "fecha": "2025-04-10",
+   "hora": "09:30",
+   "periodo": "2025-03-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Abril de 2025",
+   "fecha": "2025-05-13",
+   "hora": "09:30",
+   "periodo": "2025-04-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Mayo de 2025",
+   "fecha": "2025-06-11",
+   "hora": "09:30",
+   "periodo": "2025-05-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Junio de 2025",
+   "fecha": "2025-07-15",
+   "hora": "09:30",
+   "periodo": "2025-06-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Julio de 2025",
+   "fecha": "2025-08-12",
+   "hora": "09:30",
+   "periodo": "2025-07-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Agosto de 2025",
+   "fecha": "2025-09-11",
+   "hora": "09:30",
+   "periodo": "2025-08-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Septiembre de 2025",
+   "fecha": "2025-10-24",
+   "hora": "09:30",
+   "periodo": "2025-09-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Noviembre de 2025",
+   "fecha": "2025-12-18",
+   "hora": "10:30",
+   "periodo": "2025-11-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/12/2025",
+   "fecha": "2026-01-07",
+   "hora": null,
+   "periodo": "2025-12-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/01/2026",
+   "fecha": "2026-01-12",
+   "hora": null,
+   "periodo": "2026-01-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Diciembre de 2025",
+   "fecha": "2026-01-13",
+   "hora": "10:30",
+   "periodo": "2025-12-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Noviembre de 2025",
+   "fecha": "2026-01-14",
+   "hora": null,
+   "periodo": "2025-11-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/01/2026",
+   "fecha": "2026-01-20",
+   "hora": null,
+   "periodo": "2026-01-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Diciembre de 2025",
+   "fecha": "2026-01-23",
+   "hora": null,
+   "periodo": "2025-12-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/01/2026",
+   "fecha": "2026-01-28",
+   "hora": null,
+   "periodo": "2026-01-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/01/2026",
+   "fecha": "2026-02-04",
+   "hora": null,
+   "periodo": "2026-01-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/02/2026",
+   "fecha": "2026-02-11",
+   "hora": null,
+   "periodo": "2026-02-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Enero de 2026",
+   "fecha": "2026-02-13",
+   "hora": "10:30",
+   "periodo": "2026-01-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Diciembre de 2025",
+   "fecha": "2026-02-13",
+   "hora": null,
+   "periodo": "2025-12-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/02/2026",
+   "fecha": "2026-02-20",
+   "hora": null,
+   "periodo": "2026-02-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Enero de 2026",
+   "fecha": "2026-02-23",
+   "hora": null,
+   "periodo": "2026-01-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/02/2026",
+   "fecha": "2026-02-26",
+   "hora": null,
+   "periodo": "2026-02-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 28/02/2026",
+   "fecha": "2026-03-04",
+   "hora": null,
+   "periodo": "2026-02-28",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Febrero de 2026",
+   "fecha": "2026-03-11",
+   "hora": "09:30",
+   "periodo": "2026-02-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/03/2026",
+   "fecha": "2026-03-11",
+   "hora": null,
+   "periodo": "2026-03-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Enero de 2026",
+   "fecha": "2026-03-13",
+   "hora": null,
+   "periodo": "2026-01-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/03/2026",
+   "fecha": "2026-03-18",
+   "hora": null,
+   "periodo": "2026-03-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Febrero de 2026",
+   "fecha": "2026-03-20",
+   "hora": null,
+   "periodo": "2026-02-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/03/2026",
+   "fecha": "2026-03-27",
+   "hora": null,
+   "periodo": "2026-03-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/03/2026",
+   "fecha": "2026-04-07",
+   "hora": null,
+   "periodo": "2026-03-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Marzo de 2026",
+   "fecha": "2026-04-10",
+   "hora": "09:30",
+   "periodo": "2026-03-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/04/2026",
+   "fecha": "2026-04-10",
+   "hora": null,
+   "periodo": "2026-04-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Febrero de 2026",
+   "fecha": "2026-04-14",
+   "hora": null,
+   "periodo": "2026-02-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/04/2026",
+   "fecha": "2026-04-20",
+   "hora": null,
+   "periodo": "2026-04-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Marzo de 2026",
+   "fecha": "2026-04-23",
+   "hora": null,
+   "periodo": "2026-03-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/04/2026",
+   "fecha": "2026-04-28",
+   "hora": null,
+   "periodo": "2026-04-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 30/04/2026",
+   "fecha": "2026-05-06",
+   "hora": null,
+   "periodo": "2026-04-30",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Abril de 2026",
+   "fecha": "2026-05-12",
+   "hora": "09:30",
+   "periodo": "2026-04-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/05/2026",
+   "fecha": "2026-05-12",
+   "hora": null,
+   "periodo": "2026-05-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Marzo de 2026",
+   "fecha": "2026-05-14",
+   "hora": null,
+   "periodo": "2026-03-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/05/2026",
+   "fecha": "2026-05-20",
+   "hora": null,
+   "periodo": "2026-05-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Abril de 2026",
+   "fecha": "2026-05-22",
+   "hora": null,
+   "periodo": "2026-04-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/05/2026",
+   "fecha": "2026-05-28",
+   "hora": null,
+   "periodo": "2026-05-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/05/2026",
+   "fecha": "2026-06-03",
+   "hora": null,
+   "periodo": "2026-05-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Mayo de 2026",
+   "fecha": "2026-06-10",
+   "hora": "09:30",
+   "periodo": "2026-05-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/06/2026",
+   "fecha": "2026-06-10",
+   "hora": null,
+   "periodo": "2026-06-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Abril de 2026",
+   "fecha": "2026-06-12",
+   "hora": null,
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/06/2026",
+   "fecha": "2026-06-18",
+   "hora": null,
+   "periodo": "2026-06-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Mayo de 2026",
+   "fecha": "2026-06-23",
+   "hora": null,
+   "periodo": "2026-05-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/06/2026",
+   "fecha": "2026-06-26",
+   "hora": null,
+   "periodo": "2026-06-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 30/06/2026",
+   "fecha": "2026-07-03",
+   "hora": null,
+   "periodo": "2026-06-30",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Junio de 2026",
+   "fecha": "2026-07-14",
+   "hora": "09:30",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Mayo de 2026",
+   "fecha": "2026-07-14",
+   "hora": null,
+   "periodo": "2026-05-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/07/2026",
+   "fecha": "2026-07-14",
+   "hora": null,
+   "periodo": "2026-07-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/07/2026",
+   "fecha": "2026-07-20",
+   "hora": null,
+   "periodo": "2026-07-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Junio de 2026",
+   "fecha": "2026-07-23",
+   "hora": null,
+   "periodo": "2026-06-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/07/2026",
+   "fecha": "2026-07-28",
+   "hora": null,
+   "periodo": "2026-07-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Bases de microdatos de la Encuesta Permanente de Hogares. Primer trimestre de 2026",
+   "fecha": "2026-08-03",
+   "hora": "16:00",
+   "periodo": "2026-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Argentine Foreign Trade Statistics. Merchandise. Preliminary data for the first half of 2026",
+   "fecha": "2026-08-04",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/07/2026",
+   "fecha": "2026-08-05",
+   "hora": null,
+   "periodo": "2026-07-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Junio de 2026",
+   "fecha": "2026-08-06",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Junio de 2026",
+   "fecha": "2026-08-06",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción. Junio de 2026",
+   "fecha": "2026-08-07",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Junio de 2026",
+   "fecha": "2026-08-07",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Mayo de 2026",
+   "fecha": "2026-08-11",
+   "hora": "16:00",
+   "periodo": "2026-05-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Julio de 2026",
+   "fecha": "2026-08-12",
+   "hora": "09:30",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuenta satélite de cultura. Valor agregado bruto, comercio exterior, puestos de trabajo, generación del ingreso y consumo privado cultural. Año 2025",
+   "fecha": "2026-08-12",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/08/2026",
+   "fecha": "2026-08-12",
+   "hora": null,
+   "periodo": "2026-08-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Julio de 2026",
+   "fecha": "2026-08-13",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Julio de 2026",
+   "fecha": "2026-08-13",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Junio de 2026",
+   "fecha": "2026-08-14",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Junio de 2026",
+   "fecha": "2026-08-14",
+   "hora": null,
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Julio de 2026",
+   "fecha": "2026-08-18",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Julio de 2026",
+   "fecha": "2026-08-18",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Julio de 2026",
+   "fecha": "2026-08-18",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Industria manufacturera. Expectativas agosto-octubre de 2026",
+   "fecha": "2026-08-19",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Supermercados y autoservicios mayoristas. Expectativas agosto-octubre de 2026",
+   "fecha": "2026-08-19",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Junio de 2026",
+   "fecha": "2026-08-20",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Julio de 2026",
+   "fecha": "2026-08-20",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Junio de 2026",
+   "fecha": "2026-08-20",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/08/2026",
+   "fecha": "2026-08-20",
+   "hora": null,
+   "periodo": "2026-08-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Junio de 2026",
+   "fecha": "2026-08-21",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de comercios de electrodomésticos y artículos para el hogar. Segundo trimestre de 2026",
+   "fecha": "2026-08-21",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Junio de 2026",
+   "fecha": "2026-08-21",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Junio de 2026",
+   "fecha": "2026-08-21",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Julio de 2026",
+   "fecha": "2026-08-21",
+   "hora": null,
+   "periodo": "2026-07-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuenta de energía. Flujos físicos de energía. Año 2023",
+   "fecha": "2026-08-24",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Julio de 2026",
+   "fecha": "2026-08-25",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Remuneración al trabajo asalariado ingreso mixto e insumo de mano de obra por sexo y tramos de edad. Año 2025",
+   "fecha": "2026-08-25",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Complejos exportadores. Primer semestre de 2026",
+   "fecha": "2026-08-26",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/08/2026",
+   "fecha": "2026-08-26",
+   "hora": null,
+   "periodo": "2026-08-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2026-08-27",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Ingreso nacional y ahorro nacional. Año 2025",
+   "fecha": "2026-08-27",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Informe de la industria de maquinaria agrícola. Segundo trimestre de 2026",
+   "fecha": "2026-08-28",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Julio de 2026",
+   "fecha": "2026-08-31",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Accesos a internet. Segundo trimestre de 2026",
+   "fecha": "2026-09-02",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Origen provincial de las exportaciones. Bienes. Primer semestre de 2026",
+   "fecha": "2026-09-02",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Julio de 2026",
+   "fecha": "2026-09-03",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/08/2026",
+   "fecha": "2026-09-03",
+   "hora": null,
+   "periodo": "2026-08-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción (ISAC). Julio de 2026",
+   "fecha": "2026-09-08",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Julio de 2026",
+   "fecha": "2026-09-08",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Junio de 2026",
+   "fecha": "2026-09-09",
+   "hora": "16:00",
+   "periodo": "2026-06-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Julio de 2026",
+   "fecha": "2026-09-09",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Agosto de 2026",
+   "fecha": "2026-09-10",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Agosto de 2026",
+   "fecha": "2026-09-10",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/09/2026",
+   "fecha": "2026-09-10",
+   "hora": null,
+   "periodo": "2026-09-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Agosto de 2026",
+   "fecha": "2026-09-11",
+   "hora": "09:30",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Agosto de 2026",
+   "fecha": "2026-09-14",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Julio de 2026",
+   "fecha": "2026-09-14",
+   "hora": null,
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Julio de 2026",
+   "fecha": "2026-09-15",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Agosto de 2026",
+   "fecha": "2026-09-16",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Agosto de 2026",
+   "fecha": "2026-09-16",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Industria farmacéutica en la Argentina. Segundo trimestre de 2026",
+   "fecha": "2026-09-17",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Informe de avance del nivel de actividad. Segundo trimestre de 2026",
+   "fecha": "2026-09-17",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [
+    "indec-pib"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Mercado de trabajo. Tasas e indicadores socioeconómicos. Segundo trimestre de 2026",
+   "fecha": "2026-09-17",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Agosto de 2026",
+   "fecha": "2026-09-18",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/09/2026",
+   "fecha": "2026-09-18",
+   "hora": null,
+   "periodo": "2026-09-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Industria manufacturera. Expectativas septiembre-noviembre de 2026",
+   "fecha": "2026-09-21",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Supermercados y autoservicios mayoristas. Expectativas septiembre-noviembre de 2026",
+   "fecha": "2026-09-21",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Julio de 2026",
+   "fecha": "2026-09-22",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Julio de 2026",
+   "fecha": "2026-09-23",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Julio de 2026",
+   "fecha": "2026-09-23",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Julio de 2026",
+   "fecha": "2026-09-23",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Agosto de 2026",
+   "fecha": "2026-09-23",
+   "hora": null,
+   "periodo": "2026-08-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Julio de 2026",
+   "fecha": "2026-09-24",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Incidencia de la pobreza y la indigencia en 31 aglomerados urbanos. Primer semestre de 2026",
+   "fecha": "2026-09-24",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Agosto de 2026",
+   "fecha": "2026-09-25",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de productos industriales (EPI)",
+   "fecha": "2026-09-28",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores del sector energético. Segundo trimestre de 2026",
+   "fecha": "2026-09-28",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/09/2026",
+   "fecha": "2026-09-28",
+   "hora": null,
+   "periodo": "2026-09-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Balanza de pagos, posición de inversión internacional y deuda externa. Segundo trimestre de 2026",
+   "fecha": "2026-09-29",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [
+    "indec-cin"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2026-09-29",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dosier estadístico de personas mayores 2026",
+   "fecha": "2026-09-30",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Agosto de 2026",
+   "fecha": "2026-09-30",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Evolución de la distribución del ingreso (EPH). Segundo trimestre de 2026",
+   "fecha": "2026-10-01",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Medición de la productividad 2016-2025 y el stock de capital 2004-2025 de la República Argentina",
+   "fecha": "2026-10-02",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 30/09/2026",
+   "fecha": "2026-10-05",
+   "hora": null,
+   "periodo": "2026-09-30",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Agosto de 2026",
+   "fecha": "2026-10-06",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción (ISAC). Agosto de 2026",
+   "fecha": "2026-10-07",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Agosto de 2026",
+   "fecha": "2026-10-07",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Julio de 2026",
+   "fecha": "2026-10-08",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Agosto de 2026",
+   "fecha": "2026-10-08",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Septiembre de 2026",
+   "fecha": "2026-10-13",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Septiembre de 2026",
+   "fecha": "2026-10-13",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índices de patentamientos. Tercer trimestre de 2026",
+   "fecha": "2026-10-13",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/10/2026",
+   "fecha": "2026-10-13",
+   "hora": null,
+   "periodo": "2026-10-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Septiembre de 2026",
+   "fecha": "2026-10-14",
+   "hora": "09:30",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Agosto de 2026",
+   "fecha": "2026-10-14",
+   "hora": null,
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuenta de generación del ingreso e insumo de mano de obra. Segundo trimestre de 2026",
+   "fecha": "2026-10-15",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Agosto de 2026",
+   "fecha": "2026-10-15",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Septiembre de 2026",
+   "fecha": "2026-10-16",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Septiembre de 2026",
+   "fecha": "2026-10-16",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Septiembre de 2026",
+   "fecha": "2026-10-16",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Septiembre de 2026",
+   "fecha": "2026-10-19",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Industria manufacturera. Expectativas octubre-diciembre de 2026",
+   "fecha": "2026-10-20",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Supermercados y autoservicios mayoristas. Expectativas octubre-diciembre de 2026",
+   "fecha": "2026-10-20",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/10/2026",
+   "fecha": "2026-10-20",
+   "hora": null,
+   "periodo": "2026-10-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Agosto de 2026",
+   "fecha": "2026-10-21",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Agosto de 2026",
+   "fecha": "2026-10-21",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Agosto de 2026",
+   "fecha": "2026-10-22",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Agosto de 2026",
+   "fecha": "2026-10-22",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Agosto de 2026",
+   "fecha": "2026-10-22",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Septiembre de 2026",
+   "fecha": "2026-10-23",
+   "hora": null,
+   "periodo": "2026-09-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Septiembre y tercer trimestre de 2026",
+   "fecha": "2026-10-26",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2026-10-28",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/10/2026",
+   "fecha": "2026-10-28",
+   "hora": null,
+   "periodo": "2026-10-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Septiembre de 2026",
+   "fecha": "2026-10-30",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índices de precios y cantidades del comercio exterior. Tercer trimestre de 2026",
+   "fecha": "2026-11-03",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Bases de microdatos de la Encuesta Permanente de Hogares. Segundo trimestre de 2026",
+   "fecha": "2026-11-04",
+   "hora": "16:00",
+   "periodo": "2026-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de condiciones de vida de los hogares (EPH). Primer semestre de 2026",
+   "fecha": "2026-11-04",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/10/2026",
+   "fecha": "2026-11-04",
+   "hora": null,
+   "periodo": "2026-10-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Argentine Foreign Trade Statistics. Preliminary data for the nine months of 2026",
+   "fecha": "2026-11-05",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Septiembre de 2026",
+   "fecha": "2026-11-05",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción. Septiembre de 2026",
+   "fecha": "2026-11-06",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Septiembre de 2026",
+   "fecha": "2026-11-06",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Septiembre de 2026",
+   "fecha": "2026-11-06",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Octubre de 2026",
+   "fecha": "2026-11-10",
+   "hora": "10:30",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Agosto de 2026",
+   "fecha": "2026-11-11",
+   "hora": "16:00",
+   "periodo": "2026-08-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Octubre de 2026",
+   "fecha": "2026-11-12",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Octubre de 2026",
+   "fecha": "2026-11-12",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Septiembre de 2026",
+   "fecha": "2026-11-13",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Septiembre de 2026",
+   "fecha": "2026-11-13",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Septiembre de 2026",
+   "fecha": "2026-11-13",
+   "hora": null,
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/11/2026",
+   "fecha": "2026-11-13",
+   "hora": null,
+   "periodo": "2026-11-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Octubre de 2026",
+   "fecha": "2026-11-16",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Octubre de 2026",
+   "fecha": "2026-11-17",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Octubre de 2026",
+   "fecha": "2026-11-17",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dosier estadístico en conmemoración del Día Mundial del Niño. Sexta edición",
+   "fecha": "2026-11-18",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/11/2026",
+   "fecha": "2026-11-18",
+   "hora": null,
+   "periodo": "2026-11-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Industria manufacturera. Expectativas noviembre de 2026- enero de 2027",
+   "fecha": "2026-11-19",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Supermercados y autoservicios mayoristas. Expectativas noviembre de 2026-enero de 2027",
+   "fecha": "2026-11-19",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Octubre de 2026",
+   "fecha": "2026-11-19",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Octubre de 2026",
+   "fecha": "2026-11-20",
+   "hora": null,
+   "periodo": "2026-10-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Septiembre de 2026",
+   "fecha": "2026-11-24",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Septiembre de 2026",
+   "fecha": "2026-11-25",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de comercios de electrodomésticos y artículos para el hogar. Tercer trimestre de 2026",
+   "fecha": "2026-11-25",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Septiembre de 2026",
+   "fecha": "2026-11-25",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Septiembre de 2026",
+   "fecha": "2026-11-25",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/11/2026",
+   "fecha": "2026-11-26",
+   "hora": null,
+   "periodo": "2026-11-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Octubre de 2026",
+   "fecha": "2026-11-27",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Informe de la industria de maquinaria agrícola. Tercer trimestre de 2026",
+   "fecha": "2026-11-27",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Octubre 2026",
+   "fecha": "2026-11-30",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2026-11-30",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema integrado de estadísticas sociales (SIES). Actualización de fuentes a diciembre de 2026",
+   "fecha": "2026-12-02",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuentas por sectores institucionales. El resto del mundo. Año 2025",
+   "fecha": "2026-12-03",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuentas por sectores institucionales. Sector gobierno general. Año 2025",
+   "fecha": "2026-12-03",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuentas por sectores institucionales. Sector sociedades financieras. Subsectores banco central, sociedades de depósito excepto el banco central y fondos del mercado monetario. Año 2025",
+   "fecha": "2026-12-03",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Formación bruta de capital fijo del sector gobierno general. Año 2025",
+   "fecha": "2026-12-03",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 30/11/2026",
+   "fecha": "2026-12-03",
+   "hora": null,
+   "periodo": "2026-11-30",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Accesos a internet. Tercer trimestre de 2026",
+   "fecha": "2026-12-04",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Octubre de 2026",
+   "fecha": "2026-12-04",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción. Octubre de 2026",
+   "fecha": "2026-12-09",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Octubre de 2026",
+   "fecha": "2026-12-09",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Octubre de 2026",
+   "fecha": "2026-12-09",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "U.S. Bureau of Labor Statistics",
+   "titulo": "Consumer Price Index. Noviembre de 2026",
+   "fecha": "2026-12-10",
+   "hora": "10:30",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "fred-cpiaucsl"
+   ],
+   "calendario": "https://www.bls.gov/schedule/news_release/bls.ics"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Septiembre de 2026",
+   "fecha": "2026-12-10",
+   "hora": "16:00",
+   "periodo": "2026-09-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 07/12/2026",
+   "fecha": "2026-12-11",
+   "hora": null,
+   "periodo": "2026-12-07",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Boletín estadístico del BCRA. Octubre de 2026",
+   "fecha": "2026-12-14",
+   "hora": null,
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Noviembre de 2026",
+   "fecha": "2026-12-15",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Noviembre de 2026",
+   "fecha": "2026-12-15",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Informe de avance del nivel de actividad. Tercer trimestre de 2026",
+   "fecha": "2026-12-16",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-pib"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Octubre de 2026",
+   "fecha": "2026-12-16",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Octubre de 2026",
+   "fecha": "2026-12-16",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Noviembre de 2026",
+   "fecha": "2026-12-17",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Noviembre de 2026",
+   "fecha": "2026-12-17",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Noviembre de 2026",
+   "fecha": "2026-12-17",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Noviembre de 2026",
+   "fecha": "2026-12-18",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Mercado de trabajo. Tasas e indicadores socioeconómicos. Tercer trimestre de 2026",
+   "fecha": "2026-12-18",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 15/12/2026",
+   "fecha": "2026-12-18",
+   "hora": null,
+   "periodo": "2026-12-15",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Octubre de 2026",
+   "fecha": "2026-12-21",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores del sector energético. Tercer trimestre de 2026",
+   "fecha": "2026-12-21",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Industria farmacéutica en la Argentina. Tercer trimestre de 2026",
+   "fecha": "2026-12-21",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Balanza de pagos, posición de inversión internacional y deuda externa. Tercer trimestre de 2026",
+   "fecha": "2026-12-22",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [
+    "indec-cin"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Industria manufacturera. Expectativas diciembre de 2026-febrero de 2027",
+   "fecha": "2026-12-22",
+   "hora": "16:00",
+   "periodo": "2027-02-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de tendencia de negocios. Supermercados y autoservicios mayoristas. Expectativas diciembre de 2026-febrero de 2027",
+   "fecha": "2026-12-22",
+   "hora": "16:00",
+   "periodo": "2027-02-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Noviembre de 2026",
+   "fecha": "2026-12-23",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Evolución de la distribución del ingreso (EPH). Tercer trimestre de 2026",
+   "fecha": "2026-12-23",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Noviembre de 2026",
+   "fecha": "2026-12-23",
+   "hora": null,
+   "periodo": "2026-11-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Octubre de 2026",
+   "fecha": "2026-12-28",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Octubre de 2026",
+   "fecha": "2026-12-28",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Octubre de 2026",
+   "fecha": "2026-12-28",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de productos industriales (EPI)",
+   "fecha": "2026-12-29",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Noviembre de 2026",
+   "fecha": "2026-12-30",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2026-12-30",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 23/12/2026",
+   "fecha": "2026-12-30",
+   "hora": null,
+   "periodo": "2026-12-23",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta Nacional a Grandes Empresas. Año 2025",
+   "fecha": "2027-01-06",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Noviembre de 2026",
+   "fecha": "2027-01-07",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Noviembre de 2026",
+   "fecha": "2027-01-07",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Estado resumido de activos y pasivos del BCRA. Datos al 31/12/2026",
+   "fecha": "2027-01-07",
+   "hora": null,
+   "periodo": "2026-12-31",
+   "codigos": [],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción. Noviembre de 2026",
+   "fecha": "2027-01-08",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Noviembre de 2026",
+   "fecha": "2027-01-08",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Octubre de 2026",
+   "fecha": "2027-01-11",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índices de patentamientos. Cuarto trimestre de 2026",
+   "fecha": "2027-01-13",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Diciembre de 2026",
+   "fecha": "2027-01-14",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Diciembre de 2026",
+   "fecha": "2027-01-14",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Noviembre de 2026",
+   "fecha": "2027-01-15",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Diciembre de 2026",
+   "fecha": "2027-01-18",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Diciembre de 2026",
+   "fecha": "2027-01-19",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Diciembre de 2026",
+   "fecha": "2027-01-19",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Diciembre de 2026",
+   "fecha": "2027-01-20",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Noviembre de 2026",
+   "fecha": "2027-01-20",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Cuenta de generación del ingreso e insumo de mano de obra. Tercer trimestre de 2026",
+   "fecha": "2027-01-21",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Noviembre de 2026",
+   "fecha": "2027-01-21",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Noviembre de 2026",
+   "fecha": "2027-01-22",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Noviembre de 2026",
+   "fecha": "2027-01-22",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Noviembre de 2026",
+   "fecha": "2027-01-22",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "BCRA",
+   "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Diciembre de 2026",
+   "fecha": "2027-01-22",
+   "hora": null,
+   "periodo": "2026-12-01",
+   "codigos": [
+    "bcra-irfcl",
+    "iiep-rin"
+   ],
+   "calendario": "https://www.bcra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Diciembre, cuarto trimestre y año 2026",
+   "fecha": "2027-01-26",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de Tendencia de Negocios. Industria manufacturera. Expectativas enero-marzo 2027",
+   "fecha": "2027-01-27",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de Tendencia de Negocios. Supermercados y autoservicios mayoristas. Expectativas enero-marzo 2027",
+   "fecha": "2027-01-27",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2027-01-28",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Diciembre de 2026",
+   "fecha": "2027-01-29",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índices de precios y cantidades del comercio exterior. Cuarto trimestre de 2026",
+   "fecha": "2027-02-02",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Argentine Foreign Trade Statistics. Preliminary data for 2026",
+   "fecha": "2027-02-04",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Bases de microdatos de la Encuesta Permanente de Hogares. Tercer trimestre de 2026",
+   "fecha": "2027-02-04",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicadores de coyuntura de la actividad de la construcción. Diciembre de 2026",
+   "fecha": "2027-02-05",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-isac"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Diciembre de 2026",
+   "fecha": "2027-02-05",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-ipi-manufacturero"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial minero (IPI minero). Diciembre de 2026",
+   "fecha": "2027-02-10",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Indicador sintético de servicios públicos (ISSP). Noviembre de 2026",
+   "fecha": "2027-02-11",
+   "hora": "16:00",
+   "periodo": "2026-11-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de producción industrial pesquero (IPI pesquero). Diciembre de 2026",
+   "fecha": "2027-02-11",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Enero de 2027",
+   "fecha": "2027-02-12",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de precios al consumidor (IPC). Cobertura nacional. Enero de 2027",
+   "fecha": "2027-02-12",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [
+    "indec-ipc"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Utilización de la capacidad instalada en la industria (UCII). Diciembre de 2026",
+   "fecha": "2027-02-16",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Enero de 2027",
+   "fecha": "2027-02-16",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta permanente de hogares (EPH) total urbano. Principales tasas del tercer trimestre de 2026",
+   "fecha": "2027-02-17",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice de salarios. Diciembre de 2026",
+   "fecha": "2027-02-17",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-salarios"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Sistema de índices de precios mayoristas (SIPM). Enero de 2027",
+   "fecha": "2027-02-18",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [
+    "indec-sipm"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Índice del costo de la construcción (ICC). Enero de 2027",
+   "fecha": "2027-02-18",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta permanente de hogares (EPH) total urbano. Evolución de la distribución del ingreso. Tercer trimestre de 2026",
+   "fecha": "2027-02-19",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Intercambio comercial argentino (ICA). Bienes. Enero de 2027",
+   "fecha": "2027-02-19",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [
+    "indec-ica"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "EPH Total urbano. Bases de microdatos del tercer trimestre de 2026",
+   "fecha": "2027-02-22",
+   "hora": "16:00",
+   "periodo": "2026-07-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estimador mensual de actividad económica (EMAE). Diciembre de 2026",
+   "fecha": "2027-02-23",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-emae"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de autoservicios mayoristas. Diciembre de 2026",
+   "fecha": "2027-02-24",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de comercios de electrodomésticos y artículos para el hogar. Cuarto trimestre de 2026",
+   "fecha": "2027-02-24",
+   "hora": "16:00",
+   "periodo": "2026-10-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de supermercados. Diciembre de 2026",
+   "fecha": "2027-02-24",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [
+    "indec-supermercados"
+   ],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta nacional de centros de compras. Diciembre de 2026",
+   "fecha": "2027-02-24",
+   "hora": "16:00",
+   "periodo": "2026-12-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de Tendencia de Negocios. Industria manufacturera. Expectativas febrero-abril de 2027",
+   "fecha": "2027-02-25",
+   "hora": "16:00",
+   "periodo": "2027-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Encuesta de Tendencia de Negocios. Supermercados y autoservicios mayoristas. Expectativas febrero-abril de 2027",
+   "fecha": "2027-02-25",
+   "hora": "16:00",
+   "periodo": "2027-04-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Estadísticas de turismo internacional. Enero de 2027",
+   "fecha": "2027-02-25",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "Dotación de personal de la administración pública nacional, empresas y sociedades. Enero de 2027",
+   "fecha": "2027-02-26",
+   "hora": "16:00",
+   "periodo": "2027-01-01",
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  },
+  {
+   "institucion": "INDEC",
+   "titulo": "INDEC Informa",
+   "fecha": "2027-02-26",
+   "hora": "16:00",
+   "periodo": null,
+   "codigos": [],
+   "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+  }
+ ]
+}

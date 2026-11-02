@@ -20,6 +20,8 @@ Notas de trabajo acumuladas al sumar fuentes. Complementan `AGENTS.md`, que fija
 - **Títulos repetidos están permitidos.** «Reservas internacionales brutas» existe para BCRA e IIEP; la institución y el detalle las distinguen.
 - **Actualización incremental.** Primera descarga completa; luego solapamiento corto (siete días en series diarias, tres meses en planillas mensuales que se revisan). Los caché de lectura (`notas_ii1.csv`) evitan reprocesar archivos viejos.
 - **Orden de ejecución.** `main.py` corre los módulos en orden alfabético. Un módulo que deriva series de otras hojas de `BD.xlsx` debe llamarse de modo que corra después (BCRA antes que IIEP).
+- **Un libro viejo no es un error.** Las búsquedas «del período actual hacia atrás» encuentran siempre algo, aunque la institución haya cambiado el nombre del archivo; el INDEC además responde HTTP 200 con una página HTML para lo que no existe. El control es `calendario/estado.json` (`tools/calendario/`): si la base va atrás del último período publicado, revisar en la página de la fuente qué enlace sirve hoy. Una fuente nueva con calendario suma su título al mapeo del lector; una sin calendario hereda la tolerancia de su frecuencia.
+- **Ante un 403, primero el canal automático.** Buscar API o dataset oficial vigente; si no existe y el dato es público, repetir el pedido con cabeceras de navegador (BCRA ITC) o con Chrome oculto (Ámbito), siempre después de un primer pedido identificado. Nunca dejar una fuente para que la actualice una persona.
 - **Nunca inventar valores.** Si falta un insumo o un control falla, el mes queda vacío y se imprime un aviso.
 
 ## Conexiones y formatos

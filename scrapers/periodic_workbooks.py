@@ -43,6 +43,7 @@ def candidate_urls(source: Source, today: date | None = None, periods: int = 60)
     today = today or date.today()
     start = today.year * 12 + today.month - 1
     seen = set()
+    urls = set()
     for offset in range(periods):
         month_index = start - offset * (3 if source.cadence == "T" else 1)
         year, month_zero = divmod(month_index, 12)
@@ -52,8 +53,11 @@ def candidate_urls(source: Source, today: date | None = None, periods: int = 60)
         if key in seen:
             continue
         seen.add(key)
-        yield source.template.format(MM=f"{month:02d}", AA=f"{year % 100:02d}",
+        url = source.template.format(MM=f"{month:02d}", AA=f"{year % 100:02d}",
                                      AAAA=year, T=ROMAN[quarter - 1])
+        if url not in urls:  # Un libro sin fecha en el nombre se prueba una vez.
+            urls.add(url)
+            yield url
 
 
 def download(source: Source, today: date | None = None) -> tuple[Path, str]:
@@ -87,6 +91,7 @@ def download(source: Source, today: date | None = None) -> tuple[Path, str]:
                 error = exc
                 continue
         if source.file.is_file():
+            print(f"AVISO {source.code}: no se pudo descargar un libro nuevo ({error}); se usa el guardado", flush=True)
             url_file = source.directory / "source_url.txt"
             return source.file, url_file.read_text(encoding="utf-8").strip() if url_file.exists() else source.template
         raise RuntimeError(f"No se encontró un libro Excel válido para {source.code}") from error

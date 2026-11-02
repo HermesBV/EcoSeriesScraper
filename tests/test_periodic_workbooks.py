@@ -20,6 +20,10 @@ class PeriodicWorkbooksTests(unittest.TestCase):
         self.assertEqual(list(candidate_urls(quarterly, date(2026, 1, 5), 3)),
                          ["https://x/I_2026.xls", "https://x/IV_2025.xls", "https://x/III_2025.xls"])
 
+    def test_undated_template_is_tried_once(self):
+        undated = Source("x", "INDEC", "X", "X", "https://x/sh_ipc_divisiones.xls", "M", "X")
+        self.assertEqual(list(candidate_urls(undated, date(2026, 11, 2))), ["https://x/sh_ipc_divisiones.xls"])
+
     def test_horizontal_dates_and_regions(self):
         source = Source("indec-ipc", "INDEC", "IPC", "INDEC / IPC", "https://x/{MM}_{AA}.xlsx", "M", "IPC")
         with TemporaryDirectory() as directory:

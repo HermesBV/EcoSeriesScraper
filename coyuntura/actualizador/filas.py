@@ -59,7 +59,7 @@ def detectar(libro: Libro, fuentes, faltantes: set) -> list[Arreglo]:
             desde = max(min(e.fechas.values()), min(publicadas))
             hasta = e.ultima_fecha
             for fecha in sorted(publicadas):
-                if not (desde < fecha < hasta) or fecha in vistas or not dia_habil(fecha, habiles):
+                if not (desde < fecha < hasta) or fecha in vistas                         or not (hoja.dias_corridos or dia_habil(fecha, habiles)):
                     continue
                 previa = max(fila for fila, f in fechas if f < fecha)
                 arreglo.insertar.append((previa, fecha))

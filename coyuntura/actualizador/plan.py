@@ -153,7 +153,7 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
     else:
         candidatas = {k for valores in series.values() for k in valores}
     nuevas = sorted(k for k in candidatas if k > ultima_clave and k not in existentes)
-    if frecuencia == "D":
+    if frecuencia == "D" and not hoja.dias_corridos:
         habiles = dias_habiles(fuentes)
         nuevas = [k for k in nuevas if dia_habil(k, habiles)]
     if hoja.especial == "comex" and nuevas:

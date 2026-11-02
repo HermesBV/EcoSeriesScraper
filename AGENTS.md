@@ -27,6 +27,7 @@
 
 - `scraper_BCRA_indices_tipo_cambio.py` administra ITCRM, ITCNM, sus bilaterales y ponderadores desde los dos Excel oficiales.
 - La vista Heymann de SeriesMacro consume el promedio mensual de `ITCRB Estados Unidos`; conservar estable su identidad nativa y la hoja mensual.
+- Desde octubre de 2026 el BCRA responde 403 a `ITCRMSerie.xlsx` e `ITCNMSerie.xlsx` si el cliente no se presenta como navegador: el scraper pide primero identificado y, ante un 403, repite con cabeceras de navegador (`CABECERAS_NAVEGADOR`). La API monetaria del BCRA no publica el ITCRM y datos.gob.ar lo dejó en enero de 2026. En el Excel de coyuntura, TCR diario sigue días corridos (`dias_corridos`).
 - `scraper_BCRA_datos_monetarios_diarios.py` administra todas las series de `series.xlsm`.
 - Conservar los IDs nativos de `API_Series`; para columnas sin correspondencia usar un ID estable basado en hoja y columna.
 - `scraper_BCRA_tasas_depositos.py` administra las 19 hojas de datos de `pas2026.xls`.
@@ -47,6 +48,8 @@
 - `scraper_BCRA_datos_monetarios_diarios.py` conserva sólo las filas con «Tipo de serie» D; las filas PM/VFM/VPM del libro oficial pisaban los saldos del primer día de cada mes.
 - Las columnas de fechas de INDEC/MCH admiten texto («feb-15», «dic-25*») y trimestres provisorios («2025T4*»); sin eso SIPA A.4 se cortaba en 2015 y CIN Cuadro 1 en 2023.
 - `scraper_INDEC_ipc.py`, `scraper_INDEC_pib.py`, `scraper_INDEC_cuentas_internacionales.py` y `scraper_INDEC_salarios.py` incorporan los libros de la segunda iteración. Para nombres con mes o trimestre, prueban períodos anteriores hasta encontrar un Excel válido; los datos pueden venir en filas o columnas.
+- El IPC se descarga de `sh_ipc_divisiones.xls`, que el INDEC actualiza en el lugar: desde octubre de 2026 dejó de subir `sh_ipc_MM_AA.xls` (nombrado por mes de publicación, no de dato) y la búsqueda hacia atrás caía sin aviso en el libro del mes anterior.
+- `tools/calendario/` lee los calendarios oficiales que existen (INDEC: calendario de difusión; BCRA: calendario anticipado NEDD/SDDS; BLS: `bls.ics`, para el CPI de FRED) y escribe `calendario/publicaciones.json` (acumula historia: cada lectura reemplaza sólo su ventana de fechas), `calendario/publicaciones.ics` (para suscribirse desde Google Calendar) y `calendario/estado.json`. El estado compara, por (`Código fuente`, `Frecuencia`), la `Fecha fin` del índice con el último período difundido (`falta`) o, sin calendario, con la tolerancia de su frecuencia (`posible atraso`). Corre al final de `main.py`, en el servidor que ejecuta los scrapers (suelto: `python -m tools.calendario`); no lleva tarea programada propia. Al sumar una fuente con calendario, mapear su título a códigos (`PUBLICACIONES` en `indec.py`, `CODIGOS` en `bcra.py` y `bls.py`); si no tiene, revisar su tolerancia. Los pedidos se identifican como `SeriesScraper/1.0`.
 
 ## Ministerio de Capital Humano
 

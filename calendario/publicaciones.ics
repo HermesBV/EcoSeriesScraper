@@ -1,0 +1,3439 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SeriesScraper//Calendario de publicaciones//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Publicaciones económicas
+X-WR-TIMEZONE:America/Argentina/Buenos_Aires
+BEGIN:VEVENT
+UID:3ec92585142dfbbcaaf830f45700dc670e7e3e32@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250115T133000Z
+DTEND:20250115T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Diciembre de
+  2024
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:db72f927f0a281827879d140c3061175fa9fd8ff@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250212T133000Z
+DTEND:20250212T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Enero de 202
+ 5
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:47d8a073676f94b8bd1a7a8754524ab262cc5a70@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250312T123000Z
+DTEND:20250312T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Febrero de 2
+ 025
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1e7182216c329e77ce7a018b9132eaec0b59b89c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250410T123000Z
+DTEND:20250410T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Marzo de 202
+ 5
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b833c03dda81bd9fd43ddab7cd0053a1d7d2f066@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250513T123000Z
+DTEND:20250513T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Abril de 202
+ 5
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:01f60f347bd315d893dfa1b79784beacbbead558@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250611T123000Z
+DTEND:20250611T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Mayo de 2025
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7aeb105d88d01ec75b6959773c9a48e7045ea766@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250715T123000Z
+DTEND:20250715T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Junio de 202
+ 5
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:528616124f39cda7a105df8728af890556dfd018@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250812T123000Z
+DTEND:20250812T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Julio de 202
+ 5
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:bbeb9eee968e23ed2f257ab99937db5c9e7ed2d0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20250911T123000Z
+DTEND:20250911T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Agosto de 20
+ 25
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5be73a0502305eadffe1b350ea6513d1e8900c51@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20251024T123000Z
+DTEND:20251024T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Septiembre d
+ e 2025
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:902059d2d95b074f2d4a4c8e5809901f78f07d9b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20251218T133000Z
+DTEND:20251218T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Noviembre de
+  2025
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:467dbfe321d7187cd402fffca03a43fe66905016@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260107
+DTEND;VALUE=DATE:20260108
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/12
+ /2025
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fcbbb075c07ec4d0fba25ae6533cf16cbc97c3bc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260112
+DTEND;VALUE=DATE:20260113
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/01
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9ad4bb2a325ba835c01da1acb5a251168ae75952@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260113T133000Z
+DTEND:20260113T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Diciembre de
+  2025
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:013a47360e7d3eccb11e4f241f05f3471a2de077@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260114
+DTEND;VALUE=DATE:20260115
+SUMMARY:BCRA: Boletín estadístico del BCRA. Noviembre de 2025
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e7d5e9f77ba73fe3904d29803be9dbabebfe2a6e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260120
+DTEND;VALUE=DATE:20260121
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/01
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7c8197c75d443d5278a1a1abb1f0352350595884@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260123
+DTEND;VALUE=DATE:20260124
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Diciembre de 2025
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6a2b20148da680074917661beffb7b5ffa8e57a6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260128
+DTEND;VALUE=DATE:20260129
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/01
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4f8985c25f8f7fe0cd328f22d573a3bc2ce8bf1c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260204
+DTEND;VALUE=DATE:20260205
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/01
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a42552980a6d642b6cf84404eb99c967e6c1798e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260211
+DTEND;VALUE=DATE:20260212
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/02
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:21046bb824d90ad30a8c13c1ae236a1b9b551e1d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260213T133000Z
+DTEND:20260213T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Enero de 202
+ 6
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f6db7c4b7f72c0bdcd1cf746f7588c557643218b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260213
+DTEND;VALUE=DATE:20260214
+SUMMARY:BCRA: Boletín estadístico del BCRA. Diciembre de 2025
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cb99bcbbf0804c6e25fe34010e2378a7617cac56@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260220
+DTEND;VALUE=DATE:20260221
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/02
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:16a7203a8c9680aa28c30d5e7c8ac25d20d3458b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260223
+DTEND;VALUE=DATE:20260224
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Enero de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:901a77c4d26d395dc248f88af7c2c1f965181d7d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260226
+DTEND;VALUE=DATE:20260227
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/02
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1a9c8fb24ee3ab78a38a5e527fe2290b81052019@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260304
+DTEND;VALUE=DATE:20260305
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 28/02
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:05a84bcbfbffd6c54af7c177cfa7798c4dd0bec9@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260311T123000Z
+DTEND:20260311T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Febrero de 2
+ 026
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5b2861a05d0c5814dc7277930306f244d6d0b056@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260311
+DTEND;VALUE=DATE:20260312
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/03
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:263abc8a97fefc1f04d32e7d0867f7fe4548df39@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260313
+DTEND;VALUE=DATE:20260314
+SUMMARY:BCRA: Boletín estadístico del BCRA. Enero de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e8b7bb717c781163a0b75b96aab9758f40ad8715@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260318
+DTEND;VALUE=DATE:20260319
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/03
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:52556d81ccb74ef1b8dd52356ece15e99422b576@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260320
+DTEND;VALUE=DATE:20260321
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Febrero de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3102184cb261af65d9cb7033460fc11d8430a2f5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260327
+DTEND;VALUE=DATE:20260328
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/03
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:346cf7d2a797ba4e21881fe539f03c0093b8cc31@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260407
+DTEND;VALUE=DATE:20260408
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/03
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ad7a224073e7cb4c9380e29273b829ce59bdfcad@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260410T123000Z
+DTEND:20260410T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Marzo de 202
+ 6
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:baba470237439db802c03304912082949f9171ae@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260410
+DTEND;VALUE=DATE:20260411
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/04
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:61daf25461c302bf40c678915e7a06473c442b6f@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260414
+DTEND;VALUE=DATE:20260415
+SUMMARY:BCRA: Boletín estadístico del BCRA. Febrero de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1a097b2191f08562c522a3d1e16ec878738a6622@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260420
+DTEND;VALUE=DATE:20260421
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/04
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:76f30324fbd57f462cdd2903d596f0d7bacd2309@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260423
+DTEND;VALUE=DATE:20260424
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Marzo de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5d36c0500b04fe3835f3b0bc5cdac09b019cf4d6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260428
+DTEND;VALUE=DATE:20260429
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/04
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fccc14c2afee5bdc8076d3af3bae1272ff76174a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260506
+DTEND;VALUE=DATE:20260507
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 30/04
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e6b2732db050ea5f02e995c5341cd1cb0217aaed@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260512T123000Z
+DTEND:20260512T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Abril de 202
+ 6
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cb537ceae3e8122c251e439d5d8bc1cb8d010c0e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260512
+DTEND;VALUE=DATE:20260513
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/05
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9d7d3e4af97f2d43f9193e9ba76e8f93d0015bf8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260514
+DTEND;VALUE=DATE:20260515
+SUMMARY:BCRA: Boletín estadístico del BCRA. Marzo de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cffee15f536ef3dffe22df29e6db4e8a7fc0829a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260520
+DTEND;VALUE=DATE:20260521
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/05
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4d5059e1fdf172eb871af0f73e3b0068cc2dea96@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260522
+DTEND;VALUE=DATE:20260523
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Abril de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d121e5362ee78128063aef731206a8b3713971d4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260528
+DTEND;VALUE=DATE:20260529
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/05
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f93d9ca4096ad06880e636b28ab3024e170a89b5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260603
+DTEND;VALUE=DATE:20260604
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/05
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b215135d07de78d2a0c1a152caa7342d375c3574@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260610T123000Z
+DTEND:20260610T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Mayo de 2026
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f15a9b294d9e202f119ba6407581cfaa099d1b96@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260610
+DTEND;VALUE=DATE:20260611
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/06
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:09689a94cc5ea183e60c1c7ada71cc3d15004e74@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260612
+DTEND;VALUE=DATE:20260613
+SUMMARY:BCRA: Boletín estadístico del BCRA. Abril de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c3ffe594a80b245bc2b4bf38053b52e7bc69227d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260618
+DTEND;VALUE=DATE:20260619
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/06
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:236d70b75cfe61cf3dab2ea017a26170b9c1c9a7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260623
+DTEND;VALUE=DATE:20260624
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Mayo de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b0e39b8c14aaffc0e2c601c4ffc61429c9af48a5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260626
+DTEND;VALUE=DATE:20260627
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/06
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7d771743879f47e3226a9394e4a46ee08c05a6e8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260703
+DTEND;VALUE=DATE:20260704
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 30/06
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b644694b8bedb032a013027137b50d53b5e605cc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260714T123000Z
+DTEND:20260714T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Junio de 202
+ 6
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d14464ed81a9842c365008df2b90869bab63af2b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260714
+DTEND;VALUE=DATE:20260715
+SUMMARY:BCRA: Boletín estadístico del BCRA. Mayo de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6dde08b3bdf4db8a860db32d507f029d1634f8e2@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260714
+DTEND;VALUE=DATE:20260715
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/07
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dd223f8cd729d1f01d287f24c64c4b42db8ab415@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260720
+DTEND;VALUE=DATE:20260721
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/07
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a370a54f8664a0e67664fe8704bcdf118b05614d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260723
+DTEND;VALUE=DATE:20260724
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Junio de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:26478f9886ac42e3d494d1e1fc5dcf6ed2e11895@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260728
+DTEND;VALUE=DATE:20260729
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/07
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:933432208166106f71bc95c0f0b8975dd153d07d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260803T190000Z
+DTEND:20260803T193000Z
+SUMMARY:INDEC: Bases de microdatos de la Encuesta Permanente de Hogares. Pr
+ imer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cbfd986771e0e8c8043591fc9a8cdc4b581e05ca@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260804T190000Z
+DTEND:20260804T193000Z
+SUMMARY:INDEC: Argentine Foreign Trade Statistics. Merchandise. Preliminary
+  data for the first half of 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e4c8d5f1a035bbc42b97abc87fa40e79fbb16f6e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260805
+DTEND;VALUE=DATE:20260806
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/07
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8e31bd53df6829fd08cbdae40dff01e1ad35296c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260806T190000Z
+DTEND:20260806T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Junio
+  de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3b89c3161a874b860bc7b4cbe064b0b985e4273e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260806T190000Z
+DTEND:20260806T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). J
+ unio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:04751fcb9d55409d44e8eb1ac907ee814253ef92@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260807T190000Z
+DTEND:20260807T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+ . Junio de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f7cc21a7f73facb977b31bc33b5940316445d293@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260807T190000Z
+DTEND:20260807T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Junio de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:af59aa5bba2e728cd881207cdab3599f0265a23e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260811T190000Z
+DTEND:20260811T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Mayo de 
+ 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:331ec4f3bb81500c4501523e020d8a7c2f91fe08@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260812T123000Z
+DTEND:20260812T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Julio de 202
+ 6
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:792253a9c98b5da04e7fab0816e0d35109fd44ee@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260812T190000Z
+DTEND:20260812T193000Z
+SUMMARY:INDEC: Cuenta satélite de cultura. Valor agregado bruto\, comercio
+  exterior\, puestos de trabajo\, generación del ingreso y consumo privado
+  cultural. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:868d4aee7197f3adc1abd91bd857341dec1abc53@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260812
+DTEND;VALUE=DATE:20260813
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/08
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:54d97ca82d12a4744093bd00728639940bf079ef@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260813T190000Z
+DTEND:20260813T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d0e08f24f9044dc86cc7fb0bf3d2fa5f15eab03e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260813T190000Z
+DTEND:20260813T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Julio de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:0b6972bf4ee06a63dc88c449f963910a1c40f87b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260814T190000Z
+DTEND:20260814T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Junio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7aa886f5d32e05bed84f6152dd9157f2f8f1f0b5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260814
+DTEND;VALUE=DATE:20260815
+SUMMARY:BCRA: Boletín estadístico del BCRA. Junio de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9b6a08b95186b7012fe330c336e6408e9b6ad230@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260818T190000Z
+DTEND:20260818T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Julio de 2
+ 026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:454dee37d9b32e5e6f8b5f92ed16fd53250a3389@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260818T190000Z
+DTEND:20260818T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9ef82d5a834070442ce00ac91d8b830a6e68a167@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260818T190000Z
+DTEND:20260818T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a70a8d02715e4e52f88d2f1912148bfe7f1ea984@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260819T190000Z
+DTEND:20260819T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Industria manufacturera. 
+ Expectativas agosto-octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:703dd0a223d6ef1afd8e51592aa556e4f60bb822@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260819T190000Z
+DTEND:20260819T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas agosto-octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ae2421999bf07782bb2a6180bac26f26423c5d0c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260820T190000Z
+DTEND:20260820T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Junio de 2
+ 026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a8cb561334d2491adc757c20f1506eafd66eaf4f@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260820T190000Z
+DTEND:20260820T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Julio de 2026
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:0261e1be68d6be3f8fcc054e5106d5bcde5c99e7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260820T190000Z
+DTEND:20260820T193000Z
+SUMMARY:INDEC: Índice de salarios. Junio de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7b6d50d1c49ff04a1f698b0fbb79f540446117c6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260820
+DTEND;VALUE=DATE:20260821
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/08
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cb2ce639ae8e60e4c3aec96dae4b27c4e59bcda5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260821T190000Z
+DTEND:20260821T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Junio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d4e409cdaff66eec8fc839954344c6d5a77251e6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260821T190000Z
+DTEND:20260821T193000Z
+SUMMARY:INDEC: Encuesta de comercios de electrodomésticos y artículos par
+ a el hogar. Segundo trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:09b7befaf1264b1437116cd71d33e17df4a38bb8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260821T190000Z
+DTEND:20260821T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Junio de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b86c1fb99a6fb794d39487b212b294626189fbb4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260821T190000Z
+DTEND:20260821T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Junio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4a6e6d61059441f6472784d6b808b7fbdf02809b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260821
+DTEND;VALUE=DATE:20260822
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Julio de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:bd6cefcdb21377853c614d33b61a1d6ba845c620@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260824T190000Z
+DTEND:20260824T193000Z
+SUMMARY:INDEC: Cuenta de energía. Flujos físicos de energía. Año 2023
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:bd72c9a2285a8eaef566084f823d74752b65e3fb@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260825T190000Z
+DTEND:20260825T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3a535ea60e1258e4d091969d5578992c4630b675@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260825T190000Z
+DTEND:20260825T193000Z
+SUMMARY:INDEC: Remuneración al trabajo asalariado ingreso mixto e insumo d
+ e mano de obra por sexo y tramos de edad. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:266d5ee63361c01203e75404b85add7e7c092a1a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260826T190000Z
+DTEND:20260826T193000Z
+SUMMARY:INDEC: Complejos exportadores. Primer semestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c0417802da89613cb50b1219a797b319daaba740@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260826
+DTEND;VALUE=DATE:20260827
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/08
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7538b8be67f6d43985c47b483409bba208fb07ee@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260827T190000Z
+DTEND:20260827T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9ece50b888f205e34ddf97e5ecc97242e2a2df6a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260827T190000Z
+DTEND:20260827T193000Z
+SUMMARY:INDEC: Ingreso nacional y ahorro nacional. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:54801e2b97daf54fe2d0ae86751a1c7c6a5ab9f2@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260828T190000Z
+DTEND:20260828T193000Z
+SUMMARY:INDEC: Informe de la industria de maquinaria agrícola. Segundo tri
+ mestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:49df704f537eac68694a3ca10b01fb6d0f682fc1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260831T190000Z
+DTEND:20260831T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b15a3e6b06d803003a2257f5a235c150f78813e0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260902T190000Z
+DTEND:20260902T193000Z
+SUMMARY:INDEC: Accesos a internet. Segundo trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dba3962e175d9eb428f074052ce29c8a7f3112e5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260902T190000Z
+DTEND:20260902T193000Z
+SUMMARY:INDEC: Origen provincial de las exportaciones. Bienes. Primer semes
+ tre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6d3232875aa1eb9d0528888cab2b9004abee661a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260903T190000Z
+DTEND:20260903T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). J
+ ulio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d7f6024684c48e8bdd95ec60ed9cb7b92e2a839c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260903
+DTEND;VALUE=DATE:20260904
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/08
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e5406fda9c0f627612410815d33889e629c0d334@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260908T190000Z
+DTEND:20260908T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+  (ISAC). Julio de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ce4b1076bc6eb5ebd0c482f0b69019374206225a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260908T190000Z
+DTEND:20260908T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Julio de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cd70d781f74784c86170fef0a6917b898e7eae24@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260909T190000Z
+DTEND:20260909T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Junio de
+  2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2af3e0552e45e53a5eff870d0084f034012ea568@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260909T190000Z
+DTEND:20260909T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Julio
+  de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d0893a6c73c8c11e7ef9bb3e7e33be605131bc56@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260910T190000Z
+DTEND:20260910T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1e6153edd0520fdadf1cc687fe8a68f30630b6b4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260910T190000Z
+DTEND:20260910T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Agosto de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7703788a000db6beb58d5a0e66fe3165654c6d43@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260910
+DTEND;VALUE=DATE:20260911
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/09
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:748034bf92c6e53144e5ef7dd238a320378e57c9@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260911T123000Z
+DTEND:20260911T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Agosto de 20
+ 26
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fbaa5b2eb169dfce1f283858c75ca5b7f665dbb4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260914T190000Z
+DTEND:20260914T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:11c13b9cc04026ab04b84441719b6c4bbfb10883@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260914
+DTEND;VALUE=DATE:20260915
+SUMMARY:BCRA: Boletín estadístico del BCRA. Julio de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8ea6796fa5524b0f6100c1fd421c147fe71d5894@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260915T190000Z
+DTEND:20260915T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1f32a30d1b19f3971d0e5c16ce08d5ece15cba7e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260916T190000Z
+DTEND:20260916T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Agosto de 
+ 2026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c0b61384f9635ca34afe848851dfc053825cd95e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260916T190000Z
+DTEND:20260916T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eb02bbb91289c59fc8d3c4ad5d0578b5bcdac66d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260917T190000Z
+DTEND:20260917T193000Z
+SUMMARY:INDEC: Industria farmacéutica en la Argentina. Segundo trimestre d
+ e 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eb8f7bc34159f0b72a2544f32d6661b63e88220b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260917T190000Z
+DTEND:20260917T193000Z
+SUMMARY:INDEC: Informe de avance del nivel de actividad. Segundo trimestre 
+ de 2026
+DESCRIPTION:Series de la base: indec-pib\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3d9c6b7209f95cee41d7bcc6d6f768f9c2f4138e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260917T190000Z
+DTEND:20260917T193000Z
+SUMMARY:INDEC: Mercado de trabajo. Tasas e indicadores socioeconómicos. Se
+ gundo trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:175108e14bee8eeee6ddd66535b92f4dcfb4193c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260918T190000Z
+DTEND:20260918T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Agosto de 202
+ 6
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:970375787c2afabb74f177b815f4dee507c29a1a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260918
+DTEND;VALUE=DATE:20260919
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/09
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:bfa4228c1c8b03982ee3bf820b9ed735fdb0529c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260921T190000Z
+DTEND:20260921T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Industria manufacturera. 
+ Expectativas septiembre-noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:651cba0dff8c609524988cb6759f27303ac7afa8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260921T190000Z
+DTEND:20260921T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas septiembre-noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:beedbf1e2988f193f63e9db49c2a0327c6a92ce3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260922T190000Z
+DTEND:20260922T193000Z
+SUMMARY:INDEC: Índice de salarios. Julio de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5eed376fb1d20094e7a0f3e59cf8089299a88cfd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260923T190000Z
+DTEND:20260923T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c05e3ff20401c21272745ef0e330ea3efc40f2b1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260923T190000Z
+DTEND:20260923T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Julio de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3e941bfe0a8cb3dd5a48ab00cc1e098731f9d635@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260923T190000Z
+DTEND:20260923T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Julio de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c2792a3abf5032002163a0cf522a9eb42af6c392@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260923
+DTEND;VALUE=DATE:20260924
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Agosto de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:002b6a1c44a06a178ab35f8b5de7b2043f40b775@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260924T190000Z
+DTEND:20260924T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Julio de 2
+ 026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e39a6180e60d58ae0d301fffb4fbbf9f53d97eaa@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260924T190000Z
+DTEND:20260924T193000Z
+SUMMARY:INDEC: Incidencia de la pobreza y la indigencia en 31 aglomerados u
+ rbanos. Primer semestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8fc045982db0858527fb190fb812ce3754d5f205@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260925T190000Z
+DTEND:20260925T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:97f67a7750c8e8c95aa4c8d714b7e2737cef2e1d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260928T190000Z
+DTEND:20260928T193000Z
+SUMMARY:INDEC: Estadísticas de productos industriales (EPI)
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2d39a7b9527f5a93ca82452caec57bd5c43a09cf@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260928T190000Z
+DTEND:20260928T193000Z
+SUMMARY:INDEC: Indicadores del sector energético. Segundo trimestre de 202
+ 6
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5ec061aafcf7dd50ea157690494f1831f789c52c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20260928
+DTEND;VALUE=DATE:20260929
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/09
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fb79eb55d06a99057607e77b4c8914a0339debc1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260929T190000Z
+DTEND:20260929T193000Z
+SUMMARY:INDEC: Balanza de pagos\, posición de inversión internacional y d
+ euda externa. Segundo trimestre de 2026
+DESCRIPTION:Series de la base: indec-cin\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d9d22493d3115a877115f8f5b239594b73c52987@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260929T190000Z
+DTEND:20260929T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4c1548ddfd25f272bf390835d636019bb8dcbe5e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260930T190000Z
+DTEND:20260930T193000Z
+SUMMARY:INDEC: Dosier estadístico de personas mayores 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ae1fe18bd2dd0a04b76b3e15fe52db5ba0f17a27@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20260930T190000Z
+DTEND:20260930T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ea7b4df0775402b7db5253b4529866da809ac943@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261001T190000Z
+DTEND:20261001T193000Z
+SUMMARY:INDEC: Evolución de la distribución del ingreso (EPH). Segundo tr
+ imestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8334250b240a7f15b9b5508d864d9f0e00a358ba@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261002T190000Z
+DTEND:20261002T193000Z
+SUMMARY:INDEC: Medición de la productividad 2016-2025 y el stock de capita
+ l 2004-2025 de la República Argentina
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c7a11a66d16b96588b490d9dbab8ffa261f1884a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261005
+DTEND;VALUE=DATE:20261006
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 30/09
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f633b5f9f8c836b82b3b26882d4a5d08c5700e17@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261006T190000Z
+DTEND:20261006T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). A
+ gosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cb9e00a13a924f2868fa3f04053c2a2e014b0788@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261007T190000Z
+DTEND:20261007T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+  (ISAC). Agosto de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cd7d693bfeb44768ef5f0091f54682f3aa8daac5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261007T190000Z
+DTEND:20261007T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Agosto de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4bf54fbcb6fbc24cd4eac3f4ad731412b7657c86@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261008T190000Z
+DTEND:20261008T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Julio de
+  2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dfd49bc4f7d52405ad0fa2b3c85f0f656d22e13d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261008T190000Z
+DTEND:20261008T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Agost
+ o de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:53fe47c10b64326fd22fac6e3d61158b7f119144@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261013T190000Z
+DTEND:20261013T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5b9c0cde4d1fb33be5fa3378f38dbe5ea4116a30@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261013T190000Z
+DTEND:20261013T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Septiembre de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1e364bc9f7500b2b60c7ca85c719600d782856f6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261013T190000Z
+DTEND:20261013T193000Z
+SUMMARY:INDEC: Índices de patentamientos. Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a81aeb47fc89d46ad4f97e48d8745cd1c182aadf@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/10
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:32d31e4712fa8d91066e481fb490e92123517824@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261014T123000Z
+DTEND:20261014T130000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Septiembre d
+ e 2026
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ef3ff2dce1ebde498604c5715ea37e2170e08039@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261014
+DTEND;VALUE=DATE:20261015
+SUMMARY:BCRA: Boletín estadístico del BCRA. Agosto de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f5a9b4ea8ba017e15da72bd4b121b31d61a7076d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261015T190000Z
+DTEND:20261015T193000Z
+SUMMARY:INDEC: Cuenta de generación del ingreso e insumo de mano de obra. 
+ Segundo trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9f295e7ba010dd91531a0be2173bd73f02deee71@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261015T190000Z
+DTEND:20261015T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:73c4fc29df3a92023413eec1ab7e6c1caddd46dd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261016T190000Z
+DTEND:20261016T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Septiembre
+  de 2026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20971c6102c2a58942221cf674e7b0201c9c9fdc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261016T190000Z
+DTEND:20261016T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f0207ebb087f7e252992c714875e2c6b5598ded7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261016T190000Z
+DTEND:20261016T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Septiembre de 2
+ 026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ac080f69f3aae02c7f723487ba3d97f6c5a01caf@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261019T190000Z
+DTEND:20261019T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Septiembre de
+  2026
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eed0cc7be7697b82edd3b13d61c8c5f0394cc6e0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261020T190000Z
+DTEND:20261020T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Industria manufacturera. 
+ Expectativas octubre-diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5522e36ef8034da40be5e1d7156e2312df36d156@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261020T190000Z
+DTEND:20261020T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas octubre-diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a6dcd10055964aa9f1d3c07049bc4ce65a2bb6e0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/10
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:0d2aedd8715cb6dc704fa2f6869ea893adaf67c8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261021T190000Z
+DTEND:20261021T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Agosto de 
+ 2026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:17679051beed834860ae5f1ddb4ae075180ed4cc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261021T190000Z
+DTEND:20261021T193000Z
+SUMMARY:INDEC: Índice de salarios. Agosto de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5641c8fc00dd90e5e906761507f3fe0648fdac52@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261022T190000Z
+DTEND:20261022T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:15325d228d69f28fcdaa809a350b4091a84f3a97@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261022T190000Z
+DTEND:20261022T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Agosto de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:56fa3d4cf4669a53455e1190e943ad921c6d2a19@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261022T190000Z
+DTEND:20261022T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Agosto de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:badcf098ea9089797696978b99a866fcdc71ed90@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Septiembre de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c4ea5da062cc6d9ff8769bcf4014d0b28aa2dd5c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261026T190000Z
+DTEND:20261026T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Septiembre y tercer 
+ trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c17644afcd36af0579aa7592ad12bbd8c88c26cc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261028T190000Z
+DTEND:20261028T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c35077559d704584ed88d47b7e2103932c7774df@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/10
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1da6515b6cd57a45ed3264827edc39a76453ad92@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261030T190000Z
+DTEND:20261030T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8a64c93f37fdb436caefb887ecc1e037c3a8705f@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261103T190000Z
+DTEND:20261103T193000Z
+SUMMARY:INDEC: Índices de precios y cantidades del comercio exterior. Terc
+ er trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:59e6233199aa721b99a70064db0a677fe73c2b11@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261104T190000Z
+DTEND:20261104T193000Z
+SUMMARY:INDEC: Bases de microdatos de la Encuesta Permanente de Hogares. Se
+ gundo trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c9d917c497507fef78d75bea4fa00816bd8690c1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261104T190000Z
+DTEND:20261104T193000Z
+SUMMARY:INDEC: Indicadores de condiciones de vida de los hogares (EPH). Pri
+ mer semestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d8c266762d8838038ce88feae723dbe301f67540@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261104
+DTEND;VALUE=DATE:20261105
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/10
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:989b0a9334564e04cbfe513a13130b1dad3f9064@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261105T190000Z
+DTEND:20261105T193000Z
+SUMMARY:INDEC: Argentine Foreign Trade Statistics. Preliminary data for the
+  nine months of 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dd451344aa7a041aaae911ce5291b25524bd3448@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261105T190000Z
+DTEND:20261105T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). S
+ eptiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:889a0c0925d394b765f3e7ed73aff01a434396bd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261106T190000Z
+DTEND:20261106T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+ . Septiembre de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6bfa293a454bd8343573c80e4688b40305857983@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261106T190000Z
+DTEND:20261106T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Septiembre de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a9a2404d942226fadcceff066938987370ca3b4b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261106T190000Z
+DTEND:20261106T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Septi
+ embre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dfec02048c4d94577f828ffb4ab75eb76de219d3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261110T133000Z
+DTEND:20261110T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Octubre de 2
+ 026
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1ed5c63e52e30defd89457d859fc3eb555627b85@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261111T190000Z
+DTEND:20261111T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Agosto d
+ e 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:68a6f0e9af03a87e3f5a8f9d6d0a16d814ff3d21@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261112T190000Z
+DTEND:20261112T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2c73c7391d1a1f7a6607193a9a7896ef0a659a23@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261112T190000Z
+DTEND:20261112T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Octubre de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:da304f70e675dcb8f50f2d315719db693c62aa23@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261113T190000Z
+DTEND:20261113T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a28c1a7fa0a47d875770bbc93d1ea0e7265f970d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261113T190000Z
+DTEND:20261113T193000Z
+SUMMARY:INDEC: Índice de salarios. Septiembre de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a400f6fa37617250ea5078028b16987e39bcd3d3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:BCRA: Boletín estadístico del BCRA. Septiembre de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2acde9477caeb71a4a67b81185559d26b53e623e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/11
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f7d4dc3189b4b85082ba6f76680bb5454e43f0cb@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261116T190000Z
+DTEND:20261116T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:292e2bf8bb9bde9bfabfd08d931d8f643ef32224@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261117T190000Z
+DTEND:20261117T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Octubre de
+  2026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7353cf48f40e7981ab676e65ce64fb89a1067b96@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261117T190000Z
+DTEND:20261117T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:207afc9095f1fe37bed98cc15f45bb9766455e9c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261118T190000Z
+DTEND:20261118T193000Z
+SUMMARY:INDEC: Dosier estadístico en conmemoración del Día Mundial del N
+ iño. Sexta edición
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ef7e256b04b76fdcb32442ae2dad4e40fe324d18@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/11
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6609b1240d0c3b1b4835517b4dbbbea56accf541@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261119T190000Z
+DTEND:20261119T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Industria manufacturera. 
+ Expectativas noviembre de 2026- enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:301aae151e0b2626b6e15f2ab54e2c24b382b9ef@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261119T190000Z
+DTEND:20261119T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas noviembre de 2026-enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3baea7c445ab2d9c47ded1352762ad3ec9a80174@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261119T190000Z
+DTEND:20261119T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Octubre de 20
+ 26
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:36e21d94b4ed2c5d43e0a91b23683bb025b35f20@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Octubre de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dbb87b91161690cf3fbda46afe356c55d2d22253@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261124T190000Z
+DTEND:20261124T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Septiembre
+  de 2026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:17ff9f493b73caac910281eec9e360cf5d0380ce@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261125T190000Z
+DTEND:20261125T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fcf11de02d95aeefda27dcbce18146fa0429f8c0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261125T190000Z
+DTEND:20261125T193000Z
+SUMMARY:INDEC: Encuesta de comercios de electrodomésticos y artículos par
+ a el hogar. Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a405e46e79a37b1fe704e7a08db060f9de0859dd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261125T190000Z
+DTEND:20261125T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Septiembre de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6a050b3d2aabaa9cc8a4080c9b39fc08a0d9e6b1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261125T190000Z
+DTEND:20261125T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Septiembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d5c4b43beb9c7ed734d7dc8b0d8818bd47c38112@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/11
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:175b67b484265fbcfd88ba321d6253bdac9584b4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261127T190000Z
+DTEND:20261127T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8bc185a4fd5ea0a6a977d582bf57e370b6358f3c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261127T190000Z
+DTEND:20261127T193000Z
+SUMMARY:INDEC: Informe de la industria de maquinaria agrícola. Tercer trim
+ estre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5d8f5a06cb2b84fc99c47271caaeb8835bccc9cf@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261130T190000Z
+DTEND:20261130T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Octubre 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a67431fedc4a932312872e366e673b020b750b58@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261130T190000Z
+DTEND:20261130T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:11257e0ccc3ed42f9ccdb6272f7b0c88fe753cec@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261202T190000Z
+DTEND:20261202T193000Z
+SUMMARY:INDEC: Sistema integrado de estadísticas sociales (SIES). Actualiz
+ ación de fuentes a diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ad1c28e4843f8a469ef1cd3b4dbdf4d4732402a0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261203T190000Z
+DTEND:20261203T193000Z
+SUMMARY:INDEC: Cuentas por sectores institucionales. El resto del mundo. A
+ ño 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b041cd8127a6bd5739dd2dd8e71fcde7e5f7c97e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261203T190000Z
+DTEND:20261203T193000Z
+SUMMARY:INDEC: Cuentas por sectores institucionales. Sector gobierno genera
+ l. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b47d9e39aedbfc385cd00992512a68f8956cf308@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261203T190000Z
+DTEND:20261203T193000Z
+SUMMARY:INDEC: Cuentas por sectores institucionales. Sector sociedades fina
+ ncieras. Subsectores banco central\, sociedades de depósito excepto el ba
+ nco central y fondos del mercado monetario. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6eebe4c565e7fad7a378a7b93715d506e7bf58ba@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261203T190000Z
+DTEND:20261203T193000Z
+SUMMARY:INDEC: Formación bruta de capital fijo del sector gobierno general
+ . Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c2fe712473bb4191c8436e85e217c17068acd6bb@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 30/11
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f4d444807056d0bda8a1665912ebba26188b65a1@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261204T190000Z
+DTEND:20261204T193000Z
+SUMMARY:INDEC: Accesos a internet. Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d26d086c222c3c0a571b05b337c7c6c2d272c3e2@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261204T190000Z
+DTEND:20261204T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). O
+ ctubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:613125af9a3bb46ffdeab50f37bbd9edd2b6d29c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261209T190000Z
+DTEND:20261209T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+ . Octubre de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6487ade86ee98fe3200e5dae4d96412f1ce31c3e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261209T190000Z
+DTEND:20261209T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Octubre de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:aaaa25be8a87641c9fa556b4b6cdf80d6cb4557b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261209T190000Z
+DTEND:20261209T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Octub
+ re de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2921e0cbe0707d5b058ebd032240157e036e95da@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261210T133000Z
+DTEND:20261210T140000Z
+SUMMARY:U.S. Bureau of Labor Statistics: Consumer Price Index. Noviembre de
+  2026
+DESCRIPTION:Series de la base: fred-cpiaucsl\nFuente: https://www.bls.gov/s
+ chedule/news_release/bls.ics
+CATEGORIES:U.S. Bureau of Labor Statistics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a40f634beb7b39b7a1906168d7ff6bd8ad081376@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261210T190000Z
+DTEND:20261210T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Septiemb
+ re de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8b3f441c14dad0acf28ac853e771955fd480cd56@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261212
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 07/12
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7632ea7660427e0ce48ea31e41492a99d0501059@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261214
+DTEND;VALUE=DATE:20261215
+SUMMARY:BCRA: Boletín estadístico del BCRA. Octubre de 2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b1ee735b857dac9b2f13016b38004c84e38105c8@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261215T190000Z
+DTEND:20261215T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a31ba943e62daa494dff78024b050487979436af@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261215T190000Z
+DTEND:20261215T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Noviembre de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e4da95a218e341e2538c8d268f9ccb6ed08b006d@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261216T190000Z
+DTEND:20261216T193000Z
+SUMMARY:INDEC: Informe de avance del nivel de actividad. Tercer trimestre d
+ e 2026
+DESCRIPTION:Series de la base: indec-pib\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:620f38982d4a05d08b13c8a01fb240f31960bf1b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261216T190000Z
+DTEND:20261216T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c81938bb5f593465de97cfe4c30eaa890d33bcec@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261216T190000Z
+DTEND:20261216T193000Z
+SUMMARY:INDEC: Índice de salarios. Octubre de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:704a80b5ec6c762e834b5997af1fc4f9d6567154@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261217T190000Z
+DTEND:20261217T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Noviembre 
+ de 2026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:47366c66bf9d81b75b813d072d7b3305e5220a1e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261217T190000Z
+DTEND:20261217T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1074a4c2ad4df891c4b85f23e343288e09521b97@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261217T190000Z
+DTEND:20261217T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Noviembre de 20
+ 26
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a0114c560aa04863e2872d9d09af1bb0bcd46043@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261218T190000Z
+DTEND:20261218T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Noviembre de 
+ 2026
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4fd17c573fbc6d24a1add4fd2d306af81c8622fd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261218T190000Z
+DTEND:20261218T193000Z
+SUMMARY:INDEC: Mercado de trabajo. Tasas e indicadores socioeconómicos. Te
+ rcer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:46156d26f7317d56a5b8c9dbf1be0a9774de69c7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261218
+DTEND;VALUE=DATE:20261219
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 15/12
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9e1557afe44348891453a86716abd9de37c201bd@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261221T190000Z
+DTEND:20261221T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Octubre de
+  2026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c3a6d0008e650e425fb5159815cd1e7e4f9c2915@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261221T190000Z
+DTEND:20261221T193000Z
+SUMMARY:INDEC: Indicadores del sector energético. Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:fe2ac9928c456dc4ff737d9747562e68d8ed142b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261221T190000Z
+DTEND:20261221T193000Z
+SUMMARY:INDEC: Industria farmacéutica en la Argentina. Tercer trimestre de
+  2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:867f1a1e89cd7da83264645a98498b507ebcda1e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261222T190000Z
+DTEND:20261222T193000Z
+SUMMARY:INDEC: Balanza de pagos\, posición de inversión internacional y d
+ euda externa. Tercer trimestre de 2026
+DESCRIPTION:Series de la base: indec-cin\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:8c668a48464d36325a2a254abb00fd335c65abcc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261222T190000Z
+DTEND:20261222T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Industria manufacturera. 
+ Expectativas diciembre de 2026-febrero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7f6b9f6071ba5f20dee5b80fb9f2e80c8b1053f6@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261222T190000Z
+DTEND:20261222T193000Z
+SUMMARY:INDEC: Encuesta de tendencia de negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas diciembre de 2026-febrero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2ded308ecd7b3c5c275a6293ee7d28025d33e0ad@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261223T190000Z
+DTEND:20261223T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5df2e128feb5e1946eb0ebe793f9c6bbc0ed4a6e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261223T190000Z
+DTEND:20261223T193000Z
+SUMMARY:INDEC: Evolución de la distribución del ingreso (EPH). Tercer tri
+ mestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4eb480e13cb5cc7d830ce37923e0d01f6b7c8b06@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261223
+DTEND;VALUE=DATE:20261224
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Noviembre de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e9bd0c8366e5865c02affa2c48d4eea00d7766db@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261228T190000Z
+DTEND:20261228T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6507e6466f154ddbb8b2d1507ea2cde0bf731fdc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261228T190000Z
+DTEND:20261228T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Octubre de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:69906fec8e498820c5e9cb0a869bcb35dce41188@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261228T190000Z
+DTEND:20261228T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Octubre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:6d1b6aa28a8685b014559575669a45b03f9f11d5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261229T190000Z
+DTEND:20261229T193000Z
+SUMMARY:INDEC: Estadísticas de productos industriales (EPI)
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:135c7409edf3e32d1763271411935850808aed35@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261230T190000Z
+DTEND:20261230T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3ae0d2f9a735a8e0f57e4a66322a6fbd93f83851@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20261230T190000Z
+DTEND:20261230T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ce37c46a23c7a06d06158b6f5ae23223a8ee7288@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20261230
+DTEND;VALUE=DATE:20261231
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 23/12
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:75a5866bce8bdefe94b7e532f7df6eeae8b1e794@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270106T190000Z
+DTEND:20270106T193000Z
+SUMMARY:INDEC: Encuesta Nacional a Grandes Empresas. Año 2025
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:b72b8a06da67c016d5aaadabd9ae5f76a6b23e63@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270107T190000Z
+DTEND:20270107T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Novie
+ mbre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e2285ad07138d0e096af2c97304af7cb89a49a1a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270107T190000Z
+DTEND:20270107T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). N
+ oviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4163d7791c8dc79abc3e50400c4aabefc3a38522@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20270107
+DTEND;VALUE=DATE:20270108
+SUMMARY:BCRA: Estado resumido de activos y pasivos del BCRA. Datos al 31/12
+ /2026
+DESCRIPTION:Fuente: https://www.bcra.gob.ar/normas-especiales-para-la-divul
+ gacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5437b4f5a13e45f55b77261f90b94179238a9616@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270108T190000Z
+DTEND:20270108T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+ . Noviembre de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c038a2c27430bd3d284e26cbfad300bd511511ee@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270108T190000Z
+DTEND:20270108T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Noviembre de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3e520239de4fe0d84eb34006106e2f5cde6e935f@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270111T190000Z
+DTEND:20270111T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Octubre 
+ de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f4756a682aa9a2413f45d12f1a76ef53f8862491@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270113T190000Z
+DTEND:20270113T193000Z
+SUMMARY:INDEC: Índices de patentamientos. Cuarto trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e84e0d567391556f24f555fade0c6980fbd21393@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270114T190000Z
+DTEND:20270114T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eb61da5834c15b90c4dd3af02d755e7410a779d0@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270114T190000Z
+DTEND:20270114T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Diciembre de 2026
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f9593d923df099085550660c93bd0d3551eb94f5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270115T190000Z
+DTEND:20270115T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c1608a000853079e0fc4e14e79e50dc82afa1000@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270118T190000Z
+DTEND:20270118T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:52b131b6dc35b02d719527ce7b5e3a371d6dd321@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270119T190000Z
+DTEND:20270119T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Diciembre 
+ de 2026
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:124c2af00d21a1c555f774d8d128c0f93ee75cd4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270119T190000Z
+DTEND:20270119T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Diciembre de 20
+ 26
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4761291577456c7e56f6dd53327455ac2beaaff7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270120T190000Z
+DTEND:20270120T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Diciembre de 
+ 2026
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3173cca3055a84b59f85664279bae31655c417c7@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270120T190000Z
+DTEND:20270120T193000Z
+SUMMARY:INDEC: Índice de salarios. Noviembre de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a50ed64702a4e9e3fe5f81cae335d0cc4951557b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270121T190000Z
+DTEND:20270121T193000Z
+SUMMARY:INDEC: Cuenta de generación del ingreso e insumo de mano de obra. 
+ Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5c4b82573e647acf09dc50bab9d276cf4fbdcb93@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270121T190000Z
+DTEND:20270121T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Noviembre 
+ de 2026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4dca5f5a4a9906b7593e1ce6b0a97f2772b1be14@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270122T190000Z
+DTEND:20270122T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e724bb3389e8d5aad5e772df61a9e63b0bcbbf5e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270122T190000Z
+DTEND:20270122T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Noviembre de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ea51651046a684cee5e3e12d5f52d58997b701ef@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270122T190000Z
+DTEND:20270122T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Noviembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:440146c4598a7561b4920f1bdd588f65dcf62c64@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART;VALUE=DATE:20270122
+DTEND;VALUE=DATE:20270123
+SUMMARY:BCRA: Planilla de reservas internacionales y liquidez en moneda ext
+ ranjera del BCRA. Diciembre de 2026
+DESCRIPTION:Series de la base: bcra-irfcl\, iiep-rin\nFuente: https://www.b
+ cra.gob.ar/normas-especiales-para-la-divulgacion-de-datos-fmi/
+CATEGORIES:BCRA
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1ac0417c4529d9a7dfd57d93d8fac38ebc874def@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270126T190000Z
+DTEND:20270126T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Diciembre\, cuarto t
+ rimestre y año 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1321dfedc31fc945e62c9e193e9c3b226c0c5c56@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270127T190000Z
+DTEND:20270127T193000Z
+SUMMARY:INDEC: Encuesta de Tendencia de Negocios. Industria manufacturera. 
+ Expectativas enero-marzo 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9ff11978dfda13cbdab7bdf3610376870a688e35@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270127T190000Z
+DTEND:20270127T193000Z
+SUMMARY:INDEC: Encuesta de Tendencia de Negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas enero-marzo 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:28d45d8d8b3008573f224df92ea79f801873dea3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270128T190000Z
+DTEND:20270128T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:27684263e51cd06bee3317364bb6608d49ee5752@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270129T190000Z
+DTEND:20270129T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:77e682b1be6598035d9bc0df4759ca701ac2f318@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270202T190000Z
+DTEND:20270202T193000Z
+SUMMARY:INDEC: Índices de precios y cantidades del comercio exterior. Cuar
+ to trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:90359c01dd714ba02126b785d89f5790913ab98b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270204T190000Z
+DTEND:20270204T193000Z
+SUMMARY:INDEC: Argentine Foreign Trade Statistics. Preliminary data for 202
+ 6
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5dba52fec6a25ffcd9dc526f1508a5a55767a1c3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270204T190000Z
+DTEND:20270204T193000Z
+SUMMARY:INDEC: Bases de microdatos de la Encuesta Permanente de Hogares. Te
+ rcer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5dcbd67863c17a5f66e145479a880ba653a26ec5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270205T190000Z
+DTEND:20270205T193000Z
+SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
+ . Diciembre de 2026
+DESCRIPTION:Series de la base: indec-isac\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:504a0cdca3e727d8dfbfccce5d1d282291ee2f02@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270205T190000Z
+DTEND:20270205T193000Z
+SUMMARY:INDEC: Índice de producción industrial manufacturero (IPI manufac
+ turero). Diciembre de 2026
+DESCRIPTION:Series de la base: indec-ipi-manufacturero\nFuente: https://www
+ .indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:590a30554cc31eae9e013b489bc3bf862c6e18a2@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270210T190000Z
+DTEND:20270210T193000Z
+SUMMARY:INDEC: Índice de producción industrial minero (IPI minero). Dicie
+ mbre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cbc1c955ea6d8500bbca49b176628f09000cfb8c@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270211T190000Z
+DTEND:20270211T193000Z
+SUMMARY:INDEC: Indicador sintético de servicios públicos (ISSP). Noviembr
+ e de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f634a2f89eee9bb8249f6ac730c05c1ae1f4e562@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270211T190000Z
+DTEND:20270211T193000Z
+SUMMARY:INDEC: Índice de producción industrial pesquero (IPI pesquero). D
+ iciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dfc2ec3ed0d8efc525374948a2bfcde7f5702ebc@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270212T190000Z
+DTEND:20270212T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
+ ) y de la canasta básica total (CBT). Enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f7d66d3f8e988366390ad65c9546bbd6829bdf24@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270212T190000Z
+DTEND:20270212T193000Z
+SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
+ Enero de 2027
+DESCRIPTION:Series de la base: indec-ipc\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:1582a568aa92b63bbe4e93c967b30fb8fe871d29@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270216T190000Z
+DTEND:20270216T193000Z
+SUMMARY:INDEC: Utilización de la capacidad instalada en la industria (UCII
+ ). Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e4b2a7080f628649e606978cf07f3d4d8a8dfba4@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270216T190000Z
+DTEND:20270216T193000Z
+SUMMARY:INDEC: Valorización mensual de la canasta de crianza de la primera
+  infancia\, la niñez y la adolescencia. Enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7b64e82ca29aea0c8e0a7695c99dbd96c53d90c5@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270217T190000Z
+DTEND:20270217T193000Z
+SUMMARY:INDEC: Encuesta permanente de hogares (EPH) total urbano. Principal
+ es tasas del tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9b4242d9d6eb5bdd37a2964338bf0a0fb3ba7300@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270217T190000Z
+DTEND:20270217T193000Z
+SUMMARY:INDEC: Índice de salarios. Diciembre de 2026
+DESCRIPTION:Series de la base: indec-salarios\nFuente: https://www.indec.go
+ b.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:49a929e31f1cf70e3d80b3da49608c6394dd8342@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270218T190000Z
+DTEND:20270218T193000Z
+SUMMARY:INDEC: Sistema de índices de precios mayoristas (SIPM). Enero de 2
+ 027
+DESCRIPTION:Series de la base: indec-sipm\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:55ff3b2284ad5666a5b281d9e17884c9a6c137c2@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270218T190000Z
+DTEND:20270218T193000Z
+SUMMARY:INDEC: Índice del costo de la construcción (ICC). Enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:37e1b924509d24655c323b037ce18183ea782262@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270219T190000Z
+DTEND:20270219T193000Z
+SUMMARY:INDEC: Encuesta permanente de hogares (EPH) total urbano. Evolució
+ n de la distribución del ingreso. Tercer trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:395c2355438368635205d7a94dd7d081a0c598b3@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270219T190000Z
+DTEND:20270219T193000Z
+SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Enero de 2027
+DESCRIPTION:Series de la base: indec-ica\nFuente: https://www.indec.gob.ar/
+ indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:f3aaadd083f3dbe1f5f5db3fca7b2ad2e4f525df@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270222T190000Z
+DTEND:20270222T193000Z
+SUMMARY:INDEC: EPH Total urbano. Bases de microdatos del tercer trimestre d
+ e 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:9aa8d555e0646d3ca1540c2614aef2a8c4f3f190@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270223T190000Z
+DTEND:20270223T193000Z
+SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Diciembre 
+ de 2026
+DESCRIPTION:Series de la base: indec-emae\nFuente: https://www.indec.gob.ar
+ /indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e16618c474359d73371941d7d3202327a9eccc46@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270224T190000Z
+DTEND:20270224T193000Z
+SUMMARY:INDEC: Encuesta de autoservicios mayoristas. Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cb09ffe75cc89a2377d330af61f541fa54526a0b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270224T190000Z
+DTEND:20270224T193000Z
+SUMMARY:INDEC: Encuesta de comercios de electrodomésticos y artículos par
+ a el hogar. Cuarto trimestre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:4d6f3bb8a88a5353480a5e6e5783010f6909365a@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270224T190000Z
+DTEND:20270224T193000Z
+SUMMARY:INDEC: Encuesta de supermercados. Diciembre de 2026
+DESCRIPTION:Series de la base: indec-supermercados\nFuente: https://www.ind
+ ec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:943344f29b438d57c396ab0288f3cfc173141287@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270224T190000Z
+DTEND:20270224T193000Z
+SUMMARY:INDEC: Encuesta nacional de centros de compras. Diciembre de 2026
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:19b1b6d13098e188b51f72c64191c5cc7656bd62@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270225T190000Z
+DTEND:20270225T193000Z
+SUMMARY:INDEC: Encuesta de Tendencia de Negocios. Industria manufacturera. 
+ Expectativas febrero-abril de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:71bd7c29ce0224056ada738b0edc8af6889f454e@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270225T190000Z
+DTEND:20270225T193000Z
+SUMMARY:INDEC: Encuesta de Tendencia de Negocios. Supermercados y autoservi
+ cios mayoristas. Expectativas febrero-abril de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:c0e9bb450c0f34ff8859ba69ae73a22b36d1398b@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270225T190000Z
+DTEND:20270225T193000Z
+SUMMARY:INDEC: Estadísticas de turismo internacional. Enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ac9bf21d69cab9f3f818fe6e51274c475ec189ba@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270226T190000Z
+DTEND:20270226T193000Z
+SUMMARY:INDEC: Dotación de personal de la administración pública naciona
+ l\, empresas y sociedades. Enero de 2027
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ec9f8a394fb4d1f07db637dd8a3db64f63e52b19@seriesscraper
+DTSTAMP:20261102T145723Z
+DTSTART:20270226T190000Z
+DTEND:20270226T193000Z
+SUMMARY:INDEC: INDEC Informa
+DESCRIPTION:Fuente: https://www.indec.gob.ar/indec/web/Calendario-Fecha-0
+CATEGORIES:INDEC
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

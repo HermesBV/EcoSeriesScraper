@@ -261,6 +261,13 @@ class FormulasTests(unittest.TestCase):
         self.assertEqual([f.date() for _, f in plan.filas_nuevas], [date(2026, 9, 29), date(2026, 10, 5)])
         self.assertEqual([(x.fila, x.valor) for x in plan.escrituras], [(8, 1.0)])  # el 0 no es dato
 
+    def test_tcr_diario_abre_filas_en_dias_corridos(self) -> None:
+        hoja = Hoja("Reservas diario", "D", "B", 2, {"C": Columna(Serie("bcra-itc", "ITCRM"))}, dias_corridos=True)
+        estructura = libro_en_memoria(hoja_diaria()).analizar(hoja)
+        fuente = pd.Series({pd.Timestamp("2026-09-29"): 1.0, pd.Timestamp("2026-10-03"): 2.0})
+        plan = planificar_hoja(hoja, estructura, FuentesFalsas({"ITCRM": fuente}), {})
+        self.assertEqual([f.date() for _, f in plan.filas_nuevas], [date(2026, 9, 29), date(2026, 10, 3)])
+
     def test_dias_habiles_segun_el_calendario_del_a3500(self) -> None:
         from coyuntura.actualizador.plan import dia_habil
         habiles = {pd.Timestamp("2024-03-28"), pd.Timestamp("2024-04-02")}  # 01/04/2024: feriado puente

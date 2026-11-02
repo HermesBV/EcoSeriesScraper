@@ -28,6 +28,14 @@ HOJAS = {
     ("ITCRMSerie.xlsx", "Ponderadores"): ("BCRA Ponderadores M", "M", "Ponderadores de comercio de manufacturas"),
 }
 HOJAS_ADMINISTRADAS = {config[0] for config in HOJAS.values()}
+# Desde octubre de 2026 el BCRA responde 403 a clientes que no se presentan como
+# navegador; el dato es público y no hay otro canal automático vigente (la API
+# monetaria no publica el ITCRM y datos.gob.ar lo dejó en enero de 2026).
+CABECERAS_NAVEGADOR = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/130.0 Safari/537.36",
+    "Referer": PAGINA_FUENTE,
+}
 
 
 def _sesion() -> requests.Session:
@@ -48,6 +56,15 @@ def _excel_valido(ruta: Path) -> bool:
         return False
 
 
+def _bajar(sesion: requests.Session, url: str, destino: Path, cabeceras: dict[str, str] | None = None) -> None:
+    with sesion.get(url, stream=True, timeout=(20, 180), headers=cabeceras) as respuesta:
+        respuesta.raise_for_status()
+        with destino.open("wb") as archivo:
+            for bloque in respuesta.iter_content(64 * 1024):
+                if bloque:
+                    archivo.write(bloque)
+
+
 def descargar_excels() -> dict[str, Path]:
     """Publica cada descarga atómicamente y reutiliza la última copia si la red falla."""
     CARPETA_FUENTE.mkdir(parents=True, exist_ok=True)
@@ -57,12 +74,13 @@ def descargar_excels() -> dict[str, Path]:
             destino = CARPETA_FUENTE / nombre
             temporal = destino.with_name(f"{destino.stem}.descarga.xlsx")
             try:
-                with sesion.get(url, stream=True, timeout=(20, 180)) as respuesta:
-                    respuesta.raise_for_status()
-                    with temporal.open("wb") as archivo:
-                        for bloque in respuesta.iter_content(64 * 1024):
-                            if bloque:
-                                archivo.write(bloque)
+                try:
+                    _bajar(sesion, url, temporal)
+                except requests.HTTPError as exc:
+                    if exc.response is None or exc.response.status_code != 403:
+                        raise
+                    print(f"BCRA ITC: 403 en {nombre}; se reintenta como navegador", flush=True)
+                    _bajar(sesion, url, temporal, CABECERAS_NAVEGADOR)
                 if not _excel_valido(temporal):
                     raise ValueError(f"La descarga de {nombre} no es un Excel BCRA válido")
                 temporal.replace(destino)

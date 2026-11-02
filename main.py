@@ -8,7 +8,7 @@ import pkgutil
 import time
 
 import scrapers
-from tools import lote
+from tools import calendario, lote
 
 
 def descubrir_scrapers() -> list[str]:
@@ -76,6 +76,11 @@ def main(argv: list[str] | None = None) -> None:
             errores.append((f"volcado de {', '.join(grupo)}", exc))
             print(f"ERROR al volcar el lote: {exc}", flush=True)
     print(f"\nTiempo total: {(time.time() - inicio_total) / 60:.1f} min", flush=True)
+    # Un libro viejo no produce error: sólo el calendario muestra el atraso.
+    try:
+        calendario.actualizar()
+    except Exception as exc:
+        print(f"AVISO: no se pudo actualizar el calendario de publicaciones: {exc}", flush=True)
 
     if errores:
         detalle = "; ".join(f"{nombre}: {error}" for nombre, error in errores)

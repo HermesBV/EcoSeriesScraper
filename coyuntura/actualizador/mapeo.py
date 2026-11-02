@@ -73,6 +73,9 @@ class Hoja:
     # «comex»: la columna de fechas se extiende hasta diciembre del año del
     # último dato y la barra azul queda fija debajo de diciembre.
     especial: str | None = None
+    # Hoja diaria con todos los días corridos (el BCRA publica el ITCRM también
+    # sábados, domingos y feriados): no se filtra por días hábiles.
+    dias_corridos: bool = False
 
 
 @dataclass(frozen=True)
@@ -215,7 +218,7 @@ HOJAS: list[Hoja] = [
     Hoja("Tipo de cambio mensual", "M", "A", 3, {}, calendario=("hoja", "Tipo de cambio diario", "B")),
     Hoja("TCR diario", "D", "B", 2, {
         "C": Columna(Serie("bcra-itc", "ITCRMSerie.xlsx|ITCRM y bilaterales|ITCRM")),
-    }),
+    }, dias_corridos=True),
     Hoja("TCR Mensual", "M", "B", 2, {
         "C": _itcrm_m("ITCRM"), "D": _itcrm_m("ITCRB Brasil"), "E": _itcrm_m("ITCRB Canadá"),
         "F": _itcrm_m("ITCRB Chile"), "G": _itcrm_m("ITCRB Estados Unidos"), "H": _itcrm_m("ITCRB México"),
