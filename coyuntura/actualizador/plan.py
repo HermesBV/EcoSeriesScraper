@@ -11,13 +11,14 @@ from __future__ import annotations
 from calendar import monthrange
 from dataclasses import dataclass, field
 import math
+import re
 
 import pandas as pd
 from openpyxl.utils import column_index_from_string
 
 from .estructura import Estructura, Libro
 from .fuentes import Fuentes
-from .mapeo import BloqueAnual, Columna, Hoja
+from .mapeo import BloqueAnual, Columna, Hoja, Serie
 
 # El economista suele pegar los valores redondeados a una décima; esas
 # diferencias no son revisiones y no se reescriben.
@@ -30,7 +31,7 @@ class Escritura:
     col: str
     valor: float
     anterior: object
-    motivo: str  # «nuevo», «reemplazo», «completa»
+    motivo: str  # «nuevo», «reemplazo», «completa», «imputada»
 
 
 @dataclass
@@ -42,6 +43,8 @@ class PlanHoja:
     # columna -> (fila con la fórmula vigente, filas donde se copia); lo completa formulas.py
     formulas: dict[str, tuple[int, list[int]]] = field(default_factory=dict)
     conservadas: list[tuple[int, str, object]] = field(default_factory=list)
+    imputadas: list[tuple[int, str, object, float]] = field(default_factory=list)
+    limpiar: list[str] = field(default_factory=list)  # celdas con fórmula que esperan un dato
     formulas_respetadas: int = 0
     avisos: list[str] = field(default_factory=list)
     fechas_finales: list[pd.Timestamp] = field(default_factory=list)
@@ -52,7 +55,7 @@ class PlanHoja:
 
     @property
     def cambia(self) -> bool:
-        return bool(self.filas_nuevas or self.escrituras or self.formulas)
+        return bool(self.filas_nuevas or self.escrituras or self.formulas or self.limpiar)
 
 
 @dataclass
@@ -86,13 +89,38 @@ def fecha_desde_clave(valor, frecuencia: str, referencia: pd.Timestamp) -> pd.Ti
     return pd.Timestamp(anio, mes, monthrange(anio, mes)[1])
 
 
-# Feriados de fecha fija: el BCRA a veces publica el saldo del 1° de mes aunque
-# caiga en feriado o fin de semana; esas fechas no abren filas diarias.
+# El BCRA publica a veces el saldo del 1° de mes aunque caiga en feriado o fin
+# de semana; esas fechas no abren filas diarias. Los días hábiles salen del
+# calendario del A3500 (el BCRA sólo lo publica en días hábiles); fuera de su
+# cobertura, lunes a viernes salvo los feriados de fecha fija.
 FERIADOS_FIJOS = {(1, 1), (5, 1), (12, 25)}
+A3500 = Serie("bcra-com3500", "TCR diario y TCNPM|Tipo de Cambio de Referencia - en Pesos - por Dólar")
 
 
-def dia_habil(k) -> bool:
+def dia_habil(k, habiles: set | None = None) -> bool:
+    if habiles and min(habiles) <= k <= max(habiles):
+        return k in habiles
     return k.weekday() < 5 and (k.month, k.day) not in FERIADOS_FIJOS
+
+
+def dias_habiles(fuentes) -> set | None:
+    try:
+        return set(fuentes.evaluar(A3500).index.normalize())
+    except Exception:  # sin la serie (pruebas, inventario incompleto): regla de calendario
+        return None
+
+
+NUMERO_TEXTO = re.compile(r"^-?\d{1,3}(?:\.\d{3})*(?:,\d+)?$|^-?\d+(?:,\d+)?$")
+
+
+def numero_de_texto(valor: object) -> float | None:
+    """«  1.000,00 » (pegado como texto con formato argentino) -> 1000.0."""
+    if not isinstance(valor, str) or valor.startswith("="):
+        return None
+    limpio = valor.replace("\xa0", " ").strip()
+    if not NUMERO_TEXTO.match(limpio):
+        return None
+    return float(limpio.replace(".", "").replace(",", "."))
 
 
 def _iguales(a: object, b: float) -> bool:
@@ -126,7 +154,8 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
         candidatas = {k for valores in series.values() for k in valores}
     nuevas = sorted(k for k in candidatas if k > ultima_clave and k not in existentes)
     if frecuencia == "D":
-        nuevas = [k for k in nuevas if dia_habil(k)]
+        habiles = dias_habiles(fuentes)
+        nuevas = [k for k in nuevas if dia_habil(k, habiles)]
     if hoja.especial == "comex" and nuevas:
         anio_max = max(k[0] for k in nuevas)
         anio_ult, mes_ult = ultima_clave
@@ -147,40 +176,63 @@ def planificar_hoja(hoja: Hoja, estructura: Estructura, fuentes: Fuentes,
 
     # --- valores
     for letra, columna in hoja.columnas.items():
-        valores = series[letra]
+        # Un 0 de la fuente es «sin dato» (el BCRA lo publica en feriados).
+        valores = {k: v for k, v in series[letra].items() if v != 0}
         if not valores:
             plan.avisos.append(f"{hoja.nombre}!{letra}: la fuente no tiene datos")
             continue
         primera_fuente = min(valores)
-        for k, fila in filas_por_clave.items():
+        dato: dict[int, float] = {}   # fila -> valor final de la celda
+        huecos: list[int] = []        # filas sin dato de la fuente, a imputar
+        for k, fila in sorted(filas_por_clave.items(), key=lambda x: x[1]):
             anterior = estructura.celdas.get((fila, letra))
-            nuevo = k in valores
+            existe = fila in estructura.fechas
+            es_formula = isinstance(anterior, str) and anterior.startswith("=")
+            numero = anterior if isinstance(anterior, (int, float)) and not isinstance(anterior, bool) else None
+            texto = numero_de_texto(anterior)
+            if texto is not None:
+                # Un número pegado como texto no entra en los gráficos: se convierte.
+                numero = texto
+                if k not in valores and (columna.modo == "agregar" or k < primera_fuente):
+                    plan.escrituras.append(Escritura(fila, letra, texto, anterior, "texto a número"))
             if k not in valores:
-                if anterior is not None and k >= primera_fuente and fila in estructura.fechas:
-                    plan.conservadas.append((fila, letra, anterior))
+                if es_formula:
+                    plan.formulas_respetadas += k >= primera_fuente
+                elif numero is not None and (columna.modo == "agregar" or k < primera_fuente):
+                    dato[fila] = float(numero)   # valor del economista: se respeta
+                elif numero is None or k >= primera_fuente:
+                    huecos.append(fila)          # vacía, o sin dato en la fuente
                 continue
             valor = valores[k]
-            if fila not in estructura.fechas:
-                if valor != 0:  # un 0 de la fuente es «sin dato» también en filas nuevas
-                    plan.escrituras.append(Escritura(fila, letra, valor, None, "nuevo"))
+            dato[fila] = valor
+            if not existe:
+                plan.escrituras.append(Escritura(fila, letra, valor, None, "nuevo"))
             elif anterior is None or anterior == "":
-                # Un cero del BCRA en una fecha que el economista dejó vacía es
-                # «sin dato», no un valor: no se completa.
-                if valor != 0:
-                    plan.escrituras.append(Escritura(fila, letra, valor, None, "completa"))
-            elif isinstance(anterior, str) and anterior.startswith("="):
+                plan.escrituras.append(Escritura(fila, letra, valor, None, "completa"))
+            elif es_formula:
                 if columna.pisar_formulas:
                     plan.escrituras.append(Escritura(fila, letra, valor, anterior, "reemplazo"))
                 else:
                     plan.formulas_respetadas += 1
             elif columna.modo == "reemplazar" and not _iguales(anterior, valor):
-                if valor == 0:
-                    # Un 0 de la fuente sobre una imputación del economista
-                    # (promedio entre el día anterior y el siguiente) es un
-                    # hueco de la fuente, no una revisión: se conserva.
+                plan.escrituras.append(Escritura(fila, letra, valor, anterior, "reemplazo"))
+            elif columna.modo == "agregar" and numero is not None:
+                dato[fila] = float(numero)
+        # Ninguna serie queda con un agujero en el medio (los gráficos se cortan):
+        # una fecha sin dato toma el promedio del dato anterior y el posterior.
+        filas_con_dato = sorted(dato)
+        for fila in huecos:
+            previas = [f for f in filas_con_dato if f < fila]
+            siguientes = [f for f in filas_con_dato if f > fila]
+            anterior = estructura.celdas.get((fila, letra))
+            if not previas or not siguientes:
+                if anterior is not None and anterior != "":
                     plan.conservadas.append((fila, letra, anterior))
-                else:
-                    plan.escrituras.append(Escritura(fila, letra, valor, anterior, "reemplazo"))
+                continue
+            valor = (dato[previas[-1]] + dato[siguientes[0]]) / 2
+            if not _iguales(anterior, valor):
+                plan.escrituras.append(Escritura(fila, letra, valor, anterior, "imputada"))
+                plan.imputadas.append((fila, letra, anterior, valor))
 
     plan.fechas_finales = sorted(estructura.fechas.values()) + [fecha for _, fecha in plan.filas_nuevas]
     return plan

@@ -41,6 +41,8 @@
 ## INDEC y MECON
 
 - `scraper_INDEC_emae.py`, `scraper_INDEC_sipm.py`, `scraper_INDEC_isac.py`, `scraper_INDEC_ipi_manufacturero.py`, `scraper_INDEC_supermercados.py` y `scraper_INDEC_comercio_exterior.py` administran sus respectivas tablas INDEC.
+- EMAE, ISAC, IPI, supermercados y comercio exterior usan `extract_tables(..., ids_estables=True)`: el ID es `archivo|hoja|rótulo` y la columna de BD el rótulo propio de la columna, sin el título del cuadro (trae el período y cambia cada mes) ni el número de columna (cambia si el INDEC inserta una). Migrados el 01/11/2026; el mapeo de coyuntura usa estos IDs.
+- Una hoja propia que la entrega nueva no trae no se borra de `BD.xlsx`: sus series quedan DISCONTINUADA.
 - `scraper_MECON_hacienda.py` está en pausa: no incluirlo en la ejecución general ni publicar sus series hasta recibir nuevas instrucciones. `scraper_MECON_imig.py` reutiliza su descarga y publica sólo el Informe Mensual de Ingresos y Gastos (hoja `MECON IMIG M`, código `mecon-imig`, ID = slug del concepto): el informe más reciente revisa los meses anteriores y «Mensualizacion» cubre el año en curso.
 - `scraper_BCRA_datos_monetarios_diarios.py` conserva sólo las filas con «Tipo de serie» D; las filas PM/VFM/VPM del libro oficial pisaban los saldos del primer día de cada mes.
 - Las columnas de fechas de INDEC/MCH admiten texto («feb-15», «dic-25*») y trimestres provisorios («2025T4*»); sin eso SIPA A.4 se cortaba en 2015 y CIN Cuadro 1 en 2023.

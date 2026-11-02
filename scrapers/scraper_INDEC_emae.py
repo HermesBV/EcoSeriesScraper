@@ -46,7 +46,7 @@ def procesar(descargar_archivos: bool = True) -> dict[str, int]:
     inventories: list[pd.DataFrame] = []
     route = "INDEC / Economía / Cuentas Nacionales / Estimador Mensual de Actividad (EMAE)"
     for filename, path in files.items():
-        output, inventory = extract_tables(path, route, CODIGO_FUENTE, "INDEC EMAE")
+        output, inventory = extract_tables(path, route, CODIGO_FUENTE, "INDEC EMAE", ids_estables=True)
         inventory["Fuente"] = URLS[filename]
         sheets.update(output)
         inventories.append(inventory)

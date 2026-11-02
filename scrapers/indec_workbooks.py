@@ -140,7 +140,16 @@ def extract_tables(
     sheet_prefix: str,
     *,
     skip_sheets: set[str] | None = None,
+    ids_estables: bool = False,
 ) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
+    """Series de los cuadros con fechas en filas.
+
+    Con ``ids_estables`` el ID y la columna de BD salen de los encabezados
+    propios de cada columna, sin el título del cuadro (que trae el período,
+    «Enero 2017 – agosto 2026», y cambia cada mes) ni el número de columna
+    (que cambia si el INDEC inserta una). Sin él se conserva el formato
+    histórico ``archivo|hoja|columna`` que reetiqueta ``periodic_workbooks``.
+    """
     outputs: dict[str, pd.DataFrame] = {}
     inventory: list[dict[str, object]] = []
     skip = {name.casefold() for name in (skip_sheets or {"índice", "indice", "observaciones"})}
@@ -180,7 +189,14 @@ def extract_tables(
                 continue
             header_end = first_data
             header_matrix = raw.iloc[:header_end].ffill(axis=1)
+            # Encabezados sin el título: lo que está en las columnas de fecha
+            # (título del cuadro, «Período») se propaga a todas las demás.
+            propios = raw.iloc[:header_end].copy()
+            propios.iloc[:, : max(date_cols) + 1] = pd.NA
+            propios = propios.ffill(axis=1)
             series: dict[str, pd.Series] = {}
+            rotulos: set[str] = set()
+            usados: dict[str, int] = {}
             auxiliares = False
             for col in range(raw.shape[1]):
                 if col in date_cols:
@@ -198,15 +214,27 @@ def extract_tables(
                 tras_hueco = col > 0 and raw.iloc[:, col - 1].isna().all()
                 if propio:
                     auxiliares = False
-                elif auxiliares or label in series or tras_hueco:
+                elif auxiliares or label in rotulos or tras_hueco:
                     # Cálculos auxiliares a la derecha del cuadro (SIPA A.2.2):
                     # heredan el rótulo de la última columna y no son series.
                     auxiliares = True
                     continue
-                if label in series:
+                if label in rotulos:
                     label = f"{label} ({col + 1})"
-                series[label] = values
+                rotulos.add(label)
+                columna_bd = label
                 ident = f"{path.name}|{source_sheet}|{col + 1}"
+                if ids_estables:
+                    cortos: list[str] = []
+                    for cell in propios.iloc[:, col].tail(6):
+                        part = text(cell)
+                        if part and not NAVEGACION.match(part) and part.casefold() not in {p.casefold() for p in cortos}:
+                            cortos.append(part)
+                    base = " - ".join(cortos) or label
+                    usados[base] = usados.get(base, 0) + 1
+                    columna_bd = base if usados[base] == 1 else f"{base} ({usados[base]})"
+                    ident = f"{path.name}|{source_sheet}|{slug(columna_bd)}"
+                series[columna_bd] = values
                 dates = pd.Series([date_values[i] for i in valid_rows])
                 present = dates[values.notna()]
                 title = text(raw.iloc[0, 0]) or text(raw.iloc[0, min(col, raw.shape[1] - 1)]) or source_sheet
@@ -215,7 +243,7 @@ def extract_tables(
                     "Variable": slug(label), "Unidades": "Ver descripción de la serie",
                     "Valoración": "No aplica / no informado", "Descripción": title,
                     "Frecuencia": "M", "Pestaña BD": sheet_name(sheet_prefix, path.name, source_sheet),
-                    "Columna BD": label, "Archivo origen": path.name, "Hoja origen": source_sheet,
+                    "Columna BD": columna_bd, "Archivo origen": path.name, "Hoja origen": source_sheet,
                     "Origen": "Instituto Nacional de Estadística y Censos (INDEC)",
                     "Fuente": "", "Catálogo ID": source_code,
                     "Dataset ID": slug(route.split("/")[-1]), "Título dataset": title,

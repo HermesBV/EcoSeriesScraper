@@ -34,7 +34,7 @@ def descargar() -> Path:
 
 def procesar(fetch: bool = True) -> dict[str, int]:
     path = descargar() if fetch else ARCHIVO
-    sheets, index = extract_tables(path, ROUTE, CODE, "INDEC Super")
+    sheets, index = extract_tables(path, ROUTE, CODE, "INDEC Super", ids_estables=True)
     index["Fuente"] = URL
     for row in index.index: index.at[row, "Archivo origen"] = path.name
     from tools.generar_codificacion import cargar_indice

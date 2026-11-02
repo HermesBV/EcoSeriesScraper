@@ -94,13 +94,13 @@ def _itcrm_m(nombre: str) -> Columna:
     return Columna(Serie("bcra-itc", f"ITCRMSerie.xlsx|ITCRM y bilaterales prom. mens.|{nombre}"))
 
 
-def _ipi(indice: int) -> Columna:
-    return Columna(Serie("indec-ipi-manufacturero", f"ipi_manufacturero.xls|Cuadro 2|{indice}"))
+def _ipi(rotulo: str) -> Columna:
+    return Columna(Serie("indec-ipi-manufacturero", f"ipi_manufacturero.xls|Cuadro 2|{rotulo}"))
 
 
-def _emae_letra(columna: int) -> Columna:
-    # El ID del scraper EMAE es posicional: número de columna (1 = A) del cuadro INDEC.
-    return Columna(Serie("indec-emae", f"emae_actividad.xls|Tabla Letras|{columna}"))
+def _emae_letra(rotulo: str) -> Columna:
+    # ID del scraper EMAE: archivo|hoja|rótulo de la columna (letra y sector).
+    return Columna(Serie("indec-emae", f"emae_actividad.xls|Tabla Letras|{rotulo}"))
 
 
 def _imig(concepto: str) -> Columna:
@@ -148,43 +148,43 @@ HOJAS: list[Hoja] = [
         "AD": Columna(Serie("indec-sipm", "IPIM|NG")),
     }, calendario=["F"]),  # el IPIM sale antes que el IPC: un mes sin IPC no abre fila
     Hoja("EMAE", "M", "A", 2, {
-        "B": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|3")),
-        "F": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|5")),
-        "J": _emae_letra(3),
-        "K": _emae_letra(4),
-        "L": _emae_letra(5),
-        "M": _emae_letra(6),
-        "N": _emae_letra(7),
-        "O": _emae_letra(8),
-        "P": _emae_letra(9),
-        "Q": _emae_letra(10),
-        "R": _emae_letra(11),
-        "S": _emae_letra(12),
-        "T": _emae_letra(13),
-        "U": _emae_letra(14),
-        "V": _emae_letra(15),
-        "W": _emae_letra(16),
-        "X": _emae_letra(17),
-        "Y": _emae_letra(18),
+        "B": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|indice-serie-original-2004-100")),
+        "F": Columna(Serie("indec-emae", "emae_mensual.xls|Tabla|indice-serie-desestacionalizada-2004-100")),
+        "J": _emae_letra("a-agricultura-ganaderia-caza-y-silvicultura"),
+        "K": _emae_letra("b-pesca"),
+        "L": _emae_letra("c-explotacion-de-minas-y-canteras"),
+        "M": _emae_letra("d-industria-manufacturera"),
+        "N": _emae_letra("e-electricidad-gas-y-agua"),
+        "O": _emae_letra("f-construccion"),
+        "P": _emae_letra("g-comercio-mayorista-minorista-y-reparaciones"),
+        "Q": _emae_letra("h-hoteles-y-restaurantes"),
+        "R": _emae_letra("i-transporte-y-comunicaciones"),
+        "S": _emae_letra("j-intermediacion-financiera"),
+        "T": _emae_letra("k-actividades-inmobiliarias-empresariales-y-de-alquiler"),
+        "U": _emae_letra("l-administracion-publica-y-defensa-planes-de-seguridad-social-de-afiliacion-obligatoria"),
+        "V": _emae_letra("m-ensenanza"),
+        "W": _emae_letra("n-servicios-sociales-y-de-salud"),
+        "X": _emae_letra("o-otras-actividades-de-servicios-comunitarios-sociales-y-personales"),
+        "Y": _emae_letra("impuestos-netos-de-subsidios"),
     }),
     Hoja("Ventas", "M", "A", 2, {
-        "B": Columna(Serie("indec-supermercados", "supermercados.xlsx|Cuadro 1|2")),
-        "F": Columna(Serie("indec-supermercados", "supermercados.xlsx|Cuadro 1|6")),
+        "B": Columna(Serie("indec-supermercados", "supermercados.xlsx|Cuadro 1|serie-original-indice-de-ventas-totales-a-precios-constantes-numeros-indice")),
+        "F": Columna(Serie("indec-supermercados", "supermercados.xlsx|Cuadro 1|serie-desestacionalizada-1-indice-de-ventas-totales-a-precios-constantes-acumulada-del-ano-respecto-a-igual-acumulado-del-ano-anterior-numeros-indice")),
     }),
     Hoja("ISAC", "M", "A", 2, {
-        "B": Columna(Serie("indec-isac", "isac.xls|Cuadro 1|3")),
-        "F": Columna(Serie("indec-isac", "isac.xls|Cuadro 1|7")),
+        "B": Columna(Serie("indec-isac", "isac.xls|Cuadro 1|serie-original-isac-nivel-general-numeros-indice")),
+        "F": Columna(Serie("indec-isac", "isac.xls|Cuadro 1|serie-desestacionalizada-1-isac-nivel-general-acumulada-del-ano-respecto-a-igual-acumulado-del-ano-anterior-numeros-indice")),
     }),
     Hoja("IPI", "M", "A", 2, {
-        "B": Columna(Serie("indec-ipi-manufacturero", "ipi_manufacturero.xls|Cuadro 1|4")),
-        "F": Columna(Serie("indec-ipi-manufacturero", "ipi_manufacturero.xls|Cuadro 1|8")),
-        "I": _ipi(5), "J": _ipi(19), "K": _ipi(22), "L": _ipi(27), "M": _ipi(31), "N": _ipi(35),
-        "O": _ipi(41), "P": _ipi(50), "Q": _ipi(54), "R": _ipi(61), "S": _ipi(65), "T": _ipi(69),
-        "U": _ipi(74), "V": _ipi(78), "W": _ipi(82), "X": _ipi(85),
+        "B": Columna(Serie("indec-ipi-manufacturero", "ipi_manufacturero.xls|Cuadro 1|serie-original-nivel-general-numeros-indice")),
+        "F": Columna(Serie("indec-ipi-manufacturero", "ipi_manufacturero.xls|Cuadro 1|serie-desestacionalizada-1-nivel-general-acumulada-del-ano-respecto-a-igual-acumulado-del-ano-anterior-numeros-indice")),
+        "I": _ipi("15-alimentos-y-bebidas"), "J": _ipi("16-productos-de-tabaco"), "K": _ipi("17-productos-textiles"), "L": _ipi("18-19-prendas-de-vestir-cuero-y-calzado"), "M": _ipi("20-22-madera-papel-edicion-e-impresion"), "N": _ipi("23-refinacion-del-petroleo-coque-y-combustible-nuclear"),
+        "O": _ipi("24-sustancias-y-productos-quimicos"), "P": _ipi("25-productos-de-caucho-y-plastico"), "Q": _ipi("26-productos-minerales-no-metalicos"), "R": _ipi("27-industrias-metalicas-basicas"), "S": _ipi("28-productos-de-metal"), "T": _ipi("29-maquinaria-y-equipo"),
+        "U": _ipi("30-33-otros-equipos-aparatos-e-instrumentos"), "V": _ipi("34-vehiculos-automotores-carrocerias-remolques-y-autopartes"), "W": _ipi("35-otro-equipo-de-transporte"), "X": _ipi("36-38-muebles-y-colchones-y-otras-industrias-manufactureras"),
     }),
     Hoja("COMEX", "M", "B", 3, {
-        "C": Columna(Serie("indec-ica", "balanmensual.xls|FOB-CIF|3")),      # Exportaciones FOB
-        "E": Columna(Serie("indec-ica", "balanmensual.xls|FOB-CIF|8")),      # Importaciones CIF
+        "C": Columna(Serie("indec-ica", "balanmensual.xls|FOB-CIF|exportaciones-total-mensual-millones-de-dolares")),      # Exportaciones FOB
+        "E": Columna(Serie("indec-ica", "balanmensual.xls|FOB-CIF|importaciones-total-mensual-millones-de-dolares")),      # Importaciones CIF
         "H": Columna(Serie("bcra-mc-bc", "Balance Cambiario|bal003")),       # Cobros de exportaciones de bienes
         "J": Columna(Serie("bcra-mc-bc", "Balance Cambiario|bal004")),       # Pagos de importaciones de bienes
         "M": Columna(Serie("bcra-mc-bc", "Balance Cambiario|bal006")),       # Servicios - ingresos
@@ -192,7 +192,7 @@ HOJAS: list[Hoja] = [
         "Y": Columna(Serie("bcra-mc-bc", "Balance Cambiario|bal001")),       # Cuenta corriente cambiaria
     }, especial="comex"),
     Hoja("Riesgo país", "D", "B", 2, {
-        "C": Columna(Serie("ambito-riesgo-pais", "ambito-riesgo-pais-puntos"), "agregar"),
+        "C": Columna(Serie("ambito-riesgo-pais", "ambito-riesgo-pais-puntos")),
     }),
     Hoja("Salarios", "M", "A", 3, {
         "B": Columna(Serie("mch-ripte", "ripte-mensual")),
@@ -207,8 +207,8 @@ HOJAS: list[Hoja] = [
     Hoja("Tipo de cambio diario", "D", "B", 2, {
         "C": Columna(Serie("bcra-com3500", "TCR diario y TCNPM|Tipo de Cambio de Referencia - en Pesos - por Dólar")),
         "F": Columna(Promedio((Serie("ambito-dolar-blue", "ambito-dolar-blue-compra"),
-                               Serie("ambito-dolar-blue", "ambito-dolar-blue-venta"))), "agregar"),
-        "I": Columna(Serie("ambito-dolar-mep", "ambito-dolar-mep-referencia"), "agregar"),
+                               Serie("ambito-dolar-blue", "ambito-dolar-blue-venta")))),
+        "I": Columna(Serie("ambito-dolar-mep", "ambito-dolar-mep-referencia")),
         "N": Columna(Serie("bcra-bandas", "Bandas de Flotacion Cambiaria|Bandas Inferior a partir del 01/01/2026")),
         "O": Columna(Serie("bcra-bandas", "Bandas de Flotacion Cambiaria|Bandas Superior a partir del 01/01/2026")),
     }, calendario=["C"]),

@@ -27,7 +27,7 @@ def descargar() -> Path:
 
 def procesar(fetch: bool = True) -> dict[str, int]:
     path = descargar() if fetch else ARCHIVO
-    sheets, index = extract_tables(path, ROUTE, CODE, "INDEC IPI")
+    sheets, index = extract_tables(path, ROUTE, CODE, "INDEC IPI", ids_estables=True)
     index["Fuente"] = fuente_anual(URL, ARCHIVO)
     from tools.generar_codificacion import cargar_indice
     current = cargar_indice(); obsolete = set(current.loc[current["Código fuente"].eq(CODE), "Pestaña BD"].dropna()) if not current.empty else set()

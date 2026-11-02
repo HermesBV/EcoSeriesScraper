@@ -25,7 +25,7 @@ import time
 
 from openpyxl import load_workbook
 
-from . import config, mapeo, respaldo
+from . import config, filas, mapeo, respaldo
 from .estructura import Libro
 from .excel_com import Excel
 from .formulas import planificar_formulas, referencias_a_barra, tramos
@@ -102,11 +102,18 @@ def resumir(planes: list[PlanHoja], bloques: list[PlanBloque], log: Registro) ->
                 for col, (_, filas) in sorted(plan.formulas.items(), key=lambda x: (len(x[0]), x[0])))
             log(f"    fórmulas copiadas: {detalle}")
         log(f"    celdas: {len(nuevos)} nuevas, {len(completas)} completadas, {len(reemplazos)} reemplazadas, "
-            f"{len(plan.conservadas)} conservadas sin fuente, {plan.formulas_respetadas} fórmulas respetadas")
+            f"{len(plan.imputadas)} imputadas, {len(plan.conservadas)} conservadas sin fuente, "
+            f"{plan.formulas_respetadas} fórmulas respetadas")
         for x in reemplazos[:MAX_EJEMPLOS]:
             log(f"      reemplazo {x.col}{x.fila}: {x.anterior!r} -> {x.valor!r}")
         if len(reemplazos) > MAX_EJEMPLOS:
             log(f"      ... y {len(reemplazos) - MAX_EJEMPLOS} reemplazos más")
+        for fila, col, anterior, valor in plan.imputadas[:MAX_EJEMPLOS]:
+            log(f"      imputada {col}{fila}: {anterior!r} -> {valor!r} (promedio del dato anterior y el posterior)")
+        if len(plan.imputadas) > MAX_EJEMPLOS:
+            log(f"      ... y {len(plan.imputadas) - MAX_EJEMPLOS} imputadas más")
+        if plan.limpiar:
+            log(f"    fórmulas borradas hasta que llegue su dato: {', '.join(plan.limpiar)}")
         for fila, col, valor in plan.conservadas[:MAX_EJEMPLOS]:
             log(f"      conservada {col}{fila}: {valor!r}")
         if len(plan.conservadas) > MAX_EJEMPLOS:
@@ -168,6 +175,8 @@ def aplicar(ruta: Path, planes: list[PlanHoja], bloques: list[PlanBloque], log: 
                     excel.copiar_formula(ws, col, fila_formula, desde, hasta)
             for x in plan.escrituras:
                 excel.escribir(ws, x.fila, x.col, x.valor)
+            for celda in plan.limpiar:
+                ws.Range(celda).ClearContents()
             log(f"    Excel: {plan.hoja.nombre}: {plan.insertadas} filas insertadas, {len(plan.escrituras)} celdas escritas, "
                 f"{sum(len(filas) for _, filas in plan.formulas.values())} fórmulas copiadas")
         for indice, plan in enumerate(bloques):
@@ -275,21 +284,36 @@ def main(argv: list[str] | None = None) -> int:
         log(f"ERROR: no existe {origen}")
         return 1
     inicio = time.time()
-    libro = Libro(origen)
-    fuentes = Fuentes()
-    planes, bloques = planificar(libro, fuentes, log)
-    resumir(planes, bloques, log)
-    log(f"Plan calculado en {time.time() - inicio:.0f} s")
-    protegidas = referencias_a_barra(libro, planes)
-    for nombre, celda, formula in protegidas:
-        log(f"[{nombre}] {celda} apunta a la barra de otra hoja ({formula}); conserva su fila")
-    if args.simular or not any(p.cambia for p in planes) and not any(b.nuevos or b.escrituras for b in bloques):
-        log("Sin cambios para aplicar" if not args.simular else "Simulación: no se modificó el Excel")
-        return 0
     config.CARPETA_TRABAJO.mkdir(parents=True, exist_ok=True)
     trabajo = config.CARPETA_TRABAJO / f"{config.NOMBRE_BASE}.{args.fecha:%y%m%d}.xlsx"
     shutil.copy2(origen, trabajo)
     try:
+        fuentes = Fuentes()
+        faltantes = set(fuentes.cargar(mapeo.fuentes_necesarias()))
+        # Primero las filas que faltan o sobran en el medio de las hojas
+        # diarias; el plan se calcula después, sobre el libro ya continuo.
+        arreglos = filas.detectar(Libro(trabajo), fuentes, faltantes)
+        for arreglo in arreglos:
+            for fila, fecha in arreglo.insertar:
+                log(f"[{arreglo.hoja}] falta el {fecha.date()} en el medio de la serie: se inserta debajo de la fila {fila}")
+            for fila, fecha in arreglo.borrar:
+                log(f"[{arreglo.hoja}] el {fecha.date()} está repetido (fila {fila}): se borra")
+        if arreglos and not args.simular:
+            with Excel() as excel:
+                excel.abrir(trabajo)
+                filas.aplicar(excel, arreglos, {h.nombre: h.col_fecha for h in mapeo.HOJAS}, log)
+                excel.guardar()
+        libro = Libro(trabajo)
+        planes, bloques = planificar(libro, fuentes, log)
+        resumir(planes, bloques, log)
+        log(f"Plan calculado en {time.time() - inicio:.0f} s")
+        protegidas = referencias_a_barra(libro, planes)
+        for nombre, celda, formula in protegidas:
+            log(f"[{nombre}] {celda} apunta a la barra de otra hoja ({formula}); conserva su fila")
+        if args.simular or not arreglos and not any(p.cambia for p in planes)                 and not any(b.nuevos or b.escrituras for b in bloques):
+            log("Sin cambios para aplicar" if not args.simular else "Simulación: no se modificó el Excel")
+            trabajo.unlink(missing_ok=True)
+            return 0
         aplicar(trabajo, planes, bloques, log, protegidas)
         problemas = verificar(trabajo, planes, log, protegidas)
         if problemas:

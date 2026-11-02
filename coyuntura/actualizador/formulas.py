@@ -82,6 +82,7 @@ class Estado:
         self.escritas = {plan.hoja.nombre: {(x.fila, x.col) for x in plan.escrituras} for plan in planes}
         self.vivas: dict[str, dict[str, tuple[int, str, list[Ref], int]]] = {}
         self._memo: dict[tuple[str, int, str], bool] = {}
+        self.limpias: set[tuple[str, int, str]] = set()  # fórmulas que se borran
         self._en_curso: set[tuple[str, int, str]] = set()
 
     def ultima_final(self, nombre: str) -> int:
@@ -103,6 +104,8 @@ class Estado:
         if not final:
             return self._existente(nombre, fila, col)
         if fila < e.fila_azul:
+            if (nombre, fila, col) in self.limpias:
+                return False
             if self._existente(nombre, fila, col) or (fila, col) in self.escritas[nombre]:
                 return True
         elif fila < e.fila_azul + plan.insertadas:
@@ -157,10 +160,60 @@ class Estado:
         self._memo.clear()
 
 
+def _formulas_en_espera(estado: Estado, plan: PlanHoja) -> list[str]:
+    """Fórmulas al final de la hoja cuyas entradas todavía no tienen dato.
+
+    El economista a veces adelanta un mes (``TCR Mensual!T922`` usa el IPC de un
+    mes que el INDEC no publicó) y la celda queda en #DIV/0! hasta que llega el
+    dato. Se borran; cuando el dato llegue la columna, que sigue viva, se
+    vuelve a estirar hasta esa fila.
+    """
+    nombre = plan.hoja.nombre
+    e = plan.estructura
+    ws = estado.libro.formulas[nombre]
+    barras = {p.hoja.nombre: (p.estructura.fila_azul, p.insertadas) for p in estado.planes.values()}
+    celdas = []
+    for indice in range(1, e.max_col + 1):
+        col = get_column_letter(indice)
+        if col in plan.hoja.columnas or col == plan.hoja.col_fecha:
+            continue
+        for fila in range(e.ultima_fila, plan.hoja.fila_datos - 1, -1):
+            formula = ws.cell(fila, indice).value
+            if not (isinstance(formula, str) and formula.startswith("=")):
+                break
+            listo = True
+            for ref in referencias(formula):
+                if not ref.fila_relativa:
+                    continue
+                destino = ref.hoja or nombre
+                barra, nuevas = barras.get(destino, (None, 0))
+                if barra is not None and ref.fila >= barra + nuevas and destino != nombre:
+                    listo = False   # apunta a la barra o más abajo: no es un dato
+                elif not estado.disponible(destino, ref.fila, ref.col):
+                    listo = False
+                if not listo:
+                    break
+            if listo:
+                break
+            celdas.append(f"{col}{fila}")
+    return celdas
+
+
 def planificar_formulas(libro: Libro, planes: list[PlanHoja]) -> None:
-    """Completa ``plan.formulas`` de cada hoja: columna -> (fila plantilla, filas)."""
+    """Completa ``plan.formulas`` de cada hoja: columna -> (fila plantilla, filas),
+    y ``plan.limpiar``: fórmulas finales que esperan un dato que no llegó."""
     estado = Estado(libro, planes)
     estado.detectar_vivas()
+    while True:   # borrar una fórmula puede dejar sin entrada a otra de la misma fila
+        antes = len(estado.limpias)
+        for plan in planes:
+            plan.limpiar = _formulas_en_espera(estado, plan)
+            for celda in plan.limpiar:
+                col = celda.rstrip("0123456789")
+                estado.limpias.add((plan.hoja.nombre, int(celda[len(col):]), col))
+        if len(estado.limpias) == antes:
+            break
+        estado._memo.clear()
     for plan in planes:
         nombre = plan.hoja.nombre
         plan.formulas = {}

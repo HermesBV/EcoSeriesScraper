@@ -83,7 +83,9 @@ class PlanHojaDiariaTests(unittest.TestCase):
         self.assertNotIn(("C", 2), motivos)  # igual que la fuente: no se toca
         self.assertEqual(motivos[("C", 8)], ("nuevo", 2000.0, None))
         self.assertEqual(motivos[("C", 9)], ("nuevo", 2001.0, None))
-        self.assertIn((5, "C", 7777), plan.conservadas)
+        # 23 al 28/9 no están en la fuente: promedio del dato anterior (22/9) y el posterior (29/9).
+        self.assertEqual(motivos[("C", 5)], ("imputada", (1003.5 + 2000.0) / 2, 7777))
+        self.assertEqual({fila for fila, *_ in plan.imputadas}, {4, 5, 6, 7})
         planificar_formulas(libro_en_memoria(self.wb), [plan])
         self.assertEqual(plan.formulas, {"A": (7, [8, 9]), "D": (7, [8, 9])})
         self.assertEqual(plan.fechas_finales[-1], pd.Timestamp("2026-09-30"))
@@ -99,19 +101,22 @@ class PlanHojaDiariaTests(unittest.TestCase):
         plan = planificar_hoja(hoja, estructura, FuentesFalsas({"74": fuente}), {})
         self.assertEqual([(x.fila, x.motivo, x.anterior) for x in plan.escrituras], [(3, "reemplazo", "=+C2*1.01")])
 
-    def test_un_cero_de_la_fuente_no_pisa_una_imputacion(self) -> None:
-        fuente = pd.Series({pd.Timestamp("2026-09-24"): 0.0, pd.Timestamp("2026-09-25"): 1006.0})
+    def test_un_cero_de_la_fuente_se_imputa_con_el_promedio(self) -> None:
+        fuente = pd.Series({pd.Timestamp("2026-09-23"): 1004.0, pd.Timestamp("2026-09-24"): 0.0,
+                            pd.Timestamp("2026-09-25"): 1006.0})
         plan = planificar_hoja(self.hoja, self.estructura, FuentesFalsas({"74": fuente}), {})
-        self.assertEqual([(x.fila, x.motivo) for x in plan.escrituras], [])  # C6 ya vale 1006
-        self.assertIn((5, "C", 7777), plan.conservadas)
+        self.assertEqual([(x.fila, x.motivo, x.valor) for x in plan.escrituras], [(5, "imputada", 1005.0)])
+        self.assertIn((7, "C", 1007), plan.conservadas)  # sin dato posterior: no hay promedio posible
 
-    def test_un_cero_de_la_fuente_no_completa_celdas_vacias(self) -> None:
+    def test_un_cero_no_es_dato_y_el_hueco_se_imputa(self) -> None:
         self.wb["Reservas diario"]["C3"] = None
         self.wb["Reservas diario"]["C4"] = None
         estructura = libro_en_memoria(self.wb).analizar(self.hoja)
         fuente = pd.Series({pd.Timestamp("2026-09-22"): 0.0, pd.Timestamp("2026-09-23"): 4.0})
         plan = planificar_hoja(self.hoja, estructura, FuentesFalsas({"74": fuente}), {})
-        self.assertEqual([(x.fila, x.motivo, x.valor) for x in plan.escrituras], [(4, "completa", 4.0)])
+        # El 0 no completa C3, pero C3 queda entre dos datos: se imputa con el promedio.
+        self.assertEqual([(x.fila, x.motivo, x.valor) for x in plan.escrituras],
+                         [(4, "completa", 4.0), (3, "imputada", (1002 + 4.0) / 2)])
 
     def test_modo_agregar_no_pisa_valores_existentes(self) -> None:
         hoja = Hoja("Reservas diario", "D", "B", 2, {"C": Columna(Serie("ambito", "x"), "agregar")})
@@ -255,6 +260,14 @@ class FormulasTests(unittest.TestCase):
         plan = planificar_hoja(hoja, estructura, FuentesFalsas({"74": fuente}), {})
         self.assertEqual([f.date() for _, f in plan.filas_nuevas], [date(2026, 9, 29), date(2026, 10, 5)])
         self.assertEqual([(x.fila, x.valor) for x in plan.escrituras], [(8, 1.0)])  # el 0 no es dato
+
+    def test_dias_habiles_segun_el_calendario_del_a3500(self) -> None:
+        from coyuntura.actualizador.plan import dia_habil
+        habiles = {pd.Timestamp("2024-03-28"), pd.Timestamp("2024-04-02")}  # 01/04/2024: feriado puente
+        self.assertFalse(dia_habil(pd.Timestamp("2024-04-01"), habiles))
+        self.assertTrue(dia_habil(pd.Timestamp("2024-04-02"), habiles))
+        self.assertTrue(dia_habil(pd.Timestamp("2026-11-02"), habiles))   # fuera de cobertura: lunes
+        self.assertFalse(dia_habil(pd.Timestamp("2026-12-25"), habiles))  # feriado fijo
 
     def test_referencias(self) -> None:
         refs = referencias("=+LOG10(C5)/'TCR Mensual'!$S$2+IPC!$B1002-SUM(Z430:Z441)")
