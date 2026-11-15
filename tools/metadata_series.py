@@ -21,7 +21,8 @@ def mejorar_valoracion(inventory: pd.DataFrame) -> pd.DataFrame:
     result = inventory.copy()
     for index, row in result.loc[result["Valoración"].eq("No informado")].iterrows():
         source = _text(row.get("Código fuente"))
-        title = _plain(row.get("Nombre serie"))
+        # El título publicado por la fuente: el nombre de la serie puede haberse normalizado.
+        title = _plain(row.get("Nombre fuente")) or _plain(row.get("Nombre serie"))
         unit = _plain(row.get("Unidad"))
         if source in {"indec-ipi-manufacturero", "indec-isac", "bcra-com3500", "bcra-bandas"}:
             result.at[index, "Valoración"] = "No aplica"
@@ -40,7 +41,7 @@ def mejorar_valoracion(inventory: pd.DataFrame) -> pd.DataFrame:
             continue
         monetary = any(mark in unit for mark in ("peso", "dolar", "usd", "ars", "moneda", "$", "u$s"))
         context = _plain(" ".join(_text(row.get(column)) for column in (
-            "Nombre serie", "Variable", "Descripción", "Título dataset", "Hoja origen",
+            "Nombre fuente", "Nombre serie", "Variable", "Descripción", "Título dataset", "Hoja origen",
         )))
         constant = bool(re.search(
             r"precios? constantes?|pesos? constantes?|moneda constante|valores? constantes?|"

@@ -13,6 +13,15 @@
 - Cada scraper sólo reemplaza las filas y hojas que administra; debe preservar fuentes ajenas. Las series de un código que la entrega nueva ya no trae quedan en el índice con `Estado = DISCONTINUADA` mientras exista su pestaña (`_discontinuadas` en `tools/generar_codificacion.py`); nunca se borran datos de `BD.xlsx` por una serie que la fuente dejó de publicar.
 - Registrar como mínimo nombre, variable, unidades, valoración, descripción, frecuencia, hoja y columna de datos, origen, URL, rango temporal, estado y método usado para obtener valores.
 - Una modificación del esquema exige actualizar el generador, la web, las pruebas y la documentación.
+- `Nombre fuente` guarda el título tal como lo entrega cada fuente; `Nombre serie` es el nombre normalizado. Los scrapers siguen entregando el título de la fuente en `Nombre serie`: el generador lo copia a `Nombre fuente` y después aplica la taxonomía.
+
+## Taxonomía
+
+- El anidado (`Tema`, `Área`, `Subárea 1` a `3`) y el nombre de cada serie los fija `tools/taxonomia/` al final de `_normalize_inventory`, con el criterio de `docs/taxonomia.md`: Tema > Indicador > Cobertura o versión > Apertura > Medida. La institución es un atributo, no un nivel.
+- Dos series que miden lo mismo llevan el mismo nombre aunque difieran en institución, frecuencia, período o base; la identidad es (`Código fuente`, `ID`). No agregar sufijos para hacer únicos los nombres.
+- Las reglas leen sólo campos de la fuente (`Nombre fuente`, `ID`, `Variable`, `Descripción`, `Hoja origen`…), nunca `Nombre serie` ni la clasificación previa. No cambian `ID`, `Código fuente`, `Institución`, `Pestaña BD` ni `Columna BD`.
+- Al sumar o cambiar una fuente, escribir o ajustar su módulo de reglas y correr `python -m tools.taxonomia.revisar --fuente <código>` hasta que no queden series sin regla ni problemas. `Clasificación = fuente` en el índice marca una serie sin regla.
+- Los acuerdos entre módulos (tipos de cambio, grafía de sectores) van en `tools/taxonomia/armonizar.py`.
 
 ## IED
 

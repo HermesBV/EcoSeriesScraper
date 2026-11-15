@@ -148,7 +148,7 @@ def completar_agrupaciones(inventory: pd.DataFrame) -> pd.DataFrame:
         source = _text(row.get("Código fuente"))
         workbook = _text(row.get("Archivo origen"))
         sheet = _text(row.get("Hoja origen"))
-        title = _text(row.get("Nombre serie"))
+        title = _text(row.get("Nombre fuente")) or _text(row.get("Nombre serie"))
         family = _sheet_family(source, sheet, _text(row.get("Título dataset"))) if sheet else ""
         parts = _title_parts(source, workbook, sheet, title, _text(row.get("Variable")))
         if family:

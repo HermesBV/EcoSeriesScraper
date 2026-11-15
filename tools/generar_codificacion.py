@@ -15,10 +15,12 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 if __package__:
     from .agrupaciones import completar_agrupaciones
     from .metadata_series import mejorar_metadatos
+    from .taxonomia import aplicar as aplicar_taxonomia
     from .temas import normalizar_tema, unificar_tema_reservas
 else:
     from agrupaciones import completar_agrupaciones
     from metadata_series import mejorar_metadatos
+    from taxonomia import aplicar as aplicar_taxonomia
     from temas import normalizar_tema, unificar_tema_reservas
 
 
@@ -31,13 +33,13 @@ CODE_SHEETS = {
     "Mapa_Tematico", "Referencias",
 }
 INVENTORY_COLUMNS = [
-    "ID", "Código fuente", "Nombre serie", "Variable", "Unidad", "Valoración", "Descripción",
+    "ID", "Código fuente", "Nombre serie", "Nombre fuente", "Variable", "Unidad", "Valoración", "Descripción",
     "Frecuencia", "Pestaña BD", "Columna BD", "Archivo origen", "Grupo de hojas",
     "Hoja origen", "Grupo de series 1", "Grupo de series 2",
     "Origen", "Fuente", "Catálogo ID", "Dataset ID", "Distribución ID",
     "Título dataset", "Tema dataset", "Responsable dataset", "Fuente de valores",
     "Fecha inicio", "Fecha fin", "Estado", "Institución", "Área",
-    "Subárea 1", "Subárea 2", "Subárea 3", "Tema", "Desde", "Hasta",
+    "Subárea 1", "Subárea 2", "Subárea 3", "Tema", "Desde", "Hasta", "Clasificación",
 ]
 CLASSIFICATION_COLUMNS = ["Institución", "Área", "Subárea 1", "Subárea 2", "Subárea 3", "Tema"]
 
@@ -188,10 +190,18 @@ def _normalize_inventory(inventory: pd.DataFrame, current: pd.DataFrame | None =
 
     result["Desde"] = [format_period(value, freq) for value, freq in zip(result["Fecha inicio"], result["Frecuencia"])]
     result["Hasta"] = [format_period(value, freq) for value, freq in zip(result["Fecha fin"], result["Frecuencia"])]
+    # «Nombre fuente» guarda el título tal como lo entrega cada fuente. Un scraper que
+    # corre trae el título vigente en «Nombre serie»; las series que no se volvieron a
+    # leer conservan el que ya tenían registrado.
+    sin_registro = result["Nombre fuente"].isna() | result["Nombre fuente"].astype(str).str.strip().eq("")
+    result["Nombre fuente"] = result["Nombre fuente"].astype(object)
+    result.loc[sin_registro, "Nombre fuente"] = result.loc[sin_registro, "Nombre serie"]
     result = mejorar_metadatos(result)
     result["Tema"] = result["Tema"].map(normalizar_tema)
     result = unificar_tema_reservas(result)
     result = completar_agrupaciones(result)
+    # La taxonomía va al final: fija tema, niveles y nombre de las series con regla.
+    result = aplicar_taxonomia(result)
     return result[INVENTORY_COLUMNS].sort_values(
         ["Archivo origen", "Hoja origen", "ID"], na_position="last"
     )

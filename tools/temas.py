@@ -58,7 +58,11 @@ _RESERVAS_BCRA = re.compile(
 
 def unificar_tema_reservas(inventario: pd.DataFrame) -> pd.DataFrame:
     """Lleva a «Sector externo» las series BCRA que miden saldo, composición o variación de reservas."""
-    es_reserva = inventario["Institución"].astype(str).eq("BCRA") & inventario["Nombre serie"].astype(str).str.contains(
+    # Se mira el título publicado por la fuente: el nombre de la serie puede haberse normalizado.
+    titulo = inventario["Nombre serie"]
+    if "Nombre fuente" in inventario:
+        titulo = inventario["Nombre fuente"].where(inventario["Nombre fuente"].notna(), titulo)
+    es_reserva = inventario["Institución"].astype(str).eq("BCRA") & titulo.astype(str).str.contains(
         _RESERVAS_BCRA, regex=True
     )
     inventario.loc[es_reserva, "Tema"] = "Sector externo"
