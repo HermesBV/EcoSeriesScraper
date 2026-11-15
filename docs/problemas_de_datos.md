@@ -4,6 +4,10 @@ Al escribir las reglas de la taxonomía (noviembre de 2026) se compararon los va
 
 ## Columnas corridas o rótulos cruzados (datos.gob.ar)
 
+**Origen verificado (15/11/2026):** los valores de `BD.xlsx` coinciden al decimal con los que devuelve la API pública de series de tiempo (`apis.datos.gob.ar/series`) para los mismos ID, en las tres hojas que se cotejaron (4.2.4, 1.17 y 8.2). El scraper lee bien: localiza cada serie por su ID dentro del libro y toma la columna de abajo. El error viene del Ministerio, que publica esos valores bajo ese ID. Las otras hojas de la tabla no se cotejaron contra la API.
+
+En la hoja 4.2.4 la causa probable es un empalme por posición de dos clasificaciones: hasta diciembre de 2016 los nueve capítulos de la base anterior y desde enero de 2017 las doce divisiones nuevas, en otro orden. Los mnemónicos de los ID (`I2T`, `I2EH`) tampoco coinciden con las descripciones (`I2T` figura como «Educación»). La API da esa distribución por cerrada en julio de 2020, aunque el libro sigue trayendo datos.
+
 | Dónde | Qué pasa | Cómo se detectó |
 | --- | --- | --- |
 | `precios.xlsx`, hoja 4.2.4 (IPC GBA por divisiones) | Desde enero de 2017, once de las doce divisiones traen los valores de otra división («Salud» trae los de «Equipamiento y mantenimiento del hogar», etc.). Afecta 22 ID, listados en `tools/taxonomia/precios_ipc.py`. | Comparación con la hoja «IPC GBA Base dic 2016» del libro del INDEC |
