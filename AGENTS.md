@@ -2,6 +2,7 @@
 
 - Cada fuente tiene un único módulo `scrapers/scraper_<FUENTE>.py`, expone `ejecutar()` y guarda entradas en `fuentes_BD/<INSTITUCION>/<FUENTE>/`.
 - `main.py` sólo orquesta scrapers; no contiene lógica de una fuente. Corre los módulos dentro de `tools.lote.abrir()`: `guardar_datos_preservando_formato` y `generar` acumulan hojas e inventario en memoria y `BD.xlsx` e `IndiceSeries.xlsx` se escriben una sola vez al final (también si un scraper falló). Un scraper que lee hojas de otro debe usar `tools.lote.leer_hoja` para ver lo pendiente. Suelto, cada scraper sigue escribiendo en el acto.
+- `main.py` corre el IED al final y en su propio lote (`AL_FINAL`): es el más pesado y, si el proceso muere ahí, lo anterior ya quedó escrito. Cada lote anota en la hoja `Estado corrida` de `BD.xlsx` (una fila por día, sin series en el índice) el resultado de cada scraper, sus avisos de descarga, el commit en uso y los paquetes de Python que faltan: bajando la base desde la web se ve qué pasó en el servidor.
 - No dejar scripts de depuración en la raíz. Las validaciones reutilizables pertenecen a `tests/` o al módulo correspondiente.
 - Al agregar, renombrar o quitar una fuente, actualizar este archivo y `README.md`.
 
