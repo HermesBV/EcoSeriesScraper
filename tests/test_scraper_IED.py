@@ -102,6 +102,21 @@ class ScraperIEDTests(unittest.TestCase):
                 scraper_IED.ejecutar()
 
 
+class FechasViejasTests(unittest.TestCase):
+    def test_descarta_las_fechas_que_la_fuente_ya_no_trae(self):
+        from scrapers.scraper_IED import SOLO_FECHAS_DE_LA_FUENTE, fusionar_hoja_bd
+        vieja = pd.DataFrame({"fecha": pd.to_datetime(["2003-01-01", "2016-07-01"]), "a": [1.0, 2.0], "b": [5.0, 6.0]})
+        nueva = pd.DataFrame({"fecha": pd.to_datetime(["2016-07-01", "2017-01-01"]), "a": [None, 3.0]})
+        comun = fusionar_hoja_bd(vieja, nueva, "S")
+        self.assertEqual(len(comun), 3)  # sin la marca, la base conserva todo
+        nueva.attrs[SOLO_FECHAS_DE_LA_FUENTE] = True
+        limpia = fusionar_hoja_bd(vieja, nueva, "S")
+        self.assertEqual(list(limpia["fecha"].dt.year), [2016, 2017])
+        self.assertTrue(pd.isna(limpia["a"].iloc[0]))  # el vacío de la fuente no se rellena con el valor viejo
+        self.assertEqual(limpia["a"].iloc[1], 3.0)
+        self.assertEqual(limpia["b"].iloc[0], 6.0)  # la columna que la entrega no trae se conserva
+
+
 if __name__ == "__main__":
     unittest.main()
 

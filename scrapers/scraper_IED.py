@@ -420,6 +420,17 @@ def compactar_fechas(dataframe: pd.DataFrame) -> pd.DataFrame:
     return dataframe.sort_values("fecha").reset_index(drop=True)
 
 
+# Marca (``DataFrame.attrs``) para las pestañas en que sólo valen las fechas de la entrega nueva.
+SOLO_FECHAS_DE_LA_FUENTE = "solo_fechas_de_la_fuente"
+# Pestañas que hasta noviembre de 2026 se extraían con fechas corridas (pobreza, indigencia y
+# canastas; ver docs/problemas_de_datos.md). El libro trae la serie completa, así que las
+# fechas que la base conserva de corridas anteriores y el libro no trae se descartan.
+PESTANAS_SIN_FECHAS_VIEJAS = {
+    "EMP-LI - Hog-S-f2587", "EMP-LI - Pers-S-0b74f", "EMP-LP - Hog-S-17d17",
+    "EMP-LP - Pers-S-42c59", "EMP-CBA y CBT-T-318e0",
+}
+
+
 def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: str) -> pd.DataFrame:
     """Conserva el historial y prioriza cada valor publicado en el Excel nuevo."""
     if "fecha" not in nueva or "fecha" not in existente:
@@ -435,6 +446,10 @@ def fusionar_hoja_bd(existente: pd.DataFrame, nueva: pd.DataFrame, frecuencia: s
         return resultado.set_index("fecha")
 
     anterior, actual = preparar(existente), preparar(nueva)
+    if nueva.attrs.get(SOLO_FECHAS_DE_LA_FUENTE) and len(actual):
+        # La fuente trae la serie completa: lo que ya no publica (una fecha, o un valor donde
+        # ahora hay un vacío) era un error de extracción. Sólo se conservan las columnas ajenas.
+        anterior = anterior.loc[anterior.index.isin(actual.index), [c for c in anterior if c not in actual]]
     fusion = actual.combine_first(anterior)
     columnas = [*nueva.columns, *(col for col in existente if col not in nueva)]
     fusion = fusion.reindex(columns=columnas[1:]).sort_index().reset_index()
@@ -591,6 +606,8 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
         pestana: str(grupo["Frecuencia"].iloc[0])
         for pestana, grupo in inventario.groupby("Pestaña BD")
     }
+    for pestana in PESTANAS_SIN_FECHAS_VIEJAS & set(hojas_salida):
+        hojas_salida[pestana].attrs[SOLO_FECHAS_DE_LA_FUENTE] = True
     guardar_datos_preservando_formato(
         ARCHIVO_BD, hojas_salida, frecuencias=frecuencias, hojas_obsoletas=hojas_obsoletas
     )
