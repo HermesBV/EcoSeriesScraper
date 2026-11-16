@@ -39,6 +39,26 @@ def ejecutar_modulo(nombre_completo: str, reintentos: int, espera: float) -> Non
             time.sleep(espera)
 
 
+def actualizar_coyuntura() -> None:
+    """En un servidor Linux con LibreOffice, deja al día el Excel de coyuntura.
+
+    En Windows sigue siendo un paso aparte (``python -m coyuntura.actualizador``),
+    porque abre Excel en la máquina de quien lo corre.
+    """
+    import sys
+    if sys.platform == "win32":
+        return
+    from coyuntura.actualizador import libreoffice
+    if not libreoffice.disponible():
+        print("\nExcel de coyuntura: se omite (falta LibreOffice: apt install libreoffice-calc python3-uno)", flush=True)
+        return
+    from coyuntura.actualizador import actualizar
+    print(f"\n=== Excel de coyuntura ({time.strftime('%H:%M:%S')}) ===", flush=True)
+    codigo = actualizar.main([])
+    if codigo:
+        raise RuntimeError(f"el actualizador terminó con código {codigo}; el Excel vigente no se modificó")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Ejecuta todos los scrapers y publica BD.xlsx e IndiceSeries.xlsx")
     parser.add_argument("--reintentos", type=int, default=2, help="reintentos por scraper ante un error (2)")
@@ -46,6 +66,8 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--volcar-cada", type=int, default=10,
                         help="escribir la base cada N scrapers en vez de una sola vez al final; "
                              "acota la memoria en el servidor (10; 0 = un solo volcado)")
+    parser.add_argument("--sin-coyuntura", action="store_true",
+                        help="no actualizar el Excel de coyuntura al terminar (en Linux, con LibreOffice)")
     args = parser.parse_args(argv)
     errores: list[tuple[str, Exception]] = []
     modulos = descubrir_scrapers()
@@ -81,6 +103,13 @@ def main(argv: list[str] | None = None) -> None:
         calendario.actualizar()
     except Exception as exc:
         print(f"AVISO: no se pudo actualizar el calendario de publicaciones: {exc}", flush=True)
+
+    if not args.sin_coyuntura:
+        try:
+            actualizar_coyuntura()
+        except Exception as exc:
+            errores.append(("Excel de coyuntura", exc))
+            print(f"ERROR al actualizar el Excel de coyuntura: {exc}", flush=True)
 
     if errores:
         detalle = "; ".join(f"{nombre}: {error}" for nombre, error in errores)

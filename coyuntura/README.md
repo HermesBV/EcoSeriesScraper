@@ -21,7 +21,7 @@ python -m coyuntura.actualizador                 # aplica, verifica, publica y r
 python -m coyuntura.herramientas.verificar_mapeo # cuánto coincide cada columna con su fuente
 ```
 
-Requiere Excel instalado (la edición se hace por COM con `pywin32`), por eso corre en la misma máquina que los scrapers. El Excel vigente no debe estar abierto en Excel al publicar; el trabajo se hace sobre una copia en `.trabajo/` y sólo se reemplaza el vigente si la verificación pasa.
+El libro se edita con **LibreOffice** sin pantalla en Linux (`apt install libreoffice-calc python3-uno`) y con **Excel** por COM en Windows; `COYUNTURA_MOTOR=excel` o `libreoffice` fuerza uno (`actualizador/motor.py`). Con LibreOffice se conservan fórmulas y valores, pero los gráficos pueden perderse: ya no se usan. En Linux `python main.py` lo corre solo al terminar los scrapers (`--sin-coyuntura` lo evita); en Windows sigue siendo un paso aparte. El Excel vigente no debe estar abierto al publicar; el trabajo se hace sobre una copia en `.trabajo/` y sólo se reemplaza el vigente si la verificación pasa. La copia para la web va a `../SeriesMacro/coyuntura/` o, si SeriesMacro está en otra carpeta, a la que indique la variable `SERIESMACRO_DIR`.
 
 ## Criterios que respeta
 

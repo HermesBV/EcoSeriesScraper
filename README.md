@@ -106,7 +106,7 @@ Los tres scrapers de Ámbito incorporan Riesgo País (en puntos), Dólar Blue (c
 
 ## Excel de coyuntura
 
-`coyuntura/coyuntura iiep reemplazar.xlsx` es el libro con el que el IIEP arma el informe de coyuntura. `python -m coyuntura.actualizador` lo completa con las series de `BD.xlsx` respetando su formato: filas nuevas entre el último dato y la barra azul que delimita los gráficos, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, cuadros anuales de COMEX y Fiscal extendidos por año. Guarda una copia fechada en `coyuntura/bkp/` (meses cerrados en zip, se conservan dos) y copia el libro a `SeriesMacro/coyuntura/` para su descarga desde la web. Necesita Excel instalado (edición por COM). Detalles y criterios en `coyuntura/README.md`.
+`coyuntura/coyuntura iiep reemplazar.xlsx` es el libro con el que el IIEP arma el informe de coyuntura. `python -m coyuntura.actualizador` lo completa con las series de `BD.xlsx` respetando su formato: filas nuevas entre el último dato y la barra azul que delimita los gráficos, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, cuadros anuales de COMEX y Fiscal extendidos por año. Guarda una copia fechada en `coyuntura/bkp/` (meses cerrados en zip, se conservan dos) y copia el libro a `SeriesMacro/coyuntura/` para su descarga desde la web. Edita el libro con LibreOffice en Linux (`libreoffice-calc` y `python3-uno`; ahí `main.py` lo corre solo al terminar) y con Excel por COM en Windows. Detalles y criterios en `coyuntura/README.md`.
 
 ## Uso
 

@@ -80,6 +80,35 @@ class Excel:
         formula = ws.Cells(fila_origen, columna).FormulaR1C1
         ws.Range(f"{col}{desde}:{col}{hasta}").FormulaR1C1 = formula
 
+    @staticmethod
+    def ultima_columna(ws) -> int:
+        return ws.UsedRange.Column + ws.UsedRange.Columns.Count - 1
+
+    @staticmethod
+    def borrar_fila(ws, fila: int) -> None:
+        ws.Rows(fila).Delete()
+
+    @staticmethod
+    def valor(ws, fila: int, col: int):
+        return ws.Cells(fila, col).Value2
+
+    @staticmethod
+    def tiene_formula(ws, fila: int, col: int) -> bool:
+        return bool(ws.Cells(fila, col).HasFormula)
+
+    @staticmethod
+    def formula(ws, fila: int, col: int) -> str:
+        celda = ws.Cells(fila, col)
+        return celda.Formula if celda.HasFormula else ""
+
+    @staticmethod
+    def escribir_formula(ws, celda: str, formula: str) -> None:
+        ws.Range(celda).Formula = formula
+
+    @staticmethod
+    def limpiar(ws, celda: str) -> None:
+        ws.Range(celda).ClearContents()
+
     def ampliar_rangos(self, hoja: str, inicio: int, fin: int, nuevas: int) -> int:
         """Lleva a ``fin + nuevas`` los rangos de ``hoja`` que terminan en ``fin``,
         en fórmulas de todo el libro y en las series de los gráficos."""

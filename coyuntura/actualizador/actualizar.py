@@ -27,7 +27,7 @@ from openpyxl import load_workbook
 
 from . import config, filas, mapeo, respaldo
 from .estructura import Libro
-from .excel_com import Excel
+from .motor import Excel
 from .formulas import planificar_formulas, referencias_a_barra, tramos
 from .fuentes import Fuentes
 from .plan import PlanBloque, PlanHoja, planificar_bloque, planificar_hoja
@@ -145,7 +145,7 @@ def aplicar(ruta: Path, planes: list[PlanHoja], bloques: list[PlanBloque], log: 
         # Referencias que el economista adelantó a la barra de otra hoja: la
         # inserción las corrió a la nueva barra; vuelven a su fila (el mes nuevo).
         for nombre, celda, formula in protegidas:
-            excel.hoja(nombre).Range(celda).Formula = formula
+            excel.escribir_formula(excel.hoja(nombre), celda, formula)
             log(f"    Excel: {nombre}!{celda} conserva {formula}")
         # Los bloques anuales están debajo de la barra azul: sus filas ya bajaron
         # tantas posiciones como filas mensuales se insertaron en esa hoja. Dos
@@ -176,7 +176,7 @@ def aplicar(ruta: Path, planes: list[PlanHoja], bloques: list[PlanBloque], log: 
             for x in plan.escrituras:
                 excel.escribir(ws, x.fila, x.col, x.valor)
             for celda in plan.limpiar:
-                ws.Range(celda).ClearContents()
+                excel.limpiar(ws, celda)
             log(f"    Excel: {plan.hoja.nombre}: {plan.insertadas} filas insertadas, {len(plan.escrituras)} celdas escritas, "
                 f"{sum(len(filas) for _, filas in plan.formulas.values())} fórmulas copiadas")
         for indice, plan in enumerate(bloques):
@@ -200,6 +200,11 @@ def aplicar(ruta: Path, planes: list[PlanHoja], bloques: list[PlanBloque], log: 
     log(f"    Excel: guardado en {time.time() - inicio:.0f} s")
 
 
+def _sin_espacios(formula: object) -> str:
+    """Para comparar fórmulas: LibreOffice las reescribe con otros espacios."""
+    return "".join(str(formula).split()).upper()
+
+
 def verificar(ruta: Path, planes: list[PlanHoja], log: Registro,
               protegidas: list[tuple[str, str, str]] = ()) -> list[str]:
     """Controles sobre la copia guardada; devuelve los problemas encontrados.
@@ -214,7 +219,8 @@ def verificar(ruta: Path, planes: list[PlanHoja], log: Registro,
         hoja = plan.hoja
         ws, wv = formulas[hoja.nombre], valores[hoja.nombre]
         if len(ws._charts) != plan.estructura.graficos:
-            problemas.append(f"{hoja.nombre}: había {plan.estructura.graficos} gráficos y quedaron {len(ws._charts)}")
+            # Los gráficos ya no se usan: se avisa, pero no frena la publicación.
+            log(f"AVISO: {hoja.nombre}: había {plan.estructura.graficos} gráficos y quedaron {len(ws._charts)}")
         if not plan.cambia:
             continue
         esperada = plan.estructura.fila_azul + plan.insertadas
@@ -246,7 +252,7 @@ def verificar(ruta: Path, planes: list[PlanHoja], log: Registro,
                 if isinstance(celda.value, str) and "#REF!" in celda.value:
                     problemas.append(f"{hoja.nombre}!{celda.coordinate}: fórmula con #REF!")
     for nombre, celda, formula in protegidas:
-        if formulas[nombre][celda].value != formula:
+        if _sin_espacios(formulas[nombre][celda].value) != _sin_espacios(formula):
             problemas.append(f"{nombre}!{celda}: debía conservar {formula} y tiene {formulas[nombre][celda].value}")
     for problema in problemas:
         log(f"PROBLEMA: {problema}")

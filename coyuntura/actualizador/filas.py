@@ -71,19 +71,19 @@ def detectar(libro: Libro, fuentes, faltantes: set) -> list[Arreglo]:
 def aplicar(excel, arreglos: list[Arreglo], col_fecha: dict[str, str], log) -> None:
     """Bajas e inserciones de abajo hacia arriba, para que los números de fila
     pendientes no cambien."""
-    from openpyxl.utils import column_index_from_string
+    from openpyxl.utils import column_index_from_string, get_column_letter
 
     for arreglo in arreglos:
         ws = excel.hoja(arreglo.hoja)
-        ultima_col = ws.UsedRange.Column + ws.UsedRange.Columns.Count - 1
+        ultima_col = excel.ultima_columna(ws)
         operaciones = [("borrar", fila, fecha) for fila, fecha in arreglo.borrar]
         # Varias fechas después de la misma fila: se insertan de la última a la
         # primera en la misma posición, así quedan en orden.
         operaciones += [("insertar", fila + 1, fecha) for fila, fecha in arreglo.insertar]
         for accion, fila, fecha in sorted(operaciones, key=lambda x: (x[1], x[2]), reverse=True):
             if accion == "borrar":
-                ws.Rows(fila).Delete()
-                _reparar_referencias(ws, fila, ultima_col)
+                excel.borrar_fila(ws, fila)
+                _reparar_referencias(excel, ws, fila, ultima_col)
                 log(f"    Excel: {arreglo.hoja}: fila {fila} borrada (fecha {fecha.date()} repetida)")
                 continue
             excel.insertar_filas(ws, fila, 1)
@@ -92,13 +92,15 @@ def aplicar(excel, arreglos: list[Arreglo], col_fecha: dict[str, str], log) -> N
             for col in range(1, ultima_col + 1):
                 if col == fecha_col:
                     continue
-                arriba, abajo = ws.Cells(fila - 1, col), ws.Cells(fila + 1, col)
-                if arriba.HasFormula and abajo.HasFormula:
-                    ws.Cells(fila, col).FormulaR1C1 = arriba.FormulaR1C1
-                elif _numero(arriba.Value2) and _numero(abajo.Value2) and not arriba.HasFormula and not abajo.HasFormula:
-                    # Columnas de valores: promedio de la fila anterior y la siguiente
-                    # (las del mapeo las reemplaza después el plan con la fuente).
-                    ws.Cells(fila, col).Value2 = (arriba.Value2 + abajo.Value2) / 2
+                con_formula = excel.tiene_formula(ws, fila - 1, col), excel.tiene_formula(ws, fila + 1, col)
+                if all(con_formula):
+                    excel.copiar_formula(ws, get_column_letter(col), fila - 1, fila, fila)
+                elif not any(con_formula):
+                    arriba, abajo = excel.valor(ws, fila - 1, col), excel.valor(ws, fila + 1, col)
+                    if _numero(arriba) and _numero(abajo):
+                        # Columnas de valores: promedio de la fila anterior y la siguiente
+                        # (las del mapeo las reemplaza después el plan con la fuente).
+                        excel.escribir(ws, fila, get_column_letter(col), (arriba + abajo) / 2)
             log(f"    Excel: {arreglo.hoja}: fila {fila} insertada para el {fecha.date()}")
 
 
@@ -106,11 +108,12 @@ def _numero(valor) -> bool:
     return isinstance(valor, (int, float)) and not isinstance(valor, bool)
 
 
-def _reparar_referencias(ws, fila: int, ultima_col: int, alcance: int = 400) -> None:
+def _reparar_referencias(excel, ws, fila: int, ultima_col: int, alcance: int = 400) -> None:
     """Al borrar una fila, las fórmulas que la usaban (``=C704/C703-1``) quedan
     con #REF!; se rehacen con la fórmula de la fila de arriba."""
+    from openpyxl.utils import get_column_letter
+
     for f in range(fila, fila + alcance):
         for col in range(1, ultima_col + 1):
-            celda = ws.Cells(f, col)
-            if celda.HasFormula and "#REF!" in celda.Formula and ws.Cells(f - 1, col).HasFormula:
-                celda.FormulaR1C1 = ws.Cells(f - 1, col).FormulaR1C1
+            if "#REF!" in excel.formula(ws, f, col) and excel.tiene_formula(ws, f - 1, col):
+                excel.copiar_formula(ws, get_column_letter(col), f - 1, f, f)

@@ -87,6 +87,7 @@
 ## Excel de coyuntura
 
 - `coyuntura/coyuntura iiep reemplazar.xlsx` es el libro del economista; `python -m coyuntura.actualizador` lo actualiza desde `BD.xlsx` después de los scrapers (nunca vuelve a descargar fuentes). Requiere Excel (COM) y el libro cerrado.
+- El libro se edita con LibreOffice en Linux y con Excel en Windows, detrás de la misma interfaz (`actualizador/motor.py`, `libreoffice.py`, `excel_com.py`): ningún otro módulo llama a COM ni a UNO. Los gráficos ya no importan; las fórmulas sí. En Linux `main.py` corre el actualizador al final.
 - El mapeo vive en `coyuntura/actualizador/mapeo.py` por (`Código fuente`, `ID`); al cambiar una fuente, correr `python -m coyuntura.herramientas.verificar_mapeo`.
 - Respetar el formato del economista: filas nuevas entre el último dato y la barra azul, fórmulas copiadas hacia abajo, imputaciones manuales conservadas, COMEX con fechas hasta diciembre y barra fija. Criterios completos en `coyuntura/README.md`.
 - La hoja «Fuentes y Esquema» vive aparte en `coyuntura/coyuntura iiep fuentes y esquema.xlsx`, ignorada por git en los dos repositorios: no volver a incluirla en el libro publicado ni versionarla.
