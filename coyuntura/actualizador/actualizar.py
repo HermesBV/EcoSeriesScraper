@@ -277,6 +277,46 @@ def publicar(trabajo: Path, hoy: date, log: Registro) -> None:
         log("SeriesMacro no está junto a este repositorio; no se copió el Excel para la web")
 
 
+# --- Fases en procesos aparte ----------------------------------------------------------
+# Leer el libro con openpyxl ocupa unos 800 MB y el editor (LibreOffice) 1,1 GB. Para que
+# nunca convivan, cada lectura corre en un proceso que termina antes de abrir el editor.
+
+def _fase_detectar(trabajo: Path) -> tuple[list, list[str]]:
+    log = Registro()
+    fuentes = Fuentes()
+    faltantes = set(fuentes.cargar(mapeo.fuentes_necesarias()))
+    arreglos = filas.detectar(Libro(trabajo), fuentes, faltantes)
+    for arreglo in arreglos:
+        for fila, fecha in arreglo.insertar:
+            log(f"[{arreglo.hoja}] falta el {fecha.date()} en el medio de la serie: se inserta debajo de la fila {fila}")
+        for fila, fecha in arreglo.borrar:
+            log(f"[{arreglo.hoja}] el {fecha.date()} está repetido (fila {fila}): se borra")
+    return arreglos, log.lineas
+
+
+def _fase_planificar(trabajo: Path) -> tuple[list[PlanHoja], list[PlanBloque], list[tuple[str, str, str]], list[str]]:
+    log = Registro()
+    libro = Libro(trabajo)
+    planes, bloques = planificar(libro, Fuentes(), log)
+    resumir(planes, bloques, log)
+    protegidas = referencias_a_barra(libro, planes)
+    for nombre, celda, formula in protegidas:
+        log(f"[{nombre}] {celda} apunta a la barra de otra hoja ({formula}); conserva su fila")
+    return planes, bloques, protegidas, log.lineas
+
+
+def _fase_verificar(trabajo: Path, planes: list[PlanHoja], protegidas: list[tuple[str, str, str]]) -> tuple[list[str], list[str]]:
+    log = Registro()
+    return verificar(trabajo, planes, log, protegidas), log.lineas
+
+
+def _aparte(funcion, *argumentos):
+    """Corre ``funcion`` en un proceso nuevo y devuelve su resultado; al volver, su memoria ya se liberó."""
+    import multiprocessing
+    with multiprocessing.get_context("spawn").Pool(1) as proceso:
+        return proceso.apply(funcion, argumentos)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Actualiza el Excel de coyuntura desde BD.xlsx")
     parser.add_argument("--simular", action="store_true", help="calcula e imprime el plan sin tocar Excel")
@@ -294,34 +334,26 @@ def main(argv: list[str] | None = None) -> int:
     trabajo = config.CARPETA_TRABAJO / f"{config.NOMBRE_BASE}.{args.fecha:%y%m%d}.xlsx"
     shutil.copy2(origen, trabajo)
     try:
-        fuentes = Fuentes()
-        faltantes = set(fuentes.cargar(mapeo.fuentes_necesarias()))
         # Primero las filas que faltan o sobran en el medio de las hojas
         # diarias; el plan se calcula después, sobre el libro ya continuo.
-        arreglos = filas.detectar(Libro(trabajo), fuentes, faltantes)
-        for arreglo in arreglos:
-            for fila, fecha in arreglo.insertar:
-                log(f"[{arreglo.hoja}] falta el {fecha.date()} en el medio de la serie: se inserta debajo de la fila {fila}")
-            for fila, fecha in arreglo.borrar:
-                log(f"[{arreglo.hoja}] el {fecha.date()} está repetido (fila {fila}): se borra")
+        arreglos, lineas = _aparte(_fase_detectar, trabajo)
+        log.lineas += lineas
         if arreglos and not args.simular:
             with Excel() as excel:
                 excel.abrir(trabajo)
                 filas.aplicar(excel, arreglos, {h.nombre: h.col_fecha for h in mapeo.HOJAS}, log)
                 excel.guardar()
-        libro = Libro(trabajo)
-        planes, bloques = planificar(libro, fuentes, log)
-        resumir(planes, bloques, log)
+        planes, bloques, protegidas, lineas = _aparte(_fase_planificar, trabajo)
+        log.lineas += lineas
         log(f"Plan calculado en {time.time() - inicio:.0f} s")
-        protegidas = referencias_a_barra(libro, planes)
-        for nombre, celda, formula in protegidas:
-            log(f"[{nombre}] {celda} apunta a la barra de otra hoja ({formula}); conserva su fila")
-        if args.simular or not arreglos and not any(p.cambia for p in planes)                 and not any(b.nuevos or b.escrituras for b in bloques):
+        if args.simular or not arreglos and not any(p.cambia for p in planes) \
+                and not any(b.nuevos or b.escrituras for b in bloques):
             log("Sin cambios para aplicar" if not args.simular else "Simulación: no se modificó el Excel")
             trabajo.unlink(missing_ok=True)
             return 0
         aplicar(trabajo, planes, bloques, log, protegidas)
-        problemas = verificar(trabajo, planes, log, protegidas)
+        problemas, lineas = _aparte(_fase_verificar, trabajo, planes, protegidas)
+        log.lineas += lineas
         if problemas:
             log(f"ERROR: la verificación encontró {len(problemas)} problemas; el Excel vigente no se modificó. "
                 f"Copia con problemas: {trabajo}")

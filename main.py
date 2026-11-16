@@ -6,15 +6,17 @@ import argparse
 import contextlib
 import importlib
 import io
+import json
 import pkgutil
 import platform
+import subprocess
 import sys
+import tempfile
 import time
 from datetime import date
 from pathlib import Path
 
 import scrapers
-from tools import calendario, lote
 
 
 # Los más pesados van al final y en su propio lote: si el proceso muere ahí (memoria,
@@ -44,13 +46,9 @@ def agrupar(modulos: list[str], tamano: int) -> list[list[str]]:
 
 
 def paquetes_faltantes() -> list[str]:
-    faltan = []
-    for nombre in PAQUETES:
-        try:
-            importlib.import_module(nombre)
-        except Exception:
-            faltan.append(nombre)
-    return faltan
+    # Sin importarlos: este proceso sólo coordina y tiene que ocupar poca memoria.
+    from importlib.util import find_spec
+    return [nombre for nombre in PAQUETES if find_spec(nombre) is None]
 
 
 def version_codigo() -> str:
@@ -117,44 +115,103 @@ def ejecutar_modulo(nombre_completo: str, reintentos: int, espera: float) -> Non
             time.sleep(espera)
 
 
-def actualizar_coyuntura() -> None:
+def _leer_estado(ruta: Path) -> dict[str, str]:
+    try:
+        return json.loads(ruta.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _anotar(ruta: Path, estado: dict[str, str]) -> None:
+    temporal = ruta.with_name(ruta.name + ".tmp")
+    temporal.write_text(json.dumps(estado, ensure_ascii=False), encoding="utf-8")
+    temporal.replace(ruta)
+
+
+def correr_lote(nombres: list[str], ruta_estado: Path, reintentos: int, espera: float) -> None:
+    """Un lote completo en este proceso: corre sus scrapers y escribe la base una vez.
+
+    El resultado de cada scraper se anota en ``ruta_estado`` apenas termina: si el
+    proceso muere, quien lo lanzó sabe hasta dónde llegó.
+    """
+    from tools import lote
+    estado = _leer_estado(ruta_estado)
+    with lote.abrir():
+        for nombre in nombres:
+            nombre_completo = f"scrapers.{nombre}"
+            print(f"\n=== Ejecutando {nombre_completo} ({time.strftime('%H:%M:%S')}) ===", flush=True)
+            inicio = time.time()
+            copia = _Copia(sys.stdout)
+            try:
+                with contextlib.redirect_stdout(copia):
+                    ejecutar_modulo(nombre_completo, reintentos, espera)
+                resultado = f"OK ({time.time() - inicio:.0f} s)"
+            except Exception as exc:
+                print(f"ERROR en {nombre_completo}: {exc}", flush=True)
+                resultado = f"ERROR ({time.time() - inicio:.0f} s): {type(exc).__name__}: {exc}"
+            if copia.avisos:
+                resultado += " · " + " | ".join(dict.fromkeys(copia.avisos))
+            estado[nombre] = resultado[:900]
+            _anotar(ruta_estado, {**estado, "_sin_escribir": ", ".join(nombres[:nombres.index(nombre) + 1])})
+            print(f"--- {nombre_completo}: {time.time() - inicio:.0f} s", flush=True)
+        estado["Último lote escrito"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            guardar_estado({clave: valor for clave, valor in estado.items() if not clave.startswith("_")})
+        except Exception as exc:
+            print(f"AVISO: no se pudo anotar el estado de la corrida: {exc}", flush=True)
+    # Sólo se llega acá si el lote se escribió.
+    _anotar(ruta_estado, estado)
+
+
+def lanzar_lote(nombres: list[str], ruta_estado: Path, args) -> int:
+    """Corre el lote en un proceso aparte y devuelve su código de salida.
+
+    Cada lote libera su memoria al terminar y, si el sistema lo mata (falta de
+    memoria), la corrida sigue con el lote siguiente.
+    """
+    orden = [sys.executable, str(Path(__file__).resolve()), "--estado", str(ruta_estado),
+             "--reintentos", str(args.reintentos), "--espera", str(args.espera), "--lote", *nombres]
+    return subprocess.run(orden, cwd=Path(__file__).resolve().parent).returncode
+
+
+def actualizar_coyuntura() -> int | None:
     """En un servidor Linux con LibreOffice, deja al día el Excel de coyuntura.
 
     En Windows sigue siendo un paso aparte (``python -m coyuntura.actualizador``),
-    porque abre Excel en la máquina de quien lo corre.
+    porque abre Excel en la máquina de quien lo corre. Devuelve el código de salida
+    o ``None`` si se omitió.
     """
-    import sys
+    import shutil
     if sys.platform == "win32":
-        return
-    from coyuntura.actualizador import libreoffice
-    if not libreoffice.disponible():
+        return None
+    if not (shutil.which("soffice") or shutil.which("libreoffice")):
         print("\nExcel de coyuntura: se omite (falta LibreOffice: apt install libreoffice-calc python3-uno)", flush=True)
-        return
-    from coyuntura.actualizador import actualizar
+        return None
     print(f"\n=== Excel de coyuntura ({time.strftime('%H:%M:%S')}) ===", flush=True)
-    codigo = actualizar.main([])
-    if codigo:
-        raise RuntimeError(f"el actualizador terminó con código {codigo}; el Excel vigente no se modificó")
+    return subprocess.run([sys.executable, "-m", "coyuntura.actualizador"], cwd=Path(__file__).resolve().parent).returncode
 
 
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Ejecuta todos los scrapers y publica BD.xlsx e IndiceSeries.xlsx")
     parser.add_argument("--reintentos", type=int, default=2, help="reintentos por scraper ante un error (2)")
     parser.add_argument("--espera", type=float, default=60.0, help="segundos entre reintentos (60)")
-    parser.add_argument("--volcar-cada", type=int, default=10,
-                        help="escribir la base cada N scrapers en vez de una sola vez al final; "
-                             "acota la memoria en el servidor (10; 0 = un solo volcado)")
+    parser.add_argument("--volcar-cada", type=int, default=3,
+                        help="scrapers por lote: cada lote corre en un proceso propio y escribe la base "
+                             "al terminar (3). Lotes chicos: más escrituras, menos que perder si uno muere")
     parser.add_argument("--sin-coyuntura", action="store_true",
                         help="no actualizar el Excel de coyuntura al terminar (en Linux, con LibreOffice)")
+    parser.add_argument("--lote", nargs="*", metavar="SCRAPER", help=argparse.SUPPRESS)   # uso interno
+    parser.add_argument("--estado", type=Path, help=argparse.SUPPRESS)                    # uso interno
     args = parser.parse_args(argv)
-    errores: list[tuple[str, Exception]] = []
+    if args.lote is not None:
+        correr_lote(args.lote, args.estado, args.reintentos, args.espera)
+        return
+
     modulos = descubrir_scrapers()
     if not modulos:
         raise RuntimeError("No se encontraron módulos scraper_*.py en la carpeta scrapers")
-
     inicio_total = time.time()
-    tamano = args.volcar_cada if args.volcar_cada > 0 else len(modulos)
-    grupos = agrupar(modulos, tamano)
+    grupos = agrupar(modulos, max(1, args.volcar_cada))
     faltan = paquetes_faltantes()
     if faltan:
         print(f"AVISO: faltan paquetes de Python ({', '.join(faltan)}); los scrapers que los usan van a fallar. "
@@ -166,57 +223,51 @@ def main(argv: list[str] | None = None) -> None:
         "Paquetes faltantes": ", ".join(faltan) or "ninguno",
         "Último lote escrito": "",
     }
-    # Cada grupo es un lote: los scrapers acumulan sus hojas y BD.xlsx e
-    # IndiceSeries.xlsx se escriben una vez por grupo, también si uno falló.
-    for grupo in grupos:
-        # Si falla el volcado (BD.xlsx bloqueado, validación) se pierde ese
-        # grupo, pero los siguientes corren y escriben sobre la base en disco.
-        try:
-            with lote.abrir():
+    with tempfile.TemporaryDirectory(prefix="corrida-") as carpeta:
+        ruta_estado = Path(carpeta) / "estado.json"
+        _anotar(ruta_estado, estado)
+        pendientes = list(grupos)
+        sin_anotar = False   # hay novedades que todavía no llegaron a la hoja de estado
+        while pendientes:
+            grupo = pendientes.pop(0)
+            print(f"\n##### Lote: {', '.join(grupo)}", flush=True)
+            codigo = lanzar_lote(grupo, ruta_estado, args)
+            estado = _leer_estado(ruta_estado)
+            if codigo == 0 and "_sin_escribir" not in estado:
+                sin_anotar = False
+                continue
+            # El proceso murió o el volcado falló: nada de este lote llegó a la base.
+            motivo = (f"el proceso del lote murió (señal {-codigo}; si es 9, falta de memoria)" if codigo < 0
+                      else f"falló la escritura del lote (código {codigo})")
+            print(f"ERROR: {motivo}: {', '.join(grupo)}", flush=True)
+            estado.pop("_sin_escribir", None)
+            if len(grupo) > 1:
+                # De a uno, para perder sólo el que causa el problema.
                 for nombre in grupo:
-                    nombre_completo = f"scrapers.{nombre}"
-                    print(f"\n=== Ejecutando {nombre_completo} ({time.strftime('%H:%M:%S')}) ===", flush=True)
-                    inicio = time.time()
-                    copia = _Copia(sys.stdout)
-                    try:
-                        with contextlib.redirect_stdout(copia):
-                            ejecutar_modulo(nombre_completo, args.reintentos, args.espera)
-                        resultado = f"OK ({time.time() - inicio:.0f} s)"
-                    except Exception as exc:
-                        errores.append((nombre_completo, exc))
-                        print(f"ERROR en {nombre_completo}: {exc}", flush=True)
-                        resultado = f"ERROR ({time.time() - inicio:.0f} s): {type(exc).__name__}: {exc}"
-                    if copia.avisos:
-                        resultado += " · " + " | ".join(dict.fromkeys(copia.avisos))
-                    estado[nombre] = resultado[:900]
-                    print(f"--- {nombre_completo}: {time.time() - inicio:.0f} s", flush=True)
-                # El estado entra en el mismo lote: si el proceso muere más adelante, en la
-                # base queda hasta dónde llegó.
-                estado["Último lote escrito"] = f"{grupos.index(grupo) + 1} de {len(grupos)} ({time.strftime('%H:%M:%S')})"
-                try:
-                    guardar_estado(estado)
-                except Exception as exc:
-                    print(f"AVISO: no se pudo anotar el estado de la corrida: {exc}", flush=True)
-        except Exception as exc:
-            errores.append((f"volcado de {', '.join(grupo)}", exc))
-            print(f"ERROR al volcar el lote: {exc}", flush=True)
+                    estado.pop(nombre, None)
+                pendientes = [[nombre] for nombre in grupo] + pendientes
+            else:
+                previo = estado.get(grupo[0], "")
+                estado[grupo[0]] = (f"NO SE GUARDÓ: {motivo}" + (f" · antes: {previo}" if previo else ""))[:900]
+                sin_anotar = True
+            _anotar(ruta_estado, estado)
+        if sin_anotar:
+            lanzar_lote([], ruta_estado, args)   # un lote vacío: sólo deja la hoja de estado al día
+        estado = _leer_estado(ruta_estado)
     print(f"\nTiempo total: {(time.time() - inicio_total) / 60:.1f} min", flush=True)
-    # Un libro viejo no produce error: sólo el calendario muestra el atraso.
-    try:
-        calendario.actualizar()
-    except Exception as exc:
-        print(f"AVISO: no se pudo actualizar el calendario de publicaciones: {exc}", flush=True)
 
+    errores = [f"{nombre}: {estado[nombre]}" for nombre in modulos
+               if not str(estado.get(nombre, "sin resultado")).startswith("OK")]
+    # Un libro viejo no produce error: sólo el calendario muestra el atraso.
+    if subprocess.run([sys.executable, "-m", "tools.calendario"], cwd=Path(__file__).resolve().parent).returncode:
+        print("AVISO: no se pudo actualizar el calendario de publicaciones", flush=True)
     if not args.sin_coyuntura:
-        try:
-            actualizar_coyuntura()
-        except Exception as exc:
-            errores.append(("Excel de coyuntura", exc))
-            print(f"ERROR al actualizar el Excel de coyuntura: {exc}", flush=True)
+        codigo = actualizar_coyuntura()
+        if codigo:
+            errores.append(f"Excel de coyuntura: el actualizador terminó con código {codigo}; el Excel vigente no se modificó")
 
     if errores:
-        detalle = "; ".join(f"{nombre}: {error}" for nombre, error in errores)
-        raise RuntimeError(f"Fallaron {len(errores)} de {len(modulos)} scrapers: {detalle}")
+        raise RuntimeError(f"Fallaron {len(errores)} de {len(modulos)} scrapers: " + "; ".join(errores))
 
 
 if __name__ == "__main__":

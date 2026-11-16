@@ -8,7 +8,7 @@ import time
 import warnings
 from datetime import datetime
 from pathlib import Path
-from zipfile import BadZipFile, ZipFile
+from zipfile import ZIP_DEFLATED, BadZipFile, ZipFile
 
 import certifi
 import numpy as np
@@ -78,14 +78,26 @@ def escribir_log(id_serie: str, estado: str, mensaje: str = "") -> None:
 
 
 def limpiar_nombres_definidos(ruta_archivo: Path) -> None:
-    """Elimina rangos con nombre defectuosos de algunos libros del IED."""
+    """Elimina rangos con nombre defectuosos de algunos libros del IED.
+
+    Se quita ``<definedNames>`` de ``xl/workbook.xml`` dentro del zip, sin abrir el
+    libro: cargarlo con openpyxl para esto pedía más memoria que la del servidor.
+    """
+    temporal = ruta_archivo.with_name(f".{ruta_archivo.name}.limpio")
     try:
-        libro = load_workbook(ruta_archivo)
-        for nombre in list(libro.defined_names):
-            del libro.defined_names[nombre]
-        libro.save(ruta_archivo)
+        cambios = 0
+        with ZipFile(ruta_archivo) as origen, ZipFile(temporal, "w", ZIP_DEFLATED) as destino:
+            for parte in origen.infolist():
+                datos = origen.read(parte.filename)
+                if parte.filename == "xl/workbook.xml":
+                    datos, cambios = re.subn(rb"<definedNames>.*?</definedNames>|<definedNames\s*/>", b"", datos, flags=re.S)
+                destino.writestr(parte, datos)
+        if cambios:
+            temporal.replace(ruta_archivo)
     except Exception as exc:
         escribir_log("SISTEMA", "ADVERTENCIA_LIMPIEZA", f"{ruta_archivo.name}: {exc}")
+    finally:
+        temporal.unlink(missing_ok=True)
 
 
 def _excel_valido(ruta: Path) -> bool:
@@ -460,26 +472,31 @@ def _validar_guardado(ruta: Path, dimensiones: dict[str, tuple[int, int]], forma
     """Reabre el resultado y comprueba dimensiones, fechas y filas vacías.
 
     ``dimensiones`` trae (filas, columnas) de cada hoja escrita; no se retienen
-    los DataFrame para no duplicar la base en memoria durante el volcado.
+    los DataFrame para no duplicar la base en memoria durante el volcado. Se lee
+    en modo secuencial, contando las filas: el libro nunca se carga entero.
     """
     libro = load_workbook(ruta, read_only=True, data_only=True)
     try:
         for nombre, (filas, columnas) in dimensiones.items():
             hoja = libro[nombre]
-            if hoja.max_row != filas + 1 or hoja.max_column != columnas:
-                raise ValueError(
-                    f"Dimensiones incorrectas en {nombre}: "
-                    f"{hoja.max_row}x{hoja.max_column}, esperado {filas + 1}x{columnas}"
-                )
-            if str(hoja.cell(1, 1).value).strip().casefold() != "fecha":
-                raise ValueError(f"La primera columna de {nombre} no es fecha")
-            for fila in hoja.iter_rows(min_row=2, values_only=False):
+            hoja.reset_dimensions()
+            leidas = 0
+            for numero, fila in enumerate(hoja.iter_rows(), 1):
+                leidas = numero
+                if numero == 1:
+                    if len(fila) != columnas:
+                        raise ValueError(f"Columnas incorrectas en {nombre}: {len(fila)}, esperado {columnas}")
+                    if str(fila[0].value).strip().casefold() != "fecha":
+                        raise ValueError(f"La primera columna de {nombre} no es fecha")
+                    continue
                 if all(celda.value is None for celda in fila):
-                    raise ValueError(f"Fila completamente vacía en {nombre}, fila {fila[0].row}")
+                    raise ValueError(f"Fila completamente vacía en {nombre}, fila {numero}")
                 if fila[0].value is None:
-                    raise ValueError(f"Fecha vacía en {nombre}, fila {fila[0].row}")
+                    raise ValueError(f"Fecha vacía en {nombre}, fila {numero}")
                 if fila[0].number_format != formatos[nombre]:
-                    raise ValueError(f"Formato de fecha incorrecto en {nombre}, fila {fila[0].row}")
+                    raise ValueError(f"Formato de fecha incorrecto en {nombre}, fila {numero}")
+            if leidas != filas + 1:
+                raise ValueError(f"Filas incorrectas en {nombre}: {leidas}, esperado {filas + 1}")
     finally:
         libro.close()
 
@@ -509,6 +526,68 @@ def reemplazar_con_reintentos(temporal: Path, ruta: Path, intentos: int = 8) -> 
             time.sleep(min(intento + 1, 5))
 
 
+def _valor_excel(valor: object) -> object:
+    if valor is None or valor is pd.NaT:
+        return None
+    if isinstance(valor, float) and np.isnan(valor):
+        return None
+    if isinstance(valor, pd.Timestamp):
+        return valor.to_pydatetime()
+    if isinstance(valor, np.generic):
+        valor = valor.item()
+        return None if isinstance(valor, float) and np.isnan(valor) else valor
+    return valor
+
+
+def _leer_hoja_secuencial(hoja) -> pd.DataFrame:
+    """Una hoja del libro abierto en modo secuencial, como tabla con su encabezado."""
+    hoja.reset_dimensions()
+    filas = [fila for fila in hoja.iter_rows(values_only=True) if any(valor is not None for valor in fila)]
+    if not filas:
+        return pd.DataFrame()
+    ancho = max(len(fila) for fila in filas)
+    while ancho > 1 and all(len(fila) < ancho or fila[ancho - 1] is None for fila in filas):
+        ancho -= 1
+    tabla = pd.DataFrame([list(fila[:ancho]) + [None] * (ancho - len(fila)) for fila in filas[1:]],
+                         columns=list(filas[0][:ancho]))
+    return tabla.dropna(how="all").reset_index(drop=True)
+
+
+def _escribir_tabla(destino, nombre: str, datos: pd.DataFrame, formato: str) -> None:
+    from openpyxl.cell import WriteOnlyCell
+    hoja = destino.create_sheet(nombre)
+    hoja.freeze_panes = "B2"
+    hoja.append(list(datos.columns))
+    for fila in datos.itertuples(index=False, name=None):
+        valores = [_valor_excel(valor) for valor in fila]
+        if valores[0] is not None:
+            celda = WriteOnlyCell(hoja, value=valores[0])
+            celda.number_format = formato
+            valores[0] = celda
+        hoja.append(valores)
+
+
+def _copiar_hoja(destino, origen) -> None:
+    """Pasa una hoja que no cambió, fila por fila, con el formato de su columna de fechas."""
+    from openpyxl.cell import WriteOnlyCell
+    origen.reset_dimensions()
+    hoja = destino.create_sheet(origen.title)
+    es_datos = None
+    for fila in origen.iter_rows():
+        if es_datos is None:
+            es_datos = bool(fila) and str(fila[0].value).strip().casefold() == "fecha"
+            if es_datos:
+                hoja.freeze_panes = "B2"
+            hoja.append([celda.value for celda in fila])
+            continue
+        valores = [celda.value for celda in fila]
+        if es_datos and valores and valores[0] is not None:
+            celda = WriteOnlyCell(hoja, value=valores[0])
+            celda.number_format = fila[0].number_format
+            valores[0] = celda
+        hoja.append(valores)
+
+
 def guardar_datos_preservando_formato(
     ruta: Path,
     hojas: dict[str, pd.DataFrame],
@@ -519,65 +598,77 @@ def guardar_datos_preservando_formato(
 
     Dentro de un lote (``tools.lote.abrir``, lo usa ``main.py``) las hojas se
     acumulan fusionadas y el libro se escribe una sola vez al final.
+
+    El libro nunca se carga entero: se lee y se escribe en modo secuencial, una
+    hoja por vez (las que no cambian se copian fila por fila). Cargarlo completo
+    con openpyxl pedía 2,4 GB y no entraba en un servidor de 2 GB.
     """
+    from openpyxl import Workbook
     from tools import lote
     frecuencias = frecuencias or {nombre: frecuencia_de_pestana(nombre) for nombre in hojas}
     if lote.activo():
         lote.actual().encolar(ruta, hojas, frecuencias, hojas_obsoletas or set(), fusionar_hoja_bd)
         return
-    libro = load_workbook(ruta)
     temporal = ruta.with_name(f"{ruta.stem}.actualizacion{ruta.suffix}")
     formatos = {"A": "yyyy", "S": "yyyy-mm", "T": "yyyy-mm", "M": "yyyy-mm", "D": "yyyy-mm-dd"}
     formatos_hojas = {nombre: formatos.get(frecuencias.get(nombre, ""), "yyyy-mm-dd") for nombre in hojas}
     hojas_guardadas: dict[str, tuple[int, int]] = {}
+    por_nombre = {str(nombre).strip()[:31]: nombre for nombre in hojas}
 
-    def valor_excel(valor: object) -> object:
-        if pd.isna(valor):
-            return None
-        if isinstance(valor, pd.Timestamp):
-            return valor.to_pydatetime()
-        if isinstance(valor, np.generic):
-            return valor.item()
-        return valor
+    origen = load_workbook(ruta, read_only=True, data_only=True) if ruta.is_file() else None
+    existentes = list(origen.sheetnames) if origen is not None else []
+    avisar_hojas_obsoletas(hojas_obsoletas, hojas, existentes)
+    destino = Workbook(write_only=True)
 
-    avisar_hojas_obsoletas(hojas_obsoletas, hojas, libro.sheetnames)
-
-    for nombre, datos in hojas.items():
-        nombre_hoja = str(nombre).strip()[:31]
-        if nombre_hoja in libro.sheetnames:
-            anterior = pd.DataFrame(libro[nombre_hoja].values)
-            if not anterior.empty and anterior.iat[0, 0] == "fecha":
-                anterior.columns = anterior.iloc[0]
-                anterior = anterior.iloc[1:].reset_index(drop=True)
-                datos = fusionar_hoja_bd(anterior, datos, frecuencias.get(nombre, "D"))
-            elif not anterior.isna().all().all():
+    def escribir(nombre_hoja: str, anterior: pd.DataFrame | None) -> None:
+        nombre = por_nombre[nombre_hoja]
+        datos = hojas[nombre]
+        if anterior is not None and not anterior.empty:
+            if anterior.columns[0] != "fecha":
                 raise ValueError(f"La hoja {nombre_hoja} existente no tiene encabezado fecha")
-            del libro[nombre_hoja]
+            datos = fusionar_hoja_bd(anterior, datos, frecuencias.get(nombre, "D"))
         hojas_guardadas[nombre] = (len(datos), len(datos.columns))
-        hoja = libro.create_sheet(nombre_hoja)
-        columnas = list(datos.columns)
-        filas_nuevas = len(datos) + 1
-
-        for columna, encabezado in enumerate(columnas, 1):
-            hoja.cell(1, columna).value = encabezado
-        for indice, fila in enumerate(datos.itertuples(index=False, name=None), 2):
-            for columna, valor in enumerate(fila, 1):
-                hoja.cell(indice, columna).value = valor_excel(valor)
-        formato = formatos_hojas[nombre]
-        for celda in hoja["A"][1:filas_nuevas]:
-            if celda.value is not None:
-                celda.number_format = formato
-        hoja.freeze_panes = "B2"
+        _escribir_tabla(destino, nombre_hoja, datos, formatos_hojas[nombre])
 
     try:
-        libro.save(temporal)
-        libro.close()
-        _validar_guardado(temporal, hojas_guardadas, formatos_hojas)
+        try:
+            for nombre_hoja in existentes:
+                if nombre_hoja in por_nombre:
+                    escribir(nombre_hoja, _leer_hoja_secuencial(origen[nombre_hoja]))
+                else:
+                    _copiar_hoja(destino, origen[nombre_hoja])
+            for nombre_hoja in por_nombre:
+                if nombre_hoja not in existentes:
+                    escribir(nombre_hoja, None)
+            if not destino.sheetnames:
+                destino.create_sheet("Sin datos")
+            destino.save(temporal)
+        finally:
+            if origen is not None:
+                origen.close()
+        # La validación usa los nombres de 31 caracteres con que quedaron las hojas.
+        _validar_guardado(temporal, {str(n).strip()[:31]: d for n, d in hojas_guardadas.items()},
+                          {str(n).strip()[:31]: f for n, f in formatos_hojas.items()})
         reemplazar_con_reintentos(temporal, ruta)
     except Exception:
-        libro.close()
         temporal.unlink(missing_ok=True)
         raise
+
+
+class _LibrosDeAUno:
+    """``libros[nombre]`` carga el libro pedido y suelta el anterior."""
+
+    def __init__(self, archivos: dict[str, Path]) -> None:
+        self._archivos = archivos
+        self._nombre: str | None = None
+        self._libro: dict[str, pd.DataFrame] = {}
+
+    def __getitem__(self, nombre: str) -> dict[str, pd.DataFrame]:
+        if nombre != self._nombre:
+            self._libro = {}
+            self._libro = cargar_excel_completo(self._archivos[nombre])
+            self._nombre = nombre
+        return self._libro
 
 
 def procesar_datos(descargar: bool = True) -> dict[str, int]:
@@ -591,11 +682,12 @@ def procesar_datos(descargar: bool = True) -> dict[str, int]:
     if faltantes:
         raise RuntimeError(f"Faltan libros del IED: {', '.join(sorted(faltantes))}")
 
-    libros: dict[str, dict[str, pd.DataFrame]] = {}
+    # Primero el índice de cada libro y después la extracción, siempre con un solo
+    # libro en memoria: los ocho juntos ocupaban 1 GB.
     indices: dict[str, dict[str, tuple[str, int, int]]] = {}
-    for nombre, ruta in tqdm(archivos.items(), desc="Cargando libros IED"):
-        libros[nombre] = cargar_excel_completo(ruta)
-        indices[nombre] = crear_indice_excel(libros[nombre])
+    for nombre, ruta in tqdm(archivos.items(), desc="Indexando libros IED"):
+        indices[nombre] = crear_indice_excel(cargar_excel_completo(ruta))
+    libros = _LibrosDeAUno(archivos)
 
     existentes = load_existing_catalog()
     hojas_obsoletas = set(existentes.get("Pestaña BD", pd.Series(dtype=str)).dropna().astype(str))

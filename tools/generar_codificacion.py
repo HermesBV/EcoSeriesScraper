@@ -311,22 +311,13 @@ def generar(inventory: pd.DataFrame | None = None) -> None:
 
 def escribir_indice(data: pd.DataFrame) -> None:
     """Escribe ``Codificacion`` en ``IndiceSeries.xlsx`` de forma atómica y validada."""
-    if INDEX_FILE.is_file():
-        book = load_workbook(INDEX_FILE)
-    else:
-        from openpyxl import Workbook
-        book = Workbook()
-
-    for name in CODE_SHEETS:
-        if name in book.sheetnames:
-            del book[name]
-    if "Codificacion" in book.sheetnames:
-        del book["Codificacion"]
-    sheet = book.create_sheet("Codificacion", 0)
+    # Libro nuevo cada vez: el índice tiene una sola hoja, y cargar el anterior
+    # sólo para borrarla gastaba memoria que el servidor no tiene.
+    from openpyxl import Workbook
+    book = Workbook()
+    sheet = book.active
+    sheet.title = "Codificacion"
     _write_inventory(sheet, data)
-    for name in list(book.sheetnames):
-        if name != "Codificacion":
-            del book[name]
     # La serie operativa de Heymann queda junto al inventario, no perdida al
     # final de una base con cientos de pestañas.
 
