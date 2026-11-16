@@ -133,6 +133,48 @@ def _find_year_month(raw: pd.DataFrame) -> tuple[list[pd.Timestamp], int, int] |
     return best[1], best[2], best[3]
 
 
+# El INDEC no escribe siempre un encabezado combinado en la misma celda, y con eso cambia el
+# rótulo que arma la lectura de una publicación a otra (visto en el índice de salarios entre los
+# libros de julio, agosto y septiembre de 2026, y en el ISAC de septiembre). Cada variante conocida
+# se lleva al rótulo con que la serie ya está publicada, para que conserve su ID y su columna.
+_VAR = "Variación porcentual respecto a"
+_ACUM = "acumulada del año respecto a igual acumulado del año anterior"
+ROTULOS_EQUIVALENTES: dict[tuple[str, str], dict[str, str]] = {
+    ("indec-salarios", "Cuadro 2"): {
+        f"{variante} - {_VAR} - {periodo} - %": f"{publicado} - {_VAR} - {periodo} - %{sufijo}"
+        for variante, publicado, sufijos in (
+            ("Sector registrado - Sector privado registrado", "Sector privado registrado", ("", "")),
+            ("Sector registrado - Sector público", "Sector público", ("", "")),
+            ("Sector registrado - Total registrado (1)", "Total registrado (1)", ("", "")),
+            ("Sector privado no registrado (2) - Total registrado (1)", "Total registrado (1)", (" (9)", " (10)")),
+            ("Total índice de salarios - Total registrado (1)", "Total registrado (1)", (" (11)", " (12)")),
+        )
+        for periodo, sufijo in zip(("igual mes del año anterior", "diciembre del año anterior"), sufijos)
+    },
+    # En el cuadro 1 la forma publicada es la larga; en el 2, la corta.
+    ("indec-salarios", "Cuadro 1"): {
+        f"{variante} - {medida} - %{sufijo}": f"{publicado} - {medida} - %"
+        for variante, publicado, sufijos in (
+            ("Sector privado registrado", "Sector registrado - Sector privado registrado", ("", "")),
+            ("Sector público", "Sector registrado - Sector público", ("", "")),
+            ("Total registrado (1)", "Sector registrado - Total registrado (1)", ("", "")),
+            ("Total registrado (1)", "Sector privado no registrado (2) - Total registrado (1)", (" (9)", " (10)")),
+            ("Total registrado (1)", "Total índice de salarios - Total registrado (1)", (" (11)", " (12)")),
+        )
+        for medida, sufijo in zip(("Variación porcentual respecto del mes anterior", "Número índice"), sufijos)
+    },
+    ("indec-isac", "Cuadro 1"): {
+        f"{serie} - Variación porcentual - {variante}": f"{serie} - {publicado}"
+        for serie in ("Serie desestacionalizada (1)", "Serie tendencia-ciclo")
+        for variante, publicado in (
+            ("ISAC nivel general - Números índice", f"ISAC nivel general - {_ACUM} - Números índice"),
+            ("Variación porcentual respecto al mes anterior - %",
+             f"Variación porcentual respecto al mes anterior - {_ACUM} - %"),
+        )
+    },
+}
+
+
 def extract_tables(
     path: Path,
     route: str,
@@ -191,7 +233,7 @@ def extract_tables(
             header_matrix = raw.iloc[:header_end].ffill(axis=1)
             # Encabezados sin el título: lo que está en las columnas de fecha
             # (título del cuadro, «Período») se propaga a todas las demás.
-            propios = raw.iloc[:header_end].copy()
+            propios = raw.iloc[:header_end].astype(object)  # object: admite pd.NA también en columnas numéricas
             propios.iloc[:, : max(date_cols) + 1] = pd.NA
             propios = propios.ffill(axis=1)
             series: dict[str, pd.Series] = {}
@@ -219,9 +261,11 @@ def extract_tables(
                     # heredan el rótulo de la última columna y no son series.
                     auxiliares = True
                     continue
+                equivalentes = ROTULOS_EQUIVALENTES.get((source_code, source_sheet), {})
                 if label in rotulos:
                     label = f"{label} ({col + 1})"
                 rotulos.add(label)
+                label = equivalentes.get(label, label)
                 columna_bd = label
                 ident = f"{path.name}|{source_sheet}|{col + 1}"
                 if ids_estables:
@@ -233,6 +277,7 @@ def extract_tables(
                     base = " - ".join(cortos) or label
                     usados[base] = usados.get(base, 0) + 1
                     columna_bd = base if usados[base] == 1 else f"{base} ({usados[base]})"
+                    columna_bd = equivalentes.get(columna_bd, columna_bd)
                     ident = f"{path.name}|{source_sheet}|{slug(columna_bd)}"
                 series[columna_bd] = values
                 dates = pd.Series([date_values[i] for i in valid_rows])

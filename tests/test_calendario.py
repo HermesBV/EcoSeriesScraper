@@ -64,7 +64,7 @@ class CalendarioTests(unittest.TestCase):
         self.assertEqual(len(publicaciones), 4)
         ipc, canasta, expectativas, supermercados = publicaciones
         self.assertEqual((ipc.codigos, ipc.fecha, ipc.hora, ipc.periodo),
-                         (("indec-ipc",), date(2026, 10, 13), time(16), pd.Timestamp(2026, 9, 1)))
+                         (("indec-ipc", "indec-ipc-aperturas"), date(2026, 10, 13), time(16), pd.Timestamp(2026, 9, 1)))
         self.assertEqual(canasta.codigos, ())
         self.assertIsNone(expectativas.hora)
         self.assertEqual(expectativas.codigos, ())  # No es la encuesta de supermercados.

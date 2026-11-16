@@ -28,6 +28,12 @@ def descargar() -> Path:
 def procesar(fetch: bool = True) -> dict[str, int]:
     path = descargar() if fetch else ARCHIVO
     sheets, index = extract_tables(path, ROUTE, CODE, "INDEC IPI", ids_estables=True)
+    # Columnas sin encabezado propio (heredan el título del cuadro): son los números de fila de la
+    # hoja, no series. Su rótulo además cambia cada año con el título.
+    auxiliares = index["Columna BD"].astype(str).str.match(r"Cuadro \d+\.")
+    for pestana, columna in zip(index.loc[auxiliares, "Pestaña BD"], index.loc[auxiliares, "Columna BD"]):
+        sheets[pestana] = sheets[pestana].drop(columns=columna)
+    index = index[~auxiliares].reset_index(drop=True)
     index["Fuente"] = fuente_anual(URL, ARCHIVO)
     from tools.generar_codificacion import cargar_indice
     current = cargar_indice(); obsolete = set(current.loc[current["Código fuente"].eq(CODE), "Pestaña BD"].dropna()) if not current.empty else set()

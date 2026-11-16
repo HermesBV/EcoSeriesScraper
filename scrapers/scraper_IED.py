@@ -197,6 +197,16 @@ def _guardar_descarga(respuesta: requests.Response, temporal: Path) -> None:
                     archivo.write(bloque)
 
 
+# Trimestre en números romanos y año: «I 14», «III-2014», y también pegado («II14»), que el
+# Ministerio usa en varias hojas. Sin aceptar la forma pegada, el bloque trimestral se cortaba en
+# la primera fila escrita así y la serie quedaba con un solo dato.
+_TRIMESTRE = re.compile(r"(I|II|III|IV)[\s.-]*(\d{2}|\d{4})\s*\*{0,2}", re.I)
+
+
+# ID del índice de tiempo de una tabla: «98.2_IT_102_0_13», «63.2_INDICE_TIEMPO_…», «59.3_ICE_TIEMPO_…».
+_INDICE_TIEMPO = re.compile(r"\d+\.\d+_(?:IT_|\w*TIEM)", re.I)
+
+
 def parse_fecha_manual(valor: object) -> pd.Timestamp | pd.NaT:
     if pd.isna(valor):
         return pd.NaT
@@ -211,7 +221,7 @@ def parse_fecha_manual(valor: object) -> pd.Timestamp | pd.NaT:
         anio = int(float(texto))
         return pd.Timestamp(anio, 12, 31) if 1800 <= anio <= datetime.now().year + 2 else pd.NaT
 
-    trimestre = re.fullmatch(r"(I|II|III|IV)[\s.-]+(\d{2}|\d{4})", texto, re.I)
+    trimestre = _TRIMESTRE.fullmatch(texto)
     if trimestre:
         numero = {"I": 1, "II": 2, "III": 3, "IV": 4}[trimestre.group(1).upper()]
         texto_anio = trimestre.group(2)
@@ -309,13 +319,32 @@ def crear_indice_excel(excel_data: dict[str, pd.DataFrame]) -> dict[str, tuple[s
 
 
 def _columna_fecha(dataframe: pd.DataFrame, fila_id: int, columna_id: int) -> int:
-    candidatas = range(min(3, dataframe.shape[1], max(columna_id, 1)))
-    mejor_columna, mejor_puntaje = 0, -1
+    """Columna de fechas del bloque que empieza debajo del ID.
+
+    Gana la columna cuya primera fecha está más cerca del ID; a igual distancia, la que
+    tiene más fechas. Mirar sólo la cantidad en una ventana de 30 filas elegía la columna de
+    fechas del bloque siguiente cuando éste era más largo, y la serie salía con los datos de
+    otro cuadro (cuadros 63.1 y 64.1 de pobreza).
+    """
     muestra = dataframe.iloc[fila_id + 1 : fila_id + 31]
+    # Tablas puestas una al lado de la otra: cada una trae su propio índice de tiempo en la fila
+    # de los ID («59.2_IT_…», «63.2_INDICE_TIEM…»). Si esa columna tiene fechas, es la del bloque.
+    # Sin esto, la tabla de la derecha tomaba las fechas de la primera (cuadro 59.2 de canastas).
+    for columna in range(columna_id - 1, -1, -1):
+        celda = dataframe.iat[fila_id, columna]
+        if isinstance(celda, str) and _INDICE_TIEMPO.match(celda.strip()):
+            if any(pd.notna(parse_fecha_manual(valor)) for valor in muestra.iloc[:, columna]):
+                return columna
+            break  # el índice trae rótulos que no son fechas: vale la búsqueda general
+    candidatas = range(min(3, dataframe.shape[1], max(columna_id, 1)))
+    mejor_columna, mejor_clave = 0, (len(muestra) + 1, 0)
     for columna in candidatas:
-        puntaje = sum(pd.notna(parse_fecha_manual(valor)) for valor in muestra.iloc[:, columna])
-        if puntaje > mejor_puntaje:
-            mejor_columna, mejor_puntaje = columna, puntaje
+        validas = [pd.notna(parse_fecha_manual(valor)) for valor in muestra.iloc[:, columna]]
+        if not any(validas):
+            continue
+        clave = (validas.index(True), -sum(validas))
+        if clave < mejor_clave:
+            mejor_columna, mejor_clave = columna, clave
     return mejor_columna
 
 
@@ -326,7 +355,7 @@ def _tipo_fecha_cruda(valor: object) -> str:
     texto = str(valor).strip()
     if re.fullmatch(r"\d{4}(?:\.0)?", texto):
         return "anio"
-    if re.fullmatch(r"(I|II|III|IV)[\s.-]+(\d{2}|\d{4})", texto, re.I):
+    if _TRIMESTRE.fullmatch(texto):
         return "trimestre"
     if any(texto.lower().startswith(mes) for mes in MESES):
         return "mes"

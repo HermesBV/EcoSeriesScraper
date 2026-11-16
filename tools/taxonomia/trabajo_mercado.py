@@ -316,11 +316,10 @@ def _pobreza(serie: Serie) -> Clasificacion | None:
         datos = _POBREZA_HOJAS[serie.hoja]
         m = _LUGAR_POBREZA.search(serie.descripcion)
         cobertura = _cobertura(m.group(1)) if m else None
-        # Los cuadros 63.1 y 64.1 (rotulados «EPH puntual 2001-2003») están excluidos de la publicación
-        # (ver ``EXCLUIDAS``); la regla los deja en «Series históricas» sólo para que tengan clasificación.
-        # Las hojas LI (cuadros 61.1 y 62.1, rotuladas «2001 a 2003») y las LP con 63.2 y 64.2 traen la
-        # EPH continua 1.er semestre de 2003 a 2.º de 2006: son series vigentes por cobertura.
-        historica = serie.id.startswith(("63.1_", "64.1_"))
+        # Los cuadros .1 de cada hoja (61.1, 62.1, 63.1 y 64.1) son la EPH puntual, cinco ondas de mayo de
+        # 2001 a mayo de 2003: van a «Series históricas». Los .2 (63.2 y 64.2) son la EPH continua, del
+        # primer semestre de 2003 al segundo de 2006.
+        historica = serie.id.startswith(("61.1_", "62.1_", "63.1_", "64.1_"))
     if datos is None or cobertura is None:
         return None
     apertura, concepto, unidad_de_cuenta = datos
@@ -443,40 +442,7 @@ def _canastas(serie: Serie) -> Clasificacion | None:
 # ===================================================================================================
 # Correcciones: series que no se publican y unidades
 # ===================================================================================================
-# Sufijos de los 39 ID de los cuadros 63.1 (hogares) y 64.1 (personas): el prefijo se completa abajo.
-_SUFIJOS_PUNTUAL = (
-    "AIP_0_0_25", "BBC_0_0_18", "CRRT_0_0_29",
-    "C_0_0_10", "C_0_0_4", "C_0_0_9",
-    "F_0_0_7", "GC_0_0_12", "GC_0_0_14",
-    "GLP_0_0_13", "GM_0_0_12", "GP_0_0_11",
-    "GR_0_0_12", "GR_0_0_16", "GSF_0_0_13",
-    "GSJ_0_0_13", "GTTV_0_0_23", "G_0_0_3",
-    "JP_0_0_13", "LR_0_0_8", "MPB_0_0_15",
-    "NP_0_0_16", "PGBA_0_0_26", "P_0_0_7",
-    "RC_0_0_10", "RG_0_0_12", "RNE_0_0_15",
-    "RNO_0_0_15", "RP_0_0_15", "RP_0_0_16",
-    "RT_0_0_13", "SELB_0_0_24", "SLEC_0_0_21",
-    "SNVC_0_0_30", "SRT_0_0_15", "S_0_0_5",
-    "T_0_0_5", "URG_0_0_18", "VCP_0_0_23",
-)
-
-_MOTIVO_PUNTUAL = (
-    "Copia exacta de la serie de su par 63.2/64.2 (EPH continua, 1.er semestre 2003 a 2.º de 2006; 8 valores "
-    "idénticos en las 39 series de cada hoja) rotulada «EPH puntual 2001 a 2003»: la API de series declara para "
-    "este ID otro dato (EPH puntual, 5 ondas de may-2001 a may-2003, p. ej. pobreza de personas total 35,9 % a "
-    "54,7 %) que BD.xlsx no contiene"
-)
-
 EXCLUIDAS = {
-    **{(FUENTE, f"63.1_{sufijo}"): _MOTIVO_PUNTUAL for sufijo in _SUFIJOS_PUNTUAL},
-    **{(FUENTE, f"64.1_{sufijo}"): _MOTIVO_PUNTUAL for sufijo in _SUFIJOS_PUNTUAL},
-    # Hoja «CBA y CBT», cuadro 59.2 (4 series): BD.xlsx trae 8 valores fechados 1988-04 a 1991-07 que son los de
-    # oct-2000 a jul-2002 (la API los da desde 2000-10, «desde 2000 hasta 2006»: 63,51 oct-2000 … 100,25 jul-2002;
-    # coinciden con el promedio trimestral de la serie mensual 59.4 de la misma hoja, diferencia < 1e-12).
-    # Las fechas no corresponden al dato y el dato correcto está en 59.4.
-    **{(FUENTE, id): "Fechas erróneas (1988-1991): los valores son los de oct-2000 a jul-2002, iguales al "
-                     "promedio trimestral de la serie mensual 59.4 de la misma hoja y a la API (desde 2000-10)"
-       for id in ("59.2_CBA_0_D_26", "59.2_CBT_0_D_20", "59.2_LI_0_D_16", "59.2_LP_0_D_13")},
     # CBA de la región GBA (hoja «CBA y CBT Reg»): igual a la CBA de la hoja «CBA y CBT 2016» (módulo
     # precios_otros, que cubre hasta sep-2026) en los 123 meses en común (abr-2016 a jun-2026), diferencia 0.
     (FUENTE, "444.1_CANASTA_BARIAGBA_0_0_26_47"): (

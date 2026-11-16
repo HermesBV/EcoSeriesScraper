@@ -8,7 +8,7 @@ Ninguna corrección cambia valores de `BD.xlsx` ni identificadores. Hay tres mec
 
 - **Reglas**: la serie se nombra y se ubica por lo que realmente contiene, cuando eso quedó identificado para todo su período.
 - **`UNIDADES`**: reemplaza una unidad que la fuente informa mal (1.454 series).
-- **`EXCLUIDAS` y `HOJAS_EXCLUIDAS`**: la serie queda en el índice con `Estado = EXCLUIDA` y la web no la publica (568 series). Se usa sólo para columnas que no son series, copias exactas, y series cuyo contenido no corresponde a lo que declara la fuente y no se puede reparar.
+- **`EXCLUIDAS` y `HOJAS_EXCLUIDAS`**: la serie queda en el índice con `Estado = EXCLUIDA` y la web no la publica (486 series). Se usa sólo para columnas que no son series, copias exactas, y series cuyo contenido no corresponde a lo que declara la fuente y no se puede reparar.
 
 Estándar de evidencia: al menos dos confirmaciones independientes por corrección. Lo que no lo alcanzó quedó como duda (ver el final).
 
@@ -17,7 +17,6 @@ Estándar de evidencia: al menos dos confirmaciones independientes por correcci�
 | Qué | Series | Por qué |
 | --- | --- | --- |
 | Hoja 1.17, producción industrial por producto | 248 | Contenido erróneo comprobado en cuatro productos (papel sanitario es copia de ventas de gaseosas; cemento y naftas imposibles) y valores incompatibles con la unidad declarada en muchos otros. Se conservan petróleo crudo y gas natural, confirmados contra las hojas 1.24 y 1.25. |
-| Hojas `LP - Hog` y `LP - Pers`, cuadros 63.1 y 64.1 | 78 | En `BD.xlsx` son copia exacta de 63.2 y 64.2. La API da otros datos para esos ID. |
 | Hoja `CGI Puestos` anual | 61 | Cada valor «anual» es una observación trimestral fechada como año. El dato correcto está en la trimestral. |
 | Hoja 4.2.4, IPC GBA principales aperturas | 52 | Cada columna empalma dos conceptos: su rótulo hasta dic-2016 y la fila de igual posición del libro de aperturas del INDEC desde ene-2017. |
 | Supermercados y mayoristas | 35 | Copias exactas de totales entre cuadros. |
@@ -28,7 +27,7 @@ Estándar de evidencia: al menos dos confirmaciones independientes por correcci�
 | Salario real industrial 1985-90, anual | 7 | Copia de la tabla de salarios de 1960-64 con las fechas cambiadas. |
 | Mercado de cambios del BCRA | 7 | Un contador, un valor suelto de una tabla y cinco copias exactas. |
 | Columnas «Período» del IPI manufacturero | 5 | Traen el número de fila de la hoja de Excel. |
-| Otras | 25 | Canastas con fechas falsas, carbón de Sudáfrica (un índice rotulado como precio), tipo de cambio Banco Nación (empalma mayorista y minorista), copias sueltas. |
+| Otras | 21 | Carbón de Sudáfrica (un índice rotulado como precio), tipo de cambio Banco Nación (empalma mayorista y minorista), copias sueltas. |
 
 ## Rótulos equivocados en la fuente, ya resueltos por las reglas
 
@@ -42,16 +41,27 @@ Estándar de evidencia: al menos dos confirmaciones independientes por correcci�
 - **Títulos públicos**: año de vencimiento y tipo de bono mal informados en varias especies; identificados por su código.
 - **Monedas**: la cuenta devengado 1961-1992, el salario mínimo, el haber mínimo y los tipos de cambio históricos están en la moneda de cada época.
 
-## Errores de extracción del scraper
+## Errores de extracción del scraper (corregidos)
 
-Casos en que `BD.xlsx` no coincide con la API pública para el mismo ID. No son de la fuente y hay que corregirlos en `scrapers/scraper_IED.py`:
+Casos en que `BD.xlsx` no coincidía con la API pública para el mismo ID. Eran tres errores de `scrapers/scraper_IED.py`, corregidos y cubiertos por `tests/test_scraper_IED.py`:
 
-- **Series trimestrales con un solo dato.** En las hojas trimestrales de recaudación (`RECA`), de servicios públicos (1.10), de producción industrial (1.17) y de 1.13, 1.14, 1.14b, 1.16 y 1.18, la base tiene una sola observación y la API trae la serie completa.
-- **Cuadros 63.1, 64.1 y hojas `LI`**: la base trae los datos de otro cuadro.
-- **Cuadro 59.2 de canastas**: valores de 2000-2002 fechados como 1988-1991.
-- **`indec-cin`, cuadro 20**: la base lo trae desde 2020 y deja afuera 2006-2019.
+- **Series trimestrales con un solo dato.** El rótulo del trimestre escrito sin separador («II14») cortaba el bloque. Afectaba a las hojas trimestrales de recaudación (`RECA`), de servicios públicos (1.10), de producción industrial (1.17) y a 1.13, 1.14, 1.14b, 1.16, 1.18, 4.15.1 y 4.15.2.
+- **Columna de fechas de otro bloque.** Cuando una hoja apila dos cuadros, el primero tomaba las fechas (y con ellas los datos) del segundo: cuadros 61.1 a 64.1 de pobreza e indigencia (hojas `LI` y `LP`). Las hojas de tasas del mercado de trabajo (`TA 03-`, `TD 03-`, `TE 03-`, `TS 03-`, `TSD 03-`, `TSND 03-`) y de distribución del ingreso (`DP`) usaban una columna auxiliar de fechas que termina en 2013 y perdían todo lo posterior; ahora usan el índice de tiempo que declara el cuadro y sus fechas son las de fin de trimestre, como en el resto de las series trimestrales.
+- **Cuadros lado a lado.** El segundo cuadro heredaba las fechas del primero: cuadro 59.2 de canastas (valores de 2000-2003 fechados como 1988-1991), `CBA y CBT Reg`, `OEDE Asal prov` y `EIL - Sector`.
 
-Además falta incorporar `sh_ipc_aperturas.xls` del INDEC, que es donde están las aperturas finas del IPC GBA que la hoja 4.2.4 mezcla.
+Con la extracción corregida volvieron a publicarse las 78 series de pobreza de los cuadros 63.1 y 64.1 (antes copias de 63.2 y 64.2) y las cuatro canastas del cuadro 59.2. Los cuadros 61.1 a 64.1 son la EPH puntual de 2001 a 2003 y van a «Series históricas».
+
+Tres cosas más que dejó a la vista la corrida completa de noviembre de 2026:
+
+- **`BD.xlsx` no borra fechas.** Cada corrida suma y pisa, así que un arreglo de fechas deja las viejas. Para las pestañas afectadas (`EMP-LI - Hog-S-f2587`, `EMP-LI - Pers-S-0b74f`, `EMP-LP - Hog-S-17d17`, `EMP-LP - Pers-S-42c59` y `EMP-CBA y CBT-T-318e0`) hay que correr una vez `python -m tools.rehacer_pestanas <pestañas>` antes del scraper IED, en cada instalación que tenga la base anterior.
+- **Rótulos del INDEC que cambian de un mes a otro.** El índice de salarios y el cuadro 1 del ISAC salen con el encabezado combinado escrito de dos maneras; cada una daba un ID distinto y dejaba a la serie publicada como discontinuada. `ROTULOS_EQUIVALENTES` (`scrapers/indec_workbooks.py`) lleva cada variante al rótulo publicado. Si aparece una variante nueva se la ve como series nuevas sin regla de taxonomía en `python -m tools.taxonomia.revisar`.
+- **IPI manufacturero.** El libro de septiembre de 2026 hacía fallar la lectura de encabezados (columna numérica en la zona del título). Corregido; además el scraper ya no emite las columnas «Período», que traen el número de fila.
+
+Queda afuera la **indigencia semestral 2003-2006** (cuadros 61.2 y 62.2 de las hojas `LI`): los ID del libro no figuran en el catálogo de la API y el scraper sólo toma ID catalogados. Antes esos datos aparecían, por el error de fechas, bajo los ID de 61.1 y 62.1.
+
+No era un error: **`indec-cin`, cuadro 20**. El libro trae 2006-2019 en columnas anuales y desde 2020 en trimestrales; la base publica la serie trimestral y no le mezcla los años.
+
+Las aperturas finas del IPC por región salen ahora de `sh_ipc_aperturas.xls` del INDEC (`scrapers/scraper_INDEC_ipc_aperturas.py`, fuente `indec-ipc-aperturas`), que es la fuente correcta de lo que la hoja 4.2.4 mezcla.
 
 ## Verificado contra el original, sin errores
 
@@ -90,7 +100,6 @@ Conviene que los scrapers dejen de publicarlas.
 
 ### Series duplicadas en la fuente
 
-- `empleo_ingresos.xlsx`, hojas «LP - Hog» y «LP - Pers»: los cuadros 63.1 y 64.1 son copias exactas de 63.2 y 64.2 (78 series).
 - `empleo_ingresos.xlsx`, hoja «HaberMin»: la misma serie dos veces.
 - `sector_externo.xlsx`, hoja 41: «Total general» y «Empresas exportadoras» son la misma serie.
 - `sector_externo.xlsx`, hoja 16.a: cuatro agregados de la posición de inversión internacional aparecen en dos subtablas.

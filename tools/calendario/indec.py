@@ -23,6 +23,7 @@ DIAS = {"LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMING
 # INDEC, agregar su título acá para que el estado la controle.
 PUBLICACIONES = {
     "indec-ipc": r"Índice de precios al consumidor \(IPC\)",
+    "indec-ipc-aperturas": r"Índice de precios al consumidor \(IPC\)",
     "indec-emae": r"Estimador mensual de actividad económica",
     "indec-isac": r"Indicadores de coyuntura de la actividad de la construcción",
     "indec-ipi-manufacturero": r"Índice de producción industrial manufacturero",

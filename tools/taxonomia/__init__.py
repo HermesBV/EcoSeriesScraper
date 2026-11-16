@@ -67,7 +67,7 @@ class Clasificacion:
 
 
 MODULOS = (
-    "precios_ipc", "precios_otros", "actividad_supermercados",
+    "precios_ipc", "precios_ipc_aperturas", "precios_otros", "actividad_supermercados",
     "actividad_cuentas_nacionales",
     "actividad_industria",
     "actividad_otros",
@@ -204,6 +204,11 @@ def aplicar(inventario: pd.DataFrame) -> pd.DataFrame:
         hoja = hojas.get((serie.fuente, serie.archivo, serie.hoja))
         if clave in excluidas or (hoja is not None and serie.id not in hoja[1]):
             resultado.at[indice, "Estado"] = EXCLUIDA
+        elif _texto(fila.get("Estado")) == EXCLUIDA:
+            # Dejó de estar excluida (se corrigió el problema): recupera el estado que le daría su scraper.
+            fin = pd.to_datetime(fila.get("Fecha fin"), errors="coerce")
+            reciente = pd.notna(fin) and fin >= pd.Timestamp.now().normalize() - pd.DateOffset(years=3)
+            resultado.at[indice, "Estado"] = "VIGENTE" if reciente else "CERRADA"
         clasificacion = clasificar(serie)
         if clasificacion is None:
             continue

@@ -104,3 +104,55 @@ class ScraperIEDTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ExtraccionPorBloquesTests(unittest.TestCase):
+    """Casos tomados de los libros del Ministerio (hojas 4.15.1 y «LP - Hog»)."""
+
+    def test_trimestre_pegado_al_anio(self) -> None:
+        esperado = pd.Timestamp(2014, 6, 30)
+        for texto in ("II14", "II 14", "II-14", "II.14", "II 2014", "ii14", "II 14*"):
+            with self.subTest(texto=texto):
+                self.assertEqual(scraper_IED.parse_fecha_manual(texto), esperado)
+                self.assertEqual(scraper_IED._tipo_fecha_cruda(texto), "trimestre")
+        self.assertEqual(scraper_IED._tipo_fecha_cruda("2014"), "anio")
+        self.assertTrue(pd.isna(scraper_IED.parse_fecha_manual("I.S.03")))
+
+    def test_bloque_trimestral_no_se_corta_en_el_rotulo_pegado(self) -> None:
+        hoja = pd.DataFrame([
+            ["98.2_IT", "98.2_INNG"],
+            ["I 14", 97.8], ["II14", 103.8], ["III 14", 108.2], ["IV 14", 112.2], ["I 15", 115.9],
+            [None, None],
+            ["98.3_IT", "98.3_INNG"],
+            [pd.Timestamp(2013, 12, 1), 91.5],
+        ])
+        serie = scraper_IED.extraer_serie_desde_indice({"4.15.1": hoja}, ("4.15.1", 0, 1))
+        self.assertEqual(serie["valor"].tolist(), [97.8, 103.8, 108.2, 112.2, 115.9])
+
+    def test_la_columna_de_fechas_es_la_del_bloque_del_id(self) -> None:
+        # Bloque 63.1: fechas en la columna 1. Debajo, el 63.2, más largo, con fechas en la columna 0.
+        filas = [[None, "63.1_IT", "63.1_T"]]
+        filas += [[None, pd.Timestamp(2001 + n // 2, 5 if n % 2 == 0 else 10, 1), valor]
+                  for n, valor in enumerate((0.262, 0.28, 0.414, 0.457, 0.426))]
+        filas += [[None, None, None], [None, "63.2_IT", "63.2_H"]]
+        filas += [[pd.Timestamp(2003 + n // 2, 1 if n % 2 == 0 else 7, 1), f"{'I' if n % 2 == 0 else 'II'}.S.{3 + n // 2:02d}", valor]
+                  for n, valor in enumerate((0.427, 0.365, 0.335, 0.298, 0.288, 0.247, 0.231, 0.192))]
+        hoja = pd.DataFrame(filas)
+        self.assertEqual(scraper_IED._columna_fecha(hoja, 0, 2), 1)
+        puntual = scraper_IED.extraer_serie_desde_indice({"LP - Hog": hoja}, ("LP - Hog", 0, 2))
+        self.assertEqual(puntual["valor"].tolist(), [0.262, 0.28, 0.414, 0.457, 0.426])
+        self.assertEqual(scraper_IED._columna_fecha(hoja, 7, 2), 0)
+        continua = scraper_IED.extraer_serie_desde_indice({"LP - Hog": hoja}, ("LP - Hog", 7, 2))
+        self.assertEqual(len(continua), 8)
+
+    def test_tablas_lado_a_lado_usan_su_propio_indice_de_tiempo(self) -> None:
+        # Cuadros 59.1 (1988-1991) y 59.2 (2000-2002) de canastas, en la misma fila de ID.
+        filas = [["59.1_IT_0_D_13", "59.1_CBA_0_D_26", None, "59.2_IT_0_D_13", "59.2_CBA_0_D_26"]]
+        filas += [[pd.Timestamp(1988 + n, 4, 1), 100.0 + n, None, pd.Timestamp(2000 + n, 10, 1), 60.0 + n] for n in range(3)]
+        hoja = pd.DataFrame(filas)
+        self.assertEqual(scraper_IED._columna_fecha(hoja, 0, 4), 3)
+        derecha = scraper_IED.extraer_serie_desde_indice({"CBA y CBT": hoja}, ("CBA y CBT", 0, 4))
+        self.assertEqual(derecha["fecha"].dt.year.tolist(), [2000, 2001, 2002])
+        self.assertEqual(derecha["valor"].tolist(), [60.0, 61.0, 62.0])
+        izquierda = scraper_IED.extraer_serie_desde_indice({"CBA y CBT": hoja}, ("CBA y CBT", 0, 1))
+        self.assertEqual(izquierda["fecha"].dt.year.tolist(), [1988, 1989, 1990])

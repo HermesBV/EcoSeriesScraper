@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-02T11:57:23",
+ "generado": "2026-11-15T23:23:43",
  "lecturas": {
   "INDEC": {
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0",
@@ -740,7 +740,8 @@
    "hora": "16:00",
    "periodo": "2026-07-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -1074,7 +1075,8 @@
    "hora": "16:00",
    "periodo": "2026-08-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -1450,7 +1452,8 @@
    "hora": "16:00",
    "periodo": "2026-09-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -1797,7 +1800,8 @@
    "hora": "16:00",
    "periodo": "2026-10-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -2178,7 +2182,8 @@
    "hora": "16:00",
    "periodo": "2026-11-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -2516,7 +2521,8 @@
    "hora": "16:00",
    "periodo": "2026-12-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },
@@ -2778,7 +2784,8 @@
    "hora": "16:00",
    "periodo": "2027-01-01",
    "codigos": [
-    "indec-ipc"
+    "indec-ipc",
+    "indec-ipc-aperturas"
    ],
    "calendario": "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
   },

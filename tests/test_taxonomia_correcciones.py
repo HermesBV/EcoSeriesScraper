@@ -65,3 +65,18 @@ class HojasExcluidasTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DejarDeExcluirTest(unittest.TestCase):
+    def test_una_serie_que_ya_no_esta_excluida_recupera_su_estado(self):
+        import pandas as pd
+        from tools import taxonomia
+        filas = pd.DataFrame([
+            {"Código fuente": "datos.gob.ar", "ID": "64.1_T_0_0_5", "Nombre serie": "x", "Estado": "EXCLUIDA",
+             "Hoja origen": "LP - Pers", "Archivo origen": "empleo_ingresos.xlsx", "Fecha fin": "2003-01-01",
+             "Descripción": "Población con ingresos debajo de línea de pobreza (%) de 2001 a 2003. TOTAL. EPH puntual."},
+            {"Código fuente": "datos.gob.ar", "ID": "41.1_PPSOU_0_M_33", "Nombre serie": "x", "Estado": "CERRADA",
+             "Hoja origen": "1.17 Productos ind.", "Archivo origen": "actividad.xlsx", "Fecha fin": "2020-05-01"},
+        ])
+        estados = list(taxonomia.aplicar(filas)["Estado"])
+        self.assertEqual(estados, ["CERRADA", "EXCLUIDA"])

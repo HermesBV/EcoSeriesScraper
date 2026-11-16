@@ -205,7 +205,7 @@ class PobrezaTest(unittest.TestCase):
         s = serie("LI - Hog", "61.1_RNE_0_0_15", "hogares_indigentes_pct_region_nordeste",
                   "Hogares con ingresos debajo de línea de indigencia (%) de 2001 a 2003. Región Nordeste", "S", "CERRADA")
         self.assertEqual(clasificar(s), esperado(TRABAJO, POBREZA, "Incidencia de la indigencia · Hogares · Noreste",
-                                                 "Regiones", "Indigencia", unidad=PROP))
+                                                 "Series históricas", "Indigencia", unidad=PROP))
 
     def test_indigencia_aglomerado_compuesto(self):
         s = serie("LI - Pers", "62.1_GTTV_0_0_23", "x",
@@ -313,16 +313,9 @@ class CanastasTest(unittest.TestCase):
 class CorreccionesTest(unittest.TestCase):
     def test_exclusiones(self):
         claves = list(EXCLUIDAS)
-        self.assertEqual(len(claves), 83)
-        self.assertTrue(all(fuente == "datos.gob.ar" for fuente, _ in claves))
-        # 78 copias de los cuadros 63.1 y 64.1 (rotulados «EPH puntual») de los pares 63.2 y 64.2.
-        puntual = [id for _, id in claves if id.startswith(("63.1_", "64.1_"))]
-        self.assertEqual(len(puntual), 78)
-        self.assertEqual(sum(id.startswith("63.1_") for id in puntual), 39)
-        # Las continuas 63.2 y 64.2 y las hojas LI (61.1, 62.1) se publican.
-        self.assertFalse([id for _, id in claves if id.startswith(("61.1_", "62.1_", "63.2_", "64.2_"))])
-        # Cuadro 59.2 con fechas erróneas (el dato está en la serie mensual 59.4) y CBA GBA copia de la hoja 2016.
-        self.assertIn(("datos.gob.ar", "59.2_CBA_0_D_26"), EXCLUIDAS)
+        self.assertEqual(len(claves), 1)
+        # Los cuadros de pobreza 63.1 y 64.1 y las canastas 59.2 volvieron a publicarse al corregir la extracción.
+        self.assertFalse([id for _, id in claves if id.startswith(("59.2_", "61.", "62.", "63.", "64."))])
         self.assertIn(("datos.gob.ar", "444.1_CANASTA_BARIAGBA_0_0_26_47"), EXCLUIDAS)
         self.assertNotIn(("datos.gob.ar", "444.1_CANASTA_batotGBA_0_0_26_47"), EXCLUIDAS)
         self.assertTrue(all(EXCLUIDAS.values()))
@@ -340,11 +333,11 @@ class CorreccionesTest(unittest.TestCase):
                                   "58.1_MP_0_M_24", "58.1_MP_0_M_13"})
 
     def test_pobreza_indigencia_continua_es_vigente_y_la_puntual_es_historica(self):
-        # LI (cuadros 61.1/62.1, «2001 a 2003»): traen la EPH continua 2003-2006; van por cobertura.
+        # LI (cuadros 61.1/62.1): EPH puntual, ondas de mayo de 2001 a mayo de 2003.
         s = serie("LI - Pers", "62.1_T_0_0_5", "x",
                   "Población con ingresos debajo de línea de indigencia (%) de 2001 a 2003. TOTAL", "S", "CERRADA")
         self.assertEqual(clasificar(s), esperado(TRABAJO, POBREZA, "Incidencia de la indigencia · Personas",
-                                                 "Total aglomerados", "Indigencia", unidad=PROP))
+                                                 "Series históricas", "Indigencia", unidad=PROP))
         # La EPH puntual real (Gran Buenos Aires 1988-2003) va a «Series históricas» con su apertura.
         s = serie("EPH Puntual - PeI", "60.1_IH_0_0_18", "indigentes_hogares",
                   "Hogares con ingresos debajo de línea de indigencia (%) desde 1988 hasta 2003", "S", "CERRADA")
