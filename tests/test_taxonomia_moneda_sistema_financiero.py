@@ -75,7 +75,7 @@ CASOS = (
      c(I, BP, "ROA · Bancos públicos (% anualizado del activo neteado)", "%")),
     (serie(H12, "332.2_BANCOS_PUBUAL__40", "M", "bancos_publicos_9_eficiencia_acumulado_anual",
            "Bancos Públicos eficiencia acumulado anual"),
-     c(I, BP, "Eficiencia · Bancos públicos", "%")),
+     c(I, BP, "Eficiencia · Bancos públicos (margen financiero y servicios, % de los gastos de administración)", "%")),
     # 8.12: capital, con las distintas grafías de la fuente
     (serie(H12, "332.2_BANCOS_PRIAL___50", "M", "bancos_priv_10a_integracion_capital_", "Bancos Privados Integración capital"),
      c(I, BV, "Integración de capital · Bancos privados (% de los activos ponderados por riesgo)", "%")),
@@ -94,7 +94,7 @@ CASOS = (
      c(I, BE, "Integración de capital · Riesgo de crédito · Bancos privados extranjeros "
               "(% de los activos ponderados por riesgo de crédito)", "%")),
     (serie(H12, "332.2_BANCOS_PRITAL__40", "M", "bancos_priv_12_posicion_capital", "Bancos Privados Posición capital"),
-     c(I, BV, "Posición de capital · Bancos privados (% de la exigencia)", "%")),
+     c(I, BV, "Posición de capital · Bancos privados (exceso sobre la exigencia, % de la exigencia)", "%")),
     # 8.13 Rentabilidad
     (serie(H13, "333.2_SIST_FINANANC_M_25", "M", "sist_financ_margen_financ", "Sist financ margen financ"),
      c(R, SF, "Margen financiero", "Millones de pesos")),

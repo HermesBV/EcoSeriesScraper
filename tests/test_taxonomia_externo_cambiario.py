@@ -3,7 +3,8 @@
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.externo_cambiario import clasificar
+from tools.taxonomia import correcciones
+from tools.taxonomia.externo_cambiario import EXCLUIDAS, UNIDADES, clasificar
 
 SECTOR_EXTERNO = "Sector externo"
 MONEDA = "Moneda y sistema financiero"
@@ -58,6 +59,8 @@ class TipoDeCambioNominal(unittest.TestCase):
         b = serie("bcra-com3500", "Serie de TCNPM|nan", archivo="com3500.xls", hoja="Serie de TCNPM")
         self.assertEqual(clasificar(a), esperada)
         self.assertEqual(clasificar(b), esperada)
+        # La segunda es una copia de la primera y no se publica.
+        self.assertIn(("bcra-com3500", "Serie de TCNPM|nan"), EXCLUIDAS)
 
     def test_bandas_cambiarias(self):
         for lado in ("Inferior", "Superior"):
@@ -94,7 +97,8 @@ class TipoDeCambioNominal(unittest.TestCase):
         hoja = "8.8. Tipos de cambio historicos"
         casos = {
             "dolar_referencia_com_3500": ("Tipo de cambio · Oficial mayorista (A 3500)", "Oficial mayorista"),
-            "dolar_estadounidense": ("Tipo de cambio · Dólar estadounidense", "Oficial mayorista"),
+            "dolar_estadounidense": ("Tipo de cambio · Dólar estadounidense · Tipo de cotización",
+                                     "Oficial mayorista"),
             "dolar_libre_venta": ("Tipo de cambio · Dólar libre · Venta", "Series históricas"),
             "dolar_finan_esp_compra": ("Tipo de cambio · Dólar financiero especial · Compra", "Series históricas"),
             "dolar_tipo_unico": ("Tipo de cambio · Tipo de cambio único", "Series históricas"),
@@ -115,8 +119,28 @@ class TipoDeCambioNominal(unittest.TestCase):
     def test_promedio_anual_del_dolar_estadounidense(self):
         s = datos("precios.xlsx", "4.8.1", "Cotizacion Peso argentino", "I")
         self.assertEqual(clasificar(s), esperado(
-            "Tipo de cambio nominal", "Tipo de cambio · Dólar estadounidense (promedio)", "Oficial mayorista",
-            unidad="Pesos por dólar"))
+            "Tipo de cambio nominal", "Tipo de cambio · Dólar estadounidense · Tipo de cotización (promedio)",
+            "Oficial mayorista", unidad="Pesos por dólar"))
+
+    def test_el_dolar_estadounidense_no_se_llama_como_la_a3500(self):
+        # Difieren (cierre contra promedio de la rueda): hasta 4-6 % en días sueltos.
+        hoja = "8.8. Tipos de cambio historicos"
+        a3500 = clasificar(datos("dinero_bancos.xlsx", hoja, "dolar_referencia_com_3500", "D"))
+        dolar = clasificar(datos("dinero_bancos.xlsx", hoja, "dolar_estadounidense", "D"))
+        self.assertNotEqual(a3500.nombre, dolar.nombre)
+
+    def test_unidad_de_los_tipos_de_cambio_historicos(self):
+        # Moneda de cada época, sin convertir (peso ley, peso argentino, austral, peso).
+        ids = {"175.1_DR_TIPOICO_0_0_16": "Pesos ley 18.188 por dólar",
+               "175.1_DR_FINANTA_0_0_22": "Pesos ley 18.188 por dólar",
+               "175.1_DR_LIBRNTA_0_0_17": "Moneda de cada época por dólar (sin convertir)",
+               "175.1_DR_OFICPRA_0_0_20": "Moneda de cada época por dólar (sin convertir)"}
+        for id_, unidad in ids.items():
+            with self.subTest(id_):
+                self.assertEqual(UNIDADES[("datos.gob.ar", id_)], unidad)
+        # La serie vigente y la A 3500 siguen en pesos por dólar.
+        self.assertNotIn(("datos.gob.ar", "175.1_DR_ESTANSE_0_0_20"), UNIDADES)
+        self.assertNotIn(("datos.gob.ar", "175.1_DR_REFE500_0_0_25"), UNIDADES)
 
 
 class TipoDeCambioReal(unittest.TestCase):
@@ -150,14 +174,23 @@ class TipoDeCambioReal(unittest.TestCase):
                 self.assertEqual(clasificar(datos("precios.xlsx", "4.8.2", variable, "A")).nombre,
                                  f"ITCRB · {pais}")
 
-    def test_nominal_multilateral_y_bilaterales(self):
+    def test_nominal_multilateral_y_bilaterales_cuelgan_del_tipo_de_cambio_nominal(self):
         nominal = itc("ITCNMSerie.xlsx", "ITCNM y bilaterales",
                       "indice-de-tipo-de-cambio-nominal-multilateral-itcnm")
+        brasil = itc("ITCNMSerie.xlsx", "ITCNM y bilaterales prom. mens.", "itcnb-brasil", "M")
         sudamerica = itc("ITCNMSerie.xlsx", "ITCNM y bilaterales prom. mens.", "itcnb-sudamerica", "M")
-        self.assertEqual(clasificar(nominal), esperado(
-            "Tipo de cambio real", "ITCNM", "Nominal multilateral (ITCNM)", unidad=ITC))
+        grupo = "Índices nominales (ITCNM e ITCNB)"
+        self.assertEqual(clasificar(nominal), esperado("Tipo de cambio nominal", "ITCNM", grupo, unidad=ITC))
+        self.assertEqual(clasificar(brasil), esperado("Tipo de cambio nominal", "ITCNB · Brasil", grupo, unidad=ITC))
         self.assertEqual(clasificar(sudamerica), esperado(
-            "Tipo de cambio real", "ITCNB · Sudamérica", "Nominal bilaterales (ITCNB)", unidad=ITC))
+            "Tipo de cambio nominal", "ITCNB · Sudamérica (promedio simple de Brasil, Chile y Uruguay)", grupo,
+            unidad=ITC))
+
+    def test_sudamerica_del_itcrb_es_el_promedio_simple_de_tres_paises(self):
+        s = itc("ITCRMSerie.xlsx", "ITCRM y bilaterales", "itcrb-sudamerica")
+        self.assertEqual(clasificar(s), esperado(
+            "Tipo de cambio real", "ITCRB · Sudamérica (promedio simple de Brasil, Chile y Uruguay)",
+            "Bilaterales (ITCRB)", unidad=ITC))
 
     def test_ponderadores(self):
         s = itc("ITCRMSerie.xlsx", "Ponderadores", "zona-euro", "M")
@@ -205,8 +238,13 @@ class Reservas(unittest.TestCase):
              "Reservas internacionales · Drenajes predeterminados · Posiciones cortas en forwards, futuros y swaps"
              " · De 1 a 3 meses", "II Drenajes netos predeterminados"),
             ("irfcl_nota_depositos_gobierno",
-             "Reservas internacionales · Custodia · Depósitos del Gobierno Nacional en moneda extranjera",
+             "Reservas internacionales · Custodia · Depósitos del Gobierno Nacional en otras monedas",
              "Notas del país"),
+            ("irfcl_nota_depositos_otras_monedas", "Reservas internacionales · Custodia · Depósitos en otras monedas",
+             "Notas del país"),
+            ("irfcl_nota_cheques_cdi",
+             "Reservas internacionales · Custodia · Cheques cancelatorios y certificados de depósito para la"
+             " inversión", "Notas del país"),
         )
         for variable, nombre, seccion in casos:
             with self.subTest(variable):
@@ -245,6 +283,22 @@ class Reservas(unittest.TestCase):
             clasificar(datos("dinero_bancos.xlsx", hoja, "posicion_neta_pases", "M")),
             esperado("Balance del BCRA", "Balance del BCRA · Pases · Posición neta (promedio)", "Pases",
                      unidad="Millones de pesos", tema=MONEDA))
+
+    def test_letras_en_dolares_estan_en_millones_de_pesos(self):
+        # El título dice «millones de dólares» pero el valor es el monto en dólares por el tipo de cambio de
+        # valuación (el cociente es constante de un día al siguiente).
+        hoja = "8.4 Res. Int. y Pasivos BCRA"
+        for frecuencia, nombre in (("D", "Balance del BCRA · Pasivos monetarios · Letras en dólares"),
+                                   ("M", "Balance del BCRA · Pasivos monetarios · Letras en dólares (promedio)")):
+            with self.subTest(frecuencia):
+                self.assertEqual(
+                    clasificar(datos("dinero_bancos.xlsx", hoja, "pasivos_monetarios_letras_dolares", frecuencia)),
+                    esperado("Balance del BCRA", nombre, "Pasivo", unidad="Millones de pesos", tema=MONEDA))
+        for variable in ("letras_liquidez_saldo_pesos", "pos_neta_det_des_pases_pasivos",
+                         "pos_neta_det_des_pases_activos"):
+            with self.subTest(variable):
+                self.assertEqual(clasificar(datos("dinero_bancos.xlsx", hoja, variable, "D")).unidad,
+                                 "Millones de pesos")
 
     def test_tipo_de_cambio_de_valuacion(self):
         hoja = "8.4 Res. Int. y Pasivos BCRA"
@@ -289,14 +343,30 @@ class BalanceCambiario(unittest.TestCase):
         self.assertEqual(resultado.indicador, "Balance cambiario")
         self.assertEqual(resultado.cobertura, "Otros")
 
+    def test_lo_que_no_es_una_serie_o_es_copia_no_se_publica(self):
+        mc = "bcra-mc-bc"
+        self.assertEqual(set(EXCLUIDAS), {
+            (mc, "Balance Cambiario|nan"),                      # contador
+            (mc, "Datos Mercado de Cambios|Monto"),             # valor suelto de una tabla de operaciones
+            (mc, "Cta. Financiera por sector|cap001"),          # = bal024
+            (mc, "Mercado de Cambios|mlc101"),                  # = bal053
+            (mc, "Anexo tarjetas y viajes|viajes010"),          # = mlc022
+            (mc, "Anexo tarjetas y viajes|viajes019"),          # = mlc039
+            ("bcra-com3500", "Serie de TCNPM|nan"),             # = promedio mensual de la otra hoja
+        })
+        self.assertTrue(set(EXCLUIDAS) <= set(correcciones()[0]))
+        for motivo in EXCLUIDAS.values():
+            self.assertTrue(motivo.strip())
+
     def test_cuenta_financiera_por_sector(self):
         s = balance("cap002", hoja="Cta. Financiera por sector")
         self.assertEqual(clasificar(s), esperado(
             "Balance cambiario", "Balance cambiario · Cuenta financiera · Sector privado no financiero",
             "Cuenta capital y financiera", "Cuenta financiera", unidad=MILLONES_USD))
-        # El total por sector es la cuenta financiera del balance.
+        # El total por sector es la cuenta financiera del balance (copia exacta, por eso está excluido).
         self.assertEqual(clasificar(balance("cap001", hoja="Cta. Financiera por sector")),
                          clasificar(balance("bal024")))
+        self.assertIn(("bcra-mc-bc", "Cta. Financiera por sector|cap001"), EXCLUIDAS)
 
     def test_hoja_20_de_datos_gob_ar_comparte_nombre_con_el_bcra(self):
         pares = (
@@ -323,6 +393,12 @@ class BalanceCambiario(unittest.TestCase):
         self.assertEqual(clasificar(s), esperado(
             "Balance cambiario", "Balance cambiario · Bienes · Cobros de exportaciones · Cobros anticipados",
             "Cuenta corriente", "Bienes", "Por modalidad de pago", unidad=MILLONES_USD))
+        # La primera modalidad se llama como en el BCRA («Cobros de exportaciones»), no «sin anticipo…».
+        simple = datos("sector_externo.xlsx", "21.Bienes por modalidad de pago", "bienes_cobros_exportaciones")
+        self.assertEqual(clasificar(simple).nombre,
+                         "Balance cambiario · Bienes · Cobros de exportaciones · Cobros de exportaciones")
+        self.assertEqual(clasificar(balance("mlc005", hoja="Mercado de Cambios")).nombre,
+                         "Mercado de cambios · Bienes · Cobros de exportaciones · Cobros de exportaciones")
         total = datos("sector_externo.xlsx", "21.Bienes por modalidad de pago", "pagos_importaciones_bienes")
         self.assertEqual(clasificar(total), clasificar(balance("bal004")))
 
@@ -391,15 +467,24 @@ class MercadoDeCambios(unittest.TestCase):
             "Mercado de cambios",
             "Mercado de cambios · Viajes y tarjetas · Ingresos · Tarjetas, incluye viajes · Servicios digitales",
             "Cuenta corriente", "Servicios", "Viajes y tarjetas", unidad=MILLONES_USD))
-        # Las cuatro series que coinciden con el mercado de cambios llevan su nombre y su grupo.
-        for viaje, mlc in ((3, "mlc016"), (10, "mlc022"), (12, "mlc033"), (19, "mlc039")):
+        # El transporte de pasajeros es idéntico al del mercado de cambios (se excluye por duplicado).
+        for viaje, mlc in ((10, "mlc022"), (19, "mlc039")):
             with self.subTest(viaje):
                 self.assertEqual(clasificar(viajes(viaje)), clasificar(self.mercado(mlc)))
+                self.assertIn(("bcra-mc-bc", f"Anexo tarjetas y viajes|viajes{viaje:03d}"), EXCLUIDAS)
+        # Los totales de consumos con tarjetas incluyen los servicios digitales desde julio de 2025 (el
+        # mercado de cambios los computa en «Otros servicios»): no son la misma serie.
+        for viaje, mlc in ((3, "mlc016"), (12, "mlc033")):
+            with self.subTest(viaje):
+                propia, ajena = clasificar(viajes(viaje)), clasificar(self.mercado(mlc))
+                self.assertNotEqual(propia.nombre, ajena.nombre)
+                self.assertIn("incluidos los servicios digitales", propia.nombre)
 
     def test_base_de_operaciones(self):
         s = balance("Monto", hoja="Datos Mercado de Cambios")
         resultado = clasificar(s)
         self.assertEqual((resultado.indicador, resultado.cobertura), ("Mercado de cambios", "Base de operaciones"))
+        self.assertIn(("bcra-mc-bc", "Datos Mercado de Cambios|Monto"), EXCLUIDAS)
 
 
 class Alcance(unittest.TestCase):

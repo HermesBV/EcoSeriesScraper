@@ -66,9 +66,9 @@ CASOS = (
      c(IS, f"{IS} · Sector privado registrado", "Sector privado registrado", unidad=IDX16)),
     (datos("IS", "sector_priv_no_regis_sin_mod_decreto"),
      c(IS, f"{IS} · Sector privado no registrado (sin modificaciones del Decreto 381/07)",
-       "Series históricas", unidad="Índice 2012=100")),
+       "Series históricas", unidad="Índice abr-2012=100")),
     (datos("IS", "nivel_gral_mod_decreto"),
-     c(IS, f"{IS} · Nivel general", "Series históricas", unidad="Índice 2012=100")),
+     c(IS, f"{IS} · Nivel general", "Series históricas", unidad="Índice abr-2012=100")),
     # --- RIPTE: una sola serie, dos fuentes -------------------------------------------------------
     (serie("mch-ripte", "Serie histórica", variable="remuneracion-imponible-promedio-trabajadores-estables"),
      c("RIPTE", "RIPTE", unidad="Pesos")),
@@ -204,9 +204,12 @@ CASOS = (
     (datos("Salario real Ind85-90", "variacion_salario_real_b", frecuencia="M"),
      c(SAL, f"{SAL} · Salario hora normal (precios constantes, var. % interanual)", "Series históricas",
        "Salario hora normal", unidad="%")),
-    (datos("Salario real Ind85-90", "poder_adquisitivo_base_1986", frecuencia="A"),
+    (datos("Salario real Ind85-90", "poder_adquisitivo_base_1986", frecuencia="M"),
      c(SAL, f"{SAL} · Poder adquisitivo del salario hora normal", "Series históricas",
        "Salario hora normal", unidad="Índice 1986=100")),
+    (datos("Salario real Ind85-90", "variacion_salario_real_a", frecuencia="M"),
+     c(SAL, f"{SAL} · Salario hora normal (precios constantes, var. % mensual)", "Series históricas",
+       "Salario hora normal", unidad="%")),
 )
 
 
@@ -226,6 +229,33 @@ class TestTrabajoSalarios(unittest.TestCase):
         agrupada = clasificar(sipa("A.6.1", "A.6.1. ... Con estacionalidad. Total país. En miles - Construcción"))
         rama = clasificar(sipa("A.2.1", "A.2.1. ... Con estacionalidad. Total país. En miles 1/. - Construcción"))
         self.assertEqual((agrupada.nombre, agrupada.cobertura), (rama.nombre, rama.cobertura))
+
+    def test_correcciones_explicitas(self):
+        from tools.taxonomia.trabajo_salarios import EXCLUIDAS, UNIDADES
+        # Salario real Ind85-90 anual: siete columnas copiadas de «Salario oficial60-75» (1960-64).
+        anuales = {i for (f, i) in EXCLUIDAS if i.startswith("355.1_")}
+        self.assertEqual(len(anuales), 7)
+        self.assertNotIn((DG, "355.2_REAL_BASE_986__14"), EXCLUIDAS)
+        # CGI Puestos anual: 61 series con los primeros trimestres; quedan el total y las tres públicas.
+        cgi = {i for (f, i) in EXCLUIDAS if i.startswith("325.1_")}
+        self.assertEqual(len(cgi), 61)
+        self.assertEqual(len(EXCLUIDAS), 68)
+        self.assertTrue(all(f == DG for (f, _) in EXCLUIDAS))
+        self.assertTrue(all(motivo.strip() for motivo in EXCLUIDAS.values()))
+        # Índice de salarios base 2012: vale 100 en abril de 2012.
+        self.assertEqual(len(UNIDADES), 16)
+        self.assertEqual(set(UNIDADES.values()), {"Índice abr-2012=100"})
+
+    def test_cgi_antiguo_por_rama_no_comparte_nombre_con_rt_puestos_x_sector(self):
+        cgi = clasificar(datos("CGI Puestos", "construccion", "construcción", "T"))
+        sector = clasificar(datos("Puestos x Sector", "construccion", frecuencia="T"))
+        self.assertNotEqual(cgi.nombre, sector.nombre)
+        # Subrama propia de la cuenta: sin marca.
+        sub = clasificar(datos("CGI Puestos", "ensenianza_privada", "enseñanza privada", "T"))
+        self.assertEqual(sub.nombre, "Puestos de trabajo registrados · Enseñanza privada")
+        total_cgi = clasificar(datos("CGI Puestos", "total", "total", "T"))
+        total_sector = clasificar(datos("Puestos x Sector", "sector_privado", frecuencia="T"))
+        self.assertEqual(total_cgi.nombre, total_sector.nombre)
 
     def test_fuera_de_alcance(self):
         self.assertIsNone(clasificar(serie("indec-ipc", "Cuadro 1", columna="Nivel general")))

@@ -12,9 +12,8 @@ Alcance (por ``Código fuente``, ``Archivo origen`` y ``Hoja origen``; nunca por
 sistema financiero» > «Balance del BCRA»):
 
     Tipo de cambio nominal      Oficial mayorista | Dólar blue | Dólar MEP | Bandas cambiarias |
-                                Otras monedas | Series históricas
-    Tipo de cambio real         Multilateral (ITCRM) | Bilaterales (ITCRB) | Nominal multilateral
-                                (ITCNM) | Nominal bilaterales (ITCNB) | Ponderadores | Series históricas
+                                Otras monedas | Índices nominales (ITCNM e ITCNB) | Series históricas
+    Tipo de cambio real         Multilateral (ITCRM) | Bilaterales (ITCRB) | Ponderadores | Series históricas
     Reservas internacionales    Saldos | Composición > I.A, I.B, II y Notas del país (secciones de la planilla IRFCL)
     Balance cambiario           Cuenta corriente | Cuenta capital y financiera | Variación de reservas |
                                 Ítem de memorándum | Otros
@@ -34,8 +33,28 @@ Cómo se deriva cada dimensión
   identidad está en ``Variable``. Las series de la hoja 20 se llevan al mismo concepto del Balance
   Cambiario del BCRA (se verificó que coinciden en los períodos recientes).
 * El ITCRM de ``bcra-itc`` y el de ``datos.gob.ar`` 4.8.2 son la misma serie (coinciden salvo
-  revisiones); el ITCRB con Estados Unidos del IIEP empalma con el del BCRA (coinciden desde 1997).
+  revisiones: en los meses la diferencia máxima es 0,90 % para el ITCRM y 0,19 % para los ITCRB); el
+  ITCRB con Estados Unidos del IIEP empalma con el del BCRA (idéntico en los 357 meses desde 1997).
   Los tres llevan el mismo nombre y el mismo grupo.
+* Auditoría de noviembre de 2026 (fuentes bajadas de nuevo: anexo del mercado de cambios y balance
+  cambiario, ITCRM/ITCNM, bandas, A 3500, planilla IRFCL de ago-2026 y API cambiaria del BCRA):
+  - Anexo del BCRA: los 184 códigos se contrastaron con la jerarquía real de encabezados (celdas
+    combinadas) y con identidades. En cada «Total» de la hoja «Balance Cambiario» y de «Mercado de
+    Cambios» el total va ANTES de sus componentes (cada grupo empieza con su «Total»). Cierran
+    exactamente (residuo < 1e-9): cc = bienes + servicios + primario + secundario; bienes =
+    cobros − pagos (egresos con signo positivo en el balance y NEGATIVO en el mercado de cambios:
+    allí total = ingresos + egresos); intereses = ingresos − egresos; egresos de intereses = FMI +
+    otros organismos + otros + Gobierno Nacional; variación de reservas por transacciones = cuenta
+    corriente + capital + financiera + concepto no informado; contable = transacciones + ajuste.
+    La cuenta financiera (bal024, mlc066) NO es la suma exacta de sus componentes: entre sep-2019 y
+    dic-2022 queda un residuo de −0,1 a −5,2 millones de dólares (mismo en las dos hojas), la parte
+    de la apertura que el BCRA no publica; no se corrige.
+  - Hojas 20 a 23 de ``sector_externo.xlsx``: mismo signo y mismo concepto que el anexo; difieren por
+    revisiones (máximo 593 millones de dólares, en 2003-2012 casi todas las series; desde 2013 sólo
+    unos pocos meses) y 7 series son idénticas.
+  - Desde julio de 2025 el BCRA incluye los servicios digitales en «Otros servicios» del mercado de
+    cambios (nota 8 del anexo); el anexo de tarjetas y viajes los mantiene dentro del total de
+    consumos con tarjetas. Por eso viajes003 y viajes012 ya no son mlc016 y mlc033.
 
 Convenciones de nombre: sin sufijo es el saldo o el valor del indicador; «(promedio)» es el
 promedio del período; el signo (ingresos y egresos) va en el nombre como «Ingresos» y «Egresos».
@@ -65,6 +84,57 @@ INDICE_ITC = "Índice 17-dic-2015=100"
 
 HISTORICAS = "Series históricas"
 PROMEDIO = "promedio"
+
+# --------------------------------------------------------------------------------------
+# Correcciones explícitas (auditoría de noviembre de 2026)
+# --------------------------------------------------------------------------------------
+
+_MC = "bcra-mc-bc"
+EXCLUIDAS = {
+    # No son series.
+    (_MC, "Balance Cambiario|nan"):
+        "Columna sin rótulo al final de la hoja: un contador (3762, 3765, 3768… de a 3 por mes, 2003-01 a"
+        " 2025-04), no un agregado cambiario.",
+    (_MC, "Datos Mercado de Cambios|Monto"):
+        "Valor suelto de una tabla de 270.000 operaciones (anexo, sector, concepto, monto): el scraper"
+        " se queda con la última fila de cada mes, que no es ningún agregado.",
+    # Copias exactas de otra serie de la misma fuente (se conserva la de la hoja principal).
+    (_MC, "Cta. Financiera por sector|cap001"):
+        "Idéntica en los 285 meses a «Balance Cambiario|bal024» (cuenta financiera, total).",
+    (_MC, "Mercado de Cambios|mlc101"):
+        "Idéntica en los 285 meses a «Balance Cambiario|bal053» (ítem de memorándum), con el mismo nombre.",
+    (_MC, "Anexo tarjetas y viajes|viajes010"):
+        "Idéntica en los 129 meses a «Mercado de Cambios|mlc022» (ingresos por transporte de pasajeros).",
+    (_MC, "Anexo tarjetas y viajes|viajes019"):
+        "Idéntica en los 129 meses a «Mercado de Cambios|mlc039» (egresos por transporte de pasajeros).",
+    ("bcra-com3500", "Serie de TCNPM|nan"):
+        "Copia de «TCR diario y TCNPM|Tipo de Cambio Nominal Promedio Mensual» (diferencia máxima 5e-5 en"
+        " 286 meses, redondeo a 4 decimales; ambas son el promedio de la A 3500).",
+}
+
+# Hoja 8.8: las series históricas se publican en la moneda de cada época, sin convertir. Cambios de
+# moneda: peso ley 18.188 (1-1-1970), peso argentino (1-6-1983, = 10.000 pesos ley), austral
+# (15-6-1985, = 1.000 pesos argentinos) y peso convertible (1-1-1992, = 10.000 australes). En el dato:
+# el dólar libre cae de 81,13 a 8,22 el 2-6-1983 (÷10: antes estaba en miles de pesos ley, 81.130) y de
+# 783,86 a 0,80 el 19-6-1985 (÷1.000); desde el 4-1-1990 (1.800 → 13,0) está en centenas de australes y
+# termina en 99,9 el 1-1-1992 (9.990 australes), que empalma con 0,991 pesos del dólar estadounidense
+# del 2-1-1992. El dólar financiero llega a 39.000 el 2-1-1983 (pesos ley), coherente con el libre de
+# 48,83 (miles) del 3-1-1983. Ningún tramo se reescala.
+_MONEDA_DE_CADA_EPOCA = "Moneda de cada época por dólar (sin convertir)"
+_PESOS_LEY = "Pesos ley 18.188 por dólar"
+UNIDADES = {
+    # Todo el período es anterior al 1-6-1983: pesos ley.
+    ("datos.gob.ar", "175.1_DR_TIPOICO_0_0_16"): _PESOS_LEY,       # tipo único 1970-71 y 1981-82
+    ("datos.gob.ar", "175.1_DR_FINANTA_0_0_22"): _PESOS_LEY,       # financiero venta 1971-1983-01
+    ("datos.gob.ar", "175.1_DR_FINAPRA_0_0_23"): _PESOS_LEY,       # financiero compra
+    ("datos.gob.ar", "175.1_DR_FINANTA_0_0_21"): _PESOS_LEY,       # financiero especial venta 1975-76
+    ("datos.gob.ar", "175.1_DR_FINAPRA_0_0_22"): _PESOS_LEY,       # financiero especial compra
+    # Atraviesan cambios de moneda (y de escala).
+    ("datos.gob.ar", "175.1_DR_LIBRNTA_0_0_17"): _MONEDA_DE_CADA_EPOCA,   # libre venta 1976-1992
+    ("datos.gob.ar", "175.1_DR_LIBRPRA_0_0_18"): _MONEDA_DE_CADA_EPOCA,   # libre compra
+    ("datos.gob.ar", "175.1_DR_OFICNTA_0_0_19"): _MONEDA_DE_CADA_EPOCA,   # oficial venta (pesos ley 1976, australes 1987-89)
+    ("datos.gob.ar", "175.1_DR_OFICPRA_0_0_20"): _MONEDA_DE_CADA_EPOCA,   # oficial compra
+}
 
 # --------------------------------------------------------------------------------------
 # Tipo de cambio nominal
@@ -128,9 +198,16 @@ def _ambito(serie: Serie) -> Clasificacion | None:
 
 
 # Hoja 8.8 «Tipos de cambio históricos»: el dólar de referencia A 3500 y los tipos vigentes
-# antes de 2002. El dólar estadounidense (desde 1992) es el tipo mayorista oficial en días corridos.
+# antes de 2002. «Dólar estadounidense» (desde 1992, días corridos) NO es la A 3500 (promedio de la
+# rueda): es el «tipo de cotización» del dólar que publica el BCRA (API de estadísticas cambiarias,
+# campo tipoCotizacion: 1.198 el 14-4-2025, 1.135 el 16-4, 1.094 el 21-4; coincide en 338 de 425 días
+# de 2025-26, el resto con diferencias de hasta 1 peso) y es la serie sobre la que el BCRA arma el ITCNB
+# con Estados Unidos (ITCNB = esta serie / su valor del 17-12-2015 × 100, mediana de la diferencia
+# 0,00 % en todos los años). Contra la A 3500: mediana 0,01-0,03 % en 2020-24, pero hasta 4-6 % en
+# días sueltos (2018, 2023, 2025). Desde el 21-7-2026 la hoja repite 1.477,5 (76 días): el valor real
+# de la API fue 1.483 el 22-7 y 1.520 el 5-10; por eso en oct-2026 parece diferir 3 % de la A 3500.
 _TC_HISTORICOS = {
-    "dolar_estadounidense": (OFICIAL, ("Dólar estadounidense",)),
+    "dolar_estadounidense": (OFICIAL, ("Dólar estadounidense", "Tipo de cotización")),
     "dolar_referencia_com_3500": (OFICIAL, (_A3500,)),
     "dolar_libre_compra": (HISTORICAS, ("Dólar libre", "Compra")),
     "dolar_libre_venta": (HISTORICAS, ("Dólar libre", "Venta")),
@@ -150,10 +227,12 @@ def _tipos_historicos(serie: Serie) -> Clasificacion | None:
 
 
 def _promedio_anual(serie: Serie) -> Clasificacion | None:
-    # Hoja 4.8.1 «Cotización peso argentino»: promedio anual del dólar estadounidense de la hoja 8.8
-    # (coincide con el promedio de esa serie diaria).
-    if serie.hoja == "4.8.1":
-        return _tc(OFICIAL, "Dólar estadounidense", medida=PROMEDIO)
+    # Hoja 4.8.1 «Cotización peso argentino»: promedio anual (fecha 31-dic de cada año) del tipo de
+    # cotización del dólar de la hoja 8.8: coincide con el promedio del año de esa serie diaria
+    # (diferencia ≤ 0,03 % de 2003 a 2023; 2023: 296,701 contra 296,706) y no con el valor de fin de
+    # año (13,04 contra 9,27 en 2015). Arranca en 2001 (0,9997), antes de la A 3500.
+    if serie.hoja.strip() == "4.8.1":
+        return _tc(OFICIAL, "Dólar estadounidense", "Tipo de cotización", medida=PROMEDIO)
     return None
 
 
@@ -163,22 +242,29 @@ def _promedio_anual(serie: Serie) -> Clasificacion | None:
 
 MULTILATERAL_REAL = "Multilateral (ITCRM)"
 BILATERALES_REALES = "Bilaterales (ITCRB)"
-MULTILATERAL_NOMINAL = "Nominal multilateral (ITCNM)"
-BILATERALES_NOMINALES = "Nominal bilaterales (ITCNB)"
 PONDERADORES = "Ponderadores"
+# El ITCNM y los ITCNB son índices del tipo de cambio nominal (sin deflactar por precios): cuelgan de
+# «Tipo de cambio nominal». Se verificó que el ITCNB con Estados Unidos es el tipo de cotización del
+# dólar dividido por su valor del 17-12-2015, por 100 (mediana de la diferencia 0,00 % cada año).
+INDICES_NOMINALES = "Índices nominales (ITCNM e ITCNB)"
 
-# «Sudamérica» es el promedio simple de Brasil, Chile y Uruguay (nota del libro del BCRA).
+# «Sudamérica» es el promedio simple de Brasil, Chile y Uruguay (nota del libro del BCRA: «*Promedio
+# simple de valores de Brasil, Chile y Uruguay», en el ITCRB y en el ITCNB). Verificado con los valores:
+# media aritmética de los tres bilaterales con diferencia 0 en los 10.881 días y en los 357 meses (la
+# media geométrica difiere hasta 4-6 %).
+SUDAMERICA = "Sudamérica (promedio simple de Brasil, Chile y Uruguay)"
 _PAISES = {
     "brasil": "Brasil", "canada": "Canadá", "chile": "Chile", "china": "China",
     "estados-unidos": "Estados Unidos", "india": "India", "japon": "Japón", "mexico": "México",
     "reino-unido": "Reino Unido", "suiza": "Suiza", "uruguay": "Uruguay", "vietnam": "Vietnam",
-    "zona-euro": "Zona Euro", "sudamerica": "Sudamérica",
+    "zona-euro": "Zona Euro", "sudamerica": SUDAMERICA,
 }
 _ITCNM = "indice-de-tipo-de-cambio-nominal-multilateral-itcnm"
 
 
-def _itc(cobertura: str, *partes: str, unidad: str = INDICE_ITC) -> Clasificacion:
-    return Clasificacion(tema=TEMA, indicador=TC_REAL, cobertura=cobertura,
+def _itc(cobertura: str, *partes: str, unidad: str = INDICE_ITC,
+         indicador: str = TC_REAL) -> Clasificacion:
+    return Clasificacion(tema=TEMA, indicador=indicador, cobertura=cobertura,
                          nombre=unir(*partes), unidad=unidad)
 
 
@@ -190,12 +276,12 @@ def _itc_bcra(serie: Serie) -> Clasificacion | None:
     if variable == "itcrm":
         return _itc(MULTILATERAL_REAL, "ITCRM")
     if variable == _ITCNM:
-        return _itc(MULTILATERAL_NOMINAL, "ITCNM")
-    for prefijo, sigla, grupo in (("itcrb-", "ITCRB", BILATERALES_REALES),
-                                  ("itcnb-", "ITCNB", BILATERALES_NOMINALES)):
+        return _itc(INDICES_NOMINALES, "ITCNM", indicador=TC_NOMINAL)
+    for prefijo, sigla, grupo, indicador in (("itcrb-", "ITCRB", BILATERALES_REALES, TC_REAL),
+                                             ("itcnb-", "ITCNB", INDICES_NOMINALES, TC_NOMINAL)):
         if variable.startswith(prefijo):
             pais = _PAISES.get(variable[len(prefijo):])
-            return _itc(grupo, sigla, pais) if pais else None
+            return _itc(grupo, sigla, pais, indicador=indicador) if pais else None
     return None
 
 
@@ -245,6 +331,13 @@ _DRENAJES = "Drenajes predeterminados"
 _CUSTODIA = "Custodia"
 _FORWARDS = "Posiciones cortas en forwards, futuros y swaps"
 
+# Verificado contra la planilla PDF del BCRA de agosto de 2026 (temp0826.pdf): las 22 series coinciden
+# al centavo, con sus secciones (I.A, I.A.1.a/b.i-iii, I.A.2 a 5, I.B, II.1, II.2 por vencimiento, II.3,
+# total II) y sus signos: los activos son positivos y los flujos netos predeterminados (sección II)
+# negativos, como en la planilla (II = II.1 + II.2 + II.3 exacto; II.2 = hasta 1 mes + 1 a 3 meses + 3 a
+# 12 meses). Las «Reservas brutas» del IRFCL y del IIEP son idénticas (313 meses, diferencia ≤ 0,005 por
+# redondeo). Problema de la fuente, sin corregir: de 2000-09 a 2006-06 «Divisas convertibles» (I.A.1)
+# repite «Valores» (I.A.1.a) en lugar del total (69 meses; desde 2006-07 I.A = I.A.1 + 2 + 3 + 4 + 5).
 # variable -> (cobertura, apertura, partes, medida, unidad)
 _IRFCL = {
     "irfcl_ia_activos_reserva": (SALDOS, "", (_BRUTAS,)),
@@ -270,14 +363,19 @@ _IRFCL = {
     "irfcl_ii2_1_a_3_meses": (COMPOSICION, SECCION_II, (_DRENAJES, _FORWARDS, "De 1 a 3 meses")),
     "irfcl_ii2_3_a_12_meses": (COMPOSICION, SECCION_II, (_DRENAJES, _FORWARDS, "De 3 a 12 meses")),
     "irfcl_ii3_otros": (COMPOSICION, SECCION_II, (_DRENAJES, "Otros")),
-    # Notas del país sobre II.1: son las partidas de custodia.
+    # Notas del país (c) sobre II.1, con la denominación de la nota del BCRA («Cheques Cancelatorios en
+    # Otras Monedas y Certificados de Depósitos para la Inversión», «Depósitos en Otras Monedas»,
+    # «Depósitos del Gobierno Nacional (en otras monedas)» y «Otras Obligaciones en Moneda Extranjera»).
+    # Son las partidas de custodia: la serie «Custodia» del IIEP es la suma de estas tres (idéntica desde
+    # 2012-05 salvo 2014-11 y 2016-08, ajustes de los autores; ago-2026: 16,12 + 2.779,07 + 13.601,18 = 16.396,37). La cuarta
+    # partida de la nota (35,36 en ago-2026) no está en el inventario.
     "irfcl_nota_cheques_cdi":
-        (COMPOSICION, NOTAS_DEL_PAIS, (_CUSTODIA, "Cheques cancelatorios y CDI")),
-    "irfcl_nota_depositos_gobierno":
-        (COMPOSICION, NOTAS_DEL_PAIS, (_CUSTODIA, "Depósitos del Gobierno Nacional en moneda extranjera")),
-    "irfcl_nota_depositos_otras_monedas":
         (COMPOSICION, NOTAS_DEL_PAIS,
-         (_CUSTODIA, "Depósitos de entidades financieras en moneda extranjera (encajes)")),
+         (_CUSTODIA, "Cheques cancelatorios y certificados de depósito para la inversión")),
+    "irfcl_nota_depositos_gobierno":
+        (COMPOSICION, NOTAS_DEL_PAIS, (_CUSTODIA, "Depósitos del Gobierno Nacional en otras monedas")),
+    "irfcl_nota_depositos_otras_monedas":
+        (COMPOSICION, NOTAS_DEL_PAIS, (_CUSTODIA, "Depósitos en otras monedas")),
 }
 
 
@@ -319,6 +417,12 @@ ACTIVOS = "Activo"
 
 
 def _balance_bcra(cobertura: str, *partes: str, unidad: str = "") -> Clasificacion:
+    # Todo el balance del BCRA de la hoja 8.4 está en millones de pesos (la fuente informa la unidad sólo
+    # en algunas series). En particular «Letras en dólares» (título: «en millones de dólares») son los
+    # dólares de las letras valuados en pesos: el monto en dólares (valor ÷ tipo de cambio de valuación)
+    # es constante entre revisiones (4.889,686408 los 11 días del 20 al 30-9-2026; 13.016,01 el
+    # 31-12-2025) y el valor (7,4 billones en sep-2026) es del orden de los pasivos monetarios en pesos
+    # (67 billones), no de las reservas en dólares (46.092 millones).
     return Clasificacion(tema=TEMA_MONEDA, indicador=BALANCE_BCRA, cobertura=cobertura,
                          nombre=unir("Balance del BCRA", *partes), unidad=unidad)
 
@@ -328,15 +432,17 @@ _PASIVOS_84 = {
     "pasivos_monetarios": _balance_bcra(PASIVOS, "Pasivos monetarios", unidad=MILLONES_DE_PESOS),
     "pasivos_monetarios_letras_pesos":
         _balance_bcra(PASIVOS, "Pasivos monetarios", "Letras", unidad=MILLONES_DE_PESOS),
-    "pasivos_monetarios_letras_dolares": _balance_bcra(PASIVOS, "Pasivos monetarios", "Letras en dólares"),
-    "letras_liquidez_saldo_pesos": _balance_bcra(PASIVOS, "Letras de liquidez"),
+    "pasivos_monetarios_letras_dolares":
+        _balance_bcra(PASIVOS, "Pasivos monetarios", "Letras en dólares", unidad=MILLONES_DE_PESOS),
+    "letras_liquidez_saldo_pesos": _balance_bcra(PASIVOS, "Letras de liquidez", unidad=MILLONES_DE_PESOS),
     "otros_depositos_gobierno":
         _balance_bcra(PASIVOS, "Otros depósitos del Gobierno", unidad=MILLONES_DE_PESOS),
     "posicion_neta_pases": _balance_bcra(PASES, "Pases", "Posición neta", unidad=MILLONES_DE_PESOS),
+    # Pasivos − activos = posición neta (diferencia máxima 1,0 en 8.673 días): millones de pesos.
     "pos_neta_det_des_pases_pasivos":
-        _balance_bcra(PASES, "Pases", "Posición neta de pases pasivos"),
+        _balance_bcra(PASES, "Pases", "Posición neta de pases pasivos", unidad=MILLONES_DE_PESOS),
     "pos_neta_det_des_pases_activos":
-        _balance_bcra(PASES, "Pases", "Posición neta de pases activos"),
+        _balance_bcra(PASES, "Pases", "Posición neta de pases activos", unidad=MILLONES_DE_PESOS),
     "redescuentos_adelantos_iliquidez":
         _balance_bcra(ACTIVOS, "Redescuentos y adelantos por iliquidez", unidad=MILLONES_DE_PESOS),
 }
@@ -349,6 +455,8 @@ def _reservas_y_pasivos(serie: Serie) -> Clasificacion | None:
     if variable == "reservas_internacionales_dolares":
         return _reservas(SALDOS, "", _BRUTAS, medida=PROMEDIO if mensual else "")
     if variable == "tipo_cambio_valuacion":
+        # Es la A 3500 desde 2005 (coincide en 8.200 de 8.673 días; desde 2005 sólo difieren 22 días, de
+        # 2003 a 2004 casi todos, hasta 3,3 %), por eso lleva su nombre propio y no el de la A 3500.
         return _tc(OFICIAL, "De valuación de las reservas", medida=PROMEDIO if mensual else "")
     pasivo = _PASIVOS_84.get(variable)
     if pasivo is not None and mensual:
@@ -584,8 +692,12 @@ _HOJA_21 = {
     "cobros_exportaciones_bienes": _BALANCE[3],
     "pagos_importaciones_bienes": _BALANCE[4],
 }
+# «Cobros de exportaciones» es la denominación del BCRA de la primera modalidad (código de concepto B01,
+# 101 «Cobros de exportaciones»; encabezado del anexo y título «Bienes Cobros de exportaciones» de la hoja
+# 21). Es el resto de los cobros que no son anticipados ni financiados: las cinco modalidades suman el
+# total sin residuo.
 _MODALIDADES_COBRO = {
-    "bienes_cobros_exportaciones": "Cobros sin anticipo ni financiación",
+    "bienes_cobros_exportaciones": "Cobros de exportaciones",
     "bienes_cobros_anticipados_exportaciones": "Cobros anticipados",
     "bienes_cobros_financiamientos_locales_exportaciones": "Financiaciones locales",
     "bienes_cobros_prefinanciaciones_expo_del_exterrior": "Prefinanciaciones del exterior",
@@ -698,7 +810,7 @@ def _tabla_mercado() -> dict[int, _Lugar]:
         100: (RESULTADO, "", "", ("Concepto no informado por el cliente",)),
     }
     modalidades = {
-        5: (COBROS, "Cobros sin anticipo ni financiación"), 6: (COBROS, "Cobros anticipados"),
+        5: (COBROS, "Cobros de exportaciones"), 6: (COBROS, "Cobros anticipados"),
         7: (COBROS, "Financiaciones locales"), 8: (COBROS, "Prefinanciaciones del exterior"),
         9: (COBROS, "Otros ingresos por bienes"),
         11: (PAGOS, "Pagos anticipados"), 12: (PAGOS, "Pagos a la vista"),
@@ -738,10 +850,14 @@ def _tabla_mercado() -> dict[int, _Lugar]:
 
 _MERCADO = _tabla_mercado()
 
-# Anexo de tarjetas y viajes. Cuatro series son las mismas que las del mercado de cambios
-# (ingresos y egresos de consumos con tarjetas y viajes, y de transporte de pasajeros) y
-# llevan su nombre. Se verificó con los valores (coinciden en todo el período).
+# Anexo de tarjetas y viajes. El transporte de pasajeros (viajes010 y viajes019) es idéntico al del
+# mercado de cambios (mlc022 y mlc039) y se excluye por duplicado. En cambio los totales de consumos con
+# tarjetas y viajes (viajes003 y viajes012) coinciden con mlc016 y mlc033 hasta junio de 2025 y desde
+# julio de 2025 difieren exactamente en los servicios digitales (viajes005 y viajes014: 145,8 en jul-2025,
+# 244,3 en ene-2026), que el mercado de cambios computa en «Otros servicios» (nota 8 del anexo): son
+# series distintas y llevan otro nombre.
 _TARJETAS_PASAJES = "Consumos con tarjetas, viajes y transporte de pasajeros"
+_CONSUMOS_CON_DIGITALES = "Consumos con tarjetas y viajes, incluidos los servicios digitales"
 
 
 def _viajes(*partes: str) -> _Lugar:
@@ -752,7 +868,7 @@ _TARJETAS_VIAJES = "Tarjetas, incluye viajes"
 _VIAJES = {
     1: _viajes(),
     2: _viajes(INGRESOS),
-    3: _MERCADO[16],
+    3: _viajes(INGRESOS, _CONSUMOS_CON_DIGITALES),
     4: _viajes(INGRESOS, _TARJETAS_VIAJES),
     5: _viajes(INGRESOS, _TARJETAS_VIAJES, "Servicios digitales"),
     6: _viajes(INGRESOS, _TARJETAS_VIAJES, "Otros consumos de bienes y servicios"),
@@ -761,7 +877,7 @@ _VIAJES = {
     9: _viajes(INGRESOS, "Otros viajes", "Billetes de no residentes"),
     10: _MERCADO[22],
     11: _viajes(EGRESOS),
-    12: _MERCADO[33],
+    12: _viajes(EGRESOS, _CONSUMOS_CON_DIGITALES),
     13: _viajes(EGRESOS, _TARJETAS_VIAJES),
     14: _viajes(EGRESOS, _TARJETAS_VIAJES, "Servicios digitales"),
     15: _viajes(EGRESOS, _TARJETAS_VIAJES, "Otros consumos de bienes y servicios"),

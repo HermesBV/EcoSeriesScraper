@@ -5,7 +5,8 @@ from __future__ import annotations
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.finanzas_publicas_otros import clasificar
+from tools.taxonomia.finanzas_publicas_otros import UNIDADES, clasificar
+from tools.taxonomia import finanzas_publicas_otros as modulo
 
 TEMA = "Finanzas públicas"
 AIF = "Cuenta ahorro-inversión-financiamiento (base devengado)"
@@ -220,6 +221,12 @@ CASOS = (
     (serie("RECA", "142.1_SISTE_2001_A_24", "sistema_seguridad_social",
            "Sistema seguridad social de los Recursos tributarios totales y por tributo. Anual (Base 2001)"),
      esperado(RECAUDACION, "Por tributo", "Seguridad social", "Recaudación · Seguridad social", MILLONES)),
+    (serie("RECA", "142.3_OTROS_2001_M_14", "otros_sipa",
+           "Otros sipa de los Recursos tributarios totales y por tributo. Mensual (Base 2001)", "M"),
+     esperado(RECAUDACION, "Por tributo", "Seguridad social", "Recaudación · Otros SIPA", MILLONES)),
+    (serie("RECA", "142.3_DEVOL_2001_M_12", "devoluciones",
+           "Devoluciones de los Recursos tributarios totales y por tributo. Mensual (Base 2001)", "M"),
+     esperado(RECAUDACION, "Por tributo", "IVA", "Recaudación · IVA · Devoluciones", MILLONES)),
     (serie("RECA_SUB", "172.3_SRIDAD_IAL_M_0_0_16", "seguridad_social", "Recaudación Seguridad Social. Anuales", "M"),
      esperado(RECAUDACION, "Por tributo", "Seguridad social", "Recaudación · Seguridad social", MILLONES)),
     (serie("RECA_SUB", "172.3_SRIDAD_IA_M_0_0_23", "seguridad_social_var_ia",
@@ -289,6 +296,43 @@ class PruebasFinanzasPublicasOtros(unittest.TestCase):
     def test_es_determinista(self):
         for entrada, _ in CASOS:
             self.assertEqual(clasificar(entrada), clasificar(entrada))
+
+    def test_no_se_excluye_ninguna_serie(self):
+        # Se revisaron los duplicados exactos de las 26 hojas: los iguales son partidas distintas que
+        # coinciden por construcción (p. ej. el total de erogaciones de las ISS), no copias.
+        self.assertEqual(getattr(modulo, "EXCLUIDAS", {}), {})
+
+    def test_unidades_de_la_cuenta_devengado_por_tramo(self):
+        casos = {
+            "432.1_AHORRORRO_DEVE_0_6_6": "Australes",
+            "439.1_AHORRORRO_DEVE_0_6_15": "Australes",
+            "432.2_AHORRORRO_DEVE_0_6_6": "Miles de australes (1985-1986: millones de australes)",
+            "439.2_AHORRORRO_DEVE_0_6_92": "Miles de australes (1985-1986: millones de australes)",
+            "432.3_AHORRORRO_DEVE_0_6_61": "Miles de pesos",
+            "439.3_AHORRORRO_DEVE_0_6_47": "Miles de pesos",
+            "432.4_AHORRORRO_DEVE_0_6_14": "Millones de pesos",
+            "439.4_AHORRORRO_DEVE_0_6_11": "Millones de pesos",
+        }
+        for id_, unidad in casos.items():
+            with self.subTest(id=id_):
+                self.assertEqual(UNIDADES[("datos.gob.ar", id_)], unidad)
+
+    def test_cantidad_de_unidades_corregidas(self):
+        # 1.095 series de las ocho hojas *_Dev_61 (269 + 284 + 273 + 269) y 124 de las hojas GP*_$ en pesos.
+        self.assertEqual(len(UNIDADES), 1095 + 124)
+        por_unidad = {}
+        for unidad in UNIDADES.values():
+            por_unidad[unidad] = por_unidad.get(unidad, 0) + 1
+        self.assertEqual(por_unidad, {
+            "Australes": 269, "Miles de australes (1985-1986: millones de australes)": 284,
+            "Miles de pesos": 273, "Millones de pesos": 269,
+            "Millones de pesos (1980-1986: miles de pesos)": 124,
+        })
+
+    def test_gasto_en_pesos_corrige_y_el_porcentaje_no(self):
+        self.assertEqual(UNIDADES[("datos.gob.ar", "451.1_GPCGPC_0_0_3_66")],
+                         "Millones de pesos (1980-1986: miles de pesos)")
+        self.assertNotIn(("datos.gob.ar", "451.2_GPC_PIBPIB_0_0_7_85"), UNIDADES)
 
 
 if __name__ == "__main__":

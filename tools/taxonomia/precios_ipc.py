@@ -30,10 +30,12 @@ Criterios que explican las decisiones (ver ``docs/taxonomia.md``):
   en cambio, publica porcentajes.
 * Los cuadros 4.2.x y 4.1.4, 4.1.5 y 4.1.8 figuran como CERRADA en datos.gob.ar (la tabla dejó de
   actualizarse), pero la base sigue vigente: no son una versión vieja y no van a «Series históricas».
-* Cuadro 4.2.4: sus valores de 2016 coinciden con la hoja «IPC GBA Base dic 2016» del INDEC, pero desde
-  2017 once de las doce divisiones traen los valores de otra división (p. ej. «Salud» trae los de
-  «Equipamiento y mantenimiento del hogar»). Los nombres siguen lo que declara la fuente; el
-  desfasaje es de los datos y hay que corregirlo donde se leen las columnas.
+* Cuadro 4.2.4: cada columna empalma por posición dos conceptos. Hasta dic-2016 trae el que dice su
+  rótulo (coincide con la hoja «IPC GBA Base dic 2016» del INDEC); desde ene-2017 trae la fila de igual
+  posición del libro de aperturas del INDEC, que es otra. Sólo las 12 primeras posiciones (nivel general,
+  alimentos y bebidas no alcohólicas y los diez rubros de alimentos y bebidas hasta el café) coinciden en
+  todo el período y se publican; las otras 26 (por cada frecuencia) están en ``EXCLUIDAS`` con su
+  evidencia. Los nombres de ese cuadro son los del rótulo; el contenido real se identificó con los valores.
 * «Series históricas»: la versión se escribe «cobertura base período»; el nivel 5 es la apertura
   (Nivel general, Capítulos, Categorías, Bienes y servicios, Principales aperturas). La base 1988
   tiene más de 150 aperturas y las parte en alimentos y bebidas / otros capítulos.
@@ -1247,6 +1249,91 @@ def _ipc_provincia(serie: Serie) -> Clasificacion | None:
 # ===================================================================================================
 def _fred(serie: Serie) -> Clasificacion | None:
     return _resultado("Nivel general", ESTADOS_UNIDOS, en_nombre="Estados Unidos", medida=DESESTACIONALIZADO)
+
+
+# ===================================================================================================
+# Series excluidas
+# ===================================================================================================
+# Cuadro 4.2.4 de datos.gob.ar (IPC GBA, principales aperturas), auditado el 15/11/2026.
+#
+# Cada columna (38 mensuales y 38 trimestrales) trae dos conceptos empalmados por posición:
+#   * abr-2016 a dic-2016: el concepto que dice su rótulo. Los valores coinciden al decimal con la hoja
+#     «IPC GBA Base dic 2016» del libro del INDEC (dic-2016 = 100 en todas).
+#   * ene-2017 en adelante: la fila número N del libro de aperturas del INDEC
+#     (https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_aperturas.xls, región GBA, índices), donde N
+#     es el lugar de la columna en la lista de 38 (nivel general, divisiones y aperturas, en el orden del
+#     INDEC). Coinciden 110 a 114 de 114 meses mensuales (y 37 a 39 de 39 trimestres) con una tolerancia de
+#     0,002 puntos de índice, y las variaciones de ene a may-2017 con la hoja «IPC GBA Abril 2016-Mayo 2017»
+#     del INDEC (diferencia 0,00 p. p. en las series que cambian de concepto). Las 12 primeras
+#     posiciones (nivel general, alimentos y bebidas no alcohólicas, alimentos, pan y cereales, carnes,
+#     leche, aceites, frutas, verduras, azúcar, bebidas no alcohólicas y café) coinciden con su rótulo en
+#     todo el período y se conservan; las otras 26 por frecuencia no se pueden renombrar (dos conceptos en
+#     una misma columna). Los datos de 2016 de esas 26 siguen en la hoja «IPC GBA Base dic 2016» del
+#     INDEC (indec-ipc); desde 2017 las divisiones están en 4.1.2 y 4.2.1 y en el libro nacional. Las
+#     aperturas finas de GBA desde 2017 no están en el inventario (el libro de aperturas no se descarga).
+#     Meses sueltos fuera de patrón (2020-07; 2023-03, en que muchas columnas traen la fila siguiente) son
+#     atípicos de la fuente y no se tocan.
+def _empalme_424(rotulo_2016: str, contenido_2017: str, puesto: int) -> str:
+    return (f"Empalme de dos conceptos: abr-dic 2016 «{rotulo_2016}» y desde ene-2017 «{contenido_2017}» "
+            f"(fila {puesto} del libro de aperturas del INDEC)")
+
+
+EXCLUIDAS = {
+    # mensuales
+    ("datos.gob.ar", "104.1_I2BAT_2016_M_34"): _empalme_424("Bebidas alcohólicas y tabaco", "Aguas minerales, bebidas gaseosas y jugos", 13),
+    ("datos.gob.ar", "104.1_I2BA_2016_M_27"): _empalme_424("Bebidas alcohólicas", "Bebidas alcohólicas y tabaco", 14),
+    ("datos.gob.ar", "104.1_I2BA_2016_M_15"): _empalme_424("Tabaco", "Bebidas alcohólicas", 15),
+    ("datos.gob.ar", "104.1_I2ABCFH_2016_M_30"): _empalme_424("Prendas de vestir y calzado", "Tabaco", 16),
+    ("datos.gob.ar", "104.1_I2I_2016_M_34"): _empalme_424("Prendas de vestir y materiales", "Prendas de vestir y calzado", 17),
+    ("datos.gob.ar", "104.1_I2R_2016_M_15"): _empalme_424("Calzado", "Prendas de vestir y materiales", 18),
+    ("datos.gob.ar", "104.1_I2RI_2016_M_53"): _empalme_424("Vivienda, agua, electricidad, gas y otros combustibles", "Calzado", 19),
+    ("datos.gob.ar", "104.1_I2RE_2016_M_25"): _empalme_424("Alquiler de la vivienda y gastos conexos", "Vivienda, agua, electricidad, gas y otros combustibles", 20),
+    ("datos.gob.ar", "104.1_I2C_2016_M_42"): _empalme_424("Mantenimiento y reparación de la vivienda", "Alquiler de la vivienda y gastos conexos", 21),
+    ("datos.gob.ar", "104.1_I2VSB_2016_M_43"): _empalme_424("Electricidad, gas y otros combustibles", "Alquiler de la vivienda", 22),
+    ("datos.gob.ar", "104.1_I2AV_2016_M_41"): _empalme_424("Equipamiento y mantenimiento del hogar", "Mantenimiento y reparación de la vivienda", 23),
+    ("datos.gob.ar", "104.1_I2SBCV_2016_M_49"): _empalme_424("Bienes y servicios para la conservación del hogar", "Electricidad, gas y otros combustibles", 24),
+    ("datos.gob.ar", "104.1_I2RGCV_2016_M_14"): _empalme_424("Salud", "Equipamiento y mantenimiento del hogar", 25),
+    ("datos.gob.ar", "104.1_I2EMH_2016_M_55"): _empalme_424("Productos medicinales, artefactos y equipos para la salud", "Bienes y servicios para la conservación del hogar", 26),
+    ("datos.gob.ar", "104.1_I2EH_2016_M_19"): _empalme_424("Transporte", "Salud", 27),
+    ("datos.gob.ar", "104.1_I2MH_2016_M_29"): _empalme_424("Adquisición de vehículos", "Productos medicinales, artefactos y equipos para la salud", 28),
+    ("datos.gob.ar", "104.1_I2PUL_2016_M_50"): _empalme_424("Funcionamiento de equipos de transporte personal", "Gastos de prepagas", 29),
+    ("datos.gob.ar", "104.1_I2SH_2016_M_26"): _empalme_424("Transporte público", "Transporte", 30),
+    ("datos.gob.ar", "104.1_I2AMGS_2016_M_33"): _empalme_424("Comunicación", "Adquisición de vehículos", 31),
+    ("datos.gob.ar", "104.1_I2PMAT_2016_M_27"): _empalme_424("Recreación y cultura", "Funcionamiento de equipos de transporte personal", 32),
+    ("datos.gob.ar", "104.1_I2SS_2016_M_60"): _empalme_424("Equipos audiovisuales, fotográficos y de procesamiento de la información", "Combustibles y lubricantes para vehículos de uso del hogar", 33),
+    ("datos.gob.ar", "104.1_I2TC_2016_M_60"): _empalme_424("Periódicos, diarios, revistas, libros y artículos de papelería", "Transporte público", 34),
+    ("datos.gob.ar", "104.1_I2T_2016_M_18"): _empalme_424("Educación", "Comunicación", 35),
+    ("datos.gob.ar", "104.1_I2TPP_2016_M_29"): _empalme_424("Restaurantes y hoteles", "Servicios de telefonía e internet", 36),
+    ("datos.gob.ar", "104.1_I2AV_2016_M_32"): _empalme_424("Bienes y servicios varios", "Recreación y cultura", 37),
+    ("datos.gob.ar", "104.1_I2FMV_2016_M_24"): _empalme_424("Cuidado personal", "Equipos audiovisuales, fotográficos y de procesamiento de la información", 38),
+    # trimestrales
+    ("datos.gob.ar", "104.2_I2016_BACO_2016_T_34"): _empalme_424("Bebidas alcohólicas y tabaco", "Aguas minerales, bebidas gaseosas y jugos", 13),
+    ("datos.gob.ar", "104.2_I2016_BCAS_2016_T_27"): _empalme_424("Bebidas alcohólicas", "Bebidas alcohólicas y tabaco", 14),
+    ("datos.gob.ar", "104.2_I2016_TACO_2016_T_15"): _empalme_424("Tabaco", "Bebidas alcohólicas", 15),
+    ("datos.gob.ar", "104.2_I2016_PADO_2016_T_30"): _empalme_424("Prendas de vestir y calzado", "Tabaco", 16),
+    ("datos.gob.ar", "104.2_I2016_PLES_2016_T_34"): _empalme_424("Prendas de vestir y materiales", "Prendas de vestir y calzado", 17),
+    ("datos.gob.ar", "104.2_I2016_CADO_2016_T_15"): _empalme_424("Calzado", "Prendas de vestir y materiales", 18),
+    ("datos.gob.ar", "104.2_I2016_VBES_2016_T_53"): _empalme_424("Vivienda, agua, electricidad, gas y otros combustibles", "Calzado", 19),
+    ("datos.gob.ar", "104.2_I2016_ANDA_2016_T_25"): _empalme_424("Alquiler de la vivienda y gastos conexos", "Vivienda, agua, electricidad, gas y otros combustibles", 20),
+    ("datos.gob.ar", "104.2_I2016_MNDA_2016_T_42"): _empalme_424("Mantenimiento y reparación de la vivienda", "Alquiler de la vivienda y gastos conexos", 21),
+    ("datos.gob.ar", "104.2_I2016_EBES_2016_T_43"): _empalme_424("Electricidad, gas y otros combustibles", "Alquiler de la vivienda", 22),
+    ("datos.gob.ar", "104.2_I2016_EGAR_2016_T_41"): _empalme_424("Equipamiento y mantenimiento del hogar", "Mantenimiento y reparación de la vivienda", 23),
+    ("datos.gob.ar", "104.2_I2016_BGAR_2016_T_49"): _empalme_424("Bienes y servicios para la conservación del hogar", "Electricidad, gas y otros combustibles", 24),
+    ("datos.gob.ar", "104.2_I2016_SLUD_2016_T_14"): _empalme_424("Salud", "Equipamiento y mantenimiento del hogar", 25),
+    ("datos.gob.ar", "104.2_I2016_PLUD_2016_T_55"): _empalme_424("Productos medicinales, artefactos y equipos para la salud", "Bienes y servicios para la conservación del hogar", 26),
+    ("datos.gob.ar", "104.2_I2016_TRTE_2016_T_19"): _empalme_424("Transporte", "Salud", 27),
+    ("datos.gob.ar", "104.2_I2016_AUOS_2016_T_29"): _empalme_424("Adquisición de vehículos", "Productos medicinales, artefactos y equipos para la salud", 28),
+    ("datos.gob.ar", "104.2_I2016_FONA_2016_T_50"): _empalme_424("Funcionamiento de equipos de transporte personal", "Gastos de prepagas", 29),
+    ("datos.gob.ar", "104.2_I2016_TICO_2016_T_26"): _empalme_424("Transporte público", "Transporte", 30),
+    ("datos.gob.ar", "104.2_I2016_IION_2016_T_33"): _empalme_424("Comunicación", "Adquisición de vehículos", 31),
+    ("datos.gob.ar", "104.2_I2016_RURA_2016_T_27"): _empalme_424("Recreación y cultura", "Funcionamiento de equipos de transporte personal", 32),
+    ("datos.gob.ar", "104.2_I2016_EINF_2016_T_60"): _empalme_424("Equipos audiovisuales, fotográficos y de procesamiento de la información", "Combustibles y lubricantes para vehículos de uso del hogar", 33),
+    ("datos.gob.ar", "104.2_I2016_PRIA_2016_T_60"): _empalme_424("Periódicos, diarios, revistas, libros y artículos de papelería", "Transporte público", 34),
+    ("datos.gob.ar", "104.2_I2016_EION_2016_T_18"): _empalme_424("Educación", "Comunicación", 35),
+    ("datos.gob.ar", "104.2_I2016_RLES_2016_T_29"): _empalme_424("Restaurantes y hoteles", "Servicios de telefonía e internet", 36),
+    ("datos.gob.ar", "104.2_I2016_BIOS_2016_T_32"): _empalme_424("Bienes y servicios varios", "Recreación y cultura", 37),
+    ("datos.gob.ar", "104.2_I2016_CONA_2016_T_24"): _empalme_424("Cuidado personal", "Equipos audiovisuales, fotográficos y de procesamiento de la información", 38),
+}
 
 
 # ===================================================================================================

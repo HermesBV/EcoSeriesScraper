@@ -6,7 +6,7 @@ import unittest
 
 from tools.taxonomia import Clasificacion, Serie
 from tools.taxonomia import precios_otros
-from tools.taxonomia.externo_comercio import clasificar
+from tools.taxonomia.externo_comercio import EXCLUIDAS, UNIDADES, clasificar
 
 EXTERNO = "Sector externo"
 INTERCAMBIO = "Intercambio comercial argentino"
@@ -68,6 +68,12 @@ class IntercambioComercial(unittest.TestCase):
         self.assertEqual(clasificar(serie("1. ICA", "74.1_IEMOA_0_A_48", "ica_exportacion_manufacturas_origen_agropecuario",
                                          frecuencia="A")), esperado)
         self.assertEqual(clasificar(serie("2. X Rubro", "75.3_ITMOA_0_M_13", "ica_total_moa")), esperado)
+
+    def test_suma_de_bienes_de_consumo_vehiculos_incluye_el_resto(self):
+        # IIBCVAPR = IIBCO + IIVAP + IIR (exacto en los 417 meses); la fuente omite «resto» en la descripción.
+        self.assertEqual(
+            clasificar(serie("1. ICA", "74.3_IIBCVAPR_0_M_58", "ica_importaciones_bs_consumo_vehiculos_automotor_pasajeros")).nombre,
+            "Importaciones · Bienes de consumo, vehículos automotores de pasajeros y resto")
 
     def test_suma_de_usos(self):
         self.assertEqual(
@@ -201,12 +207,18 @@ class IndicesDePreciosYCantidades(unittest.TestCase):
                              frecuencia="A")).nombre,
             "Ganancia o pérdida del intercambio (variación interanual)")
 
-    def test_base_1993_va_a_series_historicas_con_el_mismo_nombre(self):
+    def test_4_9_4_rotulada_base_1993_es_base_2004_y_lleva_el_nombre_de_la_hoja_13(self):
+        esperado = c(INDICES, "Poder de compra de las exportaciones", unidad="Millones de dólares de 2004")
         self.assertEqual(
             clasificar(serie("4.9.4", "120.1_PCE_1993_0_24", "poder_compra_exportacion", frecuencia="A",
+                             archivo="precios.xlsx")), esperado)
+        self.assertEqual(
+            clasificar(serie("13. Poder de Compra X", "83.1_PCEMD_2004_A_43", "poder_compra_exportaciones_millones_dolares",
+                             frecuencia="A")), esperado)
+        self.assertEqual(
+            clasificar(serie("4.9.4", "120.1_TI_1993_0_20", "terminos_intercambio", frecuencia="A",
                              archivo="precios.xlsx")),
-            c(INDICES, "Poder de compra de las exportaciones", cobertura="Series históricas",
-              apertura="Base 1993", unidad="Millones de dólares de 1993"))
+            c(INDICES, "Términos del intercambio", unidad="Índice 2004=100"))
 
     def test_mismo_indicador_y_forma_de_nombre_que_la_hoja_4_9_3(self):
         otra = precios_otros.clasificar(serie("4.9.3", "119.1_IPE_0_A_26", "Índice de precios de exportación. 2004=100",
@@ -262,7 +274,7 @@ class Precios(unittest.TestCase):
     def test_ipmp_vigente_y_serie_historica(self):
         self.assertEqual(
             clasificar(serie("18. IPMP", "88.3_IPMPI_1995_M_35", "indice_precios_materias_primas_ipmp")),
-            c("IPMP", "IPMP", unidad="Índice 2001=100", tema="Precios"))
+            c("IPMP", "IPMP", unidad="Índice dic-2001=100", tema="Precios"))
         self.assertEqual(
             clasificar(serie("18. IPMP", "88.3_IPMPP_1995_M_36", "indice_precios_materias_primas_pesos")),
             c("IPMP", "IPMP (en pesos)", "Series históricas", "Base 1995", unidad="Índice 1995=100", tema="Precios"))
@@ -274,7 +286,7 @@ class Precios(unittest.TestCase):
             c("Precios FOB oficiales", "Precio FOB oficial · Cebada · No cervecera · A granel, hasta 15 % embolsado",
               "Cereales y derivados", unidad="US$ por tonelada", tema="Precios"))
 
-    def test_fob_oficial_arroz_con_rotulos_parecidos_no_colapsa(self):
+    def test_fob_oficial_arroz_las_copias_se_excluyen_y_las_cuatro_se_nombran_distinto(self):
         nombres = {
             clasificar(serie("38. Precios FOB oficiales", id_, variable)).nombre
             for id_, variable in (
@@ -283,6 +295,16 @@ class Precios(unittest.TestCase):
                 ("358.1_ARR_SB_B_PORC_IV__53", "arroz_pulido_glaseado_contenido_grano_quebrado_may_10porc"),
                 ("358.1_ARR_SB_B_PORC__53", "arroz_puli_glas_no_parbo_cont_grano_quebrado_may_10porc"))}
         self.assertEqual(len(nombres), 4)
+        for id_ in ("358.1_ARR_SB_B_PORC_II__59", "358.1_ARR_SB_B_PORC_IV__53"):
+            self.assertIn(("datos.gob.ar", id_), EXCLUIDAS)
+        for id_ in ("358.1_ARR_SB_B_PORC__59", "358.1_ARR_SB_B_PORC__53"):
+            self.assertNotIn(("datos.gob.ar", id_), EXCLUIDAS)
+
+    def test_fob_oficial_alubias_son_granos_por_100_gramos(self):
+        self.assertEqual(
+            clasificar(serie("38. Precios FOB oficiales", "358.1_PORO_BLANC_GR_IVI__55",
+                             "poro_blanc_alubias_env_may_20_kg_hta_190_gr_cada_100_gr")).nombre,
+            "Precio FOB oficial · Porotos blancos alubias · Hasta 190 granos cada 100 g")
 
     def test_fob_oficial_algodon(self):
         self.assertEqual(
@@ -396,6 +418,27 @@ class IndicesDeDifusion(unittest.TestCase):
             clasificar(self.hoja_41("Cantidad de empresas con: Estable")),
             c(self.DIFUSION, "Índice de difusión · Empresas (cantidad sin variación)", "Empresas", "Total",
               unidad="Empresas"))
+
+
+class Correcciones(unittest.TestCase):
+    def test_hoja_41_copias_de_la_hoja_39(self):
+        copias = {id_ for (fuente, id_) in EXCLUIDAS if id_.startswith("362.1_")}
+        self.assertEqual(len(copias), 16)
+        self.assertIn("362.1_CANTIDAD_ERAS__43", copias)     # «Empresas exportadoras»
+        self.assertIn("362.1_INDICE_DIFRAL__50", copias)     # «Total general»
+        self.assertNotIn("362.1_INDICE_DIFTAL__58", copias)
+
+    def test_exclusiones_y_unidades_son_de_datos_gob_ar(self):
+        self.assertEqual({fuente for fuente, _ in EXCLUIDAS} | {fuente for fuente, _ in UNIDADES}, {"datos.gob.ar"})
+        self.assertEqual(len(EXCLUIDAS), 18)
+        for motivo in EXCLUIDAS.values():
+            self.assertTrue(motivo.strip())
+
+    def test_unidades_corregidas(self):
+        self.assertEqual(UNIDADES[("datos.gob.ar", "120.1_TI_1993_0_20")], "Índice 2004=100")
+        self.assertEqual(UNIDADES[("datos.gob.ar", "120.1_ED1_1993_0_26")], "Millones de dólares de 2004")
+        self.assertEqual(UNIDADES[("datos.gob.ar", "88.3_IPMPI_1995_M_35")], "Índice dic-2001=100")
+        self.assertEqual(len(UNIDADES), 7)
 
 
 class Alcance(unittest.TestCase):

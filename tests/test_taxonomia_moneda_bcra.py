@@ -125,7 +125,7 @@ CASOS = (
      esperado(EXTERNO, "Reservas internacionales", "Reservas internacionales · Variación diaria · Compra de divisas",
               "Variación diaria", "", "Millones de dólares")),
     (dmd("84", "Tipo de cambio peso / dólar estadounidense de valuación contable", "RESERVAS"),
-     esperado(EXTERNO, "Tipo de cambio nominal", "Tipo de cambio nominal · Valuación contable",
+     esperado(EXTERNO, "Tipo de cambio nominal", "Tipo de cambio nominal · De valuación de las reservas",
               unidad="Pesos por dólar")),
     # --- 8.1 Tasas de interés
     (datos(H_TASAS, "89.1_TIB_0_0_20", "tasas_interes_badlar", "Tasas de interés publicadas por el BCRA. Badlar.  En porcentaje"),
@@ -142,15 +142,16 @@ CASOS = (
            "Agregados monetarios totales. M3*. En millones de pesos"),
      esperado(MONEDA, "Agregados monetarios", "Agregados monetarios · M3*", unidad="Millones de pesos")),
     (datos(H_AGREGADOS, "90.1_BMT_0_0_20", "base_monetaria_total", "Base monetaria total. Promedios mensuales en millones de pesos"),
-     esperado(MONEDA, "Base monetaria", "Base monetaria (promedio mensual)", "Total", "", "Millones de pesos")),
+     esperado(MONEDA, "Base monetaria", "Base monetaria más cuasimonedas (promedio mensual)", "Total", "",
+              "Millones de pesos")),
     (datos(H_AGREGADOS, "90.1_DPACUPRI_0_0_38", "depositos_pf_ajustable_cer_uva_publico",
            "Depósitos del sector privado y del sector público. Plazos fijos ajustables por CER/UVA sector público"),
-     esperado(MONEDA, "Depósitos", "Depósitos · Plazo fijo ajustable por CER/UVA · Sector público", "Sector público",
+     esperado(MONEDA, "Depósitos", "Depósitos · Plazo fijo ajustable por CER/UVA", "Total",
               "En pesos", "Millones de pesos")),
     (datos(H_AGREGADOS, "90.1_DTDT_0_0_31", "depositos_totales_dolares_total",
            "Depósitos del sector privado y del sector público. Total en dólares"),
-     esperado(MONEDA, "Depósitos", "Depósitos · Total (en dólares, expresados en pesos)", "Total", "En dólares",
-              "Millones de pesos")),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total · Sector público (en dólares, expresados en pesos)",
+              "Sector público", "En dólares", "Millones de pesos")),
     (datos(H_AGREGADOS, "90.1_DET_DESAGRIAS_0_0_50", "det_desagreg_plazo_fijo_sec_priv_pesos_90_179_dias",
            "Detalle desagregado de Plazo Fijo Sector Privado en pesos de 90 a 179 días"),
      esperado(MONEDA, "Depósitos", "Depósitos · Plazo fijo de 90 a 179 días · Sector privado", "Sector privado",
@@ -240,7 +241,7 @@ CASOS = (
     (datos(H_BALANCE, "300.1_TOTAL_PATRETO_0_M_21", "total_patrimonio_neto", "Total patrimonio neto"),
      esperado(MONEDA, "Balance del BCRA", "Balance del BCRA · Patrimonio neto", "Patrimonio neto", "", "Miles de pesos")),
     (datos(H_BALANCE, "300.1_TIPO_CAMBIBIO_0_M_11", "tipo_cambio", "Tipo de cambio"),
-     esperado(EXTERNO, "Tipo de cambio nominal", "Tipo de cambio nominal · Valuación contable",
+     esperado(EXTERNO, "Tipo de cambio nominal", "Tipo de cambio nominal · De valuación de las reservas",
               unidad="Pesos por dólar")),
     # --- 8.10 Lebac en el mercado secundario
     (datos(H_LEBAC, "304.1_LEBAQ_INTE1_4_0_0_28", "lebac_interna_pesos_2017_1_4",
@@ -267,6 +268,44 @@ CASOS = (
     (datos(H_FACTORES, "331.2_OTROSROS__13", "otros", "Otros", "D"),
      esperado(MONEDA, "Base monetaria", "Base monetaria · Factores de explicación · Otros",
               "Factores de explicación", "Otros", "Millones de pesos")),
+    # --- 8.2: sufijos de sector cruzados en el origen. «privado» es el privado, «publico» es el total y
+    # «total» es el público (verificado contra bcra-dmd y por identidad: privado + «total» = «publico»).
+    (datos(H_AGREGADOS, "90.1_DTPPRI_0_0_31", "depositos_totales_pesos_privado", "Depósitos. Sector privado"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total · Sector privado", "Sector privado", "En pesos",
+              "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DTPPUB_0_0_31", "depositos_totales_pesos_publico", "Depósitos. Sector público"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total", "Total", "En pesos", "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DTPT_0_0_29", "depositos_totales_pesos_total", "Depósitos. Total"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total · Sector público", "Sector público", "En pesos",
+              "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DCAPRI_0_0_29", "depositos_caja_ahorro_publico", "Caja de ahorro sector público"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Caja de ahorro", "Total", "En pesos", "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DCAT_0_0_27", "depositos_caja_ahorro_total", "Caja de ahorro total"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Caja de ahorro · Sector público", "Sector público", "En pesos",
+              "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DTDPRI_0_0_33", "depositos_totales_dolares_privado", "Sector privado en dólares"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total · Sector privado (en dólares, expresados en pesos)",
+              "Sector privado", "En dólares", "Millones de pesos")),
+    (datos(H_AGREGADOS, "90.1_DTDPUB_0_0_33", "depositos_totales_dolares_publico", "Sector público en dólares"),
+     esperado(MONEDA, "Depósitos", "Depósitos · Total (en dólares, expresados en pesos)", "Total", "En dólares",
+              "Millones de pesos")),
+    # --- bcra-dmd: «Otros» es el saldo neto de operaciones de corto plazo desde jul-2025
+    (dmd("198", "Otros", "INSTRUMENTOS DEL BCRA"),
+     esperado(MONEDA, "Instrumentos del BCRA", "Instrumentos del BCRA · Operaciones de corto plazo (saldo neto)",
+              "Otros instrumentos", "", "Millones de pesos")),
+    (dmd("192", "Margen sobre Bancos Privados de NOBAC de 12 meses (en %)", "INSTRUMENTOS DEL BCRA"),
+     esperado(MONEDA, "Instrumentos del BCRA",
+              "Instrumentos del BCRA · Nobac a 12 meses · Margen sobre BADLAR de bancos privados",
+              "Lebac y Nobac", "Márgenes de Nobac", "%")),
+    (dmd("159", "Saldo de NOCOM (en millones de $)", "INSTRUMENTOS DEL BCRA"),
+     esperado(MONEDA, "Instrumentos del BCRA", "Instrumentos del BCRA · Nocom", "Otros instrumentos", "",
+              "Millones de pesos")),
+    (dmd("166", "Tasas de interés de LEBAC en Pesos / LELIQ de 1 mes, TNA (en %)", "INSTRUMENTOS DEL BCRA"),
+     esperado(MONEDA, "Instrumentos del BCRA", "Instrumentos del BCRA · Lebac y Leliq en pesos · A 1 mes (TNA)",
+              "Lebac y Nobac", "Tasas de interés", "%")),
+    (dmd("84", "Tipo de cambio peso / dólar estadounidense de valuación contable", "RESERVAS"),
+     esperado(EXTERNO, "Tipo de cambio nominal", "Tipo de cambio nominal · De valuación de las reservas",
+              unidad="Pesos por dólar")),
 )
 
 
@@ -309,6 +348,41 @@ class PruebasMonedaBcra(unittest.TestCase):
             nombre = clasificar(serie).nombre
             self.assertNotIn("en millones", nombre, serie.id)
             self.assertNotIn("(en %)", nombre, serie.id)
+
+    def test_depositos_82_cruzados_en_el_origen(self):
+        """En las 8 familias de la 8.2 el sufijo «publico» es el total y el «total» es el público."""
+        familias = (
+            ("caja_ahorro", ("29", "29", "27")), ("cuenta_corriente", ("34", "34", "32")),
+            ("cedros_cer", ("28", "28", "26")), ("otros_depositos", ("33", "33", "31")),
+            ("pf_ajustable_cer_uva", ("38", "38", "36")), ("pf_no_ajustable_cer_uva", ("41", "41", "39")),
+            ("totales_pesos", ("31", "31", "29")), ("totales_dolares", ("33", "33", "31")))
+        for concepto, _ in familias:
+            sectores = {}
+            for sufijo in ("privado", "publico", "total"):
+                serie = datos(H_AGREGADOS, f"id-{concepto}-{sufijo}", f"depositos_{concepto}_{sufijo}", "x")
+                sectores[sufijo] = clasificar(serie).cobertura
+            self.assertEqual(sectores, {"privado": "Sector privado", "publico": "Total", "total": "Sector público"},
+                             concepto)
+
+    def test_exclusiones(self):
+        from tools.taxonomia.moneda_bcra import EXCLUIDAS, UNIDADES
+        self.assertEqual(set(EXCLUIDAS), {("datos.gob.ar", "90.1_DET_DESAGRTAL_0_0_42")})
+        self.assertEqual(UNIDADES, {})
+        for motivo in EXCLUIDAS.values():
+            self.assertTrue(motivo.strip())
+
+    def test_las_dos_copias_del_plazo_fijo_en_dolares_se_llaman_igual(self):
+        a = datos(H_AGREGADOS, "90.1_DET_DESAGRIV_0_0_37", "det_desagreg_plazo_fijo_usd_sec_priv_", "x")
+        b = datos(H_AGREGADOS, "90.1_DET_DESAGRTAL_0_0_42", "det_desagreg_plazo_fijo_sec_priv_usd_total", "x")
+        self.assertEqual(clasificar(a).nombre, clasificar(b).nombre)
+
+    def test_lebac_fechas_corregidas(self):
+        def vencimiento(variable):
+            return clasificar(datos(H_LEBAC, "x", variable, "Tasa de interes interna de lebac según fecha de corte 2000-01-01", "D")).nombre
+        self.assertIn("Vencimiento 2018-11-21", vencimiento("lebac_interna_pesos_2018_10_21"))
+        # La descripción dice otro mes, vale la variable (confirmada por el último dato de la serie).
+        self.assertIn("Vencimiento 2017-07-19", vencimiento("lebac_interna_pesos_2017_7_19"))
+        self.assertIn("Vencimiento 2018-02-21", vencimiento("lebac_interna_pesos_2018_2_21"))
 
 
 if __name__ == "__main__":

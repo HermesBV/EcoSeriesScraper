@@ -72,7 +72,7 @@ def imig(bloque: str, apertura: str, nombre: str) -> Clasificacion:
 
 
 SPN = "Sector Público Nacional no financiero"
-APN = "Administración Pública Nacional"
+APN = "Administración Nacional"
 TN = "Tesoro Nacional"
 OD = "Organismos descentralizados"
 ISS = "Instituciones de la seguridad social"
@@ -113,11 +113,11 @@ CASOS_AIF = (
      vigente(SPN, "Resultados", "Resultado primario · Sin privatizaciones")),
     # erratas de la fuente: el mismo concepto que sus hermanos
     (aif("SPN", "Resultado financiero sin renta. Metodología 1993 - 2006", "1993-2006"),
-     historica(SPN, "1993-2006", "Resultados", "Resultado primario · Sin rentas")),
+     historica(SPN, "1993-2006", "Resultados", "Resultado primario · Sin rentas · Antes de figurativos")),
     (aif("SPN", "Resultado primario sin resnta. Metodología 1993 - 2006", "1993-2006", "M"),
-     historica(SPN, "1993-2006", "Resultados", "Resultado primario · Sin rentas")),
+     historica(SPN, "1993-2006", "Resultados", "Resultado primario · Sin rentas · Antes de figurativos")),
     (aif("SPN", "Resultados financieros sin renta 2007 2014", "2007-2014", "M"),
-     historica(SPN, "2007-2014", "Resultados", "Resultado primario · Sin rentas")),
+     historica(SPN, "2007-2014", "Resultados", "Resultado primario · Sin rentas · Antes de figurativos")),
     (aif("SPN", "Ingresos corrientes antes de figurativos . Metodología 2007 - 2014", "2007-2014", "T"),
      historica(SPN, "2007-2014", "Ingresos", "Ingresos primarios antes de figurativos")),
     (aif("SPN", "Aplicaciones financieras disminucion del patrimonio . Metodología 2007 - 2014", "2007-2014"),
@@ -128,9 +128,9 @@ CASOS_AIF = (
     (aif("OD", "Resultado financiero . Metodología 2017"),
      vigente(OD, "Resultados", "Resultado financiero · Organismos descentralizados")),
     (aif("APN", "Contribuciones figurativas de pami, fdos. fiduciarios y otros . Metodología 2017"),
-     vigente(APN, "Figurativos", "Contribuciones figurativas · PAMI, fondos fiduciarios y otros · Administración Pública Nacional")),
+     vigente(APN, "Figurativos", "Contribuciones figurativas · PAMI, fondos fiduciarios y otros · Administración Nacional")),
     (aif("APN", "Contribuciones figurativas de empresas públicas y otros . Metodología 1993 - 2006", "1993-2006"),
-     historica(APN, "1993-2006", "Figurativos", "Contribuciones figurativas · Empresas públicas y otros · Administración Pública Nacional")),
+     historica(APN, "1993-2006", "Figurativos", "Contribuciones figurativas · Empresas públicas y otros · Administración Nacional")),
     (aif("OD", "Contribuciones figurativas de excajas provinciales . Metodología 2007 - 2014", "2007-2014", "M"),
      historica(OD, "2007-2014", "Figurativos", "Contribuciones figurativas · Ex cajas provinciales · Organismos descentralizados")),
     (aif("ISS", "Gastos corrientes  intereses y otras rentas de la prop. total rentas de la propiedad . Metodología 1993 - 2006",
@@ -204,7 +204,7 @@ CASOS_IMIG = (
     (imig_mecon("GASTOS PRIMARIOS - Transferencias a universidades"),
      imig("Gastos", "Corrientes", "Gastos primarios · Transferencias a universidades")),
     (imig_mecon("GASTOS PRIMARIOS - Prestaciones sociales - Otros programas (Progresar, Emergencia Social, otros)"),
-     imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Otros programas")),
+     imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Otros programas (Progresar, Emergencia Social, otros)")),
     (imig_mecon("GASTOS PRIMARIOS - Prestaciones sociales - Asignaciones (familiares y por hijo)"),
      imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Asignaciones familiares y universales")),
     (imig_mecon("INGRESOS TOTALES - Tributarios - IVA neto de reintegros"),
@@ -215,7 +215,16 @@ CASOS_IMIG = (
      imig("Ingresos", "", "Ingresos totales · Otros ingresos corrientes · Resto de ingresos corrientes")),
     (imig_mecon("INGRESOS TOTALES - Rentas de la propiedad - Rentas por colocaciones de emisiones primarias"),
      imig("Ingresos", "", "Ingresos totales · Rentas de la propiedad · Rentas por colocaciones de emisiones primarias")),
-    (imig_mecon("Intereses"), imig("Gastos", "Corrientes", "Intereses")),
+    # «Intereses» (2016-2019) e «Intereses Netos» son el mismo concepto (idénticos al AIF del SPN)
+    (imig_mecon("Intereses"), imig("Gastos", "Corrientes", "Intereses netos")),
+    (imig_mecon("Intereses Netos"), imig("Gastos", "Corrientes", "Intereses netos")),
+    # tres definiciones del residuo de prestaciones sociales, con valores distintos al solaparse
+    (imig_mecon("GASTOS PRIMARIOS - Prestaciones sociales - Otras Programas (Progresar, Argentina Trabaja, otros)"),
+     imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Otros programas (Progresar, Argentina Trabaja, otros)")),
+    (imig_mecon("GASTOS PRIMARIOS - Prestaciones sociales - Otros programas (Proyectos Productivos Comunitarios, otros)"),
+     imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Otros programas (Progresar, Emergencia Social, otros)")),
+    (imig_mecon("GASTOS PRIMARIOS - Prestaciones sociales - Otras Programos Sociales"),
+     imig("Gastos", "Corrientes", "Gastos primarios · Prestaciones sociales · Otros programas sociales")),
     (imig_mecon("RESULTADO PRIMARIO"), imig("Resultados", "", "Resultado primario")),
     (imig_mecon("RESULTADO PRIMARIO según Programa Facilidades Extendidas"),
      imig("Resultados", "", "Resultado primario según Programa de Facilidades Extendidas")),
@@ -257,7 +266,7 @@ class PruebasFinanzasPublicasCaja(unittest.TestCase):
     def test_la_frecuencia_no_cambia_el_nombre(self):
         nombres = {clasificar(aif("APN", "Gastos antes de figurativos . Metodología 2017", frecuencia=f)).nombre
                    for f in "AMT"}
-        self.assertEqual(nombres, {"Gastos antes de figurativos · Administración Pública Nacional"})
+        self.assertEqual(nombres, {"Gastos antes de figurativos · Administración Nacional"})
 
     def test_una_misma_partida_de_la_imig_se_llama_igual_en_las_dos_fuentes(self):
         datos = clasificar(imig_datos("IMIG. Gastos primarios. Gastos corrientes primarios. Subsidios económicos. Transporte"))
@@ -311,6 +320,43 @@ class PruebasFinanzasPublicasCaja(unittest.TestCase):
         # (mecon-imig renombra sus rótulos con el tiempo: sus variantes de una misma partida sí repiten.)
         colapsos = [clave for clave, n in cuenta.items() if n > 1 and clave[0] == "datos.gob.ar"]
         self.assertEqual(colapsos, [])
+
+    def test_las_dos_otros_gastos_corrientes_son_partidas_distintas(self):
+        """Las dos suman en «Gastos corrientes» (cierra con ambas en 2007-2014 y 2017) y coinciden con las líneas
+        «OTROS GASTOS CORRIENTES» (22.690,3 en dic-2025; 526,8 en dic-2019) y «OTROS GASTOS» (35,9 en dic-2019)
+        del cuadro AIF de Hacienda."""
+        corrientes = clasificar(aif("SPN", "Gastos corrientes otros gastos corrientes . Metodología 2017"))
+        otros = clasificar(aif("SPN", "Gastos corrientes otros gastos . Metodología 2017"))
+        consumo = clasificar(aif("SPN", "Gastos corrientes gastos de consumo y operación otros gastos . Metodología 2017"))
+        self.assertEqual(corrientes.nombre, "Gastos corrientes · Otros gastos corrientes")
+        self.assertEqual(otros.nombre, "Gastos corrientes · Otros gastos")
+        self.assertEqual(consumo.nombre, "Gastos corrientes · Gastos de consumo y operación · Otros gastos")
+        self.assertEqual(len({corrientes.nombre, otros.nombre, consumo.nombre}), 3)
+
+    def test_resultado_primario_sin_rentas_es_antes_de_figurativos(self):
+        """Vale «Ingresos primarios − Gastos primarios antes de figurativos» (residuo 0,0 en las 24 series), no el
+        primario después de figurativos: en los subsectores difieren."""
+        for hoja in ("SPN", "OD", "ISS", "EP_PAMI_FF", "Ex_CP"):
+            self.assertTrue(clasificar(aif(hoja, "Resultado primario sin rentas . Metodología 2017")).nombre.startswith(
+                "Resultado primario · Sin rentas · Antes de figurativos"))
+        self.assertEqual(clasificar(aif("SPN", "Resultado financiero sin renta. Metodología 1993 - 2006", "1993-2006")).nombre,
+                         "Resultado primario · Sin rentas · Antes de figurativos")
+
+    def test_la_administracion_nacional_lleva_su_denominacion_oficial(self):
+        self.assertEqual(clasificar(aif("APN", "Resultado financiero . Metodología 2017")).nombre,
+                         "Resultado financiero · Administración Nacional")
+
+    def test_series_excluidas_por_empalmar_conceptos(self):
+        from tools.taxonomia.finanzas_publicas_caja import EXCLUIDAS
+        self.assertEqual(set(EXCLUIDAS), {
+            ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_11"), ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_65"),
+            ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_7"), ("datos.gob.ar", "452.2_RESTO_TRIBIOS_0_T_17_0"),
+            ("datos.gob.ar", "452.2_RESTO_TRIBIOS_0_T_17_42"), ("datos.gob.ar", "452.1_RESTO_TRIBIOS_0_A_17_88"),
+            ("mecon-imig", "ingresos-totales-tributarios-resto-tributarios"),
+            ("mecon-imig", "gastos-primarios-otros-gastos-corrientes"),
+        })
+        for motivo in EXCLUIDAS.values():
+            self.assertTrue(motivo.strip())
 
     def test_determinista(self):
         for serie, _ in (*CASOS_AIF, *CASOS_IMIG):

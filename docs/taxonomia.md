@@ -51,6 +51,16 @@ Un módulo por familia de fuentes en `tools/taxonomia/` (`precios_ipc.py`, `fina
 
 Para sumar una fuente: agregar su módulo a `MODULOS` en `tools/taxonomia/__init__.py`, definir su alcance por `fuente`, `archivo` y `hoja`, y correr la revisión hasta que no queden series sin regla.
 
+### Correcciones explícitas
+
+Cada módulo puede declarar, con su evidencia en un comentario:
+
+- `UNIDADES = {(fuente, id): unidad}`: reemplaza una unidad que la fuente informa mal.
+- `EXCLUIDAS = {(fuente, id): motivo}`: la serie queda en el índice con `Estado = EXCLUIDA` y no se publica. Sólo para columnas que no son series, copias exactas de otra serie de la misma fuente, y series cuyo contenido no corresponde a lo que la fuente declara y no se puede renombrar con certeza.
+- `HOJAS_EXCLUIDAS = {(fuente, archivo, hoja): (motivo, ID que se conservan)}`: lo mismo para una hoja entera.
+
+Toda corrección exige al menos dos confirmaciones independientes (una identidad que cierra en todo el período y la coincidencia con otra fuente, por ejemplo). No ubicar una serie en una identidad es una duda, no una prueba de error. Los datos de `BD.xlsx` nunca se modifican.
+
 La columna `Clasificación` del índice dice de dónde salen los niveles y el nombre de cada serie: `taxonomía` (una regla) o `fuente` (heredados de la fuente, para series que todavía no tienen regla). La web arma el árbol con los niveles de la taxonomía y antepone el tema o la institución según cómo se elija agrupar.
 
 Los problemas de datos que aparecieron al escribir las reglas están en `docs/problemas_de_datos.md`.

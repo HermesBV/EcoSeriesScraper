@@ -46,6 +46,17 @@ Cómo se deriva cada dimensión:
   serie, que cae poco antes del vencimiento.
 * Nunca se lee el título del cuadro (es el mismo para toda la hoja).
 
+Auditoría de valores (noviembre de 2026), contra ``bcra-dmd``, ``series.xlsm`` y la API de estadísticas
+monetarias del BCRA (v4.0):
+
+* Hoja 8.2: las columnas de depósitos por sector están cruzadas en el origen (ver ``_SECTORES_82``) y
+  «Base monetaria total» es la base ampliada con cuasimonedas (ver ``_AGREGADOS_82``).
+* Hojas 8.3, 8.6, 8.7 y 8.9: coinciden con ``bcra-dmd`` (promedio mensual o fin de mes) y cierran sus
+  identidades; en la 8.9 activo = pasivo + patrimonio neto todos los meses.
+* Hoja 8.1: BADLAR = BADLAR de bancos privados TNA (ID 139), adelantos = ID 145, tasa de política monetaria =
+  ID 160, pases = IDs 162 a 165, Lebac = IDs 166 a 175 (promedio mensual, diferencia mediana 0,0). «Prime» =
+  «préstamos a empresas de primera línea a 30 días» de la 8.7 (idéntica en 157 meses).
+
 Convenciones de nombre: sin sufijo es el valor en pesos; «(en dólares)» es el saldo en dólares
 (unidad «Millones de dólares»); «(en dólares, expresados en pesos)» es el equivalente en
 pesos de lo que está en dólares; «(en pesos y dólares, expresados en pesos)» es la suma de
@@ -95,6 +106,22 @@ USD_EN_PESOS = "en dólares, expresados en pesos"
 MIXTO_EN_PESOS = "en pesos y dólares, expresados en pesos"
 VAR_DIARIA = "variación diaria"
 PROMEDIO = "promedio mensual"
+
+# Series que no se publican (los datos de BD.xlsx no se tocan), por (Código fuente, ID).
+EXCLUIDAS = {
+    # «Plazo fijo del sector privado en dólares» está dos veces en la hoja 8.2, con el mismo nombre: la del
+    # desglose por tipo (IV_37) y el total del desglose por plazo (TAL_42). Coinciden en 233 de 285 meses y
+    # difieren menos de 1,3 % en los otros 52 (dic-2010 a dic-2017). Se conserva IV_37 porque es la que más se
+    # acerca a bcra-dmd (ID 108 menos cuenta corriente, caja de ahorro y otros depósitos del privado: más cerca
+    # en 49 de 52 de esos meses).
+    ("datos.gob.ar", "90.1_DET_DESAGRTAL_0_0_42"):
+        "Copia de 90.1_DET_DESAGRIV_0_0_37 (plazo fijo del sector privado en dólares): igual en 233 de 285 meses, "
+        "difiere menos de 1,3 % en 2010-2017",
+}
+# La unidad que trae el inventario coincide con la de los valores en todas las series de este módulo (los metadatos
+# de la API de datos.gob.ar dicen «Millones de dólares» o «Pesos» en series que están en millones de pesos, pero el
+# inventario ya las trae bien), de modo que no hace falta corregir ninguna.
+UNIDADES: dict[tuple[str, str], str] = {}
 
 HOJA_TASAS = "8.1 Tasas de interes"
 HOJA_AGREGADOS = "8.2 Agregados monetarios"
@@ -365,7 +392,11 @@ _DMD_INSTRUMENTOS = {
     "194": _tasa_instrumento(I_LEBAC, ("Nobac a 2 años", "Margen sobre BADLAR de bancos privados"), "", I_MARGENES),
     "195": _tasa_instrumento(I_LELIQ, ("Notaliq a 190 días", "Margen sobre la tasa de política monetaria"), "", ""),
     "196": _instrumento(I_OTROS, "", (LEFI, "En cartera de entidades financieras (valor técnico)")),
-    "198": _instrumento(I_OTROS, "", ("Otros instrumentos",)),
+    # La fuente la llama «Otros». La hoja INSTRUMENTOS DEL BCRA de series.xlsm (nota 13) la define como el saldo
+    # del pasivo neto del activo del BCRA por operaciones de corto plazo concertadas desde el 15-jul-2025,
+    # incluidas las simultáneas de BYMA. Confirmado por los datos: arranca el 2025-07-15, el día después de que
+    # terminaran los pases (IDs 152 y 154 en cero desde entonces).
+    "198": _instrumento(I_OTROS, "", ("Operaciones de corto plazo",), "saldo neto"),
 }
 # Lebac en pesos de 2 a 24 meses (el 1 y el 6 son series combinadas con Leliq).
 for _id, _plazo in zip(
@@ -395,8 +426,12 @@ _DMD_RESERVAS = {
     "83": _reservas("Asignaciones de DEG de 2009"),
 }
 
+# Es el tipo de cambio de referencia (Com. A 3500) con que el BCRA valúa sus saldos en dólares. Es la misma
+# serie que «De valuación de las reservas» de la hoja 8.4 (externo_cambiario): los valores diarios coinciden
+# en los 5.822 días en común, y el de la hoja 8.9 coincide con el de bcra-dmd a fin de cada mes (razón 1,0000).
+# Lleva el nombre de la 8.4 para que las tres fuentes se llamen igual.
 _TIPO_DE_CAMBIO_CONTABLE = Clasificacion(
-    tema=TEMA_EXTERNO, indicador=TIPO_DE_CAMBIO, nombre="Tipo de cambio nominal · Valuación contable",
+    tema=TEMA_EXTERNO, indicador=TIPO_DE_CAMBIO, nombre="Tipo de cambio nominal · De valuación de las reservas",
     unidad=PESOS_POR_USD)
 _DMD_CAMBIO = {"84": _TIPO_DE_CAMBIO_CONTABLE}
 
@@ -452,14 +487,29 @@ _AGREGADOS_82 = {
     "agregados_monetarios_totales_m3": _clasificacion(AGREGADOS, ("M3",), unidad=M_PESOS),
     "agregados_monetarios_totales_m2_privado": _clasificacion(AGREGADOS, ("M2 privado",), unidad=M_PESOS),
     "agregados_monetarios_totales_m3_alternativa": _clasificacion(AGREGADOS, ("M3*",), unidad=M_PESOS),
-    "base_monetaria_total": _base(BM_TOTAL, "", (), PROMEDIO),
+    # En 2003 (cuando había cuasimonedas) esta columna vale la base monetaria AMPLIADA: coincide con el saldo
+    # «base monetaria más cuasimonedas» de bcra-dmd (37.409 contra 37.463 en ene-2003) y no con la base sin
+    # cuasimonedas (29.649), y BMT - (circulación total + cuentas corrientes) = cuasimonedas (7.814 en ene-2003).
+    # Desde feb-2004 las cuasimonedas son cero y las dos bases coinciden.
+    "base_monetaria_total": _base_ampliada(PROMEDIO),
     "base_monetaria_circulacion_monetaria_total": _componente("Circulación monetaria", medida=PROMEDIO),
     "base_monetaria_circulacion_monetaria_publico": _componente(*_CIRC_PUBLICO, medida=PROMEDIO),
     "base_monetaria_circulacion_monetaria_ent_financieras": _componente(*_CIRC_ENTIDADES, medida=PROMEDIO),
     "base_monetaria_cuenta_corriente_bcra": _componente(*_CUENTAS_BCRA, medida=PROMEDIO),
 }
 
-_SECTORES_82 = {"total": D_TOTAL, "privado": D_PRIVADO, "publico": D_PUBLICO}
+# Los sufijos de las 24 variables de depósitos por sector están cruzados en el origen (Ministerio de Economía): lo
+# que dice «privado» es el sector privado, pero lo que dice «publico» es el TOTAL de los sectores y lo que dice
+# «total» es el sector PÚBLICO. Se verificó en las 8 familias (caja de ahorro, cuenta corriente, CEDROS, otros,
+# plazo fijo ajustable y no ajustable, total en pesos y total en dólares) con bcra-dmd, promedio mensual 2003-2026:
+#   «privado»  = DMD sector privado (p. ej. depositos_totales_pesos_privado = ID 100, razón 0,9995);
+#   «publico»  = DMD total de los sectores (depositos_totales_pesos_publico = ID 91, razón 0,9999);
+#   «total»    = total - privado (exacto: «privado» + «total» = «publico» en los 285 meses; «Total en dólares»
+#                vale 4.033.473 contra 62.848.141 del privado y 66.881.614 del total en sep-2026).
+# La columna «total» confirma ser el sector público porque, en dólares, coincide con la suma de los cuatro
+# depósitos «sec_publico» en dólares por el tipo de cambio (razón 1,0017) y M2 privado = M2 - cuentas
+# corrientes y cajas de ahorro de esa columna.
+_SECTORES_82 = {"total": D_PUBLICO, "privado": D_PRIVADO, "publico": D_TOTAL}
 _DEPOSITOS_82 = re.compile(
     r"^depositos_(caja_ahorro|cuenta_corriente|cedros_cer|otros_depositos|pf_ajustable_cer_uva|"
     r"pf_no_ajustable_cer_uva|totales_dolares|totales_pesos)_(total|privado|publico)$")
@@ -911,7 +961,12 @@ def _hoja_balance(serie: Serie) -> Clasificacion | None:
 
 _LEBAC_SECUNDARIO = re.compile(r"^lebac_interna_pesos_(\d{4})_(\d{1,2})_(\d{1,2})$")
 FRACCION = "Proporción (1 = 100%)"
-# Variable y descripción dicen 2018-10-21, pero la serie llega hasta el 2018-11-20: vence el 21 de noviembre.
+# Variable y descripción dicen 2018-10-21 (un domingo), pero la serie llega hasta el 2018-11-20: vence el
+# 21 de noviembre (miércoles). La prensa confirma que la última licitación de Lebac fue el martes 20-nov-2018
+# con $160.519 millones que vencían el 21 (tasa de corte 49,9967 %, igual al último dato del ID 166 de bcra-dmd).
+# Las otras tres con la descripción distinta (2017-11-15, 2017-07-19, 2018-02-21) son miércoles y su último dato
+# cae un día antes: vale la fecha de la variable. Las de 2018-05-15, 2018-06-21 y 2018-09-21 no son miércoles pero
+# su último dato cae entre 0 y 3 días antes del vencimiento.
 _LEBAC_FECHA_CORREGIDA = {"lebac_interna_pesos_2018_10_21": (2018, 11, 21)}
 
 

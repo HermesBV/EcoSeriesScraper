@@ -238,7 +238,7 @@ _SECTOR_HISTORICO = {
         "Sustancias plásticas y elastómeros", "Insecticidas y plaguicidas",
         "Pinturas, barnices, enduídos y tintas de imprenta", "Productos farmacéuticos y veterinarios",
         "Jabones y detergentes", "Otros productos químicos no clasificados en otra parte",
-        "Cubiertas de caucho", "Otros productos de caucho", "Productos de plástico excepto muebles",
+        "Cubiertas de caucho", "Otros productos de caucho", "Productos de plástico",
     ),
     MINERALES_METALES: (
         "Vidrio y productos de vidrio", "Productos de cerámica no refractaria para uso no estructural",
@@ -259,18 +259,18 @@ _SECTOR_HISTORICO = {
         "Máquinas para la elaboración o procesamiento de alimentos y bebidas",
         "Máquinas para lavaderos industriales",
         "Máquinas de uso especial en la industria manufacturera y sus accesorios",
-        "Armas y municiones", "Aparatos de uso doméstico", "Máquinas de oficina e informática",
+        "Armas y municiones", "Otros aparatos de uso doméstico", "Máquinas de oficina e informática",
         "Motores, generadores y transformadores eléctricos",
         "Aparatos de distribución y control eléctrico", "Conductores eléctricos",
         "Acumuladores eléctricos", "Equipos de iluminación",
-        "Otros equipos eléctricos no clasificados en otra parte", "Componentes electrónicos",
+        "Otros equipos eléctricos", "Componentes electrónicos",
         "Equipos de televisión y video", "Aparatos de grabación y reproducción de sonidos",
         "Equipos para medicina", "Instrumentos de medición de servicios domiciliarios",
         "Automotores y sus motores", "Carrocerías y remolques", "Repuestos para automotores",
         "Motocicletas", "Otros medios de transporte no clasificados en otra parte",
     ),
     OTRAS_MANUFACTURAS: (
-        "Muebles y colchones", "Otros productos manufacturados no clasificados en otra parte",
+        "Muebles y colchones", "Otros productos manufacturados",
     ),
 }
 _GRUPO_DEL_ITEM_HISTORICO = {item: grupo for grupo, items in _SECTOR_HISTORICO.items() for item in items}
@@ -285,6 +285,14 @@ _SINONIMOS_HISTORICOS = {
     "Otros medios de transporte": "Otros medios de transporte no clasificados en otra parte",
     "Hierros y aceros en formas básicas": "Hierro y acero en formas básicas",
     "Papeles y productos de papel": "Papel y productos de papel",   # división 21 y sus tres clases
+    # Grupos de un solo ítem: en el libro vigente del SIPM aparecen con tres dígitos y sin hijos
+    # (252, 293, 319, 369), igual que 312-315 y 361, y las tablas históricas traen su única clase
+    # (2520, 2930, 3190, 3699). Las particiones por división coinciden una a una (25, 29, 31, 36);
+    # se usa el nombre vigente para que sea la misma serie con el mismo nombre.
+    "Productos de plástico excepto muebles": "Productos de plástico",
+    "Aparatos de uso doméstico": "Otros aparatos de uso doméstico",
+    "Otros equipos eléctricos no clasificados en otra parte": "Otros equipos eléctricos",
+    "Otros productos manufacturados no clasificados en otra parte": "Otros productos manufacturados",
 }
 
 # Las tablas de cuatro dígitos traen, para once productos, dos series con el mismo nombre: la
@@ -311,8 +319,20 @@ def _item_cuatro_digitos(descripcion: str) -> str:
     return _SINONIMOS_HISTORICOS.get(texto, texto)
 
 
-def _es_importado(serie: Serie) -> bool:
-    if _tramo_id(serie) in _ACRONIMOS_IMPORTADOS:
+# Ítems que sólo existen como producto importado (códigos 7xxx y 8xxx del encabezado de las tablas
+# 4.11 y 4.12, sin contraparte nacional). Se verificó con la devaluación de 2002 (dic-2002/dic-2001:
+# 2,56 a 3,98 veces contra 2,04 de la mediana de los nacionales). «Grabaciones y reproducciones»
+# (7213) tiene el código 7 pero sube sólo 1,11 veces: se deja sin sufijo hasta confirmarlo.
+_SOLO_IMPORTADOS = {
+    "Papel y productos de papel", "Máquinas de uso general y sus piezas y partes",
+    "Máquinas de uso especial en la industria manufacturera y sus accesorios",
+    "Máquinas de oficina e informática", "Componentes electrónicos",
+    "Aparatos de grabación y reproducción de sonidos",
+}
+
+
+def _es_importado(serie: Serie, item: str) -> bool:
+    if _tramo_id(serie) in _ACRONIMOS_IMPORTADOS or item in _SOLO_IMPORTADOS:
         return True
     return serie.variable.startswith("hierro_acero_formas_basicas")
 
@@ -323,7 +343,7 @@ def _mayorista_historico_cuatro_digitos(serie: Serie) -> Clasificacion | None:
     grupo = _GRUPO_DEL_ITEM_HISTORICO.get(item)
     if grupo is None:
         return None
-    nombre = unir(indice, item, _IMPORTADOS if _es_importado(serie) else "")
+    nombre = unir(indice, item, _IMPORTADOS if _es_importado(serie, item) else "")
     return Clasificacion(PRECIOS, MAYORISTAS, nombre, cobertura=HISTORICAS,
                          apertura=f"{indice} 1993=100", medida=grupo, unidad=INDICE_1993)
 
@@ -423,7 +443,10 @@ _PIB_1993 = {"IPC": ("PIB", ""), "IPCVA": ("PIB", VAR_INTERANUAL), "IPCVT": ("PI
 _SECTORES_1993 = {
     "IPB": "Sectores productores de bienes",
     "IPS": "Sectores productores de servicios",
-    "IPBS": "Sectores productores de bienes y de servicios",
+    # No es un deflactor de «bienes y servicios»: es la relación IPB/IPS×100 (identidad exacta en las
+    # 20 observaciones anuales y las 83 trimestrales) y el encabezado del cuadro 4.13.2 la llama
+    # «Relación de precios implícitos entre sectores productores de bienes y de servicios».
+    "IPBS": "Precios relativos bienes/servicios",
 }
 
 
@@ -542,6 +565,17 @@ _INDICES = {
     "metales": "Metales",
     "energia": "Energía",
     "petroleo": "Petróleo",
+}
+
+
+# «Carbón (Sudáfrica)» no es un precio en US$ por tonelada: la columna vale 100 de media en 2005 (anual,
+# trimestral y mensual), termina en abr-2017 y en 2013 (anual) como los índices y no como los precios
+# (jun-2017), y en ene-2017 marca 117 contra 86 del carbón de Australia (el de Richards Bay cotizaba
+# unos 85 US$). Hasta 1990 es copia del índice general. Es una columna de índice rotulada como precio y
+# no se puede identificar cuál; no hay otra serie con el dato correcto.
+EXCLUIDAS = {
+    ("datos.gob.ar", f"121.{n}_CS_0_0_16"): "Carbón (Sudáfrica): la columna es un índice 2005=100, no US$ por tonelada"
+    for n in (1, 2, 3)
 }
 
 
@@ -687,7 +721,10 @@ def _canastas(serie: Serie) -> Clasificacion | None:
     canasta = _CANASTAS.get(serie.variable)
     if canasta is None:
         return None
-    return Clasificacion(PRECIOS, "Canastas básicas", canasta[0], unidad=canasta[1])
+    # El encabezado de la hoja dice «Aglomerado Gran Buenos Aires» y la CBA coincide al centavo, en los
+    # 123 meses comunes, con la de la región GBA de la hoja «CBA y CBT Reg»: se llama igual que ella.
+    return Clasificacion(PRECIOS, "Canastas básicas", unir(canasta[0], "GBA"), cobertura="GBA",
+                         unidad=canasta[1])
 
 
 _CIGARRILLOS = {

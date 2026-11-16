@@ -22,6 +22,7 @@
 - Las reglas leen sólo campos de la fuente (`Nombre fuente`, `ID`, `Variable`, `Descripción`, `Hoja origen`…), nunca `Nombre serie` ni la clasificación previa. No cambian `ID`, `Código fuente`, `Institución`, `Pestaña BD` ni `Columna BD`.
 - Al sumar o cambiar una fuente, escribir o ajustar su módulo de reglas y correr `python -m tools.taxonomia.revisar --fuente <código>` hasta que no queden series sin regla ni problemas. `Clasificación = fuente` en el índice marca una serie sin regla.
 - Los acuerdos entre módulos (tipos de cambio, grafía de sectores) van en `tools/taxonomia/armonizar.py`.
+- `Estado = EXCLUIDA` marca una serie que no se publica (columna que no es serie, copia exacta, contenido que no corresponde a su rótulo). Lo fijan `EXCLUIDAS` y `HOJAS_EXCLUIDAS` de los módulos de reglas, con dos confirmaciones independientes por caso; los scrapers no lo usan. La lista y los errores de extracción pendientes están en `docs/problemas_de_datos.md`.
 
 ## IED
 

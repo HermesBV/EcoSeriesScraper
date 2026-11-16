@@ -21,18 +21,23 @@ Hojas del libro (el «Hoja origen» exacto) y qué dimensión sale de cada una:
   cada variable encaje en una sola.
 * ``7. X Paises``, ``8. M Paises``, ``9. Saldo Paises``: un país, un bloque comercial o una región.
   Las series «Participación de importaciones … en el total» de la hoja 8 (ALADI, CAN, Mercado
-  Común Centroamericano, Asia Pacífico) no son participaciones: los valores son millones de
-  dólares, del orden de las importaciones desde esos bloques. Se nombran como el resto.
+  Común Centroamericano, Asia Pacífico) no son participaciones: son millones de dólares y son
+  exactamente las importaciones desde esos bloques (X − M = saldo de la hoja 9 en todo el período; la
+  CAN es Bolivia + Colombia + Ecuador + Perú con residuo 0; el anual es la suma de los meses). Se
+  nombran como el resto. Las dos columnas de la UE-28 están rotuladas al revés (ver ``_BLOQUES``).
 * ``36. Expo. provincia y rubro``: jurisdicción × rubro (PP, MOA, MOI, CYE y total), sólo anual.
-* ``37. Expo. provincia y destino``: jurisdicción × principales destinos (más «Resto» y «Total»),
-  sólo anual. Las series del total del país (``exportaciones_totales_*``) son las mismas
-  exportaciones a ese destino de la hoja 7 y llevan el mismo nombre.
+* ``37. Expo. provincia y destino``: jurisdicción × principales destinos de cada una (más «Resto» y
+  «Total»), sólo anual. El total del país de ambas hojas (``total_exportaciones_*``,
+  ``exportaciones_totales_*``) es la suma por origen provincial, no coincide con las exportaciones de
+  las hojas 1, 2, 4 y 7 y por eso lleva «(origen provincial)» en el nombre.
 
 Nombres: ``Exportaciones · <capítulo>``, ``Importaciones · <país>``, ``Saldo comercial · <región>``,
 ``Exportaciones · <rubro> · <provincia>`` y ``Exportaciones · <destino> · <provincia>``. El total
 nacional se llama simplemente «Exportaciones» (o «Importaciones», «Saldo comercial»), igual que en
 el resto del comercio exterior; el total de una jurisdicción lleva «Total» («Exportaciones · Total ·
-Misiones»). Los capítulos llevan la descripción oficial de la NCM abreviada de manera uniforme (ver
+Misiones»), y el total del país por origen provincial, «Exportaciones (origen provincial)». El «Resto» de la
+NCM es el total menos los 96 capítulos: los capítulos 98 y 99 (transacciones especiales, aprovisionamiento
+de buques y aeronaves, muestras y courier), el 77 (reservado) y lo no clasificado. Los capítulos llevan la descripción oficial de la NCM abreviada de manera uniforme (ver
 ``_abreviar``). Unidad: millones de dólares (valores FOB para las exportaciones y CIF para las
 importaciones; el saldo es su diferencia).
 """
@@ -88,7 +93,12 @@ def _abreviar(texto: str) -> str:
     return resultado
 
 
-# (capítulo, expresión del slug de «Variable» sin el prefijo de la hoja, descripción oficial de la NCM)
+# (capítulo, expresión del slug de «Variable» sin el prefijo de la hoja, descripción oficial de la NCM).
+# Texto cotejado, capítulo por capítulo, con el índice general del Sistema Armonizado de la OMA en castellano
+# (Convenio del SA, reproducido por la DIAN) y con la NCM publicada por el INDEC («Comercio exterior argentino
+# 2011», pp. 16-19). Donde las dos difieren sólo en puntuación o en una palabra, se usa la del SA, salvo «Pólvoras»,
+# «artefactos flotantes» y «cermets», que son los de la NCM. Los capítulos 77 (reservado), 98 y 99 no tienen serie propia:
+# quedan en «Resto».
 _CAPITULOS = (
     (1, r"animales_vivos", "Animales vivos"),
     (2, r"carne_despojos", "Carne y despojos comestibles"),
@@ -97,149 +107,166 @@ _CAPITULOS = (
      "Leche y productos lácteos; huevos de ave; miel natural; productos comestibles de origen animal, "
      "no expresados ni comprendidos en otra parte"),
     (5, r"demas_productos_origen_animal",
-     "Los demás productos de origen animal, no expresados ni comprendidos en otra parte"),
+     "Los demás productos de origen animal no expresados ni comprendidos en otra parte"),
     (6, r"plantas_vivas", "Plantas vivas y productos de la floricultura"),
     (7, r"hortalizas_(?:plantas_)?raices", "Hortalizas, plantas, raíces y tubérculos alimenticios"),
-    (8, r"frutas_frutos_comestibles", "Frutas y frutos comestibles; cortezas de agrios (cítricos), melones o sandías"),
+    (8, r"frutas_frutos_comestibles",
+     "Frutas y frutos comestibles; cortezas de agrios (cítricos), melones o sandías"),
     (9, r"cafe_te_yerba", "Café, té, yerba mate y especias"),
     (10, r"cereales", "Cereales"),
     (11, r"productos_molineria", "Productos de la molinería; malta; almidón y fécula; inulina; gluten de trigo"),
     (12, r"semillas_frutos_oleaginosos",
-     "Semillas y frutos oleaginosos; semillas y frutos diversos; plantas industriales o medicinales; paja y forraje"),
+     "Semillas y frutos oleaginosos; semillas y frutos diversos; plantas industriales o medicinales; "
+     "paja y forraje"),
     (13, r"gomas_resinas", "Gomas, resinas y demás jugos y extractos vegetales"),
     (14, r"materias_trenzables",
-     "Materias trenzables y demás productos de origen vegetal, no expresados ni comprendidos en otra parte"),
+     "Materias trenzables y demás productos de origen vegetal, no expresados ni comprendidos en otra "
+     "parte"),
     (15, r"grasas_aceites",
-     "Grasas y aceites animales o vegetales; productos de su desdoblamiento; grasas alimenticias elaboradas; "
-     "ceras de origen animal o vegetal"),
+     "Grasas y aceites animales o vegetales; productos de su desdoblamiento; grasas alimenticias "
+     "elaboradas; ceras de origen animal o vegetal"),
     (16, r"prep(?:araciones)?_carne",
-     "Preparaciones de carne, de pescado o de crustáceos, moluscos o demás invertebrados acuáticos"),
+     "Preparaciones de carne, pescado o de crustáceos, moluscos o demás invertebrados acuáticos"),
     (17, r"azucares", "Azúcares y artículos de confitería"),
     (18, r"cacao", "Cacao y sus preparaciones"),
     (19, r"preparaciones_base_cereales",
      "Preparaciones a base de cereales, harina, almidón, fécula o leche; productos de pastelería"),
-    (20, r"preparaciones_hortalizas", "Preparaciones de hortalizas, frutas u otros frutos o de otras partes de plantas"),
+    (20, r"preparaciones_hortalizas",
+     "Preparaciones de hortalizas, frutas u otros frutos o demás partes de plantas"),
     (21, r"preparaciones_alimenticias", "Preparaciones alimenticias diversas"),
     (22, r"bebidas", "Bebidas, líquidos alcohólicos y vinagre"),
     (23, r"residuos_desperdicios",
      "Residuos y desperdicios de las industrias alimentarias; alimentos preparados para animales"),
-    (24, r"tabaco", "Tabaco y sucedáneos del tabaco, elaborados"),
+    (24, r"tabaco", "Tabaco y sucedáneos del tabaco elaborados"),
     (25, r"sal_azufre", "Sal; azufre; tierras y piedras; yesos, cales y cementos"),
     (26, r"minerales_metaliferos", "Minerales metalíferos, escorias y cenizas"),
     (27, r"comb(?:ustibles)?_minerales",
-     "Combustibles minerales, aceites minerales y productos de su destilación; materias bituminosas; ceras minerales"),
+     "Combustibles minerales, aceites minerales y productos de su destilación; materias bituminosas; "
+     "ceras minerales"),
     (28, r"prod(?:uctos)?_quim(?:icos)?_inorganicos",
-     "Productos químicos inorgánicos; compuestos inorgánicos u orgánicos de metales preciosos, de elementos "
-     "radiactivos, de metales de las tierras raras o de isótopos"),
+     "Productos químicos inorgánicos; compuestos inorgánicos u orgánicos de metal precioso, de "
+     "elementos radiactivos, de metales de las tierras raras o de isótopos"),
     (29, r"productos_quimicos_organicos", "Productos químicos orgánicos"),
     (30, r"productos_farmaceuticos", "Productos farmacéuticos"),
     (31, r"abonos", "Abonos"),
     (32, r"extractos_curtientes",
-     "Extractos curtientes o tintóreos; taninos y sus derivados; pigmentos y demás materias colorantes; "
-     "pinturas y barnices; mástiques; tintas"),
+     "Extractos curtientes o tintóreos; taninos y sus derivados; pigmentos y demás materias "
+     "colorantes; pinturas y barnices; mástiques; tintas"),
     (33, r"aceites_esenciales",
-     "Aceites esenciales y resinoides; preparaciones de perfumería, de tocador o de cosmética"),
+     "Aceites esenciales y resinoides; preparaciones de perfumería, tocador o cosmética"),
     (34, r"jabon",
-     "Jabón, agentes de superficie orgánicos, preparaciones para lavar, preparaciones lubricantes, ceras "
-     "artificiales, ceras preparadas, productos de limpieza, velas y artículos similares"),
+     "Jabón, agentes de superficie orgánicos, preparaciones para lavar, preparaciones lubricantes, "
+     "ceras artificiales, ceras preparadas, productos de limpieza, velas y artículos similares, pastas "
+     "para modelar, «ceras para odontología» y preparaciones para odontología a base de yeso fraguable"),
     (35, r"materias_albuminoideas",
-     "Materias albuminoideas; productos a base de almidón o de fécula modificados; colas; enzimas"),
+     "Materias albuminoideas; productos a base de almidón o fécula modificados; colas; enzimas"),
     (36, r"polvoras",
-     "Pólvoras y explosivos; artículos de pirotecnia; fósforos; aleaciones pirofóricas; materias inflamables"),
+     "Pólvoras y explosivos; artículos de pirotecnia; fósforos (cerillas); aleaciones pirofóricas; "
+     "materias inflamables"),
     (37, r"productos_fotograficos", "Productos fotográficos o cinematográficos"),
     (38, r"productos_diversos_industrias_quimicas", "Productos diversos de las industrias químicas"),
     (39, r"plastico", "Plástico y sus manufacturas"),
     (40, r"caucho", "Caucho y sus manufacturas"),
     (41, r"pieles", "Pieles (excepto la peletería) y cueros"),
     (42, r"manufacturas_cuero",
-     "Manufacturas de cuero; artículos de talabartería o guarnicionería; artículos de viaje, bolsos de mano "
-     "(carteras) y continentes similares; manufacturas de tripa"),
+     "Manufacturas de cuero; artículos de talabartería o guarnicionería; artículos de viaje, bolsos de "
+     "mano (carteras) y continentes similares; manufacturas de tripa"),
     (43, r"peleteria", "Peletería y confecciones de peletería; peletería facticia o artificial"),
     (44, r"madera", "Madera, carbón vegetal y manufacturas de madera"),
     (45, r"corcho", "Corcho y sus manufacturas"),
     (46, r"manufacturas_esparteria", "Manufacturas de espartería o cestería"),
     (47, r"pastas_madera",
-     "Pastas de madera o de las demás materias fibrosas celulósicas; papel o cartón para reciclar "
+     "Pasta de madera o de las demás materias fibrosas celulósicas; papel o cartón para reciclar "
      "(desperdicios y desechos)"),
-    (48, r"papel_carton", "Papel y cartón; manufacturas de pasta de celulosa, de papel o de cartón"),
+    (48, r"papel_carton", "Papel y cartón; manufacturas de pasta de celulosa, papel o cartón"),
     (49, r"productos_editoriales",
-     "Productos editoriales, de la prensa y de las demás industrias gráficas; textos manuscritos o "
-     "mecanografiados, y planos"),
+     "Productos editoriales de la prensa y de las demás industrias gráficas; textos manuscritos o "
+     "mecanografiados y planos"),
     (50, r"seda", "Seda"),
     (51, r"lana", "Lana y pelo fino u ordinario; hilados y tejidos de crin"),
     (52, r"algodon", "Algodón"),
-    (53, r"demas_fibras_t(?:ex|em)tiles", "Las demás fibras textiles vegetales; hilados de papel y tejidos de hilados de papel"),
-    (54, r"filamentos",
-     "Filamentos sintéticos o artificiales; tiras y formas similares de materia textil sintética o artificial"),
+    (53, r"demas_fibras_t(?:ex|em)tiles",
+     "Las demás fibras textiles vegetales; hilados de papel y tejidos de hilados de papel"),
+    (54, r"filamentos", "Filamentos sintéticos o artificiales"),
     (55, r"fibras_sinteticas", "Fibras sintéticas o artificiales discontinuas"),
     (56, r"guata",
-     "Guata, fieltro y tela sin tejer; hilados especiales; cordeles, cuerdas y cordajes; artículos de cordelería"),
+     "Guata, fieltro y tela sin tejer; hilados especiales; cordeles, cuerdas y cordajes; artículos de "
+     "cordelería"),
     (57, r"alfombras", "Alfombras y demás revestimientos para el suelo, de materia textil"),
     (58, r"tejidos_especiales",
-     "Tejidos especiales; superficies textiles con mechón insertado; encajes; tapicería; pasamanería; bordados"),
+     "Tejidos especiales; superficies textiles con mechón insertado; encajes; tapicería; pasamanería; "
+     "bordados"),
     (59, r"telas_impregnadas",
-     "Telas impregnadas, recubiertas, revestidas o estratificadas; artículos técnicos de materia textil"),
+     "Telas impregnadas, recubiertas, revestidas o estratificadas; artículos técnicos de materia "
+     "textil"),
     (60, r"tejido_punto", "Tejidos de punto"),
-    (61, r"prendas_.*_vestir_punto", "Prendas y complementos (accesorios) de vestir, de punto"),
-    (62, r"prendas_.*_vestir_(?:ex|em)cepto_punto", "Prendas y complementos (accesorios) de vestir, excepto los de punto"),
+    (61, r"prendas_.*_vestir_punto", "Prendas y complementos (accesorios), de vestir, de punto"),
+    (62, r"prendas_.*_vestir_(?:ex|em)cepto_punto",
+     "Prendas y complementos (accesorios), de vestir, excepto los de punto"),
     (63, r"demas_articulos_textiles", "Los demás artículos textiles confeccionados; juegos; prendería y trapos"),
     (64, r"calzado", "Calzado, polainas y artículos análogos; partes de estos artículos"),
     (65, r"sombreros", "Sombreros, demás tocados y sus partes"),
-    (66, r"paraguas", "Paraguas, sombrillas, quitasoles, bastones, bastones asiento, látigos, fustas y sus partes"),
+    (66, r"paraguas",
+     "Paraguas, sombrillas, quitasoles, bastones, bastones asiento, látigos, fustas, y sus partes"),
     (67, r"plumas",
-     "Plumas y plumón preparados y artículos de plumas o de plumón; flores artificiales; manufacturas de cabello"),
+     "Plumas y plumón preparados y artículos de plumas o plumón; flores artificiales; manufacturas de "
+     "cabello"),
     (68, r"manufacturas_piedra",
      "Manufacturas de piedra, yeso fraguable, cemento, amianto (asbesto), mica o materias análogas"),
     (69, r"productos_ceramicos", "Productos cerámicos"),
     (70, r"vidrio", "Vidrio y sus manufacturas"),
     (71, r"perlas",
-     "Perlas finas (naturales) o cultivadas, piedras preciosas o semipreciosas y similares, metales preciosos, "
+     "Perlas naturales (finas) o cultivadas, piedras preciosas o semipreciosas, metales preciosos, "
      "chapados de metal precioso (plaqué) y manufacturas de estas materias; bisutería; monedas"),
     (72, r"fundicion_hierro_acero", "Fundición, hierro y acero"),
-    (73, r"manufacturas_fundicion", "Manufacturas de fundición, de hierro o de acero"),
+    (73, r"manufacturas_fundicion", "Manufacturas de fundición, hierro o acero"),
     (74, r"cobre", "Cobre y sus manufacturas"),
     (75, r"niquel", "Níquel y sus manufacturas"),
     (76, r"aluminio", "Aluminio y sus manufacturas"),
     (78, r"plomo", "Plomo y sus manufacturas"),
     (79, r"cinc", "Cinc y sus manufacturas"),
     (80, r"estano", "Estaño y sus manufacturas"),
-    (81, r"demas_metales_comunes", "Los demás metales comunes; cermets; manufacturas de estas materias"),
+    (81, r"demas_metales_comunes", "Los demás metales comunes; «cermets»; manufacturas de estas materias"),
     (82, r"herramientas",
-     "Herramientas y útiles, artículos de cuchillería y cubiertos de mesa, de metales comunes; "
-     "partes de estos artículos, de metal común"),
-    (83, r"manufacturas_diversas_metal", "Manufacturas diversas de metales comunes"),
+     "Herramientas y útiles, artículos de cuchillería y cubiertos de mesa, de metal común; partes de "
+     "estos artículos, de metal común"),
+    (83, r"manufacturas_diversas_metal", "Manufacturas diversas de metal común"),
     (84, r"reactores",
-     "Reactores nucleares, calderas, máquinas, aparatos y artefactos mecánicos; partes de estas máquinas o aparatos"),
+     "Reactores nucleares, calderas, máquinas, aparatos y artefactos mecánicos; partes de estas "
+     "máquinas o aparatos"),
     (85, r"maq(?:uinas)?_aparatos_material_electrico",
-     "Máquinas, aparatos y material eléctrico y sus partes; aparatos de grabación o reproducción de sonido, "
-     "aparatos de grabación o reproducción de imágenes y sonido en televisión, y las partes y accesorios "
-     "de estos aparatos"),
+     "Máquinas, aparatos y material eléctrico, y sus partes; aparatos de grabación o reproducción de "
+     "sonido, aparatos de grabación o reproducción de imagen y sonido en televisión, y las partes y "
+     "accesorios de estos aparatos"),
     (86, r"vehiculos_material",
      "Vehículos y material para vías férreas o similares, y sus partes; aparatos mecánicos (incluso "
      "electromecánicos) de señalización para vías de comunicación"),
     (87, r"vehiculos_automoviles",
-     "Vehículos automóviles, tractores, velocípedos y demás vehículos terrestres, sus partes y accesorios"),
-    (88, r"aeronaves", "Aeronaves, vehículos espaciales y sus partes"),
+     "Vehículos automóviles, tractores, velocípedos y demás vehículos terrestres; sus partes y "
+     "accesorios"),
+    (88, r"aeronaves", "Aeronaves, vehículos espaciales, y sus partes"),
     (89, r"barcos", "Barcos y demás artefactos flotantes"),
     (90, r"instrumentos_aparatos",
      "Instrumentos y aparatos de óptica, fotografía o cinematografía, de medida, control o precisión; "
      "instrumentos y aparatos médico-quirúrgicos; partes y accesorios de estos instrumentos o aparatos"),
     (91, r"aparatos_relojeria", "Aparatos de relojería y sus partes"),
-    (92, r"instrumentos_musicales", "Instrumentos musicales; partes y accesorios de estos instrumentos"),
-    (93, r"armas", "Armas, municiones, y sus partes y accesorios"),
+    (92, r"instrumentos_musicales", "Instrumentos musicales; sus partes y accesorios"),
+    (93, r"armas", "Armas y municiones; sus partes y accesorios"),
     (94, r"muebles",
-     "Muebles; mobiliario médico-quirúrgico; artículos de cama y similares; aparatos de alumbrado no expresados "
-     "ni comprendidos en otra parte; anuncios, letreros y placas indicadoras luminosos y artículos similares; "
-     "construcciones prefabricadas"),
+     "Muebles; mobiliario médico-quirúrgico; artículos de cama y similares; aparatos para alumbrado no "
+     "expresados ni comprendidos en otra parte; anuncios, letreros y placas indicadoras, luminosos, y "
+     "artículos similares; construcciones prefabricadas"),
     (95, r"juguetes", "Juguetes, juegos y artículos para recreo o deporte; sus partes y accesorios"),
     (96, r"manufacturas_diversas", "Manufacturas diversas"),
-    (97, r"objetos_arte", "Objetos de arte o de colección y antigüedades"),
+    (97, r"objetos_arte", "Objetos de arte o colección y antigüedades"),
 )
 CAPITULOS = {numero: _abreviar(texto) for numero, _, texto in _CAPITULOS}
 _PATRONES_CAPITULO = tuple((numero, re.compile(patron + "$" if patron == "manufacturas_diversas" else patron))
                            for numero, patron, _ in _CAPITULOS)
 
-# Secciones de la NCM: (primer capítulo, último capítulo, nombre abreviado).
+# Secciones de la NCM: (primer capítulo, último capítulo, nombre abreviado). Cotejadas contra la lista de
+# secciones y capítulos de la NCM (INDEC, «Comercio exterior argentino 2011», pp. 16-19) y contra el índice
+# general del Sistema Armonizado de la OMA en castellano (texto del Convenio, DIAN).
 _SECCIONES = (
     (1, 5, "Sección I · Animales vivos y productos del reino animal"),
     (6, 14, "Sección II · Productos del reino vegetal"),
@@ -247,21 +274,21 @@ _SECCIONES = (
     (16, 24, "Sección IV · Productos de las industrias alimentarias, bebidas y tabaco"),
     (25, 27, "Sección V · Productos minerales"),
     (28, 38, "Sección VI · Productos de las industrias químicas"),
-    (39, 40, "Sección VII · Plástico y caucho y sus manufacturas"),
+    (39, 40, "Sección VII · Plástico, caucho y sus manufacturas"),
     (41, 43, "Sección VIII · Pieles, cueros, peletería y sus manufacturas"),
-    (44, 46, "Sección IX · Madera, corcho, espartería y cestería"),
+    (44, 46, "Sección IX · Madera, carbón vegetal, corcho, espartería y cestería"),
     (47, 49, "Sección X · Pastas de madera, papel y cartón"),
     (50, 63, "Sección XI · Materias textiles y sus manufacturas"),
-    (64, 67, "Sección XII · Calzado, sombrerería, paraguas y plumas"),
+    (64, 67, "Sección XII · Calzado, sombreros, paraguas, plumas, flores artificiales y manufacturas de cabello"),
     (68, 70, "Sección XIII · Manufacturas de piedra, cerámica y vidrio"),
     (71, 71, "Sección XIV · Perlas, piedras preciosas y metales preciosos"),
     (72, 83, "Sección XV · Metales comunes y sus manufacturas"),
     (84, 85, "Sección XVI · Máquinas, aparatos y material eléctrico"),
     (86, 89, "Sección XVII · Material de transporte"),
-    (90, 92, "Sección XVIII · Instrumentos de óptica y de precisión, relojería e instrumentos musicales"),
+    (90, 92, "Sección XVIII · Instrumentos de óptica y de precisión, médico-quirúrgicos, relojería e instrumentos musicales"),
     (93, 93, "Sección XIX · Armas y municiones"),
     (94, 96, "Sección XX · Mercancías y productos diversos"),
-    (97, 97, "Sección XXI · Objetos de arte, de colección y antigüedades"),
+    (97, 97, "Sección XXI · Objetos de arte o colección y antigüedades"),
 )
 
 
@@ -298,10 +325,22 @@ _BLOQUES = {
     "aladi": "ALADI", "aladi_total": "ALADI", "asean": "ASEAN", "can": "CAN", "can_total": "CAN",
     "mercado_comun_centr": "Mercado Común Centroamericano",
     "mercado_comun_centroamericano": "Mercado Común Centroamericano",
-    "medio_oriente": "Medio Oriente", "total_mercosur": "MERCOSUR", "total_nafta": "NAFTA",
+    "medio_oriente": "Medio Oriente",
+    # El MERCOSUR de la fuente es Brasil + Paraguay + Uruguay + Venezuela (residuo 0 en todo el período).
+    "total_mercosur": "MERCOSUR", "total_nafta": "NAFTA",
     "alianza_pacifico": "Alianza del Pacífico", "total_alianza_pacifico": "Alianza del Pacífico",
-    "total_ue_28": "Unión Europea (UE-28)", "total_ue": "Unión Europea (UE-28)",
-    "resto_ue_28": "Resto de la Unión Europea (UE-28)", "resto_ue": "Resto de la Unión Europea (UE-28)",
+    # Rótulos cruzados por el Ministerio en las hojas 7, 8 y 9: la columna «total_ue_28» (≈ 600 millones por año)
+    # es el resto de la UE-28 y la columna «resto_ue_28» (≈ 8.000 a 12.000) es el total de la Unión Europea.
+    # Prueba: (1) el total de cada flujo es, en las tres frecuencias y de 1990 a hoy (residuo < 0,002), la suma
+    # de América Latina, Estados Unidos, Canadá, «resto_ue_28», África, Asia Pacífico, India, Australia, Nueva
+    # Zelanda, Resto del mundo, Rusia, Suiza e Israel; con la otra lectura el residuo llega a 13.255 millones;
+    # (2) hasta 2017 «resto_ue_28» = suma de diez países + «total_ue_28» (residuo 0); (3) el ICA del INDEC de
+    # enero de 2024 da importaciones desde la UE de 888 millones y la columna «resto_ue_28» trae 887,7 (la
+    # «total_ue_28», 61,3), y el cuadro 36 de septiembre de 2026 da 7.180 millones de exportaciones acumuladas
+    # contra 7.171 de «resto_ue_28» y 451 de «total_ue_28». Desde enero de 2018 la «resto_ue_28» es exactamente
+    # la suma de los diez países y ya no incluye el resto.
+    "resto_ue_28": "Unión Europea (UE-28)", "resto_ue": "Unión Europea (UE-28)",
+    "total_ue_28": "Resto de la Unión Europea (UE-28)", "total_ue": "Resto de la Unión Europea (UE-28)",
     "total_america_latina": "América Latina", "total_resto_al": "América Latina",
     "resto_america_latina": "Resto de América Latina", "resto_al": "Resto de América Latina",
     "total_africa": "África", "resto_africa": "Resto de África",
@@ -443,7 +482,14 @@ def _por_provincia(serie: Serie) -> Clasificacion | None:
             dimension = _DESTINOS[resto]
         else:
             return None
-    return _resultado(EXPORTACIONES, apertura, grupo, unir(EXPORTACIONES, dimension, cobertura))
+    nombre = unir(EXPORTACIONES, dimension, cobertura)
+    if nacional:
+        # El total del país de las hojas 36 y 37 es la suma por origen provincial (dataset «Exportaciones por
+        # provincia…»), otra serie que la de las hojas 1, 2, 4 y 7: no coincide en 14 de los 32 años del total
+        # (hasta 714 millones, en 2024), en el rubro (hasta 447 millones, PP 2006) ni por destino (China, hasta
+        # 340 millones). Por eso no lleva el mismo nombre que «Exportaciones» del ICA.
+        nombre = f"{nombre} (origen provincial)"
+    return _resultado(EXPORTACIONES, apertura, grupo, nombre)
 
 
 def clasificar(serie: Serie) -> Clasificacion | None:

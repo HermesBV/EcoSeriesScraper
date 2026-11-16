@@ -1,8 +1,65 @@
-# Problemas de datos detectados al clasificar
+# Problemas de datos detectados al clasificar y auditar
 
-Al escribir las reglas de la taxonomía (noviembre de 2026) se compararon los valores de `BD.xlsx` contra los rótulos y contra otras fuentes. Aparecieron estos problemas, que no son de clasificación sino de los datos o de su extracción. La taxonomía nombra cada serie según lo que la fuente declara; ninguno está corregido.
+En noviembre de 2026 se escribieron las reglas de la taxonomía y después cada módulo pasó por una auditoría independiente, que contrastó los valores de `BD.xlsx` contra los rótulos, contra otras series del inventario, contra la API pública de series de tiempo y contra los libros originales de INDEC, BCRA, Hacienda y ARCA. Este documento resume lo que apareció. El detalle y la evidencia de cada corrección están en los comentarios del módulo correspondiente de `tools/taxonomia/`.
 
-## Columnas corridas o rótulos cruzados (datos.gob.ar)
+## Qué se corrigió y cómo
+
+Ninguna corrección cambia valores de `BD.xlsx` ni identificadores. Hay tres mecanismos, todos explícitos:
+
+- **Reglas**: la serie se nombra y se ubica por lo que realmente contiene, cuando eso quedó identificado para todo su período.
+- **`UNIDADES`**: reemplaza una unidad que la fuente informa mal (1.454 series).
+- **`EXCLUIDAS` y `HOJAS_EXCLUIDAS`**: la serie queda en el índice con `Estado = EXCLUIDA` y la web no la publica (568 series). Se usa sólo para columnas que no son series, copias exactas, y series cuyo contenido no corresponde a lo que declara la fuente y no se puede reparar.
+
+Estándar de evidencia: al menos dos confirmaciones independientes por corrección. Lo que no lo alcanzó quedó como duda (ver el final).
+
+## Exclusiones
+
+| Qué | Series | Por qué |
+| --- | --- | --- |
+| Hoja 1.17, producción industrial por producto | 248 | Contenido erróneo comprobado en cuatro productos (papel sanitario es copia de ventas de gaseosas; cemento y naftas imposibles) y valores incompatibles con la unidad declarada en muchos otros. Se conservan petróleo crudo y gas natural, confirmados contra las hojas 1.24 y 1.25. |
+| Hojas `LP - Hog` y `LP - Pers`, cuadros 63.1 y 64.1 | 78 | En `BD.xlsx` son copia exacta de 63.2 y 64.2. La API da otros datos para esos ID. |
+| Hoja `CGI Puestos` anual | 61 | Cada valor «anual» es una observación trimestral fechada como año. El dato correcto está en la trimestral. |
+| Hoja 4.2.4, IPC GBA principales aperturas | 52 | Cada columna empalma dos conceptos: su rótulo hasta dic-2016 y la fila de igual posición del libro de aperturas del INDEC desde ene-2017. |
+| Supermercados y mayoristas | 35 | Copias exactas de totales entre cuadros. |
+| Empresas exportadoras, hoja 41 | 16 | Copias exactas de la hoja 39. |
+| Cuentas internacionales (`indec-cin` y hojas 14.a y 16.a) | 17 | Una columna espuria, dos series con signo invertido desde 2017, ocho copias, cuatro desgloses en cero con total distinto de cero y dos derivados atribuidos al sector equivocado. |
+| Servicios públicos, hoja 1.10 | 9 | Cinco índices anuales con los rótulos cruzados entre 2001 y 2013 y cuatro stocks de líneas sumados como flujo. |
+| IMIG | 8 | Series que cambian de definición a mitad de camino (por ejemplo «Resto de ingresos tributarios», que incorpora Combustibles desde 2019 o 2020 según la fuente). |
+| Salario real industrial 1985-90, anual | 7 | Copia de la tabla de salarios de 1960-64 con las fechas cambiadas. |
+| Mercado de cambios del BCRA | 7 | Un contador, un valor suelto de una tabla y cinco copias exactas. |
+| Columnas «Período» del IPI manufacturero | 5 | Traen el número de fila de la hoja de Excel. |
+| Otras | 25 | Canastas con fechas falsas, carbón de Sudáfrica (un índice rotulado como precio), tipo de cambio Banco Nación (empalma mayorista y minorista), copias sueltas. |
+
+## Rótulos equivocados en la fuente, ya resueltos por las reglas
+
+- **Depósitos de la hoja 8.2**: la columna «público» trae el total y la «total» trae el sector público (24 series, confirmado contra los datos diarios del BCRA en 285 meses).
+- **Unión Europea en las hojas 7, 8 y 9**: «total» y «resto» están intercambiados (27 series, confirmado contra el ICA del INDEC).
+- **Hoja 4.9.4**: rotulada «base 1993», está en base 2004.
+- **Importaciones, hoja 1**: la serie de bienes de consumo y vehículos incluye además el resto.
+- **Balance de pagos MBP5, hoja 14**: cuenta financiera con signo contrario y sin reservas; «otras rentas» y «transferencias corrientes» no equivalen a sus pares del MBP6.
+- **Canasta de la Ciudad de Buenos Aires**: es por hogar tipo, no por adulto equivalente.
+- **Capítulos de la NCM**: 36 de 96 descripciones corregidas contra el Sistema Armonizado.
+- **Títulos públicos**: año de vencimiento y tipo de bono mal informados en varias especies; identificados por su código.
+- **Monedas**: la cuenta devengado 1961-1992, el salario mínimo, el haber mínimo y los tipos de cambio históricos están en la moneda de cada época.
+
+## Errores de extracción del scraper
+
+Casos en que `BD.xlsx` no coincide con la API pública para el mismo ID. No son de la fuente y hay que corregirlos en `scrapers/scraper_IED.py`:
+
+- **Series trimestrales con un solo dato.** En las hojas trimestrales de recaudación (`RECA`), de servicios públicos (1.10), de producción industrial (1.17) y de 1.13, 1.14, 1.14b, 1.16 y 1.18, la base tiene una sola observación y la API trae la serie completa.
+- **Cuadros 63.1, 64.1 y hojas `LI`**: la base trae los datos de otro cuadro.
+- **Cuadro 59.2 de canastas**: valores de 2000-2002 fechados como 1988-1991.
+- **`indec-cin`, cuadro 20**: la base lo trae desde 2020 y deja afuera 2006-2019.
+
+Además falta incorporar `sh_ipc_aperturas.xls` del INDEC, que es donde están las aperturas finas del IPC GBA que la hoja 4.2.4 mezcla.
+
+## Verificado contra el original, sin errores
+
+Coinciden con el libro del organismo: IPC (`sh_ipc_divisiones.xls`), PIB (`sh_oferta_demanda`), EMAE, IPI manufacturero, ISAC, supermercados, servicios públicos, intercambio comercial (`balanmensual.xls`), cuentas internacionales (`cin_II_2026.xls`), índice de salarios, depósitos y tasas del BCRA (`pas2026.xls`), datos monetarios diarios, mercado de cambios, IRFCL, REM, cuenta ahorro-inversión-financiamiento (cuadros de Hacienda de dic-2019 y dic-2025) y recaudación (informe de ARCA de dic-2024).
+
+## Detalle de los primeros hallazgos
+
+### Columnas corridas o rótulos cruzados (datos.gob.ar)
 
 **Origen verificado (15/11/2026):** los valores de `BD.xlsx` coinciden al decimal con los que devuelve la API pública de series de tiempo (`apis.datos.gob.ar/series`) para los mismos ID, en las tres hojas que se cotejaron (4.2.4, 1.17 y 8.2). El scraper lee bien: localiza cada serie por su ID dentro del libro y toma la columna de abajo. El error viene del Ministerio, que publica esos valores bajo ese ID. Las otras hojas de la tabla no se cotejaron contra la API.
 
@@ -20,7 +77,7 @@ En la hoja 4.2.4 la causa probable es un empalme por posición de dos clasificac
 | `sector_externo.xlsx`, hoja 8 | Cuatro series rotuladas «Participación de importaciones … en el total» están en millones de dólares. Se nombraron por lo que miden. | Orden de magnitud |
 | Varias hojas (`TE 03-`, `TSD 03-`, 4.3 a 4.5, 4.11, 4.12, 4.13.1, 1.2, 1.5.1, hoja 12) | Descripciones o siglas del ID cruzadas entre series o frecuencias. Las reglas usan el campo que los valores confirman. | Identidades y recálculo de variaciones |
 
-## Columnas que no son series (extracción)
+### Columnas que no son series (extracción)
 
 | Fuente | Qué es |
 | --- | --- |
@@ -31,7 +88,7 @@ En la hoja 4.2.4 la causa probable es un empalme por posición de dos clasificac
 
 Conviene que los scrapers dejen de publicarlas.
 
-## Series duplicadas en la fuente
+### Series duplicadas en la fuente
 
 - `empleo_ingresos.xlsx`, hojas «LP - Hog» y «LP - Pers»: los cuadros 63.1 y 64.1 son copias exactas de 63.2 y 64.2 (78 series).
 - `empleo_ingresos.xlsx`, hoja «HaberMin»: la misma serie dos veces.
@@ -41,14 +98,17 @@ Conviene que los scrapers dejen de publicarlas.
 
 Llevan el mismo nombre a propósito.
 
-## Unidades
+### Unidades
 
 - Parte de las variaciones y tasas de datos.gob.ar viene como fracción (0,03 = 3 %). Se rotulan «Proporción (1 = 100%)» en lugar de «%».
 - El inventario trae «%» como unidad en series que están en millones (cuadro 20 y dos series del cuadro 14 de `indec-cin`; «Variación de existencias» de los cuadros 1 y 8 de `indec-pib`). La taxonomía sólo completa unidades vacías, así que siguen mal.
 - Valores atípicos sin tocar: variaciones de 11.000 a 14.000 en el IPIM (hoja 4.3, dic-1999 y ene-2000) y valores aislados en otra escala en el PIB trimestral del REM.
 
-## Definiciones que no se pudieron confirmar
+## Dudas que quedan
 
-- «Eficiencia» del sistema financiero (hoja 8.12): sus valores no cierran con ninguna fórmula habitual.
-- Descripciones de los capítulos de la NCM: se escribieron sin cotejar contra el nomenclador oficial y se abreviaron con una regla uniforme.
+- Legislación (Nueva York o argentina) de diez bonos en dólares y bases de los índices bursátiles.
+- IPC nacional urbano 2013-2015: los cuadros 4.15.1 y 4.15.2 comparten nombres de capítulo con valores distintos.
+- «Bienes» y «Servicios» de la hoja 1.9 (cont. 2) de ingreso nacional: no cierran con ninguna identidad.
+- Materias primas, hoja 4.10: entre 1980 y 1990 varias series traen valores idénticos entre sí (relleno de la fuente).
+- Valores atípicos puntuales que no se tocan: IPIM de dic-1999 a feb-2000, RIPTE de ago-2026 en datos.gob.ar, resultado de bancos privados 2010-2011, tramos congelados del tipo de cotización del dólar en 2026.
 - El detalle por módulo está en los comentarios de cada archivo de `tools/taxonomia/`.

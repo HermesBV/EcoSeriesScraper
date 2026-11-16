@@ -114,14 +114,21 @@ _INDICADORES_BASE = {
         "Exposición patrimonial al sector privado", "% del patrimonio neto"),
     "roa_acumulado_anual": ("ROA", "% anualizado del activo neteado"),
     "roe_acumulado_anual": ("ROE", "% anualizado del patrimonio neto"),
-    "eficiencia_acumulado_anual": ("Eficiencia", ""),
+    # Definición del Informe sobre Bancos (notas del Anexo estadístico, cuadro 1): (margen financiero +
+    # resultado por servicios) / gastos de administración, acumulado anual, en %. Verificado con 8.13:
+    # el cociente recalculado coincide con 8.12 en 2017-2024 (anual) y, con las partidas mensuales
+    # acumuladas en el año, en 196 de 196 meses (mediana del error 0,0). Cuadro 1 del Informe de
+    # dic-2011 trae 167 (2008) y 179 (2011); la hoja da 167,0 y 178,9.
+    "eficiencia_acumulado_anual": (
+        "Eficiencia", "margen financiero y servicios, % de los gastos de administración"),
     "integracion_capital": ("Integración de capital", _APR),
     "integracion_capital_riesgo_credito": (
         "Integración de capital · Riesgo de crédito", _APR_CREDITO),
     "integracion_capital_nivel_1": ("Integración de capital · Nivel 1", _APR),
     "integracion_capital_nivel_1_riesgo_credito": (
         "Integración de capital · Nivel 1 · Riesgo de crédito", _APR_CREDITO),
-    "posicion_capital": ("Posición de capital", "% de la exigencia"),
+    # Informe: (integración - exigencia, con franquicias) / exigencia de capital; es el exceso, no el total.
+    "posicion_capital": ("Posición de capital", "exceso sobre la exigencia, % de la exigencia"),
 }
 # Variantes de escritura de la fuente (abreviaturas y guiones bajos finales) -> clave.
 _VARIANTES_INDICADOR = {

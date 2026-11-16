@@ -17,7 +17,8 @@ tasa de empleo = tasa de actividad × (1 − tasa de desocupación) por región)
         > Total | Sectores de actividad | Aglomerados
     Trabajo e ingresos > Pobreza e indigencia
         > Total aglomerados | Regiones | Aglomerados      > Pobreza | Indigencia
-        > Series históricas (rotuladas «EPH puntual» por la fuente)
+        > Series históricas (EPH puntual, Gran Buenos Aires 1988-2003)     > Pobreza | Indigencia
+    (los cuadros 63.1 y 64.1, rotulados «EPH puntual 2001-2003», no se publican: ver ``EXCLUIDAS``)
     Trabajo e ingresos > Distribución del ingreso > Ingreso per cápita familiar | Ingreso de la ocupación principal
     Trabajo e ingresos > Salario mínimo y haberes
     Trabajo e ingresos > Asignación Universal por Hijo
@@ -58,7 +59,7 @@ AGLOMERADOS = "Aglomerados"
 # (nombre oficial, expresiones sobre el texto sin tildes ni mayúsculas). El orden importa: los
 # partidos van antes que el Gran Buenos Aires, cuyo nombre aparece al final de «Partidos del Gran…».
 _AGLOMERADOS = (
-    ("Ciudad Autónoma de Buenos Aires", (r"ciudad de buenos aires", r"\bcaba\b")),
+    ("Ciudad Autónoma de Buenos Aires", (r"ciudad (?:autonoma )?de buenos aires", r"\bcaba\b")),
     ("Partidos del GBA", (r"partidos a partir del 98", r"partidos gba", r"partidos del gran buenos aires")),
     ("Partidos del conurbano", (r"partidos del conurbano",)),
     ("Gran Buenos Aires", (r"(?:^|\s)gran buenos aires$", r"^gba$")),
@@ -315,15 +316,17 @@ def _pobreza(serie: Serie) -> Clasificacion | None:
         datos = _POBREZA_HOJAS[serie.hoja]
         m = _LUGAR_POBREZA.search(serie.descripcion)
         cobertura = _cobertura(m.group(1)) if m else None
-        # Los cuadros 63.1 y 64.1 (pobreza) vienen rotulados «EPH puntual» y tienen los mismos
-        # valores que sus pares 63.2 y 64.2 («EPH continua»): duplicados exactos de la fuente.
+        # Los cuadros 63.1 y 64.1 (rotulados «EPH puntual 2001-2003») están excluidos de la publicación
+        # (ver ``EXCLUIDAS``); la regla los deja en «Series históricas» sólo para que tengan clasificación.
+        # Las hojas LI (cuadros 61.1 y 62.1, rotuladas «2001 a 2003») y las LP con 63.2 y 64.2 traen la
+        # EPH continua 1.er semestre de 2003 a 2.º de 2006: son series vigentes por cobertura.
         historica = serie.id.startswith(("63.1_", "64.1_"))
     if datos is None or cobertura is None:
         return None
     apertura, concepto, unidad_de_cuenta = datos
     return Clasificacion(TEMA, POBREZA_INDICADOR, unir(concepto, unidad_de_cuenta, cobertura[1]),
                          cobertura=HISTORICAS if historica else cobertura[0],
-                         apertura="" if historica else apertura, unidad=PROPORCION)
+                         apertura=apertura, unidad=PROPORCION)
 
 
 # ===================================================================================================
@@ -379,7 +382,7 @@ def _salario_minimo(serie: Serie) -> Clasificacion | None:
 
 
 def _haber_minimo(serie: Serie) -> Clasificacion | None:
-    # Las dos columnas de la hoja son la misma serie publicada dos veces (valores idénticos).
+    # Las dos columnas son el mismo haber en dos unidades (no son copias: ver ``UNIDADES``).
     if serie.variable not in ("mensual_pesos", "mensual_pesos_corrientes"):
         return None
     return Clasificacion(TEMA, SALARIO_INDICADOR, "Haber mínimo jubilatorio", unidad=PESOS_CORRIENTES)
@@ -409,6 +412,13 @@ _REGIONES_CANASTA = {
     "pampeana": "Pampeana", "patagonia": "Patagonia",
 }
 _CABA = "Ciudad Autónoma de Buenos Aires"
+# La CBA y la CBT de la Ciudad de Buenos Aires (IDECBA, cuadro 444.1 hoja «CBA y CBT BA») son del «hogar tipo»
+# (descripción del dataset en la API) y valen 4,2 veces las del INDEC por adulto equivalente de la región GBA
+# (abr-2016: 6.319 contra 1.515; feb-2025: 639.601 contra 151.491): no son adulto equivalente.
+_CANASTA_CABA = {
+    "canasta_basica_alimentaria": ("Canasta básica alimentaria · Hogar tipo", PESOS_CORRIENTES),
+    "canasta_basica_total": ("Canasta básica total · Hogar tipo", PESOS_CORRIENTES),
+}
 
 
 def _canastas(serie: Serie) -> Clasificacion | None:
@@ -417,7 +427,8 @@ def _canastas(serie: Serie) -> Clasificacion | None:
         return Clasificacion(PRECIOS, CANASTAS_INDICADOR, datos[0], cobertura=HISTORICAS,
                              unidad=datos[1]) if datos else None
     if serie.hoja == "CBA y CBT BA":
-        datos, lugar = _CANASTAS.get(serie.variable), _CABA
+        # Hogar tipo del IDECBA, no adulto equivalente (ver el comentario de ``_CANASTA_CABA``).
+        datos, lugar = _CANASTA_CABA.get(serie.variable), _CABA
     else:
         lugar = _REGIONES_CANASTA.get(serie.variable)
         texto = plano(serie.descripcion)
@@ -427,6 +438,69 @@ def _canastas(serie: Serie) -> Clasificacion | None:
     if datos is None or lugar is None:
         return None
     return Clasificacion(PRECIOS, CANASTAS_INDICADOR, unir(datos[0], lugar), cobertura=lugar, unidad=datos[1])
+
+
+# ===================================================================================================
+# Correcciones: series que no se publican y unidades
+# ===================================================================================================
+# Sufijos de los 39 ID de los cuadros 63.1 (hogares) y 64.1 (personas): el prefijo se completa abajo.
+_SUFIJOS_PUNTUAL = (
+    "AIP_0_0_25", "BBC_0_0_18", "CRRT_0_0_29",
+    "C_0_0_10", "C_0_0_4", "C_0_0_9",
+    "F_0_0_7", "GC_0_0_12", "GC_0_0_14",
+    "GLP_0_0_13", "GM_0_0_12", "GP_0_0_11",
+    "GR_0_0_12", "GR_0_0_16", "GSF_0_0_13",
+    "GSJ_0_0_13", "GTTV_0_0_23", "G_0_0_3",
+    "JP_0_0_13", "LR_0_0_8", "MPB_0_0_15",
+    "NP_0_0_16", "PGBA_0_0_26", "P_0_0_7",
+    "RC_0_0_10", "RG_0_0_12", "RNE_0_0_15",
+    "RNO_0_0_15", "RP_0_0_15", "RP_0_0_16",
+    "RT_0_0_13", "SELB_0_0_24", "SLEC_0_0_21",
+    "SNVC_0_0_30", "SRT_0_0_15", "S_0_0_5",
+    "T_0_0_5", "URG_0_0_18", "VCP_0_0_23",
+)
+
+_MOTIVO_PUNTUAL = (
+    "Copia exacta de la serie de su par 63.2/64.2 (EPH continua, 1.er semestre 2003 a 2.º de 2006; 8 valores "
+    "idénticos en las 39 series de cada hoja) rotulada «EPH puntual 2001 a 2003»: la API de series declara para "
+    "este ID otro dato (EPH puntual, 5 ondas de may-2001 a may-2003, p. ej. pobreza de personas total 35,9 % a "
+    "54,7 %) que BD.xlsx no contiene"
+)
+
+EXCLUIDAS = {
+    **{(FUENTE, f"63.1_{sufijo}"): _MOTIVO_PUNTUAL for sufijo in _SUFIJOS_PUNTUAL},
+    **{(FUENTE, f"64.1_{sufijo}"): _MOTIVO_PUNTUAL for sufijo in _SUFIJOS_PUNTUAL},
+    # Hoja «CBA y CBT», cuadro 59.2 (4 series): BD.xlsx trae 8 valores fechados 1988-04 a 1991-07 que son los de
+    # oct-2000 a jul-2002 (la API los da desde 2000-10, «desde 2000 hasta 2006»: 63,51 oct-2000 … 100,25 jul-2002;
+    # coinciden con el promedio trimestral de la serie mensual 59.4 de la misma hoja, diferencia < 1e-12).
+    # Las fechas no corresponden al dato y el dato correcto está en 59.4.
+    **{(FUENTE, id): "Fechas erróneas (1988-1991): los valores son los de oct-2000 a jul-2002, iguales al "
+                     "promedio trimestral de la serie mensual 59.4 de la misma hoja y a la API (desde 2000-10)"
+       for id in ("59.2_CBA_0_D_26", "59.2_CBT_0_D_20", "59.2_LI_0_D_16", "59.2_LP_0_D_13")},
+    # CBA de la región GBA (hoja «CBA y CBT Reg»): igual a la CBA de la hoja «CBA y CBT 2016» (módulo
+    # precios_otros, que cubre hasta sep-2026) en los 123 meses en común (abr-2016 a jun-2026), diferencia 0.
+    (FUENTE, "444.1_CANASTA_BARIAGBA_0_0_26_47"): (
+        "Copia exacta de la CBA de la hoja «CBA y CBT 2016» (123 meses en común, diferencia 0); se conserva la más larga"
+    ),
+}
+
+_MONEDA_DE_CADA_EPOCA = "Pesos corrientes (moneda de cada época)"
+_MONEDA_ACTUAL = "Pesos corrientes (convertidos a la moneda actual)"
+
+UNIDADES = {
+    # SMVM: el mensual cae 1e4 en jun-1983 (700 contra 7.000.000), 1e3 en jul-1985 y 1e4 en ene-1992 (97 contra
+    # 970.000): son los cambios de moneda (peso ley, peso argentino, austral, peso). La serie está en la moneda
+    # de cada época, sin convertir; «Pesos corrientes» a secas la hace pasar por homogénea.
+    (FUENTE, "57.1_SMVMM_0_M_34"): _MONEDA_DE_CADA_EPOCA,
+    (FUENTE, "57.1_SMVMD_0_M_33"): _MONEDA_DE_CADA_EPOCA,
+    (FUENTE, "57.1_SMVMH_0_M_31"): _MONEDA_DE_CADA_EPOCA,
+    # HaberMin: no son copias. 58.1_MP_0_M_24 está en la moneda de cada época (170 en ene-1971) y 58.1_MP_0_M_13 es
+    # la misma serie convertida a la moneda actual (1,7e-9 en ene-1971): el cociente es exactamente 1e11 hasta
+    # may-1983, 1e7 hasta jun-1985, 1e4 hasta dic-1991 y 1 desde ene-1992 (los factores de las reformas monetarias);
+    # desde 1992 coinciden (415 meses, una sola diferencia de 0,96 en dic-2024).
+    (FUENTE, "58.1_MP_0_M_24"): _MONEDA_DE_CADA_EPOCA,
+    (FUENTE, "58.1_MP_0_M_13"): _MONEDA_ACTUAL,
+}
 
 
 # ===================================================================================================

@@ -9,6 +9,7 @@ from tools.taxonomia.moneda_depositos_tasas import clasificar
 
 TEMA = "Moneda y sistema financiero"
 REF = "Tasas de interés"
+COB = "Depósitos"
 DEP = "Tasas y montos de depósitos"
 
 
@@ -24,32 +25,32 @@ def serie(hoja: str, variable: str, nombre: str, fuente: str = "bcra-pas", archi
 CASOS = (
     ('Totales_diarios', 'tamar05',
      'Totales_diarios: TAMAR - En pesos - (miles) - Bancos - privados - Montos - operados',
-     REF, 'Tasas de referencia por depósitos', 'TAMAR',
-     'TAMAR · Bancos privados (monto operado)', 'Miles de pesos'),
+     REF, COB, 'Montos operados',
+     'Tasas de interés · TAMAR · Bancos privados (monto operado)', 'Miles de pesos'),
     ('Totales_diarios', 'tan327',
      'Totales_diarios: TASAS DE INTERES POR DEPOSITOS A PLAZO FIJO DE MAS DE UN MILLON DE PESOS O DOLARES, serie diaria (3), en % n.a. (BADLAR) - Depósitos de más de un millón de pesos - de 30 a 35 días de plazo - Total de - bancos - informantes',
-     REF, 'Tasas de referencia por depósitos', 'BADLAR',
-     'BADLAR · Total de bancos', '% nominal anual'),
+     REF, COB, '',
+     'Tasas de interés · BADLAR · Total de bancos (TNA)', '% nominal anual'),
     ('Totales_diarios', 'TM2004',
      'Totales_diarios: Depósitos de 20 o más millones de dólares - de 30 a 35 días de plazo - Total de - bancos - informantes',
-     REF, 'Tasas de referencia por depósitos', 'TM20',
-     'TM20 en dólares · Total de bancos', '% nominal anual'),
+     REF, COB, '',
+     'Tasas de interés · TM20 · Total de bancos (en dólares, TNA)', '% nominal anual'),
     ('Totales_diarios', 'monpesbadpub',
      'Totales_diarios: BADLAR - En pesos - (miles) - Bancos - públicos - Montos - operados',
-     REF, 'Tasas de referencia por depósitos', 'BADLAR',
-     'BADLAR · Bancos públicos (monto operado)', 'Miles de pesos'),
+     REF, COB, 'Montos operados',
+     'Tasas de interés · BADLAR · Bancos públicos (monto operado)', 'Miles de pesos'),
     ('Totales_diarios', 'mondolbadpri',
      'Totales_diarios: BADLAR - En dólares - (miles) - Bancos - privados - Montos - operados',
-     REF, 'Tasas de referencia por depósitos', 'BADLAR',
-     'BADLAR en dólares · Bancos privados (monto operado)', 'Miles de dólares'),
+     REF, COB, 'Montos operados',
+     'Tasas de interés · BADLAR · Bancos privados (monto operado, en dólares)', 'Miles de dólares'),
     ('Totales_diarios', 'tamar03',
      'Totales_diarios: TAMAR- TASA MAYORISTA DE ARGENTINA, serie diaria (7), en % n.a. - Bancos - Privados',
-     REF, 'Tasas de referencia por depósitos', 'TAMAR',
-     'TAMAR · Bancos privados', '% nominal anual'),
+     REF, COB, '',
+     'Tasas de interés · TAMAR · Bancos privados (TNA)', '% nominal anual'),
     ('Totales_diarios', 'TM2011',
      'Totales_diarios: TM20 - En dólares - (miles) - Bancos - públicos - Montos - operados',
-     REF, 'Tasas de referencia por depósitos', 'TM20',
-     'TM20 en dólares · Bancos públicos (monto operado)', 'Miles de dólares'),
+     REF, COB, 'Montos operados',
+     'Tasas de interés · TM20 · Bancos públicos (monto operado, en dólares)', 'Miles de dólares'),
     ('Totales_diarios', 'tanpes1',
      'Totales_diarios: TASAS DE INTERES POR DEPOSITOS EN CAJA DE AHORROS COMUN Y A PLAZO FIJO, serie diaria (1), en % n.a. - Depósitos de pesos - En caja - de - ahorros - común',
      DEP, 'Total de entidades financieras', 'Caja de ahorros en pesos',
@@ -176,36 +177,36 @@ CASOS = (
      'Cuenta corriente remunerada en dólares · Hasta US$99.999 · Prestadoras de servicios financieros (saldo)', 'Miles de dólares'),
     ('Estra_dia_fis', 'pasdesfis19',
      'Estra_dia_fis: Tasa - de - interés',
-     DEP, 'Personas físicas', 'Plazo fijo en pesos',
-     'Plazo fijo en pesos · Hasta $99.999 · Personas físicas', '% nominal anual'),
+     DEP, 'Personas humanas', 'Plazo fijo en pesos',
+     'Plazo fijo en pesos · Hasta $99.999 · Personas humanas', '% nominal anual'),
     ('Estra_dia_jur', 'pasdesjur70',
      'Estra_dia_jur: De 500.000 - a 999.999 - Saldo',
      DEP, 'Personas jurídicas', 'Caja de ahorros en dólares',
      'Caja de ahorros en dólares · De US$500.000 a US$999.999 · Personas jurídicas (saldo)', 'Miles de dólares'),
     ('Estra_dia_pri', 'pasdespri88',
      'Estra_dia_pri: De 1.000.000 - y más - Monto',
-     DEP, 'Sector privado', 'Plazo fijo en dólares',
-     'Plazo fijo en dólares · Hasta 59 días · De US$1.000.000 y más · Sector privado (monto)', 'Miles de dólares'),
+     DEP, 'Sector privado no financiero', 'Plazo fijo en dólares',
+     'Plazo fijo en dólares · Hasta 59 días · De US$1.000.000 y más · Sector privado no financiero (monto)', 'Miles de dólares'),
     ('Estra_dia_res', 'pasdesres20',
      'Estra_dia_res: De 100.000 - a 499.999 - Monto',
      DEP, 'Otras personas jurídicas', 'Plazo fijo en pesos',
      'Plazo fijo en pesos · De $100.000 a $499.999 · Otras personas jurídicas (monto)', 'Miles de pesos'),
     ('Estra_dia_pub', 'pasdespub90',
      'Estra_dia_pub: Depósitos de dólares estadounidenses - Plazo fijo - Hasta 13 días de plazo - Hasta 99.999 - Monto',
-     DEP, 'Sector público', 'Plazo fijo en dólares',
-     'Plazo fijo en dólares · Hasta 13 días · Hasta US$99.999 · Sector público (monto)', 'Miles de dólares'),
+     DEP, 'Sector público no financiero', 'Plazo fijo en dólares',
+     'Plazo fijo en dólares · Hasta 13 días · Hasta US$99.999 · Sector público no financiero (monto)', 'Miles de dólares'),
     ('Estra_dia_pub', 'pasdespub99',
      'Estra_dia_pub: Tasa - de - interés',
-     DEP, 'Sector público', 'Plazo fijo en dólares',
-     'Plazo fijo en dólares · 14 a 29 días · Hasta US$99.999 · Sector público', '% nominal anual'),
+     DEP, 'Sector público no financiero', 'Plazo fijo en dólares',
+     'Plazo fijo en dólares · 14 a 29 días · Hasta US$99.999 · Sector público no financiero', '% nominal anual'),
     ('Estra_dia_pub', 'pasdespub122',
      'Estra_dia_pub: Plazo fijo - De 60 y más días de plazo - Hasta 99.999 - Monto',
-     DEP, 'Sector público', 'Plazo fijo en dólares',
-     'Plazo fijo en dólares · 60 días o más · Hasta US$99.999 · Sector público (monto)', 'Miles de dólares'),
+     DEP, 'Sector público no financiero', 'Plazo fijo en dólares',
+     'Plazo fijo en dólares · 60 días o más · Hasta US$99.999 · Sector público no financiero (monto)', 'Miles de dólares'),
     ('Estra_dia_pub', 'pasdespub129',
      'Estra_dia_pub: Tasa - de - interés',
-     DEP, 'Sector público', 'Plazo fijo en dólares',
-     'Plazo fijo en dólares · 60 días o más · De US$1.000.000 y más · Sector público', '% nominal anual'),
+     DEP, 'Sector público no financiero', 'Plazo fijo en dólares',
+     'Plazo fijo en dólares · 60 días o más · De US$1.000.000 y más · Sector público no financiero', '% nominal anual'),
 )
 
 
@@ -237,6 +238,26 @@ class ClasificarDepositosTasas(unittest.TestCase):
         self.assertIsNone(clasificar(serie("Estra_dia_bancos", "pasdes24", "Estra_dia_bancos: De 100.000 - a 499.999 - Monto")))
         self.assertIsNone(clasificar(serie("UVA_UVI", "pasvar16", "UVA_UVI: Plazo")))
         self.assertIsNone(clasificar(serie("Estra_dia_pub", "pasdespub130", "Estra_dia_pub: Tasa - de - interés")))
+
+    def test_columnas_de_monto_rotuladas_saldo_por_error_de_la_fuente(self):
+        # Plazo fijo con rótulo «Saldo» en la fuente: son montos colocados (ver el docstring del módulo).
+        ext = clasificar(serie("Estra_dia_ext", "pasdesext26",
+                               "Estra_dia_ext: Depósitos de pesos - Plazo fijo - Hasta 59 días de plazo - Hasta 99.999 - Saldo"))
+        self.assertEqual(ext.nombre, "Plazo fijo en pesos · Hasta 59 días · Hasta $99.999 · Residentes en el exterior (monto)")
+        uva = clasificar(serie("UVA_UVI", "pasvar04", "UVA_UVI: De 100.000 - a 499.999 - Saldo"))
+        self.assertEqual(uva.nombre, "Plazo fijo en UVA y UVI · De $100.000 a $499.999 (monto)")
+
+    def test_tasas_de_referencia_con_el_mismo_nombre_que_bcra_dmd(self):
+        # moneda_bcra nombra «Tasas de interés · BADLAR · Total de bancos (TNA)» en el grupo «Depósitos».
+        r = clasificar(serie("Totales_diarios", "tan327",
+                             "Totales_diarios: BADLAR - Depósitos de más de un millón de pesos - Total de - bancos - informantes"))
+        self.assertEqual((r.indicador, r.cobertura, r.nombre),
+                         ("Tasas de interés", "Depósitos", "Tasas de interés · BADLAR · Total de bancos (TNA)"))
+
+    def test_totales_y_series_diarias_son_el_mismo_concepto(self):
+        a = clasificar(serie("Totales_diarios", "tanplapes", "Totales_diarios: A plazo fijo - Total"))
+        b = clasificar(serie("Series_diarias", "bantanplapes", "Series_diarias: A plazo fijo - Total"))
+        self.assertEqual(a, b)
 
     def test_es_determinista(self):
         for hoja, variable, nombre, *_ in CASOS:

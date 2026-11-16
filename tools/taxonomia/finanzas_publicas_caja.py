@@ -81,7 +81,12 @@ TOTALES = "Totales"
 # Subsectores: hoja de origen -> nombre completo (nivel 3 y final del nombre de la serie).
 SUBSECTORES = {
     "SPN": "Sector Público Nacional no financiero",
-    "APN": "Administración Pública Nacional",
+    # datos.gob.ar la titula «Administración Pública Nacional», pero el cuadro AIF de la Secretaría de
+    # Hacienda (dic-2019 y dic-2025) la rotula «ADMINISTRACION NACIONAL» y la hoja es exactamente
+    # Tesoro + Recursos afectados + Organismos descentralizados + Instituciones de la seguridad social +
+    # Ex cajas provinciales (diferencia 0,0 en 2007-2026 y en 1993-2006 salvo 1997); la denominación
+    # legal (Ley 24.156, art. 8) es «Administración Nacional».
+    "APN": "Administración Nacional",
     "TN": "Tesoro Nacional",
     "OD": "Organismos descentralizados",
     "ISS": "Instituciones de la seguridad social",
@@ -257,7 +262,13 @@ _p(RESULTADOS, "Resultado primario", "superavit primario")
 _p(RESULTADOS, unir("Resultado primario", "Sin privatizaciones"), "superavit primario sin privatizaciones")
 # «Resultado financiero sin renta» (1993-2006) es la misma columna que «Resultado primario sin
 # rentas» de las demás metodologías y frecuencias (mismo lugar en la hoja, mismos valores).
-_p(RESULTADOS, unir("Resultado primario", "Sin rentas"), "resultado primario sin rentas",
+# Verificado con las 24 series: en todo el período y en los tres rótulos vale exactamente
+# «Ingresos primarios antes de figurativos − Gastos primarios antes de figurativos» (residuo 0,0 en
+# SPN, OD, ISS, EP_PAMI_FF y Ex_CP) y, en el SPN de dic-2025 y dic-2019, coincide con el cuadro AIF
+# de la Secretaría de Hacienda (−3.346.192,2 = 11.597.104,8 − 14.943.297,0). En los subsectores
+# no es «Resultado primario − rentas»: el primario (XIV) es después de figurativos y esta partida
+# es antes. En el SPN los figurativos se anulan y las dos definiciones dan lo mismo.
+_p(RESULTADOS, unir("Resultado primario", "Sin rentas", "Antes de figurativos"), "resultado primario sin rentas",
    "resultado primario sin renta", "resultado primario sin resnta", "resultado primarios sin renta",
    "resultado financiero sin renta", "resultados financieros sin renta")
 _p(RESULTADOS, "Resultado financiero", "resultado financiero")
@@ -382,12 +393,17 @@ _SEGMENTOS_IMIG = {
     # para protección social)» de datos.gob.ar son el mismo agregado: el que después se abre en las dos.
     "asignaciones familiares y por hijo": "Asignaciones familiares y universales",
     "asignaciones familiares y universales para proteccion social": "Asignaciones familiares y universales",
-    # Residuo de programas sociales; el rótulo cambia con los programas que lo integran.
-    "otros programas progresar argentina trabaja otros": "Otros programas",
-    "otras programas progresar argentina trabaja otros": "Otros programas",
-    "otros programas progresar emergencia social otros": "Otros programas",
-    "otros programas proyectos productivos comunitarios otros": "Otros programas",
-    "otras programos sociales": "Otros programas",
+    # Residuo de prestaciones sociales: no es un solo concepto. En 2018-2019 los informes lo definen
+    # de tres maneras y, en los meses que se solapan, los valores difieren (2018-01: 1.549,0 contra
+    # 3.630,8; 2019-01: 4.874,6 contra 5.479,6). Cada definición lleva su nombre. Las variantes
+    # «Progresar, Argentina Trabaja, otros» (con la errata «Otras Programas») coinciden entre sí
+    # (2017-05: 2.592,0), igual que «Progresar, Emergencia Social, otros» y «Proyectos Productivos
+    # Comunitarios, otros» (2019-01 y 2019-02: diferencia 0,1).
+    "otros programas progresar argentina trabaja otros": "Otros programas (Progresar, Argentina Trabaja, otros)",
+    "otras programas progresar argentina trabaja otros": "Otros programas (Progresar, Argentina Trabaja, otros)",
+    "otros programas progresar emergencia social otros": "Otros programas (Progresar, Emergencia Social, otros)",
+    "otros programas proyectos productivos comunitarios otros": "Otros programas (Progresar, Emergencia Social, otros)",
+    "otras programos sociales": "Otros programas sociales",
     "subsidios economicos": "Subsidios económicos",
     "gastos de funcionamiento": "Gastos de funcionamiento",
     "gastos de funcionamiento y otros": "Gastos de funcionamiento",
@@ -416,7 +432,10 @@ _SEGMENTOS_IMIG = {
     "nacion": "Nación",
     "transferencias a provincias": "Transferencias a provincias",
     "fondo federal solidario": "Fondo Federal Solidario",
-    "intereses": "Intereses",
+    # «Intereses» (2016-2019) e «Intereses Netos» (2016-2026) valen lo mismo mes a mes y los dos
+    # coinciden con «Intereses netos» de la cuenta AIF del SPN (diferencia máxima 0,0 en 39 y 115
+    # meses); el informe de dic-2025 lo rotula «Intereses Netos».
+    "intereses": "Intereses netos",
     "intereses netos": "Intereses netos",
     "resultado primario": "Resultado primario",
     "resultado financiero": "Resultado financiero",
@@ -499,6 +518,40 @@ def _imig(serie: Serie) -> Clasificacion | None:
     nombre = unir(*(_SEGMENTOS_IMIG[s] for s in segmentos))
     return Clasificacion(tema=TEMA, indicador=INDICADOR_IMIG, cobertura=bloque, apertura=apertura,
                          nombre=nombre, unidad=UNIDAD)
+
+
+
+# --------------------------------------------------------------------------------------------
+# Series que empalman dos o tres conceptos distintos bajo un mismo ID (no se publican; los datos no se tocan)
+# --------------------------------------------------------------------------------------------
+
+_EMPALME_PROGRAMAS = (
+    "la columna vale «Otros programas (Progresar, Argentina Trabaja, otros)» hasta 2018-12, «(Progresar, Emergencia "
+    "Social, otros / Proyectos Productivos Comunitarios, otros)» en 2019 y «Otros programas sociales» desde 2020-01: coincide "
+    "mes a mes con las tres columnas de mecon-imig (2018-01: 1.549,0 = primera; 2019-01: 4.874,6 = segunda; "
+    "2020-01: 31.111,2 = tercera) y esas definiciones difieren entre sí (2019-01: 4.874,6 contra 5.479,6)")
+_EMPALME_RESTO = (
+    "empalma dos alcances: hasta 2019-12 no incluye «Combustibles» y desde 2020-01 sí; en 2019 «Resto» + «Combustibles» "
+    "de esta hoja coincide con el «Resto tributarios» de mecon-imig (diferencia 0,0 en los 12 meses) y mecon-imig "
+    "(que desde 2019-01 sí incluye Combustibles) coincide con esta hoja desde 2020-01")
+
+EXCLUIDAS: dict[tuple[str, str], str] = {
+    ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_11"): "«Otros programas» mensual: " + _EMPALME_PROGRAMAS,
+    ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_65"): "«Otros programas» anual: " + _EMPALME_PROGRAMAS,
+    ("datos.gob.ar", "452.2_OTROS_PROGMAS_0_T_15_7"): "«Otros programas» trimestral: " + _EMPALME_PROGRAMAS,
+    ("datos.gob.ar", "452.2_RESTO_TRIBIOS_0_T_17_0"): "«Resto de ingresos tributarios» mensual: " + _EMPALME_RESTO,
+    ("datos.gob.ar", "452.2_RESTO_TRIBIOS_0_T_17_42"): "«Resto de ingresos tributarios» anual: " + _EMPALME_RESTO,
+    ("datos.gob.ar", "452.1_RESTO_TRIBIOS_0_A_17_88"): "«Resto de ingresos tributarios» trimestral: " + _EMPALME_RESTO,
+    ("mecon-imig", "ingresos-totales-tributarios-resto-tributarios"):
+        "«Resto tributarios» empalma dos alcances: hasta 2018-12 sin Combustibles (el total tributario cierra con "
+        "Combustibles como hijo) y desde 2019-01 con Combustibles (el total cierra con residuo exacto de −Combustibles: "
+        "2019-01 −4.604, 2019-12 −6.815); el salto 2018-12 → 2019-01 (10.594 → 15.395) es el de Combustibles",
+    ("mecon-imig", "gastos-primarios-otros-gastos-corrientes"):
+        "«Otros Gastos Corrientes» empalma dos alcances: hasta 2018-12 incluye las transferencias a universidades "
+        "(2018-12: 20.300,0 = déficit operativo 40,9 + universidades 13.841,9 + resto 6.417,2) y desde 2019-01 no las "
+        "incluye (2019-01: 2.762,0 = −1.071,6 + 3.833,6); el informe de dic-2025 las lista aparte (499.381,4) y deja "
+        "esta partida en 223.225,9",
+}
 
 
 # --------------------------------------------------------------------------------------------

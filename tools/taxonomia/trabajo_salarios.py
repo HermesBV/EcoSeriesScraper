@@ -52,6 +52,7 @@ Criterios que explican las decisiones (ver ``docs/taxonomia.md``):
 from __future__ import annotations
 
 import re
+from dataclasses import replace
 
 from . import Clasificacion, Serie
 from .texto import con_medida, plano, unir
@@ -88,7 +89,6 @@ VAR_MENSUAL = "var. % mensual"
 VAR_TRIMESTRAL = "var. % trimestral"
 VAR_INTERANUAL = "var. % interanual"
 VAR_ACUMULADA = "var. % acumulada"
-VAR_PERIODO = "var. % respecto del período anterior"
 VAR = "var. %"
 PRECIOS_CONSTANTES = "precios constantes"
 PCT_PIB = "% del PIB a costo de factores"
@@ -269,10 +269,10 @@ _IS_VIEJO = {
 def _is_base_2012(serie: Serie) -> Clasificacion | None:
     for prefijo, sector in _IS_VIEJO.items():
         if serie.variable == prefijo + "_mod_decreto":
-            return _is(sector, "", historica=True, unidad=_indice("2012=100"))
+            return _is(sector, "", historica=True, unidad=_indice("abr-2012=100"))
         if serie.variable == prefijo + "_sin_mod_decreto":
             return _is(sector, "sin modificaciones del Decreto 381/07", historica=True,
-                       unidad=_indice("2012=100"))
+                       unidad=_indice("abr-2012=100"))
     return None
 
 
@@ -669,8 +669,19 @@ def _cgi_antiguo(serie: Serie) -> Clasificacion | None:
     sufijo = () if rama == TOTAL else (rama,)
     concepto = _CONCEPTO_CGI_ANTIGUO[serie.hoja]
     if concepto is None:
-        return _puestos(sufijo, grupo=SERIES_HISTORICAS, version=RAMAS_CGI, unidad=PUESTOS)
-    return _remuneracion(concepto, sufijo, version=RAMAS_CGI)
+        resultado = _puestos(sufijo, grupo=SERIES_HISTORICAS, version=RAMAS_CGI, unidad=PUESTOS)
+    else:
+        resultado = _remuneracion(concepto, sufijo, version=RAMAS_CGI)
+    if rama not in RAMA.values():
+        return resultado
+    # Las ramas de la cuenta de generación del ingreso no son las de «RT/RN/CS/Puestos x Sector»: sólo
+    # el total coincide (diferencia media de 0,2 % en 38 trimestres). Por rama difieren de modo
+    # sistemático (2006T1, puestos: intermediación financiera 71.856 contra 140.272; hoteles y
+    # restaurantes 213.117 contra 174.301; remuneración promedio: financiera +14 %, pesca +12 %,
+    # industria -3,4 % en los 38 trimestres). Dos operativos distintos: no llevan el mismo nombre. Se
+    # marcan las ramas que comparten nombre con las de RT/RN/CS/Puestos x Sector; el total (que
+    # coincide) y las subramas propias de la cuenta no necesitan marca.
+    return replace(resultado, nombre=con_medida(resultado.nombre, "CGI"))
 
 
 # =================================================================================================
@@ -975,9 +986,9 @@ _HORA_NORMAL = {
     "nominal_a": (HORA_NORMAL, (), ""),
     "real_base_1986": (HORA_NORMAL, (PRECIOS_CONSTANTES,), _indice("1986=100")),
     "poder_adquisitivo_base_1986": ("Poder adquisitivo del salario hora normal", (), _indice("1986=100")),
-    "variacion_salario_real_a": (HORA_NORMAL, (PRECIOS_CONSTANTES, VAR_PERIODO), PORCENTAJE),
+    "variacion_salario_real_a": (HORA_NORMAL, (PRECIOS_CONSTANTES, VAR_MENSUAL), PORCENTAJE),
     "variacion_salario_real_b": (HORA_NORMAL, (PRECIOS_CONSTANTES, VAR_INTERANUAL), PORCENTAJE),
-    "variacion_poder_adquisitivo_a": ("Poder adquisitivo del salario hora normal", (VAR_PERIODO,), PORCENTAJE),
+    "variacion_poder_adquisitivo_a": ("Poder adquisitivo del salario hora normal", (VAR_MENSUAL,), PORCENTAJE),
     "variacion_poder_adquisitivo_b": ("Poder adquisitivo del salario hora normal", (VAR_INTERANUAL,), PORCENTAJE),
 }
 
@@ -991,6 +1002,127 @@ def _hora_normal(serie: Serie) -> Clasificacion | None:
         tema=TEMA, indicador=SALARIOS_IND, cobertura=SERIES_HISTORICAS, apertura=HORA_NORMAL_VERSION,
         nombre=con_medida(unir(SALARIOS_IND, concepto), ", ".join(medida)), unidad=unidad,
     )
+
+
+# =================================================================================================
+# Correcciones explícitas (ver ``tools.taxonomia.correcciones``)
+# =================================================================================================
+
+_DG = "datos.gob.ar"
+
+# «Salario real Ind85-90», hoja anual (ID 355.1_*): las siete columnas repiten, valor por valor, los
+# primeros cinco años (1960-1964) de la hoja «Salario oficial60-75» (rubros Promedio de las ramas,
+# Textil algodón, Textil lana, Alimentación, Carne, Lechera y Vitivinícola) con fechas 1985-1989.
+# Comprobado: coincidencia exacta de los cinco valores de cada columna con esos rubros; además son
+# imposibles como salario hora (un «nominal» que sube 140 % entre 1985 y 1989, con inflación de más
+# de 3.000 % sólo en 1989) y las «variaciones» son números índice con 100 en el primer año. La API de
+# datos.gob.ar publica los mismos valores: el error es de origen. El dato correcto de esos rubros
+# está en «Salario oficial60-75».
+_SALARIO_REAL_ANUAL = (
+    "355.1_NOMINAL_AL_A__9", "355.1_PODER_ADQU986__27", "355.1_REAL_BASE_986__14",
+    "355.1_VARIACION_L_A__24", "355.1_VARIACION_L_B__24", "355.1_VARIACION_O_A__29",
+    "355.1_VARIACION_O_B__29",
+)
+
+# «CGI Puestos», hoja anual (ID 325.1_*): 61 de las 65 series repiten las primeras 13 observaciones
+# trimestrales de la hoja trimestral (325.2_*, 2004T1-2007T1) con fechas anuales 2004-2016. Comprobado
+# en las 65 series: el valor anual no es la media de los cuatro trimestres (como sí ocurre en las hojas
+# de remuneraciones y costo salarial) y coincide uno a uno con los primeros trimestres; la API publica
+# lo mismo. Quedan las anuales correctas: total (media anual exacta) y las tres ramas públicas (ceros).
+_CGI_PUESTOS_ANUAL = (
+    "325.1_ACTIVIDADELER__50",
+    "325.1_AGRICULTURURA__39",
+    "325.1_AGRICULTURXOS__44",
+    "325.1_ASOCIACIONNES__12",
+    "325.1_CAPTACION_GUA__36",
+    "325.1_COMERCIO_MNES__40",
+    "325.1_COMUNICACINES__14",
+    "325.1_CONSTRUCCIION__12",
+    "325.1_CURTIDO_TEROS__26",
+    "325.1_EDICION_E_NES__44",
+    "325.1_ELABORACIOACO__26",
+    "325.1_ELABORACIODAS__41",
+    "325.1_ELECTRICIDGUA__20",
+    "325.1_ELIMINACIOERV__58",
+    "325.1_ENSENIANZAADA__18",
+    "325.1_ENSENIANZANZA__10",
+    "325.1_EXPLOTACIORAS__26",
+    "325.1_EXTRACCIONNCP__56",
+    "325.1_EXTRACCIONRBA__43",
+    "325.1_FABRICACIOCOS__36",
+    "325.1_FABRICACIOCOS__39",
+    "325.1_FABRICACIOEAR__67",
+    "325.1_FABRICACIOIAS__61",
+    "325.1_FABRICACIOICA__57",
+    "325.1_FABRICACIOICO__37",
+    "325.1_FABRICACIOJES__51",
+    "325.1_FABRICACIOLES__29",
+    "325.1_FABRICACIOLES__49",
+    "325.1_FABRICACIONCP_II__33",
+    "325.1_FABRICACIONCP__33",
+    "325.1_FABRICACIONCP__46",
+    "325.1_FABRICACIONCP__59",
+    "325.1_FABRICACIONES__27",
+    "325.1_FABRICACIONES__60",
+    "325.1_FABRICACIOPEL__32",
+    "325.1_FABRICACIOUES__58",
+    "325.1_FAB_PROD_EIPO__51",
+    "325.1_GENERACIONICA__49",
+    "325.1_HOTELES_CARAL__48",
+    "325.1_HOTELES_RETES__20",
+    "325.1_INDUSTRIA_ERA__23",
+    "325.1_INTERMEDIAERA__25",
+    "325.1_INTERMEDIAROS__52",
+    "325.1_NO_CLASIFIDOS__15",
+    "325.1_OTRAS_ACTILES__58",
+    "325.1_PESCASCA__5",
+    "325.1_PROD_FABR_LES__59",
+    "325.1_RECICLAMIENTO__13",
+    "325.1_REPARACIONPOS__55",
+    "325.1_RESTAURANTNAS__26",
+    "325.1_RESTOSTO__5",
+    "325.1_SALUD_PRIVADA__13",
+    "325.1_SERVICIOSOLES__49",
+    "325.1_SERVICIOSSROS__16",
+    "325.1_SERVICIOS_DES__48",
+    "325.1_SERVICIOS_DOS__52",
+    "325.1_SERVICIOS_ERA__46",
+    "325.1_SERVICIOS_LUD__26",
+    "325.1_SILVICULTUXOS__48",
+    "325.1_TRANSPORTENES__25",
+    "325.1_TRANSPORTERTE__10",
+)
+
+EXCLUIDAS = {
+    **{(_DG, i): "La columna anual repite los primeros cinco años (1960-1964) de «Salario oficial60-75» con fechas 1985-1989"
+       for i in _SALARIO_REAL_ANUAL},
+    **{(_DG, i): "El valor anual es la observación trimestral 2004T1+n, no el promedio del año (sí lo es en la hoja trimestral)"
+       for i in _CGI_PUESTOS_ANUAL},
+}
+
+# Índice de salarios, base 2012 (hoja «IS»): el inventario dice «2012=100» pero el promedio de 2012 es
+# 105,4; el índice vale 100,0000 en abril de 2012 en las cuatro series con modificaciones del Decreto
+# 381/07 (y en privado no registrado y público sin modificaciones), y las ocho variantes coinciden
+# hasta diciembre de 2007; la API describe «base 2012». Las trimestrales son promedios de los tres meses.
+_IS_BASE_2012 = (
+    "56.1_NGMD_2012_T_22",
+    "56.1_NGSMD_2012_T_26",
+    "56.1_SPMD_2012_T_22",
+    "56.1_SPNRMD_2012_T_32",
+    "56.1_SPNRSMD_2012_T_36",
+    "56.1_SPRMD_2012_T_29",
+    "56.1_SPRSMD_2012_T_33",
+    "56.1_SPSMD_2012_T_26",
+    "56.2_NGMD_2012_M_22",
+    "56.2_NGSMD_2012_M_26",
+    "56.2_SPMD_2012_M_22",
+    "56.2_SPNRMD_2012_M_32",
+    "56.2_SPNRSMD_2012_M_36",
+    "56.2_SPRMD_2012_M_29",
+    "56.2_SPRSMD_2012_M_33",
+    "56.2_SPSMD_2012_M_26",
+)
+UNIDADES = {(_DG, i): "Índice abr-2012=100" for i in _IS_BASE_2012}
 
 
 # =================================================================================================

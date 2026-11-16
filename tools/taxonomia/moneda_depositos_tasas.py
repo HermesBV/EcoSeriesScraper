@@ -2,9 +2,10 @@
 
 Fuente ``bcra-pas``: 19 hojas, todas diarias. Tema «Moneda y sistema financiero». Hay dos indicadores:
 
-* ``Tasas de interés`` > ``Tasas de referencia por depósitos`` > BADLAR | TM20 | TAMAR: las tasas
-  de referencia de la hoja ``Totales_diarios`` (las mismas que publican los datos monetarios
-  del BCRA) y los montos operados con los que se calculan.
+* ``Tasas de interés`` > ``Depósitos``: las tasas BADLAR, TM20 y TAMAR de la hoja ``Totales_diarios``
+  (las mismas que publican los datos monetarios del BCRA, ``bcra-dmd``, con el mismo nombre y el
+  mismo grupo; los valores coinciden en los 202 días de 2026 que trae el libro) y, bajo «Montos
+  operados», los montos con los que se calculan.
 * ``Tasas y montos de depósitos`` > <quién deposita o dónde> > <producto>: el resto del libro.
 
 Árbol del segundo indicador (nivel 3 = universo de depósitos que se mide, nivel 4 = producto):
@@ -47,6 +48,17 @@ en vez de quedar mal rotulada):
   estratos (el promedio ponderado por saldo de sus cuatro estratos da el mismo valor), por eso van
   al mismo concepto. El plazo fijo total de ``Series_diarias`` coincide con el promedio ponderado
   de las hojas de estratos.
+* ``Totales_diarios`` y ``Series_diarias`` miden el mismo concepto con distinta información (hoja
+  «Indice» y nota 6 de «Observaciones» del libro): ``Totales_diarios`` toma lo disponible a las 17 hs
+  del día hábil siguiente; ``Series_diarias`` son las mismas series «con datos sujetos a revisiones
+  diarias», es decir con la última información. Por eso llevan el mismo nombre. Se comprobó que
+  ``Series_diarias`` coincide con el promedio ponderado de ``Estra_dia`` (plazo fijo en pesos: mediana
+  del error 0,003, máximo 0,03 contra 0,021 y 0,4 de ``Totales_diarios``; caja de ahorros en pesos:
+  máximo 0,01 contra 0,68). Difieren hasta 1,1 puntos según la serie y el día.
+* Hay cinco columnas de monto de plazo fijo rotuladas «Saldo» en la fuente (``Estra_dia_ext``
+  pasdesext26, 28, 30 y 32, y ``UVA_UVI`` pasvar04). Son errores de tipeo: se comportan como flujo
+  (variación diaria media de 0,4 a 2 veces el nivel, contra 0,03 a 0,04 de los saldos reales de caja de
+  ahorros), y con ellas como montos se cierra la identidad total = sector privado + público + exterior.
 * ``Totales_diarios``: BADLAR (depósitos de más de $1 millón o US$1 millón, 30 a 35 días), TM20
   (depósitos de 20 o más millones) y TAMAR (mayorista, en pesos), por tipo de banco, y sus montos
   operados.
@@ -72,7 +84,7 @@ TEMA = "Moneda y sistema financiero"
 
 # Tasas de referencia (indicador compartido con las tasas de los datos monetarios del BCRA)
 INDICADOR_REFERENCIA = "Tasas de interés"
-COBERTURA_REFERENCIA = "Tasas de referencia por depósitos"
+COBERTURA_REFERENCIA = "Depósitos"
 # Resto del libro
 INDICADOR = "Tasas y montos de depósitos"
 
@@ -87,6 +99,13 @@ SALDO = "saldo"
 PLAZO_PROMEDIO = "plazo promedio"
 
 # --- Universos (nivel 3) -------------------------------------------------------------------
+# Denominaciones de la hoja «Indice» del libro (descarga del 15/11/2026): «sector público no financiero»,
+# «sector privado no financiero», «personas humanas», «personas jurídicas que no son prestadoras de
+# servicios financieros» (hoja _res), «residentes del exterior». Identidades verificadas con los montos
+# de cada bloque (cuentas corrientes, cajas de ahorros y plazos fijos, en pesos y en dólares): total =
+# bancos + no bancarias; bancos = privados + públicos; total = sector privado + sector público +
+# residentes del exterior; sector privado = personas humanas + jurídicas; jurídicas = prestadoras de
+# servicios financieros + otras (diferencia máxima 0,0 de la escala).
 TOTAL = "Total de entidades financieras"
 # hoja -> (universo del nivel 3, cómo se escribe en el nombre; vacío para el total)
 _UNIVERSOS = {
@@ -102,9 +121,9 @@ _UNIVERSOS = {
     "Series_diarias_bcos.publicos": ("Bancos públicos", "Bancos públicos"),
     "Estra_dia_no_banc.": ("Entidades financieras no bancarias", "Entidades financieras no bancarias"),
     "Series_diarias_no_bancarias": ("Entidades financieras no bancarias", "Entidades financieras no bancarias"),
-    "Estra_dia_pri": ("Sector privado", "Sector privado"),
-    "Estra_dia_pub": ("Sector público", "Sector público"),
-    "Estra_dia_fis": ("Personas físicas", "Personas físicas"),
+    "Estra_dia_pri": ("Sector privado no financiero", "Sector privado no financiero"),
+    "Estra_dia_pub": ("Sector público no financiero", "Sector público no financiero"),
+    "Estra_dia_fis": ("Personas humanas", "Personas humanas"),
     "Estra_dia_jur": ("Personas jurídicas", "Personas jurídicas"),
     "Estra_dia_fin": ("Prestadoras de servicios financieros", "Prestadoras de servicios financieros"),
     "Estra_dia_res": ("Otras personas jurídicas", "Otras personas jurídicas"),
@@ -308,15 +327,18 @@ def _referencia(serie: Serie) -> Clasificacion | None:
     # Los montos dicen «Montos operados»; las tasas, no.
     if es_monto != ("montos" in rotulo and "operados" in rotulo):
         return None
-    concepto = tasa if moneda == PESOS else f"{tasa} en dólares"
-    nombre = unir(concepto, bancos)
+    # Mismos nombres y grupo que las tasas de bcra-dmd (moneda_bcra): «Tasas de interés · BADLAR ·
+    # Total de bancos (TNA)», en el grupo «Depósitos»; las de dólares, «(en dólares, TNA)».
     if es_monto:
+        medida = f"{MONTO_OPERADO}, en dólares" if moneda == DOLARES else MONTO_OPERADO
         return Clasificacion(
-            TEMA, INDICADOR_REFERENCIA, con_medida(nombre, MONTO_OPERADO),
-            cobertura=COBERTURA_REFERENCIA, apertura=tasa, unidad=_UNIDAD_MONTO[moneda],
+            TEMA, INDICADOR_REFERENCIA, con_medida(unir(INDICADOR_REFERENCIA, tasa, bancos), medida),
+            cobertura=COBERTURA_REFERENCIA, apertura="Montos operados", unidad=_UNIDAD_MONTO[moneda],
         )
+    medida = "en dólares, TNA" if moneda == DOLARES else "TNA"
     return Clasificacion(
-        TEMA, INDICADOR_REFERENCIA, nombre, cobertura=COBERTURA_REFERENCIA, apertura=tasa, unidad=TASA,
+        TEMA, INDICADOR_REFERENCIA, con_medida(unir(INDICADOR_REFERENCIA, tasa, bancos), medida),
+        cobertura=COBERTURA_REFERENCIA, unidad=TASA,
     )
 
 

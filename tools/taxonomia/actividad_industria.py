@@ -51,10 +51,22 @@ Criterios que explican las decisiones (ver ``docs/taxonomia.md``):
   acumulado del año anterior. Los rótulos del INDEC arrastran textos de celdas combinadas
   («acumulada del año…» en columnas que no lo son): la medida sale de la posición del texto
   clave, no del rótulo completo, y se verificó contra los valores.
-* **Unidades.** datos.gob.ar publica las variaciones del EMAE base 2004, del EMI y del ISAC como
-  proporción (0,031 = 3,1 %) y las del EMAE base 1993 y la capacidad instalada como porcentaje;
-  la unidad se completa según los valores. En la hoja 1.17 no se completa: las unidades que
-  declara la descripción no coinciden con las magnitudes de la base.
+* **Unidades.** datos.gob.ar publica como proporción (0,031 = 3,1 %) las variaciones del EMAE base
+  2004 (hoja 1.4.1), del EMI base 2004 (1.14c), de la encuesta industrial revisada (1.15b) y la
+  variación interanual del ISAC (1.18b); como porcentaje, las del EMAE base 1993 (1.4); la capacidad
+  instalada (1.16*) es un porcentaje de 0 a 100. Se verificó por los valores: 1.4.1 y 1.18b ×100
+  coinciden con el libro del INDEC (diferencia máxima 2e-15 y 0 puntos) y la mediana de las
+  variaciones es 0,0077 (1.4.1), 0,065 (1.14c) y 0,048 (1.15b) contra 0,7 de la 1.4.
+* **Hoja 1.17 (producción industrial por producto).** El libro del Ministerio no declara bien ni la
+  frecuencia ni la unidad: los títulos de las distribuciones de la API están cruzados (la 41.1
+  «Valores mensuales» está indexada por año y la 41.3 «Valores anuales», por mes) y la unidad que
+  declara cada serie no siempre corresponde a sus valores. La anual es la suma de la mensual y la
+  trimestral también, de modo que las tres frecuencias de un producto valen lo mismo. Se completa
+  la unidad sólo donde otra hoja del mismo libro trae los mismos valores con su unidad
+  (petróleo crudo y gas natural, idénticos a las hojas 1.24 y 1.25). Se excluyen el papel para uso
+  sanitario (copia exacta de las ventas de gaseosas de la 1.13), el cemento portland y las naftas
+  común, súper y ultra, cuyos valores no pueden ser lo que declaran y cuyo dato correcto está en
+  las hojas 1.13 y 1.24 (ver ``EXCLUIDAS``). El resto queda sin unidad: ver el informe de auditoría.
 """
 
 from __future__ import annotations
@@ -91,6 +103,84 @@ METODO_DIRECTO = "método directo"
 # --- Unidades ------------------------------------------------------------------------------
 PORCENTAJE = "%"
 PROPORCION = "Proporción (1 = 100%)"
+
+
+# --- Correcciones explícitas (ver tools/taxonomia/__init__.py: correcciones) --------------------------------
+_AUX_IPI = (
+    "Código (CLaNAE 2004) - Período: no es una serie. Son los números de fila de la hoja de Excel "
+    "(6, 7, 8… un entero por mes, de ene-2016 a la fecha; 128 valores distintos y consecutivos), "
+    "verificado en los valores de BD.xlsx y en el libro sh_ipi_manufacturero_2026.xls del INDEC."
+)
+_CUADROS_IPI_AUX = {
+    "Cuadro 2": "cuadro-2-ipi-manufacturero-nivel-general-divisiones-y-subclases-serie-original-base-2004-100-en-numeros-indice-anos-2016-2026-codigo-clanae-2004-periodo",
+    "Cuadro 3": "cuadro-3-ipi-manufacturero-nivel-general-divisiones-y-subclases-serie-original-base-2004-100-en-variacion-porcentual-interanual-anos-2016-2026",
+    "Cuadro 4": "cuadro-4-ipi-manufacturero-nivel-general-divisiones-y-subclases-serie-original-base-2004-100-en-variacion-porcentual-interanual-acumulada-anos-2016-2026-codigo-clanae-2004-periodo",
+    "Cuadro 5": "cuadro-5-ipi-manufacturero-nivel-general-y-divisiones-serie-desestacionalizada-base-2004-100-en-numeros-indice-y-variacion-porcentual-intermensual-anos-2016-2026-codigo-clanae-2004-periodo",
+    "Cuadro 6": "cuadro-6-ipi-manufacturero-nivel-general-y-divisiones-serie-tendencia-ciclo-base-2004-100-en-numeros-indice-y-variacion-porcentual-intermensual-anos-2016-2026-codigo-clanae-2004-periodo",
+}
+
+# Hoja 1.17 «Indicadores de producción de la industria manufacturera» (datos.gob.ar): no se publica,
+# salvo petróleo crudo y gas natural. Motivos, con los valores de la hoja:
+#  * contenido erróneo comprobado en cuatro productos: «papel para uso sanitario» es copia exacta de
+#    las ventas de gaseosas de la hoja 1.13 (317 meses); el cemento vale de 7 a 38 veces el de la 1.13
+#    sin cociente constante; las naftas súper y ultra superan a todo el petróleo procesado;
+#  * valores incompatibles con la unidad que declara la fuente en muchos otros (último año: urea
+#    414.863 «miles de toneladas» contra 1.300 de producción del país; aluminio primario 4.024 contra
+#    ~440; acero crudo 10.082 contra ~5.000; PVC 59.703 contra ~200; kerosene 6.921 miles de m3);
+#  * la distribución «mensual» está indexada por año y la «anual» por mes, y la trimestral trae un solo
+#    dato en 33 series.
+# No hay otra fuente en el inventario para verificar los demás productos uno por uno. Petróleo crudo y
+# gas natural se conservan porque son idénticos a las hojas 1.24 y 1.25 (368 meses) y coinciden con la
+# unidad de la API. Para volver a publicar un producto hay que confirmarlo contra el libro original
+# del Ministerio (actividad_ied.xlsx) o una estadística sectorial, y agregar su ID a la lista.
+HOJAS_EXCLUIDAS: dict[tuple[str, str, str], tuple[str, frozenset[str]]] = {
+    ("datos.gob.ar", "actividad.xlsx", "1.17 Productos ind."): (
+        "Hoja con contenido erróneo comprobado en varios productos y sin fuente para verificar el resto",
+        frozenset({"41.1_GN_0_M_11", "41.2_GN_0_T_11", "41.3_GN_0_A_11",
+                   "41.1_PC_0_M_14", "41.2_PC_0_T_14", "41.3_PC_0_A_14"}),
+    ),
+}
+
+EXCLUIDAS: dict[tuple[str, str], str] = {
+    # Columnas que no son series: el rótulo «… Código (CLaNAE 2004) - Período» trae el número de fila.
+    **{("indec-ipi-manufacturero", f"ipi_manufacturero.xls|{cuadro}|{slug}"): f"{cuadro}. {_AUX_IPI}"
+       for cuadro, slug in _CUADROS_IPI_AUX.items()},
+    # Hoja 1.17: «papel para uso sanitario y otros usos» es copia exacta de las ventas de gaseosas
+    # (hoja 1.13, «38.x_G_1994_*_8», en miles de litros): 317 meses idénticos en la mensual y 11 años
+    # en la anual, y termina en la misma fecha (may-2020). Además 2,96 millones de toneladas en 2019
+    # superan toda la producción nacional de papel. La trimestral es la suma de la mensual.
+    ("datos.gob.ar", "41.1_PPSOU_0_M_33"): "Papel para uso sanitario y otros usos: copia exacta de las ventas de gaseosas de la hoja 1.13 (317 meses idénticos; 2,96 millones de t en 2019, más que toda la producción de papel).",
+    ("datos.gob.ar", "41.2_PPSOU_0_T_33"): "Papel para uso sanitario y otros usos: trimestral de la copia de las ventas de gaseosas de la hoja 1.13.",
+    ("datos.gob.ar", "41.3_PPSOU_0_A_33"): "Papel para uso sanitario y otros usos: copia exacta de las ventas de gaseosas de la hoja 1.13 (317 meses idénticos; 173.342 en may-2020 en ambas).",
+    # Hoja 1.17: cemento portland. Declara «miles de toneladas» pero vale 14.896 por mes y 194.914 en
+    # 2025; el cemento de la hoja 1.13 (ventas de producción nacional, miles de toneladas) vale 816 en
+    # jul-2026. El cociente no es constante (7 a 38 mensual, 14,6 a 29,7 anual): no es un cambio de
+    # unidad y no se puede renombrar. El dato correcto está en la hoja 1.13.
+    ("datos.gob.ar", "41.1_CP_0_M_16"): "Cemento portland de la hoja 1.17: 194.914 «miles de toneladas» en 2025 contra 10.014 en la hoja 1.13; cociente variable (14,6 a 29,7 por año), no es un cambio de unidad.",
+    ("datos.gob.ar", "41.2_CP_0_T_16"): "Cemento portland de la hoja 1.17 (trimestral, suma de la mensual): no corresponde a miles de toneladas; ver la hoja 1.13.",
+    ("datos.gob.ar", "41.3_CP_0_A_16"): "Cemento portland de la hoja 1.17: 14.896 «miles de toneladas» en jul-2026 contra 816 en la hoja 1.13; cociente variable (7 a 38), no es un cambio de unidad.",
+    # Hoja 1.17: naftas. La súper vale 20.215 y la ultra 21.291 «miles de m³» por mes (jul-2026): más
+    # que todo el petróleo procesado (3.696) y casi iguales entre sí; la hoja 1.24 (producción 571 y
+    # 269) y la 1.13 (ventas 586 y 209, idénticas a las ventas de la 1.24) dan órdenes de magnitud
+    # 35 y 100 veces menores. La común (1.17) supera al total de naftas de la misma hoja (32.223
+    # contra 7.347 en 2012) y a las ventas de la 1.13 (131).
+    ("datos.gob.ar", "41.3_NS_0_A_11"): "Nafta súper de la hoja 1.17: 20.215 miles de m³ en jul-2026 contra 571 de producción en la hoja 1.24 y más que el petróleo procesado (3.696).",
+    ("datos.gob.ar", "41.2_NS_0_T_11"): "Nafta súper de la hoja 1.17 (trimestral, suma de la mensual): ver 41.3_NS_0_A_11.",
+    ("datos.gob.ar", "41.3_NU_0_A_11"): "Nafta ultra de la hoja 1.17: 21.291 miles de m³ en jul-2026 contra 269 de producción en la hoja 1.24 y casi igual a la súper.",
+    ("datos.gob.ar", "41.2_NU_0_T_11"): "Nafta ultra de la hoja 1.17 (trimestral, suma de la mensual): ver 41.3_NU_0_A_11.",
+    ("datos.gob.ar", "41.1_NC_0_M_11"): "Nafta común de la hoja 1.17: 32.223 miles de m³ en 2012, más que el total de naftas de la misma hoja (7.347) y que las ventas de la hoja 1.13 (131).",
+    ("datos.gob.ar", "41.2_NC_0_T_11"): "Nafta común de la hoja 1.17 (trimestral, suma de la mensual): ver 41.1_NC_0_M_11.",
+    ("datos.gob.ar", "41.3_NC_0_A_11"): "Nafta común de la hoja 1.17 (mensual): mismo problema que 41.1_NC_0_M_11.",
+}
+
+# Unidades de la hoja 1.17 que se pudieron establecer: los valores son idénticos a los de otra hoja
+# del mismo libro que declara la unidad (petróleo crudo: 1.24, «Producción de petróleo crudo», miles
+# de m³, 368 meses iguales; gas natural: 1.25, «Producción de gas natural», millones de m³, 99 % iguales)
+# y coinciden con la declarada por la API de series de tiempo.
+_UNIDAD_PRODUCTOS = {
+    "petroleo_crudo": "Miles de metros cúbicos",
+    "gas_natural": "Millones de metros cúbicos",
+}
 
 
 def indice(base: int | str) -> str:
@@ -707,7 +797,7 @@ _P_CONSTRUCCION = "Materiales de construcción"
 _P_PAPEL = "Papel"
 _P_ELECTRO = "Electrodomésticos y electrónica"
 _P_OTROS = "Otros productos"
-# variable → (grupo, nombre). Las unidades no se completan (ver la nota del módulo). «Grasas» y
+# variable → (grupo, nombre). Las unidades se completan sólo donde están confirmadas (ver _UNIDAD_PRODUCTOS). «Grasas» y
 # «Otros artículos» no se pueden ubicar en una rama con los datos que trae la fuente.
 _PRODUCTOS = {
     "aceites_vegetales": (_P_ALIMENTOS, "Aceites vegetales"),
@@ -797,7 +887,7 @@ def _productos(serie: Serie) -> Clasificacion | None:
     if encontrado is None:
         return None
     grupo, nombre = encontrado
-    return _crear(PRODUCTOS, (nombre,), (), nivel3=grupo)
+    return _crear(PRODUCTOS, (nombre,), (), nivel3=grupo, unidad=_UNIDAD_PRODUCTOS.get(serie.variable, ""))
 
 
 # ===================================================================================================

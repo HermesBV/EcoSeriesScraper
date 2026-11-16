@@ -30,19 +30,25 @@ Alcance (coincidencia exacta de fuente, archivo y hoja):
 
 Decisiones que los datos obligaron a tomar:
 
-* Las «Ponderaciones Comercio» son, serie por serie y fecha por fecha, las mismas que el BCRA
-  publica como «Ponderadores» del ITCRM (mismos 13 socios, suman 100 y coinciden desde enero
-  de 1997 hasta el último dato común), así que van al indicador del tipo de cambio real y no al
-  comercio exterior.
+* Las «Ponderaciones Comercio» son, socio por socio, casi idénticas a los «Ponderadores» del ITCRM
+  del BCRA (mismos 13 socios, desde enero de 1997; diferencia media de 0,00 a 0,04 puntos, máxima
+  0,6), así que van al indicador del tipo de cambio real con el mismo nombre. No son exactamente
+  iguales: la hoja no está revisada como la del BCRA.
 * Varios cuadros publican porcentajes como fracciones (0,035 = 3,5%): las participaciones de
   las ON y de los fideicomisos, las tasas, el rendimiento de los bonos, la IED y la cuenta
   corriente en proporción del PIB. Esas series llevan la unidad «Proporción (1 = 100%)» y el
   nombre «(% del PIB)», «(% del total)» o «(tasa nominal anual)».
 * Las participaciones por sector de las ON y por activo subyacente de los fideicomisos suman
-  1 cada mes: son participaciones y no montos, aunque la descripción diga «Emisión de…».
-* Los títulos públicos se identifican por su código (el año del nombre de la fuente es
-  erróneo en varios: «Bonar 2025 - AA19» vence en 2019) y se agrupan por tipo de bono, que es
-  lo que la fuente dice de cada uno.
+  1 en 102 de 176 meses (en los demás, un sector queda un mes de menos y el siguiente de más: suman
+  2 entre ambos): son participaciones y no montos, aunque la descripción diga «Emisión de…».
+* Los títulos públicos se identifican por su código de especie de BYMA (el año del nombre de la
+  fuente es erróneo en varios: «Bonar 2025 - AA19» vence en 2019) y se agrupan por moneda y
+  ajuste (dólares, vinculados al dólar, duales, pesos a tasa fija o variable, CER, cláusula gatillo,
+  canje de deuda, consolidación, cupones del PIB). La cotización es el precio en pesos por cada
+  100 de valor nominal (en dólares en las especies con sufijo D); «dur» es la duración modificada.
+* Las IED por país son las entradas netas (inversión directa recibida) y la cuenta corriente es su
+  saldo, en millones de dólares o como fracción del PIB.
+* El «tipo de cambio BNA vendedor» está excluido: del 2018 al 2023 repite el mayorista del MAE.
 """
 
 from __future__ import annotations
@@ -63,6 +69,8 @@ PROPORCION = "Proporción (1 = 100%)"
 DOLARES = "Dólares"
 MILLONES_DOLARES = "Millones de dólares"
 MILLONES_PESOS = "Millones de pesos"
+MILES_DOLARES = "Miles de dólares"
+INDICE_2012 = "Índice 2012=100"
 PESOS_POR_DOLAR = "Pesos por US$"
 PORCENTAJE = "%"
 ANIOS = "Años"
@@ -159,8 +167,11 @@ _TIPOS_DE_CAMBIO = {
     "tipo_cambio_a3500": "Oficial mayorista (A 3500)",
     "tipo_cambio_mae": "Mayorista (MAE)",
     "tipo_cambio_bna_vendedor": "Banco Nación (vendedor)",
-    "tipo_cambio_implicito_en_adrs": "Implícito en ADR",
 }
+# El «implícito en ADR» es el dólar contado con liquidación: sigue al dólar MEP (cociente mediano
+# 1,04 en 1.280 días) y al blue (0,99), coincide con el oficial sin cepo (2016-2019: 1,00) y se
+# separa de él con cepo (2012-2015: 1,35-1,55; 2020-2023: 1,7-2,0).
+ADR = "Contado con liquidación (implícito en ADR)"
 
 
 def _mercado_cambiario(serie: Serie) -> Clasificacion | None:
@@ -169,9 +180,14 @@ def _mercado_cambiario(serie: Serie) -> Clasificacion | None:
     if tipo is not None:
         return Clasificacion(tema=EXTERNO, indicador=TIPO_DE_CAMBIO, nombre=unir("Tipo de cambio", tipo),
                              unidad=PESOS_POR_DOLAR)
+    if variable == "tipo_cambio_implicito_en_adrs":
+        return Clasificacion(tema=EXTERNO, indicador=TIPO_DE_CAMBIO, cobertura="Paralelos y financieros",
+                             nombre=unir("Tipo de cambio", ADR), unidad=PESOS_POR_DOLAR)
     if variable == "volumen_mae":
+        # La API de series de tiempo lo declara en miles de dólares y los órdenes de magnitud
+        # lo confirman: mediana de 392 millones de dólares diarios en 2018, 129 millones en 2020.
         return Clasificacion(tema=MERCADOS, indicador=VOLUMEN_CAMBIOS,
-                             nombre=unir(VOLUMEN_CAMBIOS, "MAE"))
+                             nombre=unir(VOLUMEN_CAMBIOS, "MAE"), unidad=MILES_DOLARES)
     precio = re.fullmatch(r"futuro_rofex_usd_?(\d+m)", variable)
     if precio and precio.group(1) in _PLAZOS:
         return Clasificacion(tema=MERCADOS, indicador=DOLAR_FUTURO,
@@ -218,6 +234,7 @@ FINANCIAMIENTO = "Financiamiento en el mercado de capitales"
 
 TOTAL = "Total"
 ON = "Obligaciones negociables"
+ON_VCP = "ON y valores de corto plazo"
 FF = "Fideicomisos financieros"
 ACCIONES = "Acciones"
 CPD = "Cheques de pago diferido"
@@ -326,7 +343,11 @@ def _financiamiento_privado(serie: Serie) -> Clasificacion | None:
         cantidad = variable in _CANTIDADES
         # Total, acciones y pagarés se abren sólo por tamaño de empresa: sin nivel intermedio.
         abre_por_tamanio = instrumento in (ON, FF, CPD)
-        nombre = unir(FINANCIAMIENTO, instrumento, tamanio)
+        # Los montos y cantidades de ON incluyen los valores de corto plazo («ON/VCP»); la CNV
+        # los informa dentro de las ON (monto de la serie × tipo de cambio ≈ monto en pesos de la CNV:
+        # jul-2022, 97.028 contra 95.377 millones de pesos).
+        rotulo = ON_VCP if instrumento == ON else instrumento
+        nombre = unir(FINANCIAMIENTO, rotulo, tamanio)
         return Clasificacion(
             tema=MERCADOS, indicador=FINANCIAMIENTO, cobertura=instrumento,
             apertura=POR_TAMANIO if abre_por_tamanio else "",
@@ -356,67 +377,97 @@ def _financiamiento_privado(serie: Serie) -> Clasificacion | None:
 # =================================================================================================
 TITULOS = "Títulos públicos"
 
-BONAR = "Bonar y Bonad"
-TESORO = "Bonos del Tesoro Nacional"
+USD = "Bonos en dólares"
+VINCULADOS = "Bonos vinculados al dólar"
+DUALES = "Bonos duales"
+TASA_FIJA = "Bonos en pesos a tasa fija"
+TASA_VARIABLE = "Bonos en pesos a tasa variable"
 CER = "Bonos ajustables por CER"
 GATILLO = "Bonos con cláusula gatillo"
-DUALES = "Bonos duales"
-SOBERANOS_USD = "Bonos soberanos en dólares"
+CANJE = "Bonos del canje de deuda (Discount, Par y Cuasipar)"
 CONSOLIDACION = "Bonos de consolidación y garantizados"
 CUPONES_PIB = "Cupones vinculados al PIB"
 
-# Código → (tipo de bono, cómo se llama el bono). El nombre lleva el código y no el año: el año
-# que trae la fuente es erróneo en varios bonos y el código lo contiene.
+# Código de especie de BYMA → (grupo, denominación). Se identifica cada bono por su código: la
+# fuente (IAMC) trae el año equivocado en varios («Bonar 2025 - AA19» vence en 2019; «Bono del
+# Tesoro Nacional 2015 - PR15» cotiza hasta 2020) y rotula mal el tipo de otros («cláusula
+# gatillo» en TD21, que es de tasa dual; «LAR» en PARY, que es ley Nueva York). La denominación
+# sale del nombre de la especie en el mercado (Rava/BYMA), y el año es el de vencimiento: coincide
+# con el sufijo del código y con la vida promedio ponderada de la propia hoja.
+# Moneda de denominación, por el cociente entre la cotización y el A 3500 (≈ 30-115 para los
+# bonos en dólares, ≈ 100 para los de pesos a la par) y por el nombre del mercado.
 _BONOS = {
-    "a2e2": (BONAR, "Bonar A2E2"), "a2e3": (BONAR, "Bonar A2E3"), "a2e7": (BONAR, "Bonar A2E7"),
-    "a2e8": (BONAR, "Bonar A2E8"), "aa19": (BONAR, "Bonar AA19"), "aa21": (BONAR, "Bonar AA21"),
-    "aa25": (BONAR, "Bonar AA25"), "aa26": (BONAR, "Bonar AA26"), "aa37": (BONAR, "Bonar AA37"),
-    "am20": (BONAR, "Bonar AM20"), "amx8": (BONAR, "Bonar AMX8"), "amx9": (BONAR, "Bonar AMX9"),
-    "an18": (BONAR, "Bonar AN18"), "ao17": (BONAR, "Bonar AO17"), "ao20": (BONAR, "Bonar AO20"),
-    "am18": (BONAR, "Bonad AM18"), "as17": (BONAR, "Bonad AS17"), "tv21": (BONAR, "Bonad TV21"),
-    "ac17": (BONAR, "Bono de la Nación Argentina AC17"),
-    "ay24": (BONAR, "Bono de la Nación Argentina AY24"),
-    "pr15": (TESORO, "Bono del Tesoro Nacional PR15"), "tb21": (TESORO, "Bono del Tesoro Nacional TB21"),
-    "tj20": (TESORO, "Bono del Tesoro Nacional TJ20"), "tm18": (TESORO, "Bono del Tesoro Nacional TM18"),
-    "tn20": (TESORO, "Bono del Tesoro Nacional TN20"), "to21": (TESORO, "Bono del Tesoro Nacional TO21"),
-    "to23": (TESORO, "Bono del Tesoro Nacional TO23"), "to26": (TESORO, "Bono del Tesoro Nacional TO26"),
-    "ts18": (TESORO, "Bono del Tesoro Nacional TS18"),
-    "tc20": (CER, "Boncer TC20"), "tc21": (CER, "Boncer TC21"), "tc23": (CER, "Boncer TC23"),
-    "tc25p": (CER, "Boncer TC25P"), "tx21": (CER, "Boncer TX21"),
-    "cuap": (CER, "Bono ajustable por CER CUAP"), "dicp": (CER, "Bono ajustable por CER DICP"),
-    "parp": (CER, "Bono ajustable por CER PARP"),
-    "a2m2": (GATILLO, "Bono con cláusula gatillo A2M2"), "af19": (GATILLO, "Bono con cláusula gatillo AF19"),
-    "td21": (GATILLO, "Bono con cláusula gatillo TD21"),
-    "a2j9": (DUALES, "Bono dual en pesos A2J9"), "a2j9d": (DUALES, "Bono dual en dólares A2J9D"),
-    "af20": (DUALES, "Bono dual en pesos AF20"), "af20d": (DUALES, "Bono dual en dólares AF20D"),
-    "dica": (SOBERANOS_USD, "Discount ley argentina DICA"), "dicy": (SOBERANOS_USD, "Discount DICY"),
-    "diy0": (SOBERANOS_USD, "Bono soberano ley Nueva York DIY0"),
-    "para": (SOBERANOS_USD, "Par PARA"), "pary": (SOBERANOS_USD, "Bono soberano en dólares PARY"),
-    "aa46": (SOBERANOS_USD, "Bono soberano en dólares AA46"),
-    "aa48": (SOBERANOS_USD, "Bono soberano en dólares AA48"),
-    "pr13": (CONSOLIDACION, "Bono de consolidación PR13"), "nf18": (CONSOLIDACION, "Bogar NF18"),
-    "no20": (CONSOLIDACION, "Bogar NO20"), "aa22": (CONSOLIDACION, "Bocan AA22"),
-    "tvpa": (CUPONES_PIB, "Cupón PIB TVPA"), "tvpe": (CUPONES_PIB, "Cupón PIB TVPE"),
-    "tvpp": (CUPONES_PIB, "Cupón PIB TVPP"), "tvpy": (CUPONES_PIB, "Cupón PIB TVPY"),
+    # Bonos en dólares (Bonar y bonos internacionales): cotizan en pesos por cada 100 de VN en dólares.
+    "a2e2": (USD, "Bonar 2022 A2E2"), "a2e3": (USD, "Bonar 2023 A2E3"),
+    "a2e7": (USD, "Bonar 2027 A2E7"), "a2e8": (USD, "Bonar 2028 A2E8"),
+    "aa19": (USD, "Bonar 2019 AA19"), "aa21": (USD, "Bonar 2021 AA21"),
+    "aa25": (USD, "Bonar 2025 AA25"), "aa26": (USD, "Bonar 2026 AA26"),
+    "aa37": (USD, "Bonar 2037 AA37"), "aa46": (USD, "Bonar 2046 AA46"),
+    "aa48": (USD, "Bono en dólares 2048 AA48"), "ac17": (USD, "Bono internacional 2117 AC17"),
+    "an18": (USD, "Bonar 2018 AN18"), "ao20": (USD, "Bonar 2020 AO20"), "ay24": (USD, "Bonar 2024 AY24"),
+    # Bonos en dólares que pagan en pesos al tipo de cambio.
+    "am18": (VINCULADOS, "Bonad 2018 AM18"), "as17": (VINCULADOS, "Bonad 2017 AS17"),
+    "tv21": (VINCULADOS, "Bono del Tesoro vinculado al dólar 2021 TV21"),
+    # «en pesos»/«en dólares» de la fuente es la moneda de negociación, no de denominación.
+    "a2j9": (DUALES, "Bono dual 2019 A2J9"), "a2j9d": (DUALES, "Bono dual 2019 A2J9D"),
+    "af20": (DUALES, "Bono dual 2020 AF20"), "af20d": (DUALES, "Bono dual 2020 AF20D"),
+    "tm18": (TASA_FIJA, "Bonar marzo 2018 TM18"), "ts18": (TASA_FIJA, "Bonar septiembre 2018 TS18"),
+    "tj20": (TASA_FIJA, "Bono del Tesoro en pesos 2020 TJ20"),
+    "tn20": (TASA_FIJA, "Bono del Tesoro en pesos 2020 TN20"),
+    "to21": (TASA_FIJA, "Bonte 2021 TO21"), "to23": (TASA_FIJA, "Bonte 2023 TO23"),
+    "to26": (TASA_FIJA, "Bonte 2026 TO26"),
+    "am20": (TASA_VARIABLE, "Bocan 2020 AM20"), "aa22": (TASA_VARIABLE, "Bocan 2022 AA22"),
+    "amx8": (TASA_VARIABLE, "Bonar 2018 en pesos AMX8"), "amx9": (TASA_VARIABLE, "Bonar 2019 en pesos AMX9"),
+    "ao17": (TASA_VARIABLE, "Bonar octubre 2017 AO17"),
+    "tb21": (TASA_VARIABLE, "Bono del Tesoro en pesos Badlar 2021 TB21"),
+    "td21": (TASA_VARIABLE, "Bono del Tesoro en pesos a tasa dual 2021 TD21"),
+    "tc20": (CER, "Boncer 2020 TC20"), "tc21": (CER, "Boncer 2021 TC21"), "tc23": (CER, "Boncer 2023 TC23"),
+    "tc25p": (CER, "Boncer 2025 TC25P"), "tx21": (CER, "Boncer 2021 TX21"),
+    "a2m2": (GATILLO, "Bogato 2020 A2M2"), "af19": (GATILLO, "Bogato 2019 AF19"),
+    "dica": (CANJE, "Discount en dólares ley argentina 2033 DICA"),
+    "dicy": (CANJE, "Discount en dólares ley Nueva York 2033 DICY"),
+    "diy0": (CANJE, "Discount en dólares ley Nueva York (canje 2010) DIY0"),
+    "dicp": (CANJE, "Discount en pesos ajustable por CER 2033 DICP"),
+    "para": (CANJE, "Par en dólares ley argentina 2038 PARA"),
+    "pary": (CANJE, "Par en dólares ley Nueva York 2038 PARY"),
+    "parp": (CANJE, "Par en pesos ajustable por CER 2038 PARP"),
+    "cuap": (CANJE, "Cuasipar en pesos ajustable por CER 2045 CUAP"),
+    "pr13": (CONSOLIDACION, "Bono de consolidación serie 6 2024 PR13"),
+    "pr15": (CONSOLIDACION, "Bono de consolidación serie 8 2022 PR15"),
+    "nf18": (CONSOLIDACION, "Bogar 2018 NF18"), "no20": (CONSOLIDACION, "Bogar 2020 NO20"),
+    "tvpa": (CUPONES_PIB, "Cupón PIB en dólares ley argentina TVPA"),
+    "tvpe": (CUPONES_PIB, "Cupón PIB en euros TVPE"),
+    "tvpp": (CUPONES_PIB, "Cupón PIB en pesos TVPP"),
+    "tvpy": (CUPONES_PIB, "Cupón PIB en dólares ley Nueva York TVPY"),
 }
 
-# Sufijo de la variable → (medida, unidad). La fuente escribe a veces «dur», «dm en años»…
+PESOS_POR_100 = "Pesos por cada 100 de valor nominal"
+DOLARES_POR_100 = "Dólares por cada 100 de valor nominal"
+
+# Sufijo de la variable → (medida, unidad). La fuente escribe a veces «dm», «cot_anios»…
+# «dur» es la duración modificada (en AA19, AO20 y AA21 coincide con la que se recalcula de los
+# flujos: error medio 0,01-0,04 años contra 0,03-0,12 de la de Macaulay) y «ppv» la vida promedio
+# ponderada (error medio 0,01-0,06); «yield» es la TIR efectiva como fracción (mediana 0,096).
 _MEDIDAS_BONOS = {
-    "cotizacion": ("cotización", ""), "cot_anios": ("cotización", ""),
-    "dur": ("duración", ANIOS), "dm_en_anios": ("duración", ANIOS),
+    "cotizacion": ("cotización", PESOS_POR_100), "cot_anios": ("cotización", PESOS_POR_100),
+    "dur": ("duración modificada", ANIOS), "dm_en_anios": ("duración modificada", ANIOS),
     "ppv_en_anios": ("vida promedio ponderada", ANIOS), "ppv_anios": ("vida promedio ponderada", ANIOS),
     "yield": ("rendimiento", PROPORCION), "yield_anios": ("rendimiento", PROPORCION),
 }
 _VARIABLE_BONO = re.compile(r"([a-z0-9]+)_(cotizacion|cot_anios|dur|dm_en_anios|ppv_en_anios|ppv_anios|yield|yield_anios)")
+# Especies que cotizan en dólares (sufijo D de BYMA): A2J9D 96-105, AF20D 24-104 por cada 100 de VN.
+_COTIZAN_EN_DOLARES = {"a2j9d", "af20d"}
 
 
 def _titulos_publicos(serie: Serie) -> Clasificacion | None:
     partes = _VARIABLE_BONO.fullmatch(serie.variable)
     if partes is None or partes.group(1) not in _BONOS:
         return None
-    tipo, bono = _BONOS[partes.group(1)]
+    grupo, bono = _BONOS[partes.group(1)]
     medida, unidad = _MEDIDAS_BONOS[partes.group(2)]
-    return Clasificacion(tema=MERCADOS, indicador=TITULOS, cobertura=tipo, nombre=con_medida(bono, medida),
+    if partes.group(1) in _COTIZAN_EN_DOLARES and medida == "cotización":
+        medida, unidad = "cotización en dólares", DOLARES_POR_100
+    return Clasificacion(tema=MERCADOS, indicador=TITULOS, cobertura=grupo, nombre=con_medida(bono, medida),
                          unidad=unidad)
 
 
@@ -446,10 +497,13 @@ _PIB_BRASIL = {
 
 # Cuadro 17: (nombre, medida, unidad).
 _ACTIVIDAD_BRASIL = {
-    "indice_actividad_ibc_br_original": ("IBC-Br", "", ""),
-    "indice_actividad_ibc_br_desest": ("IBC-Br", DESESTACIONALIZADO, ""),
-    "produccion_industrial_original": ("Producción industrial", "", ""),
-    "produccion_industrial_desestacionalizado": ("Producción industrial", DESESTACIONALIZADO, ""),
+    # Base 2012=100: el promedio de 2012 es 100,08 (IBC-Br original), 100,07 (desest.), 100,0 y 99,9
+    # (producción industrial); el IBC-Br coincide con las series 24363 y 24364 del BCB (diferencia
+    # media 0,3) y la producción industrial es la 21859 del BCB en base 2002 por 0,858 = 100/116,55.
+    "indice_actividad_ibc_br_original": ("IBC-Br", "", INDICE_2012),
+    "indice_actividad_ibc_br_desest": ("IBC-Br", DESESTACIONALIZADO, INDICE_2012),
+    "produccion_industrial_original": ("Producción industrial", "", INDICE_2012),
+    "produccion_industrial_desestacionalizado": ("Producción industrial", DESESTACIONALIZADO, INDICE_2012),
     "produccion_automotriz_unidades": ("Producción automotriz", "", "Unidades"),
 }
 
@@ -497,7 +551,9 @@ TASAS_INTERNACIONALES = "Tasas de interés internacionales"
 TASA_REFERENCIA = "Tasa de interés de referencia"
 
 _TASAS_INTERNACIONALES = {
-    "ff_eeuu_tasa": "Estados Unidos (Fed funds)",
+    # Coincide al centésimo, fin de mes, con la tasa objetivo de la Fed (DFEDTAR hasta 2008 y límite
+    # superior de DFEDTARU después: 436 de 436 meses); la tasa efectiva (FEDFUNDS) difiere 0,15 en promedio.
+    "ff_eeuu_tasa": "Estados Unidos (objetivo de fondos federales)",
     "mro_zonaeuro_tasa": "Zona Euro (MRO)",
     "overnight_interest_rate_japon_tasa": "Japón (tasa overnight)",
     "repo_inglaterra_tasa": "Reino Unido (tasa repo)",
@@ -537,9 +593,15 @@ def _bonos_eeuu(serie: Serie) -> Clasificacion | None:
 # Hojas 20 y 4.b: inversión extranjera directa y cuenta corriente por país
 # =================================================================================================
 IED = "Inversión extranjera directa en el mundo"
-IED_NOMBRE = "Inversión extranjera directa"
+# Entradas netas de IED (inversión directa recibida, pasivos): en Argentina coincide con
+# BX.KLT.DINV.CD.WD del Banco Mundial en 32 de 34 años (94%), en 69 de 74 series comparables con
+# el Banco Mundial es más cercana a las entradas que a la inversión directa neta (BN.KLT.DINV.CD,
+# con signo invertido: 80% contra 34% de coincidencias) y es positiva (Estados Unidos, 467.625 en 2015).
+IED_NOMBRE = "Entradas netas de inversión extranjera directa"
 CUENTA_CORRIENTE = "Cuenta corriente por país"
-CUENTA_CORRIENTE_NOMBRE = "Cuenta corriente"
+# Saldo de la cuenta corriente del balance de pagos: coincide con BN.CAB.XOKA.CD y .GD.ZS del
+# Banco Mundial (Argentina 97% y 94% de los años; Brasil, % del PIB, 100%); déficit con signo negativo.
+CUENTA_CORRIENTE_NOMBRE = "Saldo de la cuenta corriente"
 
 AFRICA, AMERICA, ASIA, EUROPA, OCEANIA = "África", "América", "Asia", "Europa", "Oceanía"
 
@@ -691,15 +753,27 @@ _SOCIOS = {
 }
 
 
+# Mismo nombre que los «Ponderadores» del ITCRM del BCRA (externo_cambiario): en 339 meses, de 1997-01
+# a 2025-03, la diferencia media por socio es de 0,000 a 0,040 puntos (idénticos Suiza, Reino Unido,
+# Vietnam y Zona Euro; máxima 0,6 en China y Brasil por revisiones) y los 13 suman entre 99,5 y 100,4 (el BCRA, 100).
 def _ponderaciones(serie: Serie) -> Clasificacion | None:
     socio = _SOCIOS.get(serie.variable)
     if socio is None:
         return None
     return Clasificacion(tema=EXTERNO, indicador=TIPO_DE_CAMBIO_REAL, cobertura=PONDERADORES,
-                         nombre=unir("Ponderador del tipo de cambio real", socio), unidad=PORCENTAJE)
+                         nombre=unir("ITCRM", "Ponderador", socio), unidad=PORCENTAJE)
 
 
 # =================================================================================================
+# Series que dejan de publicarse (los datos no se tocan).
+EXCLUIDAS = {
+    (FUENTE, "168.1_T_CAMBIOR_D_0_0_26"):
+        "«Tipo de cambio BNA (vendedor)» empalma dos conceptos: del 2018-01 al 2023 es idéntica, al "
+        "centavo en todos los días, a la columna del tipo de cambio mayorista del MAE (oficial minorista "
+        "del Banco Nación el 15/10/2020: 82,50; la serie: 77,48), y antes y después sí es el minorista.",
+}
+
+
 _FINANZAS = {
     "1. Renta Variable": _renta_variable,
     "2. Mercado Cambiario": _mercado_cambiario,

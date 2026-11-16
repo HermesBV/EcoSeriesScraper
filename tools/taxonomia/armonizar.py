@@ -52,7 +52,15 @@ def _tipo_de_cambio(serie: Serie, c: Clasificacion) -> Clasificacion:
     return replace(c, nombre=nombre, cobertura=cobertura, unidad=unidad)
 
 
+def _tasa_nominal_anual(c: Clasificacion) -> Clasificacion:
+    # Las tasas nominales anuales llevan una sola unidad en todas las fuentes.
+    if "TNA" in c.nombre and c.unidad == "%":
+        return replace(c, unidad="% nominal anual")
+    return c
+
+
 def armonizar(serie: Serie, c: Clasificacion) -> Clasificacion:
+    c = _tasa_nominal_anual(c)
     if c.indicador == TIPO_DE_CAMBIO:
         return _tipo_de_cambio(serie, c)
     if c.indicador == "PIB" and c.nombre == "PIB · Tipo de cambio nominal":
@@ -61,6 +69,9 @@ def armonizar(serie: Serie, c: Clasificacion) -> Clasificacion:
                        medida="", nombre="Tipo de cambio · Promedio de las cuentas nacionales")
     if c.indicador == "PIB" and c.nombre == "PIB · Población":
         return replace(c, nombre="Población")
+    if c.indicador == "Canastas básicas" and c.cobertura == "Series históricas" and not c.nombre.endswith(" · GBA"):
+        # La hoja histórica es del aglomerado Gran Buenos Aires, igual que la vigente desde 2016.
+        c = replace(c, nombre=c.nombre + " · GBA")
     if c.indicador == "EMAE" and c.cobertura == "Sectores":
         c = replace(c, cobertura="Por sector de actividad")
     partes, medida = _segmentos(c.nombre)

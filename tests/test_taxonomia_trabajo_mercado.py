@@ -6,7 +6,7 @@ import unittest
 
 from tools.taxonomia import Clasificacion, Serie
 from tools.taxonomia.trabajo_mercado import (
-    _AGLOMERADOS, _cobertura, clasificar,
+    _AGLOMERADOS, _cobertura, clasificar, EXCLUIDAS, UNIDADES,
 )
 
 TRABAJO = "Trabajo e ingresos"
@@ -222,13 +222,13 @@ class PobrezaTest(unittest.TestCase):
                   "S", "CERRADA")
         self.assertEqual(clasificar(s), esperado(
             TRABAJO, POBREZA, "Incidencia de la pobreza · Hogares · Ciudad Autónoma de Buenos Aires",
-            "Series históricas", unidad=PROP))
+            "Series históricas", "Pobreza", unidad=PROP))
 
     def test_eph_puntual_gba(self):
         s = serie("EPH Puntual - PeI", "60.1_PP_0_0_15", "pobres_personas",
                   "Población con ingresos debajo de línea de pobreza (%) desde 1988 hasta 2003.", "S", "CERRADA")
         self.assertEqual(clasificar(s), esperado(TRABAJO, POBREZA, "Incidencia de la pobreza · Personas · Gran Buenos Aires",
-                                                 "Series históricas", unidad=PROP))
+                                                 "Series históricas", "Pobreza", unidad=PROP))
 
 
 class IngresoTest(unittest.TestCase):
@@ -290,8 +290,10 @@ class CanastasTest(unittest.TestCase):
         s = serie("CBA y CBT BA", "444.1_CANASTA_BARIA_0_0_26_47", "canasta_basica_alimentaria",
                   "Canasta Básica Alimentaria", "M")
         self.assertEqual(clasificar(s), esperado(
-            "Precios", "Canastas básicas", "Canasta básica alimentaria · Adulto equivalente · Ciudad Autónoma de Buenos Aires",
+            "Precios", "Canastas básicas", "Canasta básica alimentaria · Hogar tipo · Ciudad Autónoma de Buenos Aires",
             "Ciudad Autónoma de Buenos Aires", unidad="Pesos corrientes"))
+        s = serie("CBA y CBT BA", "444.1_CANASTA_BATAL_0_0_20_94", "canasta_basica_total", "Canasta Básica Total", "M")
+        self.assertEqual(clasificar(s).nombre, "Canasta básica total · Hogar tipo · Ciudad Autónoma de Buenos Aires")
 
     def test_regiones(self):
         s = serie("CBA y CBT Reg", "444.1_CANASTA_batotGBA_0_0_26_47", "gran_buenos_aires",
@@ -306,6 +308,51 @@ class CanastasTest(unittest.TestCase):
     def test_la_hoja_2016_no_es_de_este_modulo(self):
         s = serie("CBA y CBT 2016", "x", "canasta_basica_alimentaria", "Canasta básica alimentaria desde 2016", "M")
         self.assertIsNone(clasificar(s))
+
+
+class CorreccionesTest(unittest.TestCase):
+    def test_exclusiones(self):
+        claves = list(EXCLUIDAS)
+        self.assertEqual(len(claves), 83)
+        self.assertTrue(all(fuente == "datos.gob.ar" for fuente, _ in claves))
+        # 78 copias de los cuadros 63.1 y 64.1 (rotulados «EPH puntual») de los pares 63.2 y 64.2.
+        puntual = [id for _, id in claves if id.startswith(("63.1_", "64.1_"))]
+        self.assertEqual(len(puntual), 78)
+        self.assertEqual(sum(id.startswith("63.1_") for id in puntual), 39)
+        # Las continuas 63.2 y 64.2 y las hojas LI (61.1, 62.1) se publican.
+        self.assertFalse([id for _, id in claves if id.startswith(("61.1_", "62.1_", "63.2_", "64.2_"))])
+        # Cuadro 59.2 con fechas erróneas (el dato está en la serie mensual 59.4) y CBA GBA copia de la hoja 2016.
+        self.assertIn(("datos.gob.ar", "59.2_CBA_0_D_26"), EXCLUIDAS)
+        self.assertIn(("datos.gob.ar", "444.1_CANASTA_BARIAGBA_0_0_26_47"), EXCLUIDAS)
+        self.assertNotIn(("datos.gob.ar", "444.1_CANASTA_batotGBA_0_0_26_47"), EXCLUIDAS)
+        self.assertTrue(all(EXCLUIDAS.values()))
+
+    def test_los_dos_haberes_no_son_copias(self):
+        # Mismo haber en dos unidades (moneda de cada época y moneda actual): no se excluye ninguno.
+        self.assertNotIn(("datos.gob.ar", "58.1_MP_0_M_13"), EXCLUIDAS)
+        self.assertNotIn(("datos.gob.ar", "58.1_MP_0_M_24"), EXCLUIDAS)
+        self.assertEqual(UNIDADES[("datos.gob.ar", "58.1_MP_0_M_24")], "Pesos corrientes (moneda de cada época)")
+        self.assertEqual(UNIDADES[("datos.gob.ar", "58.1_MP_0_M_13")], "Pesos corrientes (convertidos a la moneda actual)")
+
+    def test_unidades_del_salario_minimo(self):
+        claves = {id for (_, id) in UNIDADES}
+        self.assertEqual(claves, {"57.1_SMVMM_0_M_34", "57.1_SMVMD_0_M_33", "57.1_SMVMH_0_M_31",
+                                  "58.1_MP_0_M_24", "58.1_MP_0_M_13"})
+
+    def test_pobreza_indigencia_continua_es_vigente_y_la_puntual_es_historica(self):
+        # LI (cuadros 61.1/62.1, «2001 a 2003»): traen la EPH continua 2003-2006; van por cobertura.
+        s = serie("LI - Pers", "62.1_T_0_0_5", "x",
+                  "Población con ingresos debajo de línea de indigencia (%) de 2001 a 2003. TOTAL", "S", "CERRADA")
+        self.assertEqual(clasificar(s), esperado(TRABAJO, POBREZA, "Incidencia de la indigencia · Personas",
+                                                 "Total aglomerados", "Indigencia", unidad=PROP))
+        # La EPH puntual real (Gran Buenos Aires 1988-2003) va a «Series históricas» con su apertura.
+        s = serie("EPH Puntual - PeI", "60.1_IH_0_0_18", "indigentes_hogares",
+                  "Hogares con ingresos debajo de línea de indigencia (%) desde 1988 hasta 2003", "S", "CERRADA")
+        self.assertEqual(clasificar(s), esperado(TRABAJO, POBREZA, "Incidencia de la indigencia · Hogares · Gran Buenos Aires",
+                                                 "Series históricas", "Indigencia", unidad=PROP))
+
+    def test_ciudad_autonoma_con_el_nombre_oficial(self):
+        self.assertEqual(_cobertura("Ciudad Autónoma de Buenos Aires"), ("Aglomerados", "Ciudad Autónoma de Buenos Aires"))
 
 
 class AlcanceTest(unittest.TestCase):

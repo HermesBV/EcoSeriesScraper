@@ -96,6 +96,50 @@ def _reglas():
     return _REGLAS
 
 
+EXCLUIDA = "EXCLUIDA"
+_CORRECCIONES: tuple[dict, dict] | None = None
+_HOJAS_EXCLUIDAS: dict | None = None
+
+
+def hojas_excluidas() -> dict:
+    """Hojas que no se publican enteras: (fuente, archivo, hoja) -> (motivo, ID que sí se publican).
+
+    Para hojas donde varias series tienen contenido erróneo comprobado y las demás no se
+    pueden verificar. Se conservan sólo las series confirmadas contra otra fuente.
+    """
+    global _HOJAS_EXCLUIDAS
+    if _HOJAS_EXCLUIDAS is None:
+        from importlib import import_module
+        hojas: dict[tuple[str, str, str], tuple[str, frozenset[str]]] = {}
+        for nombre in MODULOS:
+            hojas.update(getattr(import_module(f"{__name__}.{nombre}"), "HOJAS_EXCLUIDAS", {}))
+        _HOJAS_EXCLUIDAS = hojas
+    return _HOJAS_EXCLUIDAS
+
+
+def correcciones() -> tuple[dict, dict]:
+    """Correcciones explícitas que declaran los módulos, por (Código fuente, ID).
+
+    ``EXCLUIDAS``: clave -> motivo. La serie queda en el índice con Estado EXCLUIDA y
+    no se publica: no es una serie (una columna auxiliar del libro), es copia exacta
+    de otra, o su contenido no corresponde a lo que la fuente declara y no se puede
+    reparar. Los datos de ``BD.xlsx`` no se tocan.
+
+    ``UNIDADES``: clave -> unidad. Reemplaza una unidad que la fuente informa mal.
+    """
+    global _CORRECCIONES
+    if _CORRECCIONES is None:
+        from importlib import import_module
+        excluidas: dict[tuple[str, str], str] = {}
+        unidades: dict[tuple[str, str], str] = {}
+        for nombre in MODULOS:
+            modulo = import_module(f"{__name__}.{nombre}")
+            excluidas.update(getattr(modulo, "EXCLUIDAS", {}))
+            unidades.update(getattr(modulo, "UNIDADES", {}))
+        _CORRECCIONES = excluidas, unidades
+    return _CORRECCIONES
+
+
 def clasificar(serie: Serie) -> Clasificacion | None:
     """Primera regla que reconoce la serie; None si todavía no tiene regla."""
     for regla in _reglas():
@@ -143,23 +187,36 @@ def aplicar(inventario: pd.DataFrame) -> pd.DataFrame:
     # El nombre de la fuente se registra una sola vez, antes de renombrar.
     sin_registro = resultado["Nombre fuente"].isna() | resultado["Nombre fuente"].astype(str).str.strip().eq("")
     resultado.loc[sin_registro, "Nombre fuente"] = resultado.loc[sin_registro, "Nombre serie"]
-    for columna in ("Tema", "Unidad", *NIVELES, *GRUPOS_HEREDADOS):
+    for columna in ("Tema", "Unidad", "Estado", *NIVELES, *GRUPOS_HEREDADOS):
         if columna not in resultado:
             resultado[columna] = None
         resultado[columna] = resultado[columna].astype(object)
     # «taxonomía»: niveles y nombre fijados por una regla; «fuente»: heredados de la fuente.
     resultado["Clasificación"] = "fuente"
 
+    excluidas, unidades = correcciones()
+    hojas = hojas_excluidas()
     for indice, fila in zip(resultado.index, resultado.to_dict("records")):
-        clasificacion = clasificar(serie_de(fila))
+        serie = serie_de(fila)
+        clave = (serie.fuente, serie.id)
+        if clave in unidades:
+            resultado.at[indice, "Unidad"] = unidades[clave]
+        hoja = hojas.get((serie.fuente, serie.archivo, serie.hoja))
+        if clave in excluidas or (hoja is not None and serie.id not in hoja[1]):
+            resultado.at[indice, "Estado"] = EXCLUIDA
+        clasificacion = clasificar(serie)
         if clasificacion is None:
             continue
         resultado.at[indice, "Tema"] = clasificacion.tema
         resultado.at[indice, "Nombre serie"] = clasificacion.nombre
         for columna, valor in zip(NIVELES, clasificacion.niveles()):
             resultado.at[indice, columna] = valor or None
-        if clasificacion.unidad and not _texto(fila.get("Unidad")):
+        if clasificacion.unidad and not _texto(fila.get("Unidad")) and clave not in unidades:
             resultado.at[indice, "Unidad"] = clasificacion.unidad
+        # Las unidades empiezan con mayúscula en todo el inventario («Millones de dólares», «Índice»).
+        unidad = _texto(resultado.at[indice, "Unidad"])
+        if unidad and unidad[0].islower():
+            resultado.at[indice, "Unidad"] = unidad[0].upper() + unidad[1:]
         resultado.at[indice, "Clasificación"] = "taxonomía"
         # Los grupos derivados de títulos y hojas ya no hacen falta: el árbol sale de los niveles.
         for columna in GRUPOS_HEREDADOS:

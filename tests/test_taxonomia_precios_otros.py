@@ -170,6 +170,43 @@ class PreciosMayoristasHistoricosTests(unittest.TestCase):
             descripcion="Energía eléctrica índice mensual IPIB"))
         self.assertEqual(energia.medida, "Nivel general y agregados")
 
+    def test_items_que_solo_existen_importados_llevan_el_sufijo(self):
+        # Códigos 7xxx y 8xxx del encabezado de la tabla, sin contraparte nacional.
+        casos = {
+            "126.2_MOI_1993_0_30": ("Máquinas de oficina e informática", "maquinas_oficina_informatica_m"),
+            "126.2_CE_1993_0_26": ("Componentes electrónicos", "componentes_electronicos_m"),
+            "126.2_PPP_1993_0_25": ("Papeles y productos de papel", "papeles_productos_papel_m"),
+        }
+        for id_, (item, variable) in casos.items():
+            with self.subTest(item=item):
+                resultado = precios_otros.clasificar(serie(
+                    hoja="4.11", id=id_, variable=variable, descripcion=f"{item} índice mensual IPIM"))
+                esperado_item = "Papel y productos de papel" if item.startswith("Papeles") else item
+                self.assertEqual(resultado.nombre, f"IPIM · {esperado_item} · Importados")
+        # «Componentes electrónicos» comparte el acrónimo «CE» con «Conductores eléctricos» (nacional).
+        conductores = precios_otros.clasificar(serie(
+            hoja="4.11", id="126.2_CE_1993_0_24", variable="conductores_electricos_m",
+            descripcion="Conductores eléctricos índice mensual IPIM"))
+        self.assertEqual(conductores.nombre, "IPIM · Conductores eléctricos")
+
+    def test_grupos_de_un_solo_item_se_llaman_como_en_el_libro_vigente(self):
+        casos = {
+            "Otros equipos eléctricos n.c.e.p.": "Otros equipos eléctricos",
+            "Otros productos manufacturados n.c.e.p.": "Otros productos manufacturados",
+            "Aparatos de uso doméstico": "Otros aparatos de uso doméstico",
+            "Productos de plástico excepto muebles": "Productos de plástico",
+        }
+        vigentes = {"319": "Otros equipos eléctricos", "369": "Otros productos manufacturados",
+                    "293": "Otros aparatos de uso doméstico", "252": "Productos de plástico"}
+        for descripcion, nombre in casos.items():
+            with self.subTest(item=nombre):
+                historico = precios_otros.clasificar(serie(
+                    hoja="4.11", id="126.2_X_1993_0_1", variable="x_m", descripcion=f"{descripcion} índice mensual IPIM"))
+                codigo = next(c for c, n in vigentes.items() if n == nombre)
+                vigente = precios_otros.clasificar(sipm("IPIM", codigo, nombre))
+                self.assertEqual(historico.nombre, vigente.nombre)
+                self.assertEqual(historico.medida, vigente.apertura)
+
     def test_item_desconocido_de_cuatro_digitos_no_se_clasifica(self):
         self.assertIsNone(precios_otros.clasificar(serie(
             hoja="4.11", id="126.2_XX_1993_0_1", variable="algo_nuevo_m",
@@ -248,11 +285,17 @@ class PreciosImplicitosTests(unittest.TestCase):
         resultado = precios_otros.clasificar(serie(
             hoja="4.13.2", id="111.2_IPBS_1993_T_24", frecuencia="T", variable="ipi_pib_bienes_servicios"))
         self.assertEqual(resultado, esperado(
-            "Precios", "Precios implícitos del PIB", "Precios implícitos · Sectores productores de bienes y de servicios",
+            "Precios", "Precios implícitos del PIB", "Precios implícitos · Precios relativos bienes/servicios",
             "Series históricas", unidad="Índice 1993=100"))
 
 
 class PreciosInternacionalesTests(unittest.TestCase):
+    def test_exclusion_del_carbon_de_sudafrica(self):
+        # La columna es un índice 2005=100 rotulado como precio en US$ por tonelada.
+        self.assertEqual(
+            sorted(clave for clave in precios_otros.EXCLUIDAS),
+            [("datos.gob.ar", f"121.{n}_CS_0_0_16") for n in (1, 2, 3)])
+
     def test_producto_individual(self):
         resultado = precios_otros.clasificar(serie(
             hoja="4.10", id="121.3_A_0_0_8", variable="aluminio", descripcion="Aluminio. US$ por tonelada. Mensual",
@@ -370,16 +413,16 @@ class OtrosIndicadoresTests(unittest.TestCase):
             archivo="empleo_ingresos.xlsx", hoja="CBA y CBT 2016", id="150.1_CSTA_BARIA_0_D_26",
             variable="canasta_basica_alimentaria"))
         self.assertEqual(cba, esperado(
-            "Precios", "Canastas básicas", "Canasta básica alimentaria · Adulto equivalente",
+            "Precios", "Canastas básicas", "Canasta básica alimentaria · Adulto equivalente · GBA", "GBA",
             unidad="Pesos corrientes"))
         pobreza = precios_otros.clasificar(serie(
             archivo="empleo_ingresos.xlsx", hoja="CBA y CBT 2016", id="150.1_LA_POBREZA_0_D_13",
             variable="linea_pobreza"))
-        self.assertEqual(pobreza.nombre, "Línea de pobreza · Hogar de referencia")
+        self.assertEqual(pobreza.nombre, "Línea de pobreza · Hogar de referencia · GBA")
         engel = precios_otros.clasificar(serie(
             archivo="empleo_ingresos.xlsx", hoja="CBA y CBT 2016", id="150.1_IRSA_COGEL_0_D_25",
             variable="inversa_coeficiente_engel"))
-        self.assertEqual((engel.nombre, engel.unidad), ("Inversa del coeficiente de Engel", "Cociente CBT/CBA"))
+        self.assertEqual((engel.nombre, engel.unidad), ("Inversa del coeficiente de Engel · GBA", "Cociente CBT/CBA"))
 
     def test_precio_de_cigarrillos(self):
         resultado = precios_otros.clasificar(serie(

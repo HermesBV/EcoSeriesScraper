@@ -78,10 +78,8 @@ def main() -> int:
     if "Nombre fuente" not in antes:
         antes = antes.assign(**{"Nombre fuente": antes["Nombre serie"]})
     despues = aplicar(antes)
-    cambio = despues["Nombre serie"].astype(str).ne(antes["Nombre serie"].astype(str))
-    for columna in ("Tema", *NIVELES):
-        cambio |= despues[columna].map(_t).ne(antes[columna].map(_t))
-    clasificada = cambio | despues["Tema"].map(_t).eq(args.tema) & despues["Área"].map(_t).ne(antes["Área"].map(_t))
+    # Con regla = la taxonomía la reconoció (vale también cuando el índice ya está clasificado).
+    clasificada = despues["Clasificación"].map(_t).eq("taxonomía")
 
     if not (args.tema or args.fuente or args.archivo or args.hoja):
         opciones.error("indicar --tema, --fuente, --archivo o --hoja")
@@ -94,6 +92,11 @@ def main() -> int:
         alcance &= antes["Código fuente"].map(_t).eq(args.fuente)
     if args.hoja:
         alcance &= antes["Hoja origen"].map(_t).eq(args.hoja)
+    # Las series excluidas de la publicación no cuentan para el árbol ni para los problemas.
+    excluidas = alcance & despues["Estado"].map(_t).eq("EXCLUIDA")
+    if excluidas.any():
+        print(f"== Excluidas de la publicación: {int(excluidas.sum())}")
+    alcance &= ~excluidas
     filas = despues[alcance]
     problemas: list[str] = []
 

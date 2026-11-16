@@ -52,6 +52,17 @@ Decisiones de diseño:
 * En las hojas por rama, la serie «Agricultura, ganadería, caza y servicios conexos» es en realidad
   los cultivos agrícolas: sumada con la silvicultura y los cuatro rubros pecuarios da la sección A
   (se verificó en 1.3.2 y en 1.6.2), y el valor bruto de producción la publica como «Cultivos agrícolas».
+  Auditoría (15/11/2026): las seis partes suman la sección A al decimal en los 90 trimestres, así que la
+  serie no puede ser la división 01 completa (que incluiría la cría); su valor agregado es 0,48 de su
+  valor bruto de producción, como corresponde a la agricultura.
+* Auditoría contra el cuadro original del INDEC (``sh_oferta_demanda_09_26.xls``): los 188 valores de
+  ``indec-pib`` coinciden con el libro; los pares Nacional / Importado sin sufijo son maquinaria y
+  equipo y los de ID con sufijo, equipo de transporte (nacional + importado = el total de cada uno en
+  los cuadros 6 y 14, y el cruce inverso falla por 76 %). Los cuadros 4, 5, 12 y 13 traen dos filas
+  «B1b» (PIB y valor agregado bruto): el inventario sólo tiene la primera, el PIB. Los valores
+  trimestrales de todos los cuadros están expresados a ritmo anual (el promedio de los cuatro
+  trimestres es el valor anual).
+* ``UNIDADES`` corrige las unidades del inventario (ver más abajo).
 """
 
 from __future__ import annotations
@@ -711,6 +722,16 @@ def _resto(*partes: str) -> str:
     return _ingreso(*partes, "Resto del mundo")
 
 
+# «Remuneración neta a factores del exterior» de la base 1993 (hojas 1.9, 1.9 cont. 1 y 1.9 cont. 2)
+# son los pagos netos al exterior: INB = PIB - remuneración, exacto en los 82 trimestres, y en la
+# cuenta real INB = PIB + ganancia del intercambio - remuneración. En la base 2004 «Rentas netas de
+# factores del exterior» tiene el signo contrario (INB = PIB + rentas) y la cuenta del resto del
+# mundo (rentas_netas_fact_ext) es exactamente su opuesto. Por eso la serie de 1993 es la misma
+# magnitud y tiene el mismo signo que «Rentas netas de factores del exterior · Resto del mundo»:
+# con el nombre sin calificar quedaría el mismo concepto con signos opuestos.
+_RENTAS_PAGADAS = _resto("Rentas netas de factores del exterior")
+
+
 # 1.9.1 (base 2004), cuenta de ingreso, ahorro y préstamo neto. Variable -> nombre.
 _INGRESO_2004 = {
     "adqui_menos_dispo_activos_no_finan_no_producidos":
@@ -769,7 +790,7 @@ _INGRESO_1993 = {
     "ingreso_nacional_bruto_precios_mercado": _INB,
     "producto_interno_bruto_precios_mercado": _INGRESO_COMUN["pib"],
     "prestamo_endeudamiento_neto": _PRESTAMO,
-    "remuneracion_neta_factores_del_exterior": _RENTAS,
+    "remuneracion_neta_factores_del_exterior": _RENTAS_PAGADAS,
     "transferencias_corrientes_netas": _TRANSFERENCIAS,
     "variacion_existencias_discrepancia_estadistica": _INGRESO_COMUN["existencias_discrepancia"],
     "ahorro_interno_bruto": _AIB,
@@ -778,15 +799,15 @@ _INGRESO_1993 = {
     "exportaciones_bienes_servicios": _INGRESO_COMUN["exportaciones"],
     "importaciones_bienes_servicios": _INGRESO_COMUN["importaciones"],
     "inversion_interna_bruta_fija": _INGRESO_COMUN["fbcf"],
-    "remuneracion_neta_factores_exterior": _RENTAS,
+    "remuneracion_neta_factores_exterior": _RENTAS_PAGADAS,
 }
 
 # 1.9 (cont. 2), a precios constantes de 1993. La tabla trae dos bloques, el de ingreso («i_») y
 # el de ahorro («a_»), que repiten cuatro conceptos con los mismos datos (ahorro nacional bruto,
 # rentas, transferencias) o con el signo contrario (ganancia o pérdida del intercambio): sin
 # distinguirlos dos series de la misma hoja tendrían el mismo nombre.
-_EN_INGRESO = "cuenta de ingreso"
-_EN_AHORRO = "cuenta de ahorro"
+_EN_INGRESO = "ingreso"
+_EN_AHORRO = "ahorro"
 _INGRESO_REAL = {
     "a_ahorro_interno_bruto_real": (_AIB, ()),
     "a_ahorro_nacional_bruto_real": (_ANB, (_EN_AHORRO,)),
@@ -798,11 +819,11 @@ _INGRESO_REAL = {
     "a_ganancia_perdida_real_intercambio": (_ingreso(_GANANCIA_INTERCAMBIO), (_EN_AHORRO,)),
     "a_importaciones_bienes_servicios_reales": (_INGRESO_COMUN["importaciones"], ()),
     "a_inversion_interna_bruta_real_fija": (_INGRESO_COMUN["fbcf"], ()),
-    "a_remuneracion_real_neta_factores_exterior": (_RENTAS, (_EN_AHORRO,)),
+    "a_remuneracion_real_neta_factores_exterior": (_RENTAS_PAGADAS, (_EN_AHORRO,)),
     "a_transferencias_corrientes_reales_netas": (_TRANSFERENCIAS, (_EN_AHORRO,)),
     "i_ahorro_nacional_bruto_real": (_ANB, (_EN_INGRESO,)),
     "i_consumo_total_real_priv_publico": (_CONSUMO_TOTAL, ()),
-    "i_emuneracion_real_neta_factores_del_exterior": (_RENTAS, (_EN_INGRESO,)),
+    "i_emuneracion_real_neta_factores_del_exterior": (_RENTAS_PAGADAS, (_EN_INGRESO,)),
     "i_ganancia_perdida_real_del_intercambio": (_ingreso(_GANANCIA_INTERCAMBIO), (_EN_INGRESO,)),
     "i_ingreso_interno_bruto_real": (_ingreso("Ingreso interno bruto"), ()),
     "i_ingreso_nacional_bruto_real": (_INB, ()),
@@ -918,6 +939,47 @@ def _cuadro_implicito_sector(serie: Serie, medida: tuple[str, ...], unidad: str)
     if encontrado is None:
         return None
     return _clasif_implicito(_nombre_sector_implicito(*encontrado, medida=medida), IMP_SECTOR, unidad)
+
+
+# Unidades del inventario que hay que corregir o completar (clave: fuente, ID).
+# * «Variación de existencias» (P52) de los cuadros 1 y 8 viene en «%» pero está en millones de pesos:
+#   la demanda global (cuadros 1 y 8) cierra al decimal sumando P52 como millones (error relativo
+#   de 1e-15 en los 90 trimestres) y el cuadro 3 y el 11 (que sí están en %) son P52 / PIB * 100.
+# * Los cuadros 1, 4 y 6 traen «millones de pesos» y son a precios de 2004 (título del cuadro; el
+#   deflactor del cuadro 9 / 13 / 15 es el cuadro corriente dividido el constante por 100 con error
+#   de 1e-15, y la razón corriente / constante promedia 100,0 en 2004).
+# * Los cuadros 9, 13 y 15 traen «índice» y son base 2004 = 100 (misma razón en 2004: 100,0).
+_CODIGOS_OFERTA_DEMANDA = ("B1b", "P3_S13", "P3_S14_S15", "P51b", "P52", "P53", "P6", "P7", "demanda-global",
+                           "discrepancia-estadistica-4", "oferta-global")
+_CODIGOS_SECTOR = (*SECCIONES, "B1b", "D211", "D212", "D214 - D31")
+_CODIGOS_INVERSION = ("P51b", "AN111 / AN112", "AN1122", "AN113 / AN114", "AN1131", "AN115 / AN1171 / AN1172",
+                      "nacional", "importado")
+_TRANSPORTE_INDEC = {  # sufijo del ID de los pares Nacional / Importado de material de transporte
+    "cuadro 6": ("nacional-21fca4cd", "importado-2838e412"),
+    "cuadro 15": ("nacional-ae6eaae2", "importado-6af277a7"),
+}
+
+
+def _ids(cuadro: str, codigos) -> list[tuple[str, str]]:
+    prefijo = cuadro.replace(" ", "-")
+    return [(FUENTE_INDEC, f"{prefijo}|{codigo}") for codigo in codigos]
+
+
+UNIDADES: dict[tuple[str, str], str] = {}
+for _clave in _ids("cuadro 1", _CODIGOS_OFERTA_DEMANDA):
+    UNIDADES[_clave] = M_2004
+UNIDADES[(FUENTE_INDEC, "cuadro-8|P52")] = M_CORRIENTES
+for _clave in _ids("cuadro 4", _CODIGOS_SECTOR):
+    UNIDADES[_clave] = M_2004
+for _clave in _ids("cuadro 6", (*_CODIGOS_INVERSION, *_TRANSPORTE_INDEC["cuadro 6"])):
+    UNIDADES[_clave] = M_2004
+for _clave in _ids("cuadro 9", [c for c in _CODIGOS_OFERTA_DEMANDA if c not in ("P52", "P53", "discrepancia-estadistica-4")]):
+    UNIDADES[_clave] = INDICE_2004
+for _clave in _ids("cuadro 13", _CODIGOS_SECTOR):
+    UNIDADES[_clave] = INDICE_2004
+for _clave in _ids("cuadro 15", (*_CODIGOS_INVERSION, *_TRANSPORTE_INDEC["cuadro 15"])):
+    UNIDADES[_clave] = INDICE_2004
+del _clave
 
 
 # Cuadro -> (regla, medida, unidad).

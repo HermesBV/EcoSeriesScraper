@@ -54,7 +54,9 @@ sus valores no recogen las revisiones posteriores), la 16.a (PII a valor de merc
 identifican por ``Variable`` o ``ID``. Los rótulos de la hoja 16.a están corridos en los cuadros por sector
 («activos del gobierno general» trae los activos de otra inversión de las sociedades captadoras de depósitos), así que
 cada serie se identificó cotejando sus valores con los cuadros 15 y 16 del INDEC, que coinciden al decimal; las
-series anuales se aparearon con las trimestrales por su nombre.
+series anuales se aparearon con las trimestrales por su nombre; se verificó que las 70 anuales coinciden con las columnas
+anuales de los cuadros 15 y 16 (2006-2015) y con el cierre del cuarto trimestre (2016-2024). El último año (2025) de las
+anuales es erróneo en la fuente (0 en las 144.3 y un valor viejo en las 144.1) y no se corrigió.
 
 Convenciones de nombre
 ----------------------
@@ -67,7 +69,16 @@ Convenciones de nombre
   financieras, no financieras, hogares e ISFLSH del ingreso secundario, «Sociedades, hogares e ISFLSH»; algunos
   rubros de servicios y de IED se abrevian (`_CORTO`, `_SECTORES_IED`). Los nombres de la renta de la inversión omiten
   «Ingreso primario» (todo lo que lleva «Renta de la inversión» ya es ingreso primario).
-* Las series históricas (MBP5 y PII base 1991) se llaman como su equivalente vigente cuando miden lo mismo.
+* Las series históricas (MBP5 y PII base 1991) se llaman como su equivalente vigente cuando miden lo mismo. En el
+  MBP5 no miden lo mismo (y llevan otro nombre) la cuenta financiera (signo contrario y sin activos de reserva), las
+  transferencias corrientes y las otras rentas.
+
+Auditoría (noviembre de 2026)
+-----------------------------
+Las tablas ``_CUADRO_N`` se verificaron contra el libro original ``cin_II_2026.xls``: cada columna de BD.xlsx se
+apareó con su fila de la hoja por los valores y las identidades del MBP6 cierran (cuadros 1 a 13, 15 y 18 y los de
+deuda). Quedan en ``EXCLUIDAS`` y ``UNIDADES`` las correcciones con su evidencia. Dudas sin resolver, para quien siga:
+el empalme MBP5-MBP6 de errores y omisiones y de servicios y la hoja 15.a, que termina en 2024T2.
 """
 
 from __future__ import annotations
@@ -77,6 +88,7 @@ from .texto import con_medida, plano, unir
 
 TEMA = "Sector externo"
 UNIDAD = "Millones de dólares"
+PROPORCION = "Proporción (1 = 100%)"
 INDICADOR_BP = "Balanza de pagos"
 INDICADOR_PII = "Posición de inversión internacional"
 INDICADOR_DEUDA = "Deuda externa"
@@ -1464,9 +1476,9 @@ _DEUDA_PRIVADA = {
     "por_acreedor_otros": ("Por acreedor", "Otros acreedores"),
 }
 _RELACIONES_DEUDA_PRIVADA = {
-    "en_porcentaje_del_pib": ("% del PIB", "Proporción"),
-    "en_porcentaje_las_exportaciones": ("% de las exportaciones", "Proporción"),
-    "en_porcentaje_rrii": ("% de las reservas internacionales", "Proporción"),
+    "en_porcentaje_del_pib": ("% del PIB", PROPORCION),
+    "en_porcentaje_las_exportaciones": ("% de las exportaciones", PROPORCION),
+    "en_porcentaje_rrii": ("% de las reservas internacionales", PROPORCION),
 }
 
 
@@ -1521,9 +1533,17 @@ _BP_14A = {
 }
 
 # ── Hoja 14 de datos.gob.ar (balanza de pagos MBP5, anual y trimestral): variable → (ruta del nombre, flujo) ──
-# Se llama igual que su equivalente del MBP6 cuando mide el mismo concepto; los sectores de la cuenta financiera
-# del MBP5 (sector bancario, sector público no financiero, sector privado no financiero) son otra clasificación.
-_FS = "Cuenta financiera"
+# Se llama igual que su equivalente del MBP6 cuando mide el mismo concepto (comparado con los cuadros 1, 2 y 14 del
+# INDEC en los trimestres en común: bienes, servicios, ingreso primario, cuenta corriente y variación de reservas
+# coinciden en nivel y signo, con diferencias de revisión y de método). No miden lo mismo y por eso llevan otro nombre:
+#   * «Cuenta financiera» del MBP5: va con signo contrario (positivo = entrada neta de capitales) y no incluye los
+#     activos de reserva, que el MBP5 muestra aparte: CC + cuenta de capital + CF + errores y omisiones - variación de
+#     reservas = 0 (a +-1) y CF(MBP5) = -(CF(MBP6) - activos de reserva) con correlación 0,996. Sus sectores (sector
+#     bancario, sector público no financiero, sector privado no financiero) suman esa CF y siguen su convención.
+#   * «Transferencias corrientes» (correlación 0,51 con el ingreso secundario del MBP6; sumas de -1.794 contra 10.324).
+#   * «Otras rentas» (componente del ingreso primario del MBP5; correlación 0,56 con la remuneración de empleados).
+_FS = "Cuenta financiera sin reservas"
+_SIGNO_FS = "entradas netas"
 _MBP5 = {
     "cc_total": (("Cuenta corriente",), ""),
     "cc_total_mercancias": (("Bienes",), ""),
@@ -1534,7 +1554,7 @@ _MBP5 = {
     "cc_serv_exp_serv_reales": (("Servicios",), CRED),
     "cc_serv_imp_serv_reales": (("Servicios",), DEB),
     "cc_rentas_total": (("Ingreso primario",), ""),
-    "cc_rentas_otras_rentas": (("Remuneración de empleados",), ""),
+    "cc_rentas_otras_rentas": (("Otras rentas",), ""),
     "cc_rentas_total_rentas_inv": (("Renta de la inversión",), ""),
     "cc_rentas_renta_inv_int_total": (("Renta de la inversión", "Intereses"), ""),
     "cc_rentas_renta_inv_int_ganados": (("Renta de la inversión", "Intereses"), CRED),
@@ -1542,19 +1562,19 @@ _MBP5 = {
     "cc_rentas_renta_inv_utilidades_dividendos_total": (("Renta de la inversión", "Utilidades y dividendos"), ""),
     "cc_rentas_renta_inv_utilidades_dividendos_ganados": (("Renta de la inversión", "Utilidades y dividendos"), CRED),
     "cc_rentas_renta_inv_utilidades_dividendos_pagados": (("Renta de la inversión", "Utilidades y dividendos"), DEB),
-    "cc_rentas_transf_corrientes": (("Ingreso secundario",), ""),
+    "cc_rentas_transf_corrientes": (("Transferencias corrientes",), ""),
     "ccf_cuenta_capital_total": (("Cuenta de capital",), ""),
     "ccf_cuenta_capital_activos_finans_no_producidos": (("Activos no financieros no producidos",), ""),
-    "ccf_total_ccf": (("Cuenta de capital y financiera",), ""),
-    "ccf_cuenta_financiera_total_cuenta_fianciera": ((_FS,), ""),
-    "ccf_cuenta_financiera_sector_bancario_total": ((_FS, "Sector bancario"), ""),
-    "ccf_cuenta_financiera_sector_bancario_bcra": ((_FS, "Sector bancario", BC), ""),
-    "ccf_cuenta_financiera_sector_bancario_oef": ((_FS, "Sector bancario", "Otras entidades financieras"), ""),
-    "ccf_cuenta_financiera_sector_pub_no_finan_total_spnf": ((_FS, "Sector público no financiero"), ""),
-    "ccf_cuenta_financiera_sector_pub_no_finan_gob_nac": ((_FS, "Sector público no financiero", "Gobierno nacional"), ""),
-    "ccf_cuenta_financiera_sector_pub_no_finan_gob_locales": ((_FS, "Sector público no financiero", "Gobiernos locales"), ""),
-    "ccf_cuenta_financiera_sector_pub_no_finan_emp_otros": ((_FS, "Sector público no financiero", "Empresas y otros"), ""),
-    "ccf_cuenta_financiera_sector_priv_no_finan": ((_FS, "Sector privado no financiero"), ""),
+    "ccf_total_ccf": (("Cuenta de capital y financiera sin reservas",), _SIGNO_FS),
+    "ccf_cuenta_financiera_total_cuenta_fianciera": ((_FS,), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_bancario_total": ((_FS, "Sector bancario"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_bancario_bcra": ((_FS, "Sector bancario", BC), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_bancario_oef": ((_FS, "Sector bancario", "Otras entidades financieras"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_pub_no_finan_total_spnf": ((_FS, "Sector público no financiero"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_pub_no_finan_gob_nac": ((_FS, "Sector público no financiero", "Gobierno nacional"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_pub_no_finan_gob_locales": ((_FS, "Sector público no financiero", "Gobiernos locales"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_pub_no_finan_emp_otros": ((_FS, "Sector público no financiero", "Empresas y otros"), _SIGNO_FS),
+    "ccf_cuenta_financiera_sector_priv_no_finan": ((_FS, "Sector privado no financiero"), _SIGNO_FS),
     "errores_omisiones_netos": (("Errores y omisiones netos",), ""),
     "variacion_reservas_int_total": ((RESERVA,), ""),
     "variacion_reservas_int_reservas_int_bcra": ((RESERVA, "Reservas internacionales del BCRA"), ""),
@@ -1661,6 +1681,85 @@ def _ied(serie: Serie) -> Clasificacion | None:
         detalle = (PARTICIPACIONES, *detalle)
     return Clasificacion(tema=TEMA, indicador=INDICADOR_IED, cobertura=medida, apertura=apertura,
                          nombre=unir(IED, medida, *detalle), unidad=UNIDAD)
+
+
+# ── Correcciones explícitas (ver tools/taxonomia/__init__.py) ──────────────────────────────────
+# Cuadro 20 del INDEC (factores de variación de la PII): 7 factores (saldo inicial, transacciones, revalorizaciones,
+# precio, tipo de cambio, otras variaciones, saldo final) para 16 bloques (neta, activos, pasivos y sus categorías).
+_FACTORES_CUADRO_20 = ("saldo-inicial", "transacciones-financieras", "revalorizaciones-durante-el-periodo",
+                       "variaciones-de-precio", "variaciones-de-tipo-de-cambio", "otras-variaciones-de-volumen",
+                       "saldo-final")
+_CATEGORIAS_CUADRO_20 = ("i-inversion-directa-a-participaciones-de-capital", "i-inversion-directa-a-instrumentos-de-deuda",
+                         "ii-inversion-de-cartera-a-participaciones-de-capital",
+                         "ii-inversion-de-cartera-a-instrumentos-de-deuda", "iii-derivados-financieros",
+                         "iv-otra-inversion", "v-activos-de-reserva")
+
+
+def _ids_cuadro_20() -> tuple[str, ...]:
+    ids = []
+    for factor in _FACTORES_CUADRO_20:
+        ids.append(f"b90-posicion-de-inversion-internacional-neta-a-p-{factor}")
+        for lado, categorias in (("a-activos", _CATEGORIAS_CUADRO_20), ("p-pasivos", _CATEGORIAS_CUADRO_20[:-1])):
+            ids.append(f"{lado}-{factor}")
+            ids.extend(f"{lado}-{categoria}-{factor}" for categoria in categorias)
+    return tuple(f"cuadro-20|{i}" for i in ids)
+
+
+_CUADRO_20_ESPURIA = "cuadro-20|a-activos-ii-inversion-de-cartera-a-participaciones-de-capital-0-0"
+
+# Unidad que el inventario informa mal.
+UNIDADES = {
+    # Cuadro 20: el inventario trae «%», pero el título dice «-En millones de dólares-», los saldos finales coinciden
+    # al decimal con los de los cuadros 15 y 19 (millones de dólares) y cada bloque cierra: saldo final = saldo inicial
+    # + transacciones + revalorizaciones + otras variaciones (los 13 bloques por categoría cierran en todos los
+    # trimestres; los tres totales fallan sólo en 2025).
+    **{(CIN, id_): UNIDAD for id_ in (*_ids_cuadro_20(), _CUADRO_20_ESPURIA)},
+    # Cuadro 14: la unidad «%» viene de la llamada «(2)» del rótulo. La hoja dice «-En millones de dólares-» y la
+    # identidad transacciones + variaciones del tipo de cambio = variación del stock cierra a 1e-10 en 82 trimestres.
+    (CIN, "cuadro-14|variaciones-del-tipo-de-cambio-2"): UNIDAD,
+    (CIN, "cuadro-14|variacion-del-stock-de-activos-de-reserva-1-2"): UNIDAD,
+    # Hoja 33: las tres relaciones son fracciones (0,28 = 28 % del PIB en 2001: 79.076 millones sobre un PIB de unos
+    # 282.000); la unidad «Proporción» pasa a la grafía del resto del inventario.
+    (DATOS, "313.1_EN_PORCENTPIB_0_T_21"): PROPORCION,
+    (DATOS, "313.1_EN_PORCENTNES_0_T_31"): PROPORCION,
+    (DATOS, "313.1_EN_PORCENTRII_0_T_18"): PROPORCION,
+}
+
+# Series que dejan de publicarse (los datos no se tocan).
+EXCLUIDAS = {
+    # Cuadro 20: fila sin rótulo en la hoja (celda A62 vacía) entre «Saldo final» y el bloque «b. Instrumentos de
+    # deuda»; ceros en todo el período y no entra en ninguna identidad (los 16 bloques cierran sin ella).
+    (CIN, _CUADRO_20_ESPURIA): "Columna sin rótulo de ceros del cuadro 20: no es una serie",
+    # Cuadro 9: el desglose 3.5.4.1 a 3.5.4.4 de «Otros activos de reserva» es cero en los 82 trimestres, pero el total
+    # 3.5.4 no lo es (hasta 16.237 millones de diferencia con la suma) y el cuadro 14 no publica ese desglose de
+    # flujos mientras el cuadro 19 muestra stocks de miles de millones: son marcadores de dato no disponible.
+    **{(CIN, f"cuadro-9|{id_}"): "Desglose de flujos de otros activos de reserva en ceros: no suma al total 3.5.4"
+       for id_ in ("3-5-4-1-moneda-y-depositos", "3-5-4-2-titulos-valores", "3-5-4-3-derivados-financieros",
+                   "3-5-4-4-otros-activos")},
+    # Cuadro 19: la PII de derivados financieros (pasivos) del gobierno general (los valores vinculados al PIB) figura
+    # como de las sociedades captadoras de depósitos entre 2016T1 y 2017T4 (3.311 en 2016T1); el cuadro 16 y el 21 la
+    # asignan al gobierno general y desde 2018T1 los tres cuadros coinciden. El dato correcto está en el cuadro 16.
+    (CIN, "cuadro-19|Q.N.AR.W1.S122.S1.LE.L.FA.F.F7.T.USD._T.T.N"):
+        "Pasivos por derivados del cuadro 19 con los dos sectores cruzados hasta 2017T4; correcto en el cuadro 16",
+    (CIN, "cuadro-19|Q.N.AR.W1.S13.S1.LE.L.FA.F.F7.T.USD._T.T.N"):
+        "Pasivos por derivados del cuadro 19 con los dos sectores cruzados hasta 2017T4; correcto en el cuadro 16",
+    # Hoja 14.a: «Otra inversión · Pasivos» coincide con el cuadro 8 y con el cuadro 14 hasta 2016T4 (44 trimestres,
+    # diferencia 0) y desde 2017T1 trae el signo opuesto (38 trimestres: suma = 0; la API sirve los mismos valores
+    # que BD.xlsx). La anual es la suma de la trimestral. El dato correcto está en el cuadro 8 del INDEC.
+    (DATOS, "160.2_CTA_FINVOS_0_T_51"): "Cambia de signo desde 2017T1 respecto del cuadro 8 del INDEC",
+    (DATOS, "160.1_CTA_FINVOS_0_A_51"): "Cambia de signo desde 2017 respecto del cuadro 8 del INDEC",
+    # Hoja 16.a: los cuatro agregados de la PII figuran en dos subtablas (144.2 y 144.4 la trimestral; 144.1 y 144.3
+    # la anual). Las trimestrales son copias exactas (42 de 42 valores). Las anuales coinciden hasta 2024 y la copia
+    # 144.3 trae 0 en 2025. Se conserva la primera subtabla.
+    **{(DATOS, id_): "Copia de otra serie de la misma hoja (cuatro agregados duplicados en dos subtablas)"
+       for id_ in ("144.4_AVOSSELES_0_T_22", "144.4_AVOSRELES_0_T_24", "144.4_PCIONETA_0_T_37", "144.4_PVOSTRLES_0_T_15",
+                   "144.3_AVOSSELES_0_A_22", "144.3_AVOSRELES_0_A_24", "144.3_PCIONETA_0_A_37",
+                   "144.3_PVOSANLES_0_A_15")},
+    # Hoja 16 (PII base 1991): las identidades del árbol (pasivos del gobierno nacional = cartera + otros pasivos
+    # externos; otros pasivos externos = bancos + organismos + proveedores + acreedores oficiales + deuda refinanciada)
+    # no ubican estas dos series: «Bancos (TCA, TCDF, GRA)» (1.192, 1.905 y luego 0) y «Otros pasivos» (132 a 4) no
+    # suman en ningún total, así que no hay certeza de a qué sector ni categoría pertenecen.
+}
 
 
 # ── Despacho ───────────────────────────────────────────────────────────────────────────────────

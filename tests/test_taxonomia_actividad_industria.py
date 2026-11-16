@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.actividad_industria import clasificar
+from tools.taxonomia.actividad_industria import EXCLUIDAS, clasificar
 
 PROPORCION = "Proporción (1 = 100%)"
 
@@ -204,6 +204,12 @@ CASOS = (
      esperado("Producción industrial por producto",
               "Producción industrial por producto · Despachos autorizados de vino en el mercado externo",
               "Alimentos, bebidas y tabaco")),
+    (datos("1.17 Productos ind.", "petroleo_crudo", "Petróleo Crudo en Miles de M3", "41.3_PC_0_A_14"),
+     esperado("Producción industrial por producto", "Producción industrial por producto · Petróleo crudo",
+              "Petróleo, gas y derivados", unidad="Miles de metros cúbicos")),
+    (datos("1.17 Productos ind.", "gas_natural", "Gas Natural en Millones de M3", "41.3_GN_0_A_11"),
+     esperado("Producción industrial por producto", "Producción industrial por producto · Gas natural",
+              "Petróleo, gas y derivados", unidad="Millones de metros cúbicos")),
     (datos("1.17 Productos ind.", "planos", "Planos en Miles de Toneladas", "41.3_P_0_A_6"),
      esperado("Producción industrial por producto", "Producción industrial por producto · Laminados en caliente planos",
               "Siderurgia y metales")),
@@ -295,6 +301,29 @@ class ActividadIndustriaTest(unittest.TestCase):
                              unidad="", frecuencia="M", archivo="otro.xlsx", hoja="1.15 Enc. industrial", columna="x",
                              dataset="", estado="VIGENTE")
         self.assertIsNone(clasificar(otro_archivo))
+
+    def test_exclusiones_fijadas(self):
+        auxiliares = {clave for clave in EXCLUIDAS if clave[0] == "indec-ipi-manufacturero"}
+        self.assertEqual({c[1].split("|")[1] for c in auxiliares},
+                         {"Cuadro 2", "Cuadro 3", "Cuadro 4", "Cuadro 5", "Cuadro 6"})
+        for _, id_ in auxiliares:
+            self.assertTrue(id_.endswith("periodo") or "anos-2016-2026" in id_)
+        productos = {clave[1] for clave in EXCLUIDAS if clave[0] == "datos.gob.ar"}
+        self.assertEqual(productos, {
+            "41.1_PPSOU_0_M_33", "41.2_PPSOU_0_T_33", "41.3_PPSOU_0_A_33",
+            "41.1_CP_0_M_16", "41.2_CP_0_T_16", "41.3_CP_0_A_16",
+            "41.3_NS_0_A_11", "41.2_NS_0_T_11", "41.3_NU_0_A_11", "41.2_NU_0_T_11",
+            "41.1_NC_0_M_11", "41.2_NC_0_T_11", "41.3_NC_0_A_11"})
+        self.assertEqual(len(EXCLUIDAS), 18)
+        for motivo in EXCLUIDAS.values():
+            self.assertTrue(motivo.strip())
+
+    def test_cuadro_5_el_rotulo_con_porcentaje_es_el_indice(self):
+        # «15 - Alimentos y bebidas - %» es el índice (valores ~140); «… Variación porcentual… - %», la variación.
+        indice_ = clasificar(indec("indec-ipi-manufacturero", "ipi_manufacturero.xls", "Cuadro 5",
+                                   "15 - Alimentos y bebidas - %", IPI_C5))
+        self.assertEqual(indice_.unidad, "Índice 2004=100")
+        self.assertNotIn("var.", indice_.nombre)
 
     def test_dos_llamadas_dan_lo_mismo(self):
         for serie, _ in CASOS:

@@ -149,6 +149,42 @@ _CUADRO_6 = {
 }
 
 
+# Copias exactas dentro de la fuente (se conserva una de cada grupo; la copia no se publica).
+# Verificado contra el libro original del INDEC (serie_supermercados.xlsx, agosto 2026) y contra los
+# valores de BD.xlsx: las columnas son idénticas en los 116 meses (diferencia máxima 0,0).
+_ID = "supermercados.xlsx|{}|{}"
+
+
+def _slug(texto: str) -> str:
+    return plano(texto).replace(" ", "-")
+
+
+EXCLUIDAS = {
+    # Cuadro 2, índice de ventas a precios constantes = Cuadro 1, serie original (misma columna).
+    (FUENTE, _ID.format("Cuadro 2", "indice-ventas-totales-a-precios-constantes-acumulada-del-ano-respecto-a-igual-acumulado-del-ano-anterior-numeros-indice")):
+        "Copia exacta del Cuadro 1 (serie original, índice a precios constantes)",
+    # Cuadro 2 (columna G) y Cuadro 3: variación interanual a precios constantes = Cuadro 1, columna C.
+    (FUENTE, _ID.format("Cuadro 2", "variacion-porcentual-respecto-al-mismo-mes-del-ano-anterior-acumulada-del-ano-respecto-a-igual-acumulado-del-ano-anterior")):
+        "Copia exacta del Cuadro 1 (variación interanual a precios constantes)",
+    (FUENTE, _ID.format("Cuadro 3.", "variacion-porcentual-respecto-al-mismo-periodo-del-ano-anterior-a-precios-constantes")):
+        "Copia exacta del Cuadro 1 (variación interanual a precios constantes)",
+    # Cuadro 3: variación interanual a precios corrientes = Cuadro 2, columna C.
+    (FUENTE, _ID.format("Cuadro 3.", "variacion-porcentual-respecto-al-mismo-periodo-del-ano-anterior-a-precios-corrientes")):
+        "Copia exacta del Cuadro 2 (variación interanual a precios corrientes)",
+    # Total del país en miles de pesos: el Cuadro 4 («Ventas totales») es la misma columna.
+    (FUENTE, _ID.format("Cuadro 5.", "total-del-pais-total-miles-de-pesos")):
+        "Copia exacta de «Ventas totales» del Cuadro 4 (miles de pesos)",
+    (FUENTE, _ID.format("Cuadro 6.", "total-del-pais-ventas-totales-miles-de-pesos")):
+        "Copia exacta de «Ventas totales» del Cuadro 4 (miles de pesos)",
+}
+# Total de cada jurisdicción: el Cuadro 6 («Ventas totales») repite el «Total» del Cuadro 5.
+EXCLUIDAS.update({
+    (FUENTE, _ID.format("Cuadro 6.", f"{_slug(jurisdiccion)}-ventas-totales-miles-de-pesos")):
+        "Copia exacta del «Total» de la misma jurisdicción en el Cuadro 5 (diferencia máxima 0,0 en 116 meses)"
+    for jurisdiccion in _JURISDICCIONES
+})
+
+
 def _hoja(serie: Serie) -> str:
     return plano(serie.hoja).rstrip(". ")
 

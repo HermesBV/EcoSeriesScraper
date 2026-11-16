@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.externo_balance_pagos import clasificar
+from tools.taxonomia.externo_balance_pagos import EXCLUIDAS, UNIDADES, clasificar
 
 DATOS = "datos.gob.ar"
 CIN = "indec-cin"
@@ -132,7 +132,7 @@ CASOS = (
     (('datos.gob.ar', '32. Ingreso IED Pais', '321.1_OTROSROS_0_T_5', '321.1_OTROSROS_0_T_5', 'otros', 'T', 'sector_externo.xlsx'),
      esperado('Inversión extranjera directa (BCRA)', 'Renta', 'Por país de origen', '', 'IED · Renta · Participaciones de capital · Otros países', 'Millones de dólares')),
     (('datos.gob.ar', '33. Deuda Externa Privada', '313.1_EN_PORCENTPIB_0_T_21', '313.1_EN_PORCENTPIB_0_T_21', 'en_porcentaje_del_pib', 'T', 'sector_externo.xlsx'),
-     esperado('Deuda externa', 'Sector privado', '', '', 'Deuda externa privada (% del PIB)', 'Proporción')),
+     esperado('Deuda externa', 'Sector privado', '', '', 'Deuda externa privada (% del PIB)', 'Proporción (1 = 100%)')),
     (('datos.gob.ar', '33. Deuda Externa Privada', '313.1_PRESTAMOS_UDA_0_T_35', '313.1_PRESTAMOS_UDA_0_T_35', 'prestamos_financieros_titulos_deuda', 'T', 'sector_externo.xlsx'),
      esperado('Deuda externa', 'Sector privado', '', '', 'Deuda externa privada · Deuda financiera · Títulos de deuda', 'Millones de dólares')),
 )
@@ -194,6 +194,71 @@ class ClasificarCuentasInternacionalesTest(unittest.TestCase):
     def test_ningun_nombre_pasa_de_120_caracteres(self):
         for argumentos, bueno in CASOS:
             self.assertLessEqual(len(bueno.nombre), 120)
+
+
+    def test_mbp5_no_comparte_nombre_con_conceptos_distintos_del_mbp6(self):
+        def mbp5(variable):
+            return clasificar(serie(DATOS, "14. Bce Pagos 3-17", "84.2_X", "84.2_X", variable, "T", "sector_externo.xlsx"))
+        # Signo contrario y sin activos de reserva: no es la cuenta financiera del MBP6.
+        cuenta = mbp5("ccf_cuenta_financiera_total_cuenta_fianciera")
+        self.assertEqual(cuenta.nombre, "Balanza de pagos · Cuenta financiera sin reservas (entradas netas)")
+        self.assertNotEqual(cuenta.nombre, "Balanza de pagos · Cuenta financiera")
+        self.assertEqual(mbp5("ccf_cuenta_financiera_sector_pub_no_finan_gob_locales").nombre,
+                         "Balanza de pagos · Cuenta financiera sin reservas · Sector público no financiero · "
+                         "Gobiernos locales (entradas netas)")
+        self.assertEqual(mbp5("ccf_total_ccf").nombre,
+                         "Balanza de pagos · Cuenta de capital y financiera sin reservas (entradas netas)")
+        self.assertEqual(mbp5("cc_rentas_transf_corrientes").nombre, "Balanza de pagos · Transferencias corrientes")
+        self.assertEqual(mbp5("cc_rentas_otras_rentas").nombre, "Balanza de pagos · Otras rentas")
+        # Lo que sí coincide con el MBP6 conserva el nombre.
+        self.assertEqual(mbp5("cc_total").nombre, "Balanza de pagos · Cuenta corriente")
+        self.assertEqual(mbp5("variacion_reservas_int_total").nombre, "Balanza de pagos · Activos de reserva")
+
+    def test_unidades_corregidas(self):
+        cuadro_20 = [k for k in UNIDADES if k[0] == CIN and k[1].startswith("cuadro-20|")]
+        self.assertEqual(len(cuadro_20), 113)
+        self.assertIn((CIN, "cuadro-20|p-pasivos-i-inversion-directa-a-instrumentos-de-deuda-saldo-final"), UNIDADES)
+        self.assertIn((CIN, "cuadro-20|b90-posicion-de-inversion-internacional-neta-a-p-saldo-inicial"), UNIDADES)
+        self.assertEqual({UNIDADES[k] for k in cuadro_20}, {"Millones de dólares"})
+        self.assertEqual(UNIDADES[(CIN, "cuadro-14|variaciones-del-tipo-de-cambio-2")], "Millones de dólares")
+        self.assertEqual(UNIDADES[(CIN, "cuadro-14|variacion-del-stock-de-activos-de-reserva-1-2")], "Millones de dólares")
+        for id_ in ("313.1_EN_PORCENTPIB_0_T_21", "313.1_EN_PORCENTNES_0_T_31", "313.1_EN_PORCENTRII_0_T_18"):
+            self.assertEqual(UNIDADES[(DATOS, id_)], "Proporción (1 = 100%)")
+        self.assertEqual(len(UNIDADES), 118)
+
+    def test_exclusiones_fijadas(self):
+        self.assertEqual(len(EXCLUIDAS), 17)
+        claves = set(EXCLUIDAS)
+        # Columna espuria del cuadro 20.
+        self.assertIn((CIN, "cuadro-20|a-activos-ii-inversion-de-cartera-a-participaciones-de-capital-0-0"), claves)
+        # Cuadro 9: desglose en ceros de otros activos de reserva.
+        self.assertEqual({k[1] for k in claves if k[1].startswith("cuadro-9|")},
+                         {"cuadro-9|3-5-4-1-moneda-y-depositos", "cuadro-9|3-5-4-2-titulos-valores",
+                          "cuadro-9|3-5-4-3-derivados-financieros", "cuadro-9|3-5-4-4-otros-activos"})
+        # Cuadro 19: sectores cruzados en los derivados.
+        self.assertIn((CIN, "cuadro-19|Q.N.AR.W1.S122.S1.LE.L.FA.F.F7.T.USD._T.T.N"), claves)
+        self.assertIn((CIN, "cuadro-19|Q.N.AR.W1.S13.S1.LE.L.FA.F.F7.T.USD._T.T.N"), claves)
+        # Hoja 14.a: signo invertido desde 2017.
+        self.assertIn((DATOS, "160.2_CTA_FINVOS_0_T_51"), claves)
+        self.assertIn((DATOS, "160.1_CTA_FINVOS_0_A_51"), claves)
+        # Hoja 16.a: copias de las dos subtablas (la original queda).
+        self.assertIn((DATOS, "144.4_PCIONETA_0_T_37"), claves)
+        self.assertNotIn((DATOS, "144.2_PCIONETA_0_T_37"), claves)
+        self.assertIn((DATOS, "144.3_PVOSANLES_0_A_15"), claves)
+        self.assertNotIn((DATOS, "144.1_PVOSANLES_0_A_15"), claves)
+        # Hoja 16: series de la base 1991 sin ubicación segura.
+        # No ubicar una serie en una identidad es una duda, no una prueba de error: se publican.
+        self.assertNotIn((DATOS, "86.1_B_1991_A_6"), claves)
+        self.assertNotIn((DATOS, "86.1_O_1991_A_13"), claves)
+        # Las excluidas siguen teniendo regla (el índice las marca como EXCLUIDA, no como «sin regla»).
+        self.assertIsNotNone(clasificar(serie(DATOS, "14.a Bce Pagos 6-17", "160.2_CTA_FINVOS_0_T_51", "x",
+                                              "cuenta_financieratra_inversion_emision_neta_pasivos", "T",
+                                              "sector_externo.xlsx")))
+
+    def test_un_nombre_por_concepto_en_la_pii_de_hoja_16a_excluida(self):
+        copia = clasificar(serie(DATOS, "16.a PII 6-17", "144.4_PCIONETA_0_T_37", "x", "x", "T", "sector_externo.xlsx"))
+        original = clasificar(serie(DATOS, "16.a PII 6-17", "144.2_PCIONETA_0_T_37", "x", "x", "T", "sector_externo.xlsx"))
+        self.assertEqual(copia, original)
 
 
 if __name__ == "__main__":

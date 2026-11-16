@@ -24,7 +24,7 @@ misma forma de nombre.
     ├── (índices generales)             hojas 10 a 13, 4.9.1 y 4.9.2
     ├── Por grandes rubros              exportaciones (hoja 10)
     ├── Por uso económico               importaciones (hoja 11)
-    └── Series históricas > Base 1993   hoja 4.9.4
+    (hoja 4.9.4: rotulada «Base 1993» pero en base 2004; mismo nombre que la hoja 13)
 
     Turismo internacional               hoja 17: Receptivo, Emisivo y Saldo
     Complejos exportadores de oleaginosas y cereales   hojas 34 y 35
@@ -54,6 +54,12 @@ Lo que los datos mostraron y no dicen los rótulos de la fuente:
   rango (74 M / 1.023 empresas = 0,07 M; 9.928 M / 54 = 184 M).
 * Hoja 40 y los totales de la 39: son acumulados de los últimos 12 meses (el de agosto de 2018
   es 59.611 M contra 60.453 M de la suma de los 12 meses del ICA).
+* Hoja 1: «Bienes de consumo y vehículos automotores de pasajeros» (IIBCVAPR) incluye también el
+  resto: es IIBCO + IIVAP + IIR en los 417 meses.
+* Hoja 4.9.4: rotulada «Base 1993», está en base 2004 (ver ``UNIDADES``). Hoja 18: el IPMP vigente
+  tiene base diciembre de 2001.
+* Hoja 38: las dos variantes de arroz «los demás no parbolizados» son copias de las «no parbolizado»
+  (ver ``EXCLUIDAS``); la cebada «no cervecera» es la que el rótulo marca «(no)» y su par embolsado.
 * Hoja 41: el «índice de difusión» es la proporción de empresas, destinos o productos con
   crecimiento interanual (3.499 / 5.738 = 0,6098).
 """
@@ -72,9 +78,7 @@ PRECIOS = "Precios"
 MILLONES_USD = "Millones de dólares"
 PORCENTAJE = "%"
 INDICE_2004 = "Índice 2004=100"
-INDICE_1993 = "Índice 1993=100"
 USD_2004 = "Millones de dólares de 2004"
-USD_1993 = "Millones de dólares de 1993"
 EMPRESAS = "Empresas"
 PROPORCION = "Proporción"
 
@@ -234,7 +238,9 @@ _ICA = {
     # Sumas de usos que publica el ICA.
     "IBCPP": _grupo_de_usos("Bienes de capital, piezas y accesorios"),
     "IBICL": _grupo_de_usos("Bienes intermedios, combustibles y lubricantes"),
-    "IIBCVAPR": _grupo_de_usos("Bienes de consumo y vehículos automotores de pasajeros"),
+    # La descripción de la fuente omite «resto»: IIBCVAPR = IIBCO + IIVAP + IIR exacto en los 417 meses
+    # (y IIT = IBCPP + IBICL + IIBCVAPR); el mnemónico (BC + VAP + R) también lo dice.
+    "IIBCVAPR": _grupo_de_usos("Bienes de consumo, vehículos automotores de pasajeros y resto"),
     "SC": _total(SALDO),
     "ISC": _total(SALDO),
 }
@@ -529,7 +535,7 @@ def _terminos_del_intercambio(serie: Serie) -> Clasificacion | None:
                           unidad=PORCENTAJE if medida else INDICE_2004)
 
 
-# Hoja 13 (base 2004) y hoja 4.9.4 (base 1993, serie histórica del mismo cuadro).
+# Hoja 13 (base 2004) y hoja 4.9.4 (rotulada base 1993, pero en base 2004: ver abajo).
 _PODER_DE_COMPRA_2004 = {
     "EMD": (_EXPORTACIONES_CONSTANTES, USD_2004),
     "GPIMD": (_GANANCIA, USD_2004),
@@ -538,10 +544,10 @@ _PODER_DE_COMPRA_2004 = {
     "VPA": (con_medida(_GANANCIA, "variación interanual"), USD_2004),
 }
 _PODER_DE_COMPRA_1993 = {
-    "ED1": (_EXPORTACIONES_CONSTANTES, USD_1993),
-    "GPI": (_GANANCIA, USD_1993),
-    "PCE": (_PODER_DE_COMPRA, USD_1993),
-    "TI": (_TERMINOS, INDICE_1993),
+    "ED1": (_EXPORTACIONES_CONSTANTES, USD_2004),
+    "GPI": (_GANANCIA, USD_2004),
+    "PCE": (_PODER_DE_COMPRA, USD_2004),
+    "TI": (_TERMINOS, INDICE_2004),
 }
 
 
@@ -554,12 +560,15 @@ def _poder_de_compra(serie: Serie) -> Clasificacion | None:
 
 
 def _poder_de_compra_1993(serie: Serie) -> Clasificacion | None:
+    # Pese al «Base 1993» de la fuente, los valores están en dólares de 2004 e índice 2004=100: son los
+    # de la hoja 13 (idénticos de 1986 a 2013), el índice vale 100 y la ganancia 0 en 2004, y la API
+    # continúa estos ID hasta 2023 con los valores de la hoja 13. Mismo nombre que la hoja 13; la unidad
+    # se corrige en ``UNIDADES``.
     codigo = _codigo_id(serie, r"^120\.\d_([A-Z0-9]+)_1993_0_\d+$")
     if codigo not in _PODER_DE_COMPRA_1993:
         return None
     nombre, unidad = _PODER_DE_COMPRA_1993[codigo]
-    return _clasificacion(EXTERNO, INDICES_COMERCIO, nombre, cobertura=SERIES_HISTORICAS,
-                          apertura="Base 1993", unidad=unidad)
+    return _clasificacion(EXTERNO, INDICES_COMERCIO, nombre, unidad=unidad)
 
 
 # Hojas 4.9.1 y 4.9.2 (precios.xlsx): los índices generales de valor y cantidad, base 2004.
@@ -846,7 +855,7 @@ def _ipmp(serie: Serie) -> Clasificacion | None:
     # El IPMP vigente es el de dólares con base 2001; el de base 1995 (en dólares y en pesos)
     # se publicó hasta 2016.
     if serie.variable == "indice_precios_materias_primas_ipmp":
-        return _clasificacion(PRECIOS, IPMP, IPMP, unidad="Índice 2001=100")
+        return _clasificacion(PRECIOS, IPMP, IPMP, unidad="Índice dic-2001=100")
     if serie.variable == "indice_precios_materias_primas_usd":
         return _clasificacion(PRECIOS, IPMP, IPMP, cobertura=SERIES_HISTORICAS, apertura="Base 1995",
                               unidad="Índice 1995=100")
@@ -967,6 +976,50 @@ def _precios_fob(serie: Serie) -> Clasificacion | None:
     categoria, partes = regla
     return _clasificacion(PRECIOS, FOB_OFICIALES, unir("Precio FOB oficial", *partes), cobertura=categoria,
                           unidad="US$ por tonelada")
+
+
+# =================================================================================================
+# Correcciones explícitas (ver ``tools/taxonomia/__init__.py``)
+# =================================================================================================
+# Hoja 41: 16 series son copias exactas de la hoja 39 del mismo libro (iguales en las 260 fechas que
+# comparten; la 39 empieza en 1996 y la 41 en 1997): la cantidad total de empresas exportadoras («Total
+# general» y «Empresas exportadoras», que además son iguales entre sí), el total de cada uno de los siete
+# sectores y el total de cada uno de los siete rangos de exportación. Se conserva la hoja 39. Las copias
+# confirman, además, la reasignación de los rangos de la 39: la 41 rotula con el rango correcto
+# (p. ej. «Entre USD 5M y USD 20M Total» = 489 empresas = la columna que la 39 rotula «> USD 1 M Entre USD 1 M y USD 5 M»).
+_COPIA_41 = "Copia exacta de la serie homónima de la hoja 39 (mismas 260 fechas, mismos valores); se conserva la 39, que empieza en 1996"
+EXCLUIDAS = {
+    **{("datos.gob.ar", id_): _COPIA_41 for id_ in (
+        "362.1_CANTIDAD_ERAS__43",      # «Empresas exportadoras»: igual a «Total general» y al total de la hoja 39 (5.738 en 2018-08)
+        "362.1_INDICE_DIFRAL__50",      # «Total general»
+        "362.1_INDICE_DIFL_A__51", "362.1_INDICE_DIFL_B__52", "362.1_INDICE_DIFL_C__52",
+        "362.1_INDICE_DIFL_D__53", "362.1_INDICE_DIFL_G__56", "362.1_INDICE_DIFSTO__54",
+        "362.1_INDICE_DIFNCO__56",      # totales por sector
+        "362.1_INDICE_DIFTAL__59", "362.1_INDICE_DIFTAL__52", "362.1_INDICE_DIFTAL__51",
+        "362.1_INDICE_DIFTAL_4_I__52", "362.1_INDICE_DIFTAL__54", "362.1_INDICE_DIFTAL__55",
+        "362.1_INDICE_DIFTALWI2__55",   # totales por rango, de menos de 0,1 M a más de 500 M
+    )},
+    # Hoja 38: las dos variantes de arroz «los demás no parbolizados» valen exactamente lo mismo que
+    # «no parbolizado» en las 10.150 fechas en que tienen precio (y 0 en 1993-1995, cuando las otras sí
+    # cotizan); se conservan las dos series completas.
+    ("datos.gob.ar", "358.1_ARR_SB_B_PORC_II__59"): "Copia exacta (10.150 de 10.150 días) de «Arroz semiblanqueado o blanqueado, no parbolizado, grano quebrado hasta 10 %» (358.1_ARR_SB_B_PORC__59), que además tiene precio desde 1993",
+    ("datos.gob.ar", "358.1_ARR_SB_B_PORC_IV__53"): "Copia exacta (10.150 de 10.150 días) de «Arroz semiblanqueado o blanqueado, no parbolizado, grano quebrado de más de 10 %» (358.1_ARR_SB_B_PORC__53), que además tiene precio desde 1993",
+}
+
+# Hoja 4.9.4: rotulada «Base 1993», pero el índice de términos del intercambio vale 100 y la ganancia 0 en
+# 2004 (en 1993: 83,6 y -2.495), las exportaciones de 2004 en «dólares de 1993» (34.608) son las
+# nominales de 2004, y los valores son los de la hoja 13 (base 2004) en 1986-2013; la API de series de
+# tiempo continúa estos ID hasta 2023 con los valores de la hoja 13.
+# Hoja 18: el IPMP vigente vale 100,000 en diciembre de 2001 (su promedio de 2001 es 107,4).
+UNIDADES = {
+    ("datos.gob.ar", "120.1_ED1_1993_0_26"): USD_2004,
+    ("datos.gob.ar", "120.1_GPI_1993_0_28"): USD_2004,
+    ("datos.gob.ar", "120.1_PCE_1993_0_24"): USD_2004,
+    ("datos.gob.ar", "120.1_TI_1993_0_20"): INDICE_2004,
+    ("datos.gob.ar", "88.1_IPMPI_1995_A_35"): "Índice dic-2001=100",
+    ("datos.gob.ar", "88.2_IPMPI_1995_T_35"): "Índice dic-2001=100",
+    ("datos.gob.ar", "88.3_IPMPI_1995_M_35"): "Índice dic-2001=100",
+}
 
 
 # =================================================================================================

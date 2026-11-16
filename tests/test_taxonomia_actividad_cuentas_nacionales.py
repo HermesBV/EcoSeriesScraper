@@ -161,10 +161,10 @@ CASOS = (
     (DATOS, "1.9 Ingreso Nac (cont. 1)", "27.2_IIBF_0_T_28", "inversion_interna_bruta_fija", "T",
      ingreso("PIB · Formación bruta de capital fijo", HIST, MC, "Base 1993")),
     (DATOS, "1.9 Ingreso Nac (cont. 2)", "28.1_AGPRI_0_A_35", "a_ganancia_perdida_real_intercambio", "A",
-     ingreso("Ingreso nacional y ahorro · Ganancia o pérdida real del intercambio (precios constantes, cuenta de ahorro)",
+     ingreso("Ingreso nacional y ahorro · Ganancia o pérdida real del intercambio (precios constantes, ahorro)",
              HIST, M93, "Base 1993")),
     (DATOS, "1.9 Ingreso Nac (cont. 2)", "28.1_IGPRDI_0_A_39", "i_ganancia_perdida_real_del_intercambio", "A",
-     ingreso("Ingreso nacional y ahorro · Ganancia o pérdida real del intercambio (precios constantes, cuenta de ingreso)",
+     ingreso("Ingreso nacional y ahorro · Ganancia o pérdida real del intercambio (precios constantes, ingreso)",
              HIST, M93, "Base 1993")),
     (DATOS, "1.9.1 Ingreso Nac BASE 2004", "166.2_ARO_NACANB_0_0_20", "ahorro_nac_bruto_anb", "T",
      ingreso("Ingreso nacional y ahorro · Ahorro nacional bruto", "Ingreso, ahorro y préstamo neto", MC)),
@@ -252,6 +252,43 @@ class PruebasCuentasNacionales(unittest.TestCase):
         from tools.taxonomia import actividad_cuentas_nacionales as modulo
         claves = {clave for _, clave in modulo._REGLAS_RAMA}
         self.assertEqual(len(claves), 17 + len(modulo._SUBRAMAS))
+
+    def test_remuneracion_de_1993_tiene_el_signo_del_resto_del_mundo(self):
+        # En la base 1993 INB = PIB - remuneración (pagos netos); en la base 2004 INB = PIB + rentas.
+        # La de 1993 es la magnitud de «Rentas netas ... · Resto del mundo» de la base 2004.
+        vigente = clasificar(serie(DATOS, "1.9.1 Ing Nac (cont. 1) BASE 04", "167.1_RNFE_2004_0_14",
+                                   "rentas_netas_fact_ext", "A"))
+        nacional = clasificar(serie(DATOS, "1.9.1 Ingreso Nac BASE 2004", "x", "rentas_netas_factores_ext"))
+        self.assertEqual(vigente.nombre, "Ingreso nacional y ahorro · Rentas netas de factores del exterior · Resto del mundo")
+        self.assertNotEqual(nacional.nombre, vigente.nombre)
+        for hoja, variable in (("1.9 Ingreso Nac", "remuneracion_neta_factores_del_exterior"),
+                               ("1.9 Ingreso Nac (cont. 1)", "remuneracion_neta_factores_exterior")):
+            self.assertEqual(clasificar(serie(DATOS, hoja, "x", variable)).nombre, vigente.nombre)
+        real = clasificar(serie(DATOS, "1.9 Ingreso Nac (cont. 2)", "x", "i_emuneracion_real_neta_factores_del_exterior", "A"))
+        self.assertEqual(real.nombre, vigente.nombre.replace("(", "") + " (precios constantes, ingreso)")
+
+    def test_unidades_corregidas(self):
+        from tools.taxonomia import actividad_cuentas_nacionales as modulo
+        u = modulo.UNIDADES
+        self.assertEqual(len(u), 11 + 1 + 20 + 10 + 8 + 20 + 10)
+        # Variación de existencias: millones de pesos, no «%».
+        self.assertEqual(u[(INDEC, "cuadro-1|P52")], M04)
+        self.assertEqual(u[(INDEC, "cuadro-8|P52")], MC)
+        # Los cuadros en %, o ya en millones corrientes, no se tocan (en el cuadro 3 y el 11 P52 sí es %).
+        self.assertNotIn((INDEC, "cuadro-3|P52"), u)
+        self.assertNotIn((INDEC, "cuadro-11|P52"), u)
+        self.assertNotIn((INDEC, "cuadro-8|B1b"), u)
+        # Constantes de 2004 y deflactores base 2004.
+        self.assertEqual(u[(INDEC, "cuadro-4|D214 - D31")], M04)
+        self.assertEqual(u[(INDEC, "cuadro-6|importado-2838e412")], M04)
+        self.assertEqual(u[(INDEC, "cuadro-9|oferta-global")], "Índice 2004=100")
+        self.assertEqual(u[(INDEC, "cuadro-13|P")], "Índice 2004=100")
+        self.assertEqual(u[(INDEC, "cuadro-15|nacional-ae6eaae2")], "Índice 2004=100")
+        self.assertFalse([c for c in u if c[0] != INDEC])
+
+    def test_sin_exclusiones(self):
+        from tools.taxonomia import actividad_cuentas_nacionales as modulo
+        self.assertFalse(getattr(modulo, "EXCLUIDAS", {}))
 
 
 if __name__ == "__main__":

@@ -57,19 +57,19 @@ CASOS = (
               "materias bituminosas")),
     (serie(SC, "sc_vehiculos_automoviles_tractores_demas_vehiculos"),
      esperado("Saldo comercial", NCM, S17,
-              "Saldo comercial · Vehículos automóviles, tractores, velocípedos y demás vehículos terrestres, "
+              "Saldo comercial · Vehículos automóviles, tractores, velocípedos y demás vehículos terrestres; "
               "sus partes y accesorios")),
     (serie(M, "m_prendas_complementos_accesorios_vestir_emcepto_punto"),
      esperado("Importaciones", NCM, S11,
-              "Importaciones · Prendas y complementos (accesorios) de vestir, excepto los de punto")),
+              "Importaciones · Prendas y complementos (accesorios), de vestir, excepto los de punto")),
     (serie(X, "x_prendas_complementos_accesorios_vestir_punto"),
      esperado("Exportaciones", NCM, S11,
-              "Exportaciones · Prendas y complementos (accesorios) de vestir, de punto")),
+              "Exportaciones · Prendas y complementos (accesorios), de vestir, de punto")),
     (serie(M, "m_demas_fibras_temtiles_vegetales_hilados_papel", "T"),
      esperado("Importaciones", NCM, S11,
               "Importaciones · Las demás fibras textiles vegetales; hilados de papel y tejidos de hilados de papel")),
     (serie(SC, "sc_maquinas_aparatos_material_electrico_partes"),
-     esperado("Saldo comercial", NCM, S16, "Saldo comercial · Máquinas, aparatos y material eléctrico y sus partes")),
+     esperado("Saldo comercial", NCM, S16, "Saldo comercial · Máquinas, aparatos y material eléctrico, y sus partes")),
     (serie(X, "x_resto"), esperado("Exportaciones", NCM, "Total y resto", "Exportaciones · Resto")),
     (serie(M, "m_total", "M"), esperado("Importaciones", NCM, "Total y resto", "Importaciones")),
     (serie(SC, "sc_total", "T"), esperado("Saldo comercial", NCM, "Total y resto", "Saldo comercial")),
@@ -82,8 +82,14 @@ CASOS = (
      esperado("Exportaciones", PAIS, "Países", "Exportaciones · España")),
     (serie("7. X Paises", "ica_exportaciones_total_mercosur"),
      esperado("Exportaciones", PAIS, "Bloques y regiones", "Exportaciones · MERCOSUR")),
-    (serie("7. X Paises", "ica_exportaciones_total_ue_28"),
+    (serie("7. X Paises", "ica_exportaciones_resto_ue_28"),
      esperado("Exportaciones", PAIS, "Bloques y regiones", "Exportaciones · Unión Europea (UE-28)")),
+    (serie("7. X Paises", "ica_exportaciones_total_ue_28"),
+     esperado("Exportaciones", PAIS, "Bloques y regiones", "Exportaciones · Resto de la Unión Europea (UE-28)")),
+    (serie("9. Saldo Paises", "ica_saldo_comercial_resto_ue", "M"),
+     esperado("Saldo comercial", PAIS, "Bloques y regiones", "Saldo comercial · Unión Europea (UE-28)")),
+    (serie("9. Saldo Paises", "ica_saldo_comercial_total_ue", "T"),
+     esperado("Saldo comercial", PAIS, "Bloques y regiones", "Saldo comercial · Resto de la Unión Europea (UE-28)")),
     (serie("7. X Paises", "ica_exportaciones_resto_mundo"),
      esperado("Exportaciones", PAIS, "Bloques y regiones", "Exportaciones · Resto del mundo")),
     (serie("7. X Paises", "ica_exportaciones_totales", "M"), esperado("Exportaciones", PAIS, "Total", "Exportaciones")),
@@ -126,9 +132,10 @@ CASOS = (
     (serie("36. Expo. provincia y rubro", "plataforma_continental_total_plataforma_continental"),
      esperado("Exportaciones", RUBRO, "Plataforma continental", "Exportaciones · Total · Plataforma continental")),
     (serie("36. Expo. provincia y rubro", "total_exportaciones_pp"),
-     esperado("Exportaciones", RUBRO, "Total del país", "Exportaciones · Productos primarios")),
+     esperado("Exportaciones", RUBRO, "Total del país",
+              "Exportaciones · Productos primarios (origen provincial)")),
     (serie("36. Expo. provincia y rubro", "total_exportaciones_total_exportaciones"),
-     esperado("Exportaciones", RUBRO, "Total del país", "Exportaciones")),
+     esperado("Exportaciones", RUBRO, "Total del país", "Exportaciones (origen provincial)")),
     (serie("36. Expo. provincia y rubro", "santiago_del_estero_moi"),
      esperado("Exportaciones", RUBRO, "Santiago del Estero",
               "Exportaciones · Manufacturas de origen industrial (MOI) · Santiago del Estero")),
@@ -149,11 +156,12 @@ CASOS = (
     (serie("37. Expo. provincia y destino", "chubut_total_chubut"),
      esperado("Exportaciones", DESTINO, "Chubut", "Exportaciones · Total · Chubut")),
     (serie("37. Expo. provincia y destino", "exportaciones_totales_brasil"),
-     esperado("Exportaciones", DESTINO, "Total del país", "Exportaciones · Brasil")),
+     esperado("Exportaciones", DESTINO, "Total del país", "Exportaciones · Brasil (origen provincial)")),
     (serie("37. Expo. provincia y destino", "exportaciones_totales_total_general"),
-     esperado("Exportaciones", DESTINO, "Total del país", "Exportaciones")),
+     esperado("Exportaciones", DESTINO, "Total del país", "Exportaciones (origen provincial)")),
     (serie("37. Expo. provincia y destino", "exportaciones_totales_resto"),
-     esperado("Exportaciones", DESTINO, "Total del país", "Exportaciones · Resto de destinos")),
+     esperado("Exportaciones", DESTINO, "Total del país",
+              "Exportaciones · Resto de destinos (origen provincial)")),
 )
 
 VARIABLES_NCM = {
@@ -228,6 +236,38 @@ class PruebasExternoComercioTablas(unittest.TestCase):
             self.assertNotIn("_", salida.nombre)
             self.assertNotIn(" - ", salida.nombre)
             self.assertLessEqual(len(salida.nombre), 120)
+
+    def test_capitulos_segun_el_texto_oficial(self):
+        # Texto del índice del Sistema Armonizado de la OMA en castellano (Convenio, DIAN) y de la NCM
+        # publicada por el INDEC («Comercio exterior argentino 2011», pp. 16-19).
+        oficial = {n: texto for n, _, texto in _CAPITULOS}
+        self.assertEqual(oficial[36], "Pólvoras y explosivos; artículos de pirotecnia; fósforos (cerillas); "
+                                      "aleaciones pirofóricas; materias inflamables")
+        self.assertTrue(oficial[34].endswith("«ceras para odontología» y preparaciones para odontología a base de "
+                                             "yeso fraguable"))
+        self.assertEqual(oficial[54], "Filamentos sintéticos o artificiales")
+        self.assertEqual(oficial[89], "Barcos y demás artefactos flotantes")
+        self.assertEqual(oficial[47][:44], "Pasta de madera o de las demás materias fibr")
+        self.assertEqual(oficial[97], "Objetos de arte o colección y antigüedades")
+        self.assertEqual(CAPITULOS[28], "Productos químicos inorgánicos")
+        self.assertEqual(CAPITULOS[29], "Productos químicos orgánicos")
+
+    def test_union_europea_rotulos_cruzados(self):
+        # «resto_ue_28» es el total de la UE y «total_ue_28» su resto (el total de cada flujo cierra con aquélla).
+        for hoja, prefijo in (("7. X Paises", "ica_exportaciones_"), ("8. M Paises", "ica_importaciones_")):
+            self.assertEqual(clasificar(serie(hoja, prefijo + "resto_ue_28")).nombre.split(" · ")[1],
+                             "Unión Europea (UE-28)")
+            self.assertEqual(clasificar(serie(hoja, prefijo + "total_ue_28")).nombre.split(" · ")[1],
+                             "Resto de la Unión Europea (UE-28)")
+
+    def test_total_por_origen_provincial_no_se_confunde_con_el_ica(self):
+        ica = clasificar(serie("7. X Paises", "ica_exportaciones_totales")).nombre
+        provincial = clasificar(serie("36. Expo. provincia y rubro", "total_exportaciones_total_exportaciones")).nombre
+        self.assertEqual(ica, "Exportaciones")
+        self.assertEqual(provincial, "Exportaciones (origen provincial)")
+        brasil = clasificar(serie("7. X Paises", "ica_exportaciones_brasil")).nombre
+        self.assertNotEqual(brasil, clasificar(serie("37. Expo. provincia y destino",
+                                                     "exportaciones_totales_brasil")).nombre)
 
 
 if __name__ == "__main__":

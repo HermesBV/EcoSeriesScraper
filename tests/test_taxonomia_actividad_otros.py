@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.actividad_otros import clasificar
+from tools.taxonomia.actividad_otros import EXCLUIDAS, clasificar
 
 
 def serie(hoja: str, variable: str, descripcion: str = "", frecuencia: str = "M", id_: str = "",
@@ -68,8 +68,8 @@ CASOS = (
      esperado(SP, "Servicios públicos · Telefonía fija · Minutos internacionales salientes", "Series históricas",
               "Base 1993", "Miles de minutos")),
     ("1.10 SS PP", "serv_telefonico_internac_minutos_salidos", "Servicio telefónico internacional en miles de minutos salidos",
-     esperado(SP, "Servicios públicos · Telefonía fija · Minutos internacionales salientes", "Series históricas",
-              "Base 1993 (hasta 2003)", "Miles de minutos")),
+     esperado(SP, "Servicios públicos · Telefonía fija · Minutos internacionales salientes (serie hasta 2003)",
+              "Series históricas", "Base 1993 (hasta 2003)", "Miles de minutos")),
     ("1.10 SS PP", "cabotaje_nacional_pasaj_serv_aeronavegacion_comercial", "Transporte de pasajeros dentro del servicio de cabotaje nacional de aeronavegacion comercial en miles de pasajes",
      esperado(SP, "Servicios públicos · Transporte de pasajeros · Servicio aéreo regular de cabotaje",
               "Series históricas", "Base 1993", "Pasajes")),
@@ -93,8 +93,7 @@ CASOS = (
      esperado(SUPER, "Ventas en supermercados · Alimentos y bebidas", "Por grupo de artículos",
               "Alimentos y bebidas", "Miles de pesos")),
     ("1.11.1 Super", "ventas_totales_canal_venta", "Ventas supermercados. Ventas totales por canal de venta",
-     esperado(SUPER, "Ventas en supermercados · Total por canal de venta", "Por canal de venta", "",
-              "Miles de pesos")),
+     esperado(SUPER, "Ventas en supermercados · Total", "Total", "", "Miles de pesos")),
     ("1.11.1 Super", "canales_on_line", "Ventas supermercados. Canales On-line",
      esperado(SUPER, "Ventas en supermercados · Canales online", "Por canal de venta", "", "Miles de pesos")),
     ("1.11.1 Super", "tarjetas_debito", "Ventas supermercados. Tarjetas de débito",
@@ -109,8 +108,7 @@ CASOS = (
      esperado(MAYO, "Ventas en autoservicios mayoristas · Salón de ventas", "Por canal de venta", "",
               "Miles de pesos")),
     ("1.11.2 Mayoristas", "ventas_totales_grupos_articulos", "Autoservicios mayoristas. Ventas totales por grupos de artículos",
-     esperado(MAYO, "Ventas en autoservicios mayoristas · Total por grupo de artículos", "Por grupo de artículos",
-              "", "Miles de pesos")),
+     esperado(MAYO, "Ventas en autoservicios mayoristas · Total", "Total", "", "Miles de pesos")),
     # --- Centros de compras
     ("1.12 Centros compras", "evol_mensual_ventas_mdp_electronicos_cd_elect_computacion", "Ventas por grupos de artículos de artículos electrónicos, cd, electrodomesticos y computacion",
      esperado(CC, "Ventas en centros de compras · Electrónicos, CD, electrodomésticos y computación",
@@ -300,6 +298,61 @@ class ReglasActividadOtros(unittest.TestCase):
             self.assertEqual(resultado.tema, "Actividad")
             self.assertNotIn("_", resultado.nombre)
             self.assertFalse(resultado.nombre.endswith("."))
+
+
+class CorreccionesActividadOtros(unittest.TestCase):
+    def test_telefonia_dos_mediciones_no_comparten_nombre(self):
+        # Se solapan 13 meses con valores distintos: no son dos tramos de una misma serie.
+        pares = (("serv_telefonico_basico_llamadas_interurbanas", "serv_telefonico_basico_llamadas_interurbanas_2002"),
+                 ("serv_telefonico_internac_minutos_salidos", "serv_internacional_minutos_salida_2002"),
+                 ("serv_telefonico_internac_minutos_salida", "serv_internacional_minutos_salida_2002"))
+        for vieja, nueva in pares:
+            with self.subTest(vieja=vieja):
+                a = clasificar(serie("1.10 SS PP", vieja))
+                b = clasificar(serie("1.10 SS PP", nueva))
+                self.assertNotEqual(a.nombre, b.nombre)
+                self.assertTrue(a.nombre.endswith("(serie hasta 2003)"))
+                self.assertEqual(a.nombre.replace(" (serie hasta 2003)", ""), b.nombre)
+        # Las series hasta 2003 sin continuación conservan su nombre.
+        self.assertEqual(clasificar(serie("1.10 SS PP", "serv_telefonico_internac_minutos_entrados")).nombre,
+                         "Servicios públicos · Telefonía fija · Minutos internacionales entrantes")
+
+    def test_trimestral_de_flujos_base_2017_es_promedio_mensual(self):
+        t = clasificar(serie("1.10.1 SSPP 2017", "transp_pasaj_total_miles_pasaj", frecuencia="T"))
+        m = clasificar(serie("1.10.1 SSPP 2017", "transp_pasaj_total_miles_pasaj", frecuencia="M"))
+        a = clasificar(serie("1.10.1 SSPP 2017", "transp_pasaj_total_miles_pasaj", frecuencia="A"))
+        self.assertEqual(t.unidad, "Miles de pasajeros (promedio mensual)")
+        self.assertEqual((m.unidad, a.unidad), ("Miles de pasajeros", "Miles de pasajeros"))
+        lineas = clasificar(serie("1.10.1 SSPP 2017", "serv_telef_fija_lineas_activas_miles_u", frecuencia="T"))
+        self.assertEqual(lineas.unidad, "Miles de líneas")
+        indice = clasificar(serie("1.10.1 SSPP 2017", "s_original_peajes", frecuencia="T"))
+        self.assertEqual(indice.unidad, "Índice 2004=100")
+
+    def test_totales_de_supermercados_y_mayoristas_son_el_mismo_total(self):
+        for hoja in ("1.11.1 Super", "1.11.2 Mayoristas"):
+            nombres = {clasificar(serie(hoja, v)).nombre
+                       for v in ("ventas_totales_canal_venta", "ventas_totales_medio_pago", "ventas_totales_grupos_articulos")}
+            self.assertEqual(len(nombres), 1)
+            self.assertTrue(next(iter(nombres)).endswith(" · Total"))
+
+    def test_excluidas(self):
+        claves = {i for _, i in EXCLUIDAS}
+        self.assertTrue(all(f == "datos.gob.ar" for f, _ in EXCLUIDAS))
+        # Anual 1.10 con 2001-2013 cruzado con otra serie (2014 propio).
+        self.assertTrue({"35.1_EGABO_1993_A_35", "35.1_PBO_1993_A_20", "35.1_TBO_1993_A_23",
+                         "35.1_TCBO_1993_A_31", "35.1_TPBO_1993_A_34"} <= claves)
+        # Las desestacionalizadas anuales y el nivel general anual son correctos y se publican.
+        self.assertTrue(claves.isdisjoint({"35.1_NG_1993_A_13", "35.1_TBD_1993_A_21", "35.1_PBD_1993_A_18"}))
+        # Stock de líneas sumado en anual y trimestral; la mensual se publica.
+        self.assertTrue({"35.1_STBLS_1993_A_38", "35.2_STBLS_1993_T_38", "35.1_STMC_1993_A_29",
+                         "35.2_STMC_1993_T_29"} <= claves)
+        self.assertNotIn("35.3_STBLS_1993_M_38", claves)
+        # Copias de «Total por canal de venta».
+        self.assertTrue({"455.1_VENTAS_TOTAGO_0_M_25_99", "455.1_VENTAS_TOTLOS_0_M_30_43",
+                         "456.1_VENTAS_TOTAGO_0_M_25_27", "456.1_VENTAS_TOTLOS_0_M_31_93"} <= claves)
+        self.assertNotIn("455.1_VENTAS_TOTNTA_0_M_26_88", claves)
+        self.assertEqual(len(EXCLUIDAS), 13)
+        self.assertTrue(all(motivo.strip() for motivo in EXCLUIDAS.values()))
 
 
 if __name__ == "__main__":

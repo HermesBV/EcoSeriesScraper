@@ -11,7 +11,7 @@ import re
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie, clasificar as clasificar_todo, validar
-from tools.taxonomia.precios_ipc import clasificar
+from tools.taxonomia.precios_ipc import EXCLUIDAS, clasificar
 
 # (campos de la Serie, campos esperados de la Clasificacion)
 CASOS = [
@@ -1563,8 +1563,8 @@ class ClasificacionIPCTest(unittest.TestCase):
                 self.assertIsNone(clasificar(Serie(**{**base, **extra})))
 
     def test_misma_cosa_mismo_nombre_y_mismo_lugar_entre_cuadros(self) -> None:
-        # La división Salud de la región GBA llega por cinco cuadros distintos (cuadros 4.1.2, 4.2.1 y
-        # 4.2.4 de datos.gob.ar y dos hojas del libro del INDEC): mismo grupo y mismo nombre.
+        # La división Salud de la región GBA llega por cuatro cuadros distintos (cuadros 4.1.2 y 4.2.1 de
+        # datos.gob.ar y dos hojas del libro del INDEC; el 4.2.4 trae ahí otra división y está excluido): mismo grupo y mismo nombre.
         salud_gba = [
             Serie(fuente="datos.gob.ar", id="146.3_ISALUDGBA_DICI_M_13", variable="ipc_salud_gba",
                   nombre="Índice de Precios al Consumidor, por capítulos. Base diciembre 2016. Valores mensuales",
@@ -1575,11 +1575,6 @@ class ClasificacionIPCTest(unittest.TestCase):
                   nombre="Índice de Precios al Consumidor, por capítulos. Base diciembre 2016. Valores mensuales",
                   descripcion="IPC-GBA. Atención médica y salud. Base dic 2016. Mensual", unidad="", frecuencia="M",
                   archivo="precios.xlsx", hoja="4.2.1", columna="101.1_I2AMS_2016_M_30",
-                  dataset="Índice de Precios al Consumidor GBA (IPC-GBA). Base diciembre 2016.", estado="CERRADA"),
-            Serie(fuente="datos.gob.ar", id="104.1_I2RGCV_2016_M_14", variable="ipc_2016_salud",
-                  nombre="Índice de Precios al Consumidor de GBA, principales aperturas. Base diciembre 2016. Valores mensuales",
-                  descripcion="IPC-GBA. Atención médica y gastos para la salud. Base abr 2016. Mensual", unidad="",
-                  frecuencia="M", archivo="precios.xlsx", hoja="4.2.4", columna="104.1_I2RGCV_2016_M_14",
                   dataset="Índice de Precios al Consumidor GBA (IPC-GBA). Base diciembre 2016.", estado="CERRADA"),
             Serie(fuente="indec-ipc", id="indices-ipc-cobertura-nacional|region-gba-salud", variable="region-gba-salud",
                   nombre="Región GBA - Salud",
@@ -1611,6 +1606,128 @@ class ClasificacionIPCTest(unittest.TestCase):
         for _, esperado in CASOS:
             if esperado["cobertura"] == "Series históricas":
                 self.assertNotRegex(esperado["nombre"], r"\b(?:19|20)\d{2}\b")
+
+
+# --- Cuadro 4.2.4: columnas que empalman dos conceptos --------------------------------------------------
+PUBLICADAS_424 = {
+        "104.1_I2AB_2016_M_38",
+        "104.1_I2ACH_2016_M_17",
+        "104.1_I2AG_2016_M_31",
+        "104.1_I2AMDC_2016_M_42",
+        "104.1_I2CLL_2016_M_29",
+        "104.1_I2CTY_2016_M_28",
+        "104.1_I2C_2016_M_25",
+        "104.1_I2F_2016_M_15",
+        "104.1_I2NG_2016_M_20",
+        "104.1_I2PLH_2016_M_37",
+        "104.1_I2PPCP_2016_M_20",
+        "104.1_I2V_2016_M_36",
+        "104.2_I2016_ACAS_2016_T_38",
+        "104.2_I2016_AECA_2016_T_31",
+        "104.2_I2016_AETC_2016_T_42",
+        "104.2_I2016_ATOS_2016_T_17",
+        "104.2_I2016_BCAS_2016_T_29",
+        "104.2_I2016_CCAO_2016_T_28",
+        "104.2_I2016_CDOS_2016_T_25",
+        "104.2_I2016_EVOS_2016_T_37",
+        "104.2_I2016_FTAS_2016_T_15",
+        "104.2_I2016_NERA_2016_T_20",
+        "104.2_I2016_PAES_2016_T_20",
+        "104.2_I2016_VRES_2016_T_36",
+    }
+EXCLUIDAS_424_M = {
+        "104.1_I2ABCFH_2016_M_30",
+        "104.1_I2AMGS_2016_M_33",
+        "104.1_I2AV_2016_M_32",
+        "104.1_I2AV_2016_M_41",
+        "104.1_I2BAT_2016_M_34",
+        "104.1_I2BA_2016_M_15",
+        "104.1_I2BA_2016_M_27",
+        "104.1_I2C_2016_M_42",
+        "104.1_I2EH_2016_M_19",
+        "104.1_I2EMH_2016_M_55",
+        "104.1_I2FMV_2016_M_24",
+        "104.1_I2I_2016_M_34",
+        "104.1_I2MH_2016_M_29",
+        "104.1_I2PMAT_2016_M_27",
+        "104.1_I2PUL_2016_M_50",
+        "104.1_I2RE_2016_M_25",
+        "104.1_I2RGCV_2016_M_14",
+        "104.1_I2RI_2016_M_53",
+        "104.1_I2R_2016_M_15",
+        "104.1_I2SBCV_2016_M_49",
+        "104.1_I2SH_2016_M_26",
+        "104.1_I2SS_2016_M_60",
+        "104.1_I2TC_2016_M_60",
+        "104.1_I2TPP_2016_M_29",
+        "104.1_I2T_2016_M_18",
+        "104.1_I2VSB_2016_M_43",
+    }
+EXCLUIDAS_424_T = {
+        "104.2_I2016_ANDA_2016_T_25",
+        "104.2_I2016_AUOS_2016_T_29",
+        "104.2_I2016_BACO_2016_T_34",
+        "104.2_I2016_BCAS_2016_T_27",
+        "104.2_I2016_BGAR_2016_T_49",
+        "104.2_I2016_BIOS_2016_T_32",
+        "104.2_I2016_CADO_2016_T_15",
+        "104.2_I2016_CONA_2016_T_24",
+        "104.2_I2016_EBES_2016_T_43",
+        "104.2_I2016_EGAR_2016_T_41",
+        "104.2_I2016_EINF_2016_T_60",
+        "104.2_I2016_EION_2016_T_18",
+        "104.2_I2016_FONA_2016_T_50",
+        "104.2_I2016_IION_2016_T_33",
+        "104.2_I2016_MNDA_2016_T_42",
+        "104.2_I2016_PADO_2016_T_30",
+        "104.2_I2016_PLES_2016_T_34",
+        "104.2_I2016_PLUD_2016_T_55",
+        "104.2_I2016_PRIA_2016_T_60",
+        "104.2_I2016_RLES_2016_T_29",
+        "104.2_I2016_RURA_2016_T_27",
+        "104.2_I2016_SLUD_2016_T_14",
+        "104.2_I2016_TACO_2016_T_15",
+        "104.2_I2016_TICO_2016_T_26",
+        "104.2_I2016_TRTE_2016_T_19",
+        "104.2_I2016_VBES_2016_T_53",
+    }
+
+
+class Cuadro424Test(unittest.TestCase):
+    def test_las_26_columnas_que_empalman_estan_excluidas_en_cada_frecuencia(self) -> None:
+        excluidas = {clave[1] for clave in EXCLUIDAS}
+        esperadas = EXCLUIDAS_424_M | EXCLUIDAS_424_T
+        self.assertEqual(len(EXCLUIDAS_424_M), 26)
+        self.assertEqual(len(EXCLUIDAS_424_T), 26)
+        self.assertEqual(excluidas, esperadas)
+        self.assertTrue(all(clave[0] == "datos.gob.ar" for clave in EXCLUIDAS))
+
+    def test_las_12_primeras_posiciones_se_publican(self) -> None:
+        # Nivel general, alimentos y bebidas no alcohólicas y diez rubros de alimentos y bebidas:
+        # coinciden con su rótulo de abr-2016 a oct-2026 (hoja del INDEC y libro de aperturas).
+        self.assertEqual(len(PUBLICADAS_424), 24)
+        excluidas = {clave[1] for clave in EXCLUIDAS}
+        self.assertFalse(PUBLICADAS_424 & excluidas)
+
+    def test_cada_motivo_dice_los_dos_conceptos(self) -> None:
+        for clave, motivo in EXCLUIDAS.items():
+            with self.subTest(clave=clave):
+                self.assertTrue(motivo.startswith("Empalme de dos conceptos: abr-dic 2016 «"))
+                self.assertIn("libro de aperturas del INDEC", motivo)
+
+    def test_el_caso_salud_trae_equipamiento_desde_2017(self) -> None:
+        # 4.2.4 «Salud» (mensual): 2016 es Salud; desde ene-2017 son los valores de «Equipamiento y
+        # mantenimiento del hogar» (fila 25 del libro de aperturas).
+        self.assertEqual(
+            EXCLUIDAS[("datos.gob.ar", "104.1_I2RGCV_2016_M_14")],
+            "Empalme de dos conceptos: abr-dic 2016 «Salud» y desde ene-2017 «Equipamiento y mantenimiento "
+            "del hogar» (fila 25 del libro de aperturas del INDEC)",
+        )
+
+    def test_las_excluidas_siguen_clasificadas_con_el_rotulo_de_la_fuente(self) -> None:
+        campos, esperado = next((c, e) for c, e in CASOS if c["id"] == "104.1_I2SBCV_2016_M_49")
+        self.assertIn(("datos.gob.ar", campos["id"]), EXCLUIDAS)
+        self.assertEqual(clasificar(serie(**campos)), esperada(**esperado))
 
 
 if __name__ == "__main__":

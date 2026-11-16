@@ -61,6 +61,35 @@ MILES_DE_PESOS = "Miles de pesos"
 MILLONES_DE_PESOS = "Millones de pesos"
 
 
+# Series que no se publican. Los datos de BD.xlsx no se tocan.
+_ANUAL_CRUZADO = (
+    "En el anual, los años 2001-2013 traen los valores de otra serie (promedio mensual de «{}» en los 13 "
+    "años; la API pública de series de tiempo publica lo mismo) y 2014 trae los propios: empalme de dos "
+    "conceptos. Los datos correctos están en la mensual y la trimestral"
+)
+_STOCK_SUMADO = (
+    "Líneas activas es un stock y el anual/trimestral es la SUMA de los meses (error < 3 % en 21 años; "
+    "{} = 12 veces el nivel mensual, imposible como cantidad de líneas): el dato correcto está en la mensual"
+)
+EXCLUIDAS = {
+    (FUENTE, "35.1_EGABO_1993_A_35"): _ANUAL_CRUZADO.format("Nivel general, con diferencia máxima de 1 %"),
+    (FUENTE, "35.1_PBO_1993_A_20"): _ANUAL_CRUZADO.format("Transporte de carga"),
+    (FUENTE, "35.1_TBO_1993_A_23"): _ANUAL_CRUZADO.format("Peajes"),
+    (FUENTE, "35.1_TCBO_1993_A_31"): _ANUAL_CRUZADO.format("Transporte de pasajeros"),
+    (FUENTE, "35.1_TPBO_1993_A_34"): _ANUAL_CRUZADO.format("Electricidad, gas y agua"),
+    (FUENTE, "35.1_STBLS_1993_A_38"): _STOCK_SUMADO.format("111.121 «miles de líneas» fijas en 2010"),
+    (FUENTE, "35.2_STBLS_1993_T_38"): _STOCK_SUMADO.format("el trimestre"),
+    (FUENTE, "35.1_STMC_1993_A_29"): _STOCK_SUMADO.format("656.312 «miles de teléfonos» móviles en 2010"),
+    (FUENTE, "35.2_STMC_1993_T_29"): _STOCK_SUMADO.format("el trimestre"),
+    # 1.11.1 y 1.11.2: «Total por medio de pago» y «Total por grupo de artículos» son copias exactas de
+    # «Total por canal de venta» (diferencia máxima 0,0 en 116 meses), que queda como «Total».
+    (FUENTE, "455.1_VENTAS_TOTAGO_0_M_25_99"): "Copia exacta de «Total por canal de venta» (supermercados)",
+    (FUENTE, "455.1_VENTAS_TOTLOS_0_M_30_43"): "Copia exacta de «Total por canal de venta» (supermercados)",
+    (FUENTE, "456.1_VENTAS_TOTAGO_0_M_25_27"): "Copia exacta de «Total por canal de venta» (mayoristas)",
+    (FUENTE, "456.1_VENTAS_TOTLOS_0_M_31_93"): "Copia exacta de «Total por canal de venta» (mayoristas)",
+}
+
+
 def _clave(texto: str) -> str:
     """Variable o texto sin guiones bajos, tildes ni mayúsculas, para buscar en las tablas."""
     return plano(texto).replace("_", "").replace(" ", "")
@@ -88,6 +117,7 @@ INDICADOR_SINTETICO = "Indicador sintético"
 POR_SERVICIO = "Por servicio"
 BASE_1993 = "Base 1993"
 BASE_1993_HASTA_2003 = "Base 1993 (hasta 2003)"
+SERIE_HASTA_2003 = "serie hasta 2003"
 
 INDICE_2004 = "Índice 2004=100"
 
@@ -193,7 +223,10 @@ _FISICAS_2017 = _tabla({
 })
 
 # Series físicas de la base 1993. Variable -> (versión, apertura, cobertura, medida, unidad).
-# Las series «desde 2002» continúan a las de la telefonía hasta 2003: mismo nombre, otra versión.
+# Las series «desde 2002» NO son el segundo tramo de las de la telefonía hasta 2003: se solapan 13 meses
+# (ene-2002 a ene-2003) con valores distintos (llamadas interurbanas: la nueva es entre 4 % y 21 % mayor, sin
+# factor constante; minutos internacionales salientes: entre -3 % y +15 %) y el anual 2003 de la vieja es sólo
+# enero. Son dos mediciones del mismo concepto, no una serie partida: la anterior lleva «(serie hasta 2003)».
 # Los cuadros dicen «miles de pasajes» en el cabotaje aéreo y en el ferrocarril interurbano, pero
 # los valores (590.962 por mes; en la base 2017, 623 «miles») indican pasajes sueltos.
 _FISICAS_1993 = _tabla({
@@ -227,13 +260,13 @@ _FISICAS_1993 = _tabla({
     "serv_telefonico_basico_llamadas_interurbanas_2002": (BASE_1993, "Telefonía fija",
                                                           "Llamadas interurbanas", "", "Miles de llamadas"),
     "serv_telefonico_basico_llamadas_interurbanas": (BASE_1993_HASTA_2003, "Telefonía fija",
-                                                     "Llamadas interurbanas", "", "Miles de llamadas"),
+                                                     "Llamadas interurbanas", SERIE_HASTA_2003, "Miles de llamadas"),
     "serv_internacional_minutos_salida_2002": (BASE_1993, "Telefonía fija",
                                                "Minutos internacionales salientes", "", _MIN),
     "serv_telefonico_internac_minutos_salida": (BASE_1993_HASTA_2003, "Telefonía fija",
-                                                "Minutos internacionales salientes", "", _MIN),
+                                                "Minutos internacionales salientes", SERIE_HASTA_2003, _MIN),
     "serv_telefonico_internac_minutos_salidos": (BASE_1993_HASTA_2003, "Telefonía fija",
-                                                 "Minutos internacionales salientes", "", _MIN),
+                                                 "Minutos internacionales salientes", SERIE_HASTA_2003, _MIN),
     "serv_telefonico_internac_minutos_entrados": (BASE_1993_HASTA_2003, "Telefonía fija",
                                                   "Minutos internacionales entrantes", "", _MIN),
     "serv_telefonico_movil_celular": (BASE_1993, "Telefonía móvil", "Líneas activas", "", "Miles de teléfonos"),
@@ -256,6 +289,10 @@ def _servicios_2017(serie: Serie) -> Clasificacion | None:
     if definicion is None:
         return None
     servicio, apertura, cobertura, medida, unidad = definicion
+    if serie.frecuencia == "T" and unidad != "Miles de líneas":
+        # En la base 2017 el trimestre es el promedio de los tres meses (error medio de 1 % sobre 58 trimestres)
+        # y el año es la suma; las líneas activas son un stock y se promedian en ambos casos.
+        unidad = f"{unidad} (promedio mensual)"
     return _c(SERVICIOS_PUBLICOS, unir(SERVICIOS_PUBLICOS, apertura, cobertura), POR_SERVICIO, servicio,
               medida, unidad)
 
@@ -341,13 +378,12 @@ def _ventas_autoservicios(serie: Serie, indicador: str, por_grupo: bool) -> Clas
     if clave in _ENCUESTA_NIVEL:
         unidad, medida = _ENCUESTA_NIVEL[clave]
         return hecho(TOTAL, TOTAL, "", unidad, medida)
-    # Los tres «totales por …» repiten el total de ventas (en miles de pesos) en cada cuadro.
-    if clave == _clave("ventas_totales_canal_venta"):
-        return hecho("Total por canal de venta", POR_CANAL, "", MILES_DE_PESOS)
-    if clave == _clave("ventas_totales_medio_pago"):
-        return hecho("Total por medio de pago", POR_MEDIO_DE_PAGO, "", MILES_DE_PESOS)
-    if clave in (_clave("ventas_totales_grupo_articulos"), _clave("ventas_totales_grupos_articulos")):
-        return hecho("Total por grupo de artículos", POR_GRUPO, TOTAL if por_grupo else "", MILES_DE_PESOS)
+    # Los tres «totales por …» son la misma columna: el total de ventas en miles de pesos (idénticas en
+    # los 116 meses; canal, medio de pago y grupos suman ese total). Se conserva la del canal, que es el
+    # total, y se llama «Total»; las otras dos están en EXCLUIDAS.
+    if clave in (_clave("ventas_totales_canal_venta"), _clave("ventas_totales_medio_pago"),
+                 _clave("ventas_totales_grupo_articulos"), _clave("ventas_totales_grupos_articulos")):
+        return hecho(TOTAL, TOTAL, "", MILES_DE_PESOS)
     if clave in _CANALES:
         return hecho(_CANALES[clave], POR_CANAL, "", MILES_DE_PESOS)
     if clave in _MEDIOS_DE_PAGO:

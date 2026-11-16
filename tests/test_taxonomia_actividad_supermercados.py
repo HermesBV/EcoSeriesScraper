@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 
 from tools.taxonomia import Clasificacion, Serie
-from tools.taxonomia.actividad_supermercados import clasificar
+from tools.taxonomia.actividad_supermercados import EXCLUIDAS, clasificar
 
 TITULOS = {
     "Cuadro 1": "Encuesta de Supermercados. Índice de ventas totales a precios constantes. Serie original, desestacionalizada y tendencia-ciclo, base año 2017=100, en números índice y variación porcentual. {rango}",
@@ -152,6 +152,27 @@ class ClasificarSupermercadosTest(unittest.TestCase):
         self.assertNotEqual(corriente.nombre, constante.nombre)
         self.assertIn("precios constantes", constante.nombre)
         self.assertNotIn("precios", corriente.nombre)
+
+    def test_excluidas_son_copias_exactas(self):
+        self.assertTrue(all(f == "indec-supermercados" for f, _ in EXCLUIDAS))
+        ids = {i for _, i in EXCLUIDAS}
+        self.assertEqual(len(ids), 31)  # 6 columnas repetidas entre cuadros + 25 jurisdicciones del Cuadro 6
+        for esperado_id in (
+                "supermercados.xlsx|Cuadro 6.|24-partidos-del-gran-buenos-aires-ventas-totales-miles-de-pesos",
+                "supermercados.xlsx|Cuadro 6.|ciudad-autonoma-de-buenos-aires-ventas-totales-miles-de-pesos",
+                "supermercados.xlsx|Cuadro 6.|total-del-pais-ventas-totales-miles-de-pesos",
+                "supermercados.xlsx|Cuadro 5.|total-del-pais-total-miles-de-pesos",
+                "supermercados.xlsx|Cuadro 3.|variacion-porcentual-respecto-al-mismo-periodo-del-ano-anterior-a-precios-corrientes"):
+            self.assertIn(esperado_id, ids)
+        # Se conservan los totales de jurisdicción del Cuadro 5 y el total del Cuadro 4.
+        self.assertNotIn("supermercados.xlsx|Cuadro 5.|cordoba-total-miles-de-pesos", ids)
+        self.assertEqual(sum(1 for i in ids if "|Cuadro 6.|" in i), 26)
+
+    def test_lo_excluido_sigue_teniendo_el_mismo_nombre_que_su_original(self):
+        original = clasificar(serie("Cuadro 4.", "Ventas totales - Miles de pesos"))
+        for hoja, columna in (("Cuadro 5.", "Total del país - Total - Miles de pesos"),
+                              ("Cuadro 6.", "Total del país - Ventas totales - Miles de pesos")):
+            self.assertEqual(clasificar(serie(hoja, columna)), original)
 
 
 if __name__ == "__main__":
