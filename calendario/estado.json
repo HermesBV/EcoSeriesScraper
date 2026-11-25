@@ -1,37 +1,68 @@
 {
- "generado": "2026-11-15T23:23:43",
+ "generado": "2026-11-25T18:00:34",
  "errores": {},
  "fuentes": [
   {
-   "codigo": "indec-ipi-manufacturero",
+   "codigo": "bcra-itc",
+   "frecuencia": "D",
+   "institucion": "BCRA",
+   "en_base": "2026-10-16",
+   "series": 30,
+   "metodo": "regla",
+   "tolerancia_dias": 30,
+   "dias_desde_ultimo": 40,
+   "publicado": null,
+   "proxima": null,
+   "situacion": "posible atraso"
+  },
+  {
+   "codigo": "bcra-itc",
    "frecuencia": "M",
-   "institucion": "INDEC",
-   "en_base": "2026-08-01",
-   "series": 334,
-   "metodo": "calendario",
-   "publicado": {
-    "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Septiembre de 2026",
-    "fecha": "2026-11-06",
-    "hora": "16:00",
-    "periodo": "2026-09-01"
-   },
-   "proxima": {
-    "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Octubre de 2026",
-    "fecha": "2026-12-09",
-    "hora": "16:00",
-    "periodo": "2026-10-01"
-   },
-   "situacion": "falta"
+   "institucion": "BCRA",
+   "en_base": "2026-09-01",
+   "series": 43,
+   "metodo": "regla",
+   "tolerancia_dias": 75,
+   "dias_desde_ultimo": 85,
+   "publicado": null,
+   "proxima": null,
+   "situacion": "posible atraso"
+  },
+  {
+   "codigo": "bcra-mc-bc",
+   "frecuencia": "M",
+   "institucion": "BCRA",
+   "en_base": "2026-09-01",
+   "series": 178,
+   "metodo": "regla",
+   "tolerancia_dias": 75,
+   "dias_desde_ultimo": 85,
+   "publicado": null,
+   "proxima": null,
+   "situacion": "posible atraso"
+  },
+  {
+   "codigo": "iiep",
+   "frecuencia": "M",
+   "institucion": "IIEP",
+   "en_base": "2026-09-01",
+   "series": 1,
+   "metodo": "regla",
+   "tolerancia_dias": 75,
+   "dias_desde_ultimo": 85,
+   "publicado": null,
+   "proxima": null,
+   "situacion": "posible atraso"
   },
   {
    "codigo": "ambito-dolar-blue",
    "frecuencia": "D",
    "institucion": "Ámbito Financiero",
-   "en_base": "2026-11-13",
+   "en_base": "2026-11-24",
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 2,
+   "dias_desde_ultimo": 1,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -40,11 +71,11 @@
    "codigo": "ambito-dolar-mep",
    "frecuencia": "D",
    "institucion": "Ámbito Financiero",
-   "en_base": "2026-11-13",
+   "en_base": "2026-11-24",
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 2,
+   "dias_desde_ultimo": 1,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -53,11 +84,11 @@
    "codigo": "ambito-riesgo-pais",
    "frecuencia": "D",
    "institucion": "JP Morgan Chase",
-   "en_base": "2026-11-13",
+   "en_base": "2026-11-24",
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 2,
+   "dias_desde_ultimo": 1,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -70,7 +101,7 @@
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": -46,
+   "dias_desde_ultimo": -36,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -79,11 +110,11 @@
    "codigo": "bcra-com3500",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-13",
+   "en_base": "2026-11-25",
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 2,
+   "dias_desde_ultimo": 0,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -96,7 +127,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 16,
+   "dias_desde_ultimo": 26,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -105,11 +136,11 @@
    "codigo": "bcra-cotizaciones",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-13",
+   "en_base": "2026-11-25",
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 2,
+   "dias_desde_ultimo": 0,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -118,11 +149,11 @@
    "codigo": "bcra-dmd",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-12",
+   "en_base": "2026-11-20",
    "series": 154,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 3,
+   "dias_desde_ultimo": 5,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -131,71 +162,32 @@
    "codigo": "bcra-irfcl",
    "frecuencia": "M",
    "institucion": "BCRA",
-   "en_base": "2026-09-01",
+   "en_base": "2026-10-01",
    "series": 22,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Septiembre de 2026",
-    "fecha": "2026-10-23",
-    "hora": null,
-    "periodo": "2026-09-01"
-   },
-   "proxima": {
     "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Octubre de 2026",
     "fecha": "2026-11-20",
     "hora": null,
     "periodo": "2026-10-01"
    },
-   "situacion": "al día"
-  },
-  {
-   "codigo": "bcra-itc",
-   "frecuencia": "D",
-   "institucion": "BCRA",
-   "en_base": "2026-10-16",
-   "series": 30,
-   "metodo": "regla",
-   "tolerancia_dias": 30,
-   "dias_desde_ultimo": 30,
-   "publicado": null,
-   "proxima": null,
-   "situacion": "al día"
-  },
-  {
-   "codigo": "bcra-itc",
-   "frecuencia": "M",
-   "institucion": "BCRA",
-   "en_base": "2026-09-01",
-   "series": 43,
-   "metodo": "regla",
-   "tolerancia_dias": 75,
-   "dias_desde_ultimo": 75,
-   "publicado": null,
-   "proxima": null,
-   "situacion": "al día"
-  },
-  {
-   "codigo": "bcra-mc-bc",
-   "frecuencia": "M",
-   "institucion": "BCRA",
-   "en_base": "2026-09-01",
-   "series": 178,
-   "metodo": "regla",
-   "tolerancia_dias": 75,
-   "dias_desde_ultimo": 75,
-   "publicado": null,
-   "proxima": null,
+   "proxima": {
+    "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Noviembre de 2026",
+    "fecha": "2026-12-23",
+    "hora": null,
+    "periodo": "2026-11-01"
+   },
    "situacion": "al día"
   },
   {
    "codigo": "bcra-pas",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-12",
+   "en_base": "2026-11-20",
    "series": 1462,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 3,
+   "dias_desde_ultimo": 5,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -222,36 +214,23 @@
    "situacion": "al día"
   },
   {
-   "codigo": "iiep",
-   "frecuencia": "M",
-   "institucion": "IIEP",
-   "en_base": "2026-09-01",
-   "series": 1,
-   "metodo": "regla",
-   "tolerancia_dias": 75,
-   "dias_desde_ultimo": 75,
-   "publicado": null,
-   "proxima": null,
-   "situacion": "al día"
-  },
-  {
    "codigo": "iiep-rin",
    "frecuencia": "M",
    "institucion": "IIEP",
-   "en_base": "2026-09-01",
+   "en_base": "2026-10-01",
    "series": 9,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Septiembre de 2026",
-    "fecha": "2026-10-23",
-    "hora": null,
-    "periodo": "2026-09-01"
-   },
-   "proxima": {
     "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Octubre de 2026",
     "fecha": "2026-11-20",
     "hora": null,
     "periodo": "2026-10-01"
+   },
+   "proxima": {
+    "titulo": "Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA. Noviembre de 2026",
+    "fecha": "2026-12-23",
+    "hora": null,
+    "periodo": "2026-11-01"
    },
    "situacion": "al día"
   },
@@ -280,20 +259,20 @@
    "codigo": "indec-emae",
    "frecuencia": "M",
    "institucion": "INDEC",
-   "en_base": "2026-08-01",
+   "en_base": "2026-09-01",
    "series": 38,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Estimador mensual de actividad económica (EMAE). Agosto de 2026",
-    "fecha": "2026-10-21",
-    "hora": "16:00",
-    "periodo": "2026-08-01"
-   },
-   "proxima": {
     "titulo": "Estimador mensual de actividad económica (EMAE). Septiembre de 2026",
     "fecha": "2026-11-24",
     "hora": "16:00",
     "periodo": "2026-09-01"
+   },
+   "proxima": {
+    "titulo": "Estimador mensual de actividad económica (EMAE). Octubre de 2026",
+    "fecha": "2026-12-21",
+    "hora": "16:00",
+    "periodo": "2026-10-01"
    },
    "situacion": "al día"
   },
@@ -301,20 +280,20 @@
    "codigo": "indec-ica",
    "frecuencia": "M",
    "institucion": "INDEC",
-   "en_base": "2026-09-01",
+   "en_base": "2026-10-01",
    "series": 9,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Intercambio comercial argentino (ICA). Bienes. Septiembre de 2026",
-    "fecha": "2026-10-19",
-    "hora": "16:00",
-    "periodo": "2026-09-01"
-   },
-   "proxima": {
     "titulo": "Intercambio comercial argentino (ICA). Bienes. Octubre de 2026",
     "fecha": "2026-11-19",
     "hora": "16:00",
     "periodo": "2026-10-01"
+   },
+   "proxima": {
+    "titulo": "Intercambio comercial argentino (ICA). Bienes. Noviembre de 2026",
+    "fecha": "2026-12-18",
+    "hora": "16:00",
+    "periodo": "2026-11-01"
    },
    "situacion": "al día"
   },
@@ -357,6 +336,27 @@
     "fecha": "2026-12-15",
     "hora": "16:00",
     "periodo": "2026-11-01"
+   },
+   "situacion": "al día"
+  },
+  {
+   "codigo": "indec-ipi-manufacturero",
+   "frecuencia": "M",
+   "institucion": "INDEC",
+   "en_base": "2026-09-01",
+   "series": 334,
+   "metodo": "calendario",
+   "publicado": {
+    "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Septiembre de 2026",
+    "fecha": "2026-11-06",
+    "hora": "16:00",
+    "periodo": "2026-09-01"
+   },
+   "proxima": {
+    "titulo": "Índice de producción industrial manufacturero (IPI manufacturero). Octubre de 2026",
+    "fecha": "2026-12-09",
+    "hora": "16:00",
+    "periodo": "2026-10-01"
    },
    "situacion": "al día"
   },
@@ -427,20 +427,20 @@
    "codigo": "indec-sipm",
    "frecuencia": "M",
    "institucion": "INDEC",
-   "en_base": "2026-09-01",
+   "en_base": "2026-10-01",
    "series": 413,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Sistema de índices de precios mayoristas (SIPM). Septiembre de 2026",
-    "fecha": "2026-10-16",
-    "hora": "16:00",
-    "periodo": "2026-09-01"
-   },
-   "proxima": {
     "titulo": "Sistema de índices de precios mayoristas (SIPM). Octubre de 2026",
     "fecha": "2026-11-17",
     "hora": "16:00",
     "periodo": "2026-10-01"
+   },
+   "proxima": {
+    "titulo": "Sistema de índices de precios mayoristas (SIPM). Noviembre de 2026",
+    "fecha": "2026-12-17",
+    "hora": "16:00",
+    "periodo": "2026-11-01"
    },
    "situacion": "al día"
   },
@@ -448,20 +448,20 @@
    "codigo": "indec-supermercados",
    "frecuencia": "M",
    "institucion": "INDEC",
-   "en_base": "2026-08-01",
+   "en_base": "2026-09-01",
    "series": 483,
    "metodo": "calendario",
    "publicado": {
-    "titulo": "Encuesta de supermercados. Agosto de 2026",
-    "fecha": "2026-10-22",
-    "hora": "16:00",
-    "periodo": "2026-08-01"
-   },
-   "proxima": {
     "titulo": "Encuesta de supermercados. Septiembre de 2026",
     "fecha": "2026-11-25",
     "hora": "16:00",
     "periodo": "2026-09-01"
+   },
+   "proxima": {
+    "titulo": "Encuesta de supermercados. Octubre de 2026",
+    "fecha": "2026-12-28",
+    "hora": "16:00",
+    "periodo": "2026-10-01"
    },
    "situacion": "al día"
   },
@@ -473,7 +473,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 110,
-   "dias_desde_ultimo": 75,
+   "dias_desde_ultimo": 85,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -486,7 +486,7 @@
    "series": 204,
    "metodo": "regla",
    "tolerancia_dias": 150,
-   "dias_desde_ultimo": 106,
+   "dias_desde_ultimo": 116,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -495,11 +495,11 @@
    "codigo": "mecon-imig",
    "frecuencia": "M",
    "institucion": "MECON",
-   "en_base": "2026-09-01",
+   "en_base": "2026-10-01",
    "series": 100,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 75,
+   "dias_desde_ultimo": 55,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
