@@ -5,6 +5,11 @@ custodia, propias, prestadas, netas y líquidas. Los meses hasta ``CORTE_HISTORI
 son la base publicada por los autores; los posteriores se calculan con su método a
 partir de las hojas ``BCRA IRFCL M`` y ``BCRA Cotizaciones D`` que actualizan los
 scrapers del BCRA, que corren antes que éste.
+
+``fuentes_BD/IIEP/ReservasInternacionales/Reservas_internacionales_Argentina_agosto_2026.csv``
+es una semilla histórica de una sola vez: le dio fuente a la base de los autores, que
+ya quedó en ``BD.xlsx``. No es la fuente que se actualiza y no se versiona; sin el
+archivo, los meses hasta ``CORTE_HISTORICO`` se toman de lo ya publicado.
 """
 
 from __future__ import annotations

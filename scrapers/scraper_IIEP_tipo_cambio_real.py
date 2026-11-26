@@ -1,4 +1,14 @@
-"""Construye la serie histórica mensual de TCR bilateral con Estados Unidos."""
+"""Construye la serie histórica mensual de TCR bilateral con Estados Unidos.
+
+Hasta 1996-12 la serie es la del IIEP; desde 1997-01, el ITCRB Estados Unidos que el
+BCRA publica en internet (hoja ``BCRA ITCRM M``, que actualiza un scraper del BCRA que
+corre antes que éste). Los meses nuevos salen siempre del BCRA.
+
+``fuentes_BD/IIEP/TipoCambioReal/3 Tipo de Cambio Real.xlsx`` es una semilla histórica
+de una sola vez: le dio fuente al tramo previo a 1997, que no está en internet, y ese
+tramo ya quedó empalmado en ``BD.xlsx``. No es la fuente que se actualiza y no se
+versiona. Sin el archivo, el tramo histórico se toma de lo ya publicado en ``BD.xlsx``.
+"""
 
 from __future__ import annotations
 
@@ -60,12 +70,37 @@ def empalmar(iiep: pd.DataFrame, bcra: pd.DataFrame) -> tuple[pd.DataFrame, floa
     return resultado, factor, inicio_bcra
 
 
+def continuar_publicado(publicado: pd.DataFrame, bcra: pd.DataFrame) -> tuple[pd.DataFrame, pd.Timestamp]:
+    """Sin la semilla: el tramo ya empalmado de ``BD.xlsx`` antes del BCRA, y el BCRA desde allí."""
+    inicio_bcra = bcra["fecha"].min()
+    historico = publicado.loc[publicado["fecha"] < inicio_bcra].copy()
+    if historico.empty:
+        raise ValueError(f"{HOJA_SALIDA} no tiene meses anteriores a {inicio_bcra:%Y-%m} y falta {ARCHIVO_IIEP.name}")
+    resultado = pd.concat([historico, bcra], ignore_index=True).rename(columns={"valor": COLUMNA_SALIDA})
+    if resultado["fecha"].duplicated().any() or not resultado["fecha"].is_monotonic_increasing:
+        raise ValueError("La continuación produjo fechas duplicadas o desordenadas")
+    return resultado, inicio_bcra
+
+
+def leer_publicado(ruta: Path = ARCHIVO_BD) -> pd.DataFrame:
+    from tools import lote
+    datos = lote.leer_hoja(ruta, HOJA_SALIDA)
+    salida = datos.iloc[:, [0]].copy()
+    salida.columns = ["fecha"]
+    salida["valor"] = pd.to_numeric(datos[COLUMNA_SALIDA], errors="coerce")
+    salida["fecha"] = pd.to_datetime(salida["fecha"], errors="coerce").dt.to_period("M").dt.to_timestamp()
+    return salida.dropna().sort_values("fecha").drop_duplicates("fecha", keep="last").reset_index(drop=True)
+
+
 def procesar() -> dict[str, object]:
-    if not ARCHIVO_IIEP.is_file():
-        raise FileNotFoundError(f"Falta el archivo fuente IIEP: {ARCHIVO_IIEP}")
-    iiep = leer_iiep()
     bcra = leer_bcra()
-    serie, factor, inicio_bcra = empalmar(iiep, bcra)
+    if ARCHIVO_IIEP.is_file():
+        serie, factor, inicio_bcra = empalmar(leer_iiep(), bcra)
+    else:
+        # Lo normal: la semilla ya está en BD.xlsx (ver el docstring del módulo).
+        serie, inicio_bcra = continuar_publicado(leer_publicado(), bcra)
+        factor = None
+        print(f"IIEP TCR bilateral: sin {ARCHIVO_IIEP.name}, tramo histórico tomado de {HOJA_SALIDA}", flush=True)
 
     from scrapers.scraper_IED import guardar_datos_preservando_formato
     guardar_datos_preservando_formato(

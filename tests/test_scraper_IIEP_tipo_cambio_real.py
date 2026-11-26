@@ -22,6 +22,25 @@ class ScraperIIEPTipoCambioRealTests(unittest.TestCase):
         self.assertEqual(resultado.iloc[-1][scraper.COLUMNA_SALIDA], 60.0)
         self.assertEqual(len(resultado), 3)
 
+    def test_sin_semilla_conserva_el_tramo_publicado_y_sigue_con_bcra(self) -> None:
+        publicado = pd.DataFrame({
+            "fecha": pd.to_datetime(["1996-11-01", "1996-12-01", "1997-01-01", "1997-02-01"]),
+            "valor": [38.0, 40.0, 50.0, 59.0],
+        })
+        bcra = pd.DataFrame({
+            "fecha": pd.to_datetime(["1997-01-01", "1997-02-01", "1997-03-01"]),
+            "valor": [50.0, 60.0, 61.0],
+        })
+        resultado, inicio = scraper.continuar_publicado(publicado, bcra)
+        self.assertEqual(inicio, pd.Timestamp("1997-01-01"))
+        self.assertEqual(resultado[scraper.COLUMNA_SALIDA].tolist(), [38.0, 40.0, 50.0, 60.0, 61.0])
+
+    def test_sin_semilla_ni_tramo_publicado_falla(self) -> None:
+        publicado = pd.DataFrame({"fecha": pd.to_datetime(["1997-01-01"]), "valor": [50.0]})
+        bcra = pd.DataFrame({"fecha": pd.to_datetime(["1997-01-01"]), "valor": [50.0]})
+        with self.assertRaises(ValueError):
+            scraper.continuar_publicado(publicado, bcra)
+
 
 if __name__ == "__main__":
     unittest.main()
