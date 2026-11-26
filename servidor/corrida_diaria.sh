@@ -23,9 +23,15 @@ echo "=== $(date '+%F %T') inicio"
 # Instala lo que falte de requirements.txt (si ya está todo, no baja nada).
 "$PYTHON" -m pip install -q -r requirements.txt || echo "*** no se pudieron instalar las dependencias"
 
-# Scrapers, calendario y, en Linux con LibreOffice, el Excel de coyuntura.
-"$PYTHON" main.py
+# Scrapers, calendario y, en Linux con LibreOffice, el Excel de coyuntura. Si la corrida
+# anterior se cortó hace menos de 20 h, main.py la retoma: corre sólo los scrapers que
+# faltaron (con --de-cero, todos). Los argumentos de este script pasan a main.py.
+"$PYTHON" main.py "$@"
 estado=$?
+if [ $estado -eq 75 ]; then
+    echo "*** hay otra corrida en curso (candado en .corrida/); ésta no copia nada"
+    exit 75
+fi
 [ $estado -ne 0 ] && echo "*** main.py terminó con código $estado (detalle arriba y en la hoja «Estado corrida» de BD.xlsx)"
 
 copiar() {

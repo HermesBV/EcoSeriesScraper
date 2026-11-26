@@ -6,17 +6,15 @@ import argparse
 import contextlib
 import importlib
 import io
-import json
 import pkgutil
 import platform
-import subprocess
 import sys
-import tempfile
 import time
 from datetime import date
 from pathlib import Path
 
 import scrapers
+from tools import corrida
 
 
 # Los más pesados van al final y en su propio lote: si el proceso muere ahí (memoria,
@@ -115,17 +113,8 @@ def ejecutar_modulo(nombre_completo: str, reintentos: int, espera: float) -> Non
             time.sleep(espera)
 
 
-def _leer_estado(ruta: Path) -> dict[str, str]:
-    try:
-        return json.loads(ruta.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return {}
-
-
-def _anotar(ruta: Path, estado: dict[str, str]) -> None:
-    temporal = ruta.with_name(ruta.name + ".tmp")
-    temporal.write_text(json.dumps(estado, ensure_ascii=False), encoding="utf-8")
-    temporal.replace(ruta)
+_leer_estado = corrida.leer
+_anotar = corrida.anotar
 
 
 def correr_lote(nombres: list[str], ruta_estado: Path, reintentos: int, espera: float) -> None:
@@ -163,18 +152,63 @@ def correr_lote(nombres: list[str], ruta_estado: Path, reintentos: int, espera: 
     _anotar(ruta_estado, estado)
 
 
+def tiempo_lote(nombres: list[str], args) -> float:
+    """Segundos que puede durar un lote: ``--tiempo-max`` minutos por scraper, más el volcado."""
+    return (args.tiempo_max * max(1, len(nombres)) + 15) * 60
+
+
 def lanzar_lote(nombres: list[str], ruta_estado: Path, args) -> int:
     """Corre el lote en un proceso aparte y devuelve su código de salida.
 
     Cada lote libera su memoria al terminar y, si el sistema lo mata (falta de
-    memoria), la corrida sigue con el lote siguiente.
+    memoria) o pasa su tiempo máximo, la corrida sigue con el lote siguiente.
     """
     orden = [sys.executable, str(Path(__file__).resolve()), "--estado", str(ruta_estado),
              "--reintentos", str(args.reintentos), "--espera", str(args.espera), "--lote", *nombres]
-    return subprocess.run(orden, cwd=Path(__file__).resolve().parent).returncode
+    return corrida.correr_con_tiempo(orden, tiempo_lote(nombres, args), Path(__file__).resolve().parent,
+                                     candado=corrida.CARPETA / "candado")
 
 
-def actualizar_coyuntura() -> int | None:
+def correr_lotes(grupos: list[list[str]], ruta_estado: Path, lanzar) -> dict[str, str]:
+    """Corre los lotes con ``lanzar(grupo, ruta_estado) -> código`` y devuelve el estado final.
+
+    Un lote que muere o pasa su tiempo se repite de a un scraper, para perder
+    sólo el que causa el problema.
+    """
+    pendientes = list(grupos)
+    sin_anotar = False   # hay novedades que todavía no llegaron a la hoja de estado
+    while pendientes:
+        grupo = pendientes.pop(0)
+        print(f"\n##### Lote: {', '.join(grupo)}", flush=True)
+        codigo = lanzar(grupo, ruta_estado)
+        estado = _leer_estado(ruta_estado)
+        if codigo == 0 and "_sin_escribir" not in estado:
+            sin_anotar = False
+            continue
+        # El proceso murió o el volcado falló: nada de este lote llegó a la base.
+        if codigo == corrida.AGOTADO:
+            motivo = "el lote pasó su tiempo máximo (--tiempo-max) y se cortó"
+        elif codigo < 0:
+            motivo = f"el proceso del lote murió (señal {-codigo}; si es 9, falta de memoria)"
+        else:
+            motivo = f"falló la escritura del lote (código {codigo})"
+        print(f"ERROR: {motivo}: {', '.join(grupo)}", flush=True)
+        estado.pop("_sin_escribir", None)
+        if len(grupo) > 1:
+            for nombre in grupo:
+                estado.pop(nombre, None)
+            pendientes = [[nombre] for nombre in grupo] + pendientes
+        else:
+            previo = estado.get(grupo[0], "")
+            estado[grupo[0]] = (f"NO SE GUARDÓ: {motivo}" + (f" · antes: {previo}" if previo else ""))[:900]
+            sin_anotar = True
+        _anotar(ruta_estado, estado)
+    if sin_anotar:
+        lanzar([], ruta_estado)   # un lote vacío: sólo deja la hoja de estado al día
+    return _leer_estado(ruta_estado)
+
+
+def actualizar_coyuntura(tiempo: float | None = None) -> int | None:
     """En un servidor Linux con LibreOffice, deja al día el Excel de coyuntura.
 
     En Windows sigue siendo un paso aparte (``python -m coyuntura.actualizador``),
@@ -188,7 +222,10 @@ def actualizar_coyuntura() -> int | None:
         print("\nExcel de coyuntura: se omite (falta LibreOffice: apt install libreoffice-calc python3-uno)", flush=True)
         return None
     print(f"\n=== Excel de coyuntura ({time.strftime('%H:%M:%S')}) ===", flush=True)
-    return subprocess.run([sys.executable, "-m", "coyuntura.actualizador"], cwd=Path(__file__).resolve().parent).returncode
+    codigo = corrida.correr_con_tiempo([sys.executable, "-m", "coyuntura.actualizador"], tiempo, Path(__file__).resolve().parent)
+    if codigo == corrida.AGOTADO:
+        print(f"ERROR: el Excel de coyuntura pasó su tiempo máximo ({tiempo / 60:.0f} min) y se cortó", flush=True)
+    return codigo
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -200,6 +237,13 @@ def main(argv: list[str] | None = None) -> None:
                              "al terminar (3). Lotes chicos: más escrituras, menos que perder si uno muere")
     parser.add_argument("--sin-coyuntura", action="store_true",
                         help="no actualizar el Excel de coyuntura al terminar (en Linux, con LibreOffice)")
+    parser.add_argument("--de-cero", action="store_true",
+                        help="no retomar una corrida cortada: correr todos los scrapers")
+    parser.add_argument("--retomar-horas", type=float, default=corrida.HORAS_RETOMAR,
+                        help=f"retomar una corrida cortada si empezó hace menos de estas horas ({corrida.HORAS_RETOMAR})")
+    parser.add_argument("--tiempo-max", type=float, default=60.0,
+                        help="minutos por scraper antes de cortar su lote (60); el lote suma 15 para escribir "
+                             "la base. También es el tope del Excel de coyuntura")
     parser.add_argument("--lote", nargs="*", metavar="SCRAPER", help=argparse.SUPPRESS)   # uso interno
     parser.add_argument("--estado", type=Path, help=argparse.SUPPRESS)                    # uso interno
     args = parser.parse_args(argv)
@@ -210,61 +254,58 @@ def main(argv: list[str] | None = None) -> None:
     modulos = descubrir_scrapers()
     if not modulos:
         raise RuntimeError("No se encontraron módulos scraper_*.py en la carpeta scrapers")
+    try:
+        candado = corrida.tomar_candado()
+    except corrida.CorridaEnCurso as exc:
+        print(f"AVISO: {exc}; no se arranca otra.", flush=True)
+        raise SystemExit(SALIDA_OCUPADO)
+    try:
+        correr_todo(modulos, args)
+    finally:
+        corrida.soltar_candado(candado)
+
+
+SALIDA_OCUPADO = 75   # otra corrida tiene el candado (EX_TEMPFAIL); corrida_diaria.sh no copia nada
+
+
+def correr_todo(modulos: list[str], args) -> None:
+    from tools.lote import CARPETA_LOTE
+    corrida.limpiar_lotes_viejos(CARPETA_LOTE)
     inicio_total = time.time()
-    grupos = agrupar(modulos, max(1, args.volcar_cada))
     faltan = paquetes_faltantes()
     if faltan:
         print(f"AVISO: faltan paquetes de Python ({', '.join(faltan)}); los scrapers que los usan van a fallar. "
               "Instalar con: pip install -r requirements.txt", flush=True)
-    estado = {
-        "Inicio": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "Código": version_codigo(),
-        "Python": f"{platform.python_version()} en {sys.platform}",
-        "Paquetes faltantes": ", ".join(faltan) or "ninguno",
-        "Último lote escrito": "",
-    }
-    with tempfile.TemporaryDirectory(prefix="corrida-") as carpeta:
-        ruta_estado = Path(carpeta) / "estado.json"
-        _anotar(ruta_estado, estado)
-        pendientes = list(grupos)
-        sin_anotar = False   # hay novedades que todavía no llegaron a la hoja de estado
-        while pendientes:
-            grupo = pendientes.pop(0)
-            print(f"\n##### Lote: {', '.join(grupo)}", flush=True)
-            codigo = lanzar_lote(grupo, ruta_estado, args)
-            estado = _leer_estado(ruta_estado)
-            if codigo == 0 and "_sin_escribir" not in estado:
-                sin_anotar = False
-                continue
-            # El proceso murió o el volcado falló: nada de este lote llegó a la base.
-            motivo = (f"el proceso del lote murió (señal {-codigo}; si es 9, falta de memoria)" if codigo < 0
-                      else f"falló la escritura del lote (código {codigo})")
-            print(f"ERROR: {motivo}: {', '.join(grupo)}", flush=True)
-            estado.pop("_sin_escribir", None)
-            if len(grupo) > 1:
-                # De a uno, para perder sólo el que causa el problema.
-                for nombre in grupo:
-                    estado.pop(nombre, None)
-                pendientes = [[nombre] for nombre in grupo] + pendientes
-            else:
-                previo = estado.get(grupo[0], "")
-                estado[grupo[0]] = (f"NO SE GUARDÓ: {motivo}" + (f" · antes: {previo}" if previo else ""))[:900]
-                sin_anotar = True
-            _anotar(ruta_estado, estado)
-        if sin_anotar:
-            lanzar_lote([], ruta_estado, args)   # un lote vacío: sólo deja la hoja de estado al día
-        estado = _leer_estado(ruta_estado)
+    ruta_estado = corrida.CARPETA / "estado.json"
+    estado = {} if args.de_cero else corrida.retomable(ruta_estado, args.retomar_horas)
+    hechos = [nombre for nombre in modulos if nombre in estado]
+    if estado:
+        print(f"Retomando la corrida del {estado['Inicio']}: ya corrieron {len(hechos)} de {len(modulos)} scrapers "
+              "(--de-cero para empezar de nuevo)", flush=True)
+    else:
+        estado = {
+            "Inicio": time.strftime(corrida.FORMATO_HORA),
+            "Código": version_codigo(),
+            "Python": f"{platform.python_version()} en {sys.platform}",
+            "Paquetes faltantes": ", ".join(faltan) or "ninguno",
+            "Último lote escrito": "",
+        }
+    _anotar(ruta_estado, estado)
+    grupos = agrupar([nombre for nombre in modulos if nombre not in hechos], max(1, args.volcar_cada))
+    estado = correr_lotes(grupos, ruta_estado, lambda grupo, ruta: lanzar_lote(grupo, ruta, args))
     print(f"\nTiempo total: {(time.time() - inicio_total) / 60:.1f} min", flush=True)
 
     errores = [f"{nombre}: {estado[nombre]}" for nombre in modulos
                if not str(estado.get(nombre, "sin resultado")).startswith("OK")]
     # Un libro viejo no produce error: sólo el calendario muestra el atraso.
-    if subprocess.run([sys.executable, "-m", "tools.calendario"], cwd=Path(__file__).resolve().parent).returncode:
+    if corrida.correr_con_tiempo([sys.executable, "-m", "tools.calendario"], args.tiempo_max * 60,
+                                 Path(__file__).resolve().parent):
         print("AVISO: no se pudo actualizar el calendario de publicaciones", flush=True)
     if not args.sin_coyuntura:
-        codigo = actualizar_coyuntura()
+        codigo = actualizar_coyuntura(args.tiempo_max * 60)
         if codigo:
             errores.append(f"Excel de coyuntura: el actualizador terminó con código {codigo}; el Excel vigente no se modificó")
+    corrida.cerrar(ruta_estado)
 
     if errores:
         raise RuntimeError(f"Fallaron {len(errores)} de {len(modulos)} scrapers: " + "; ".join(errores))
