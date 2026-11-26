@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-25T18:00:34",
+ "generado": "2026-11-26T14:20:12",
  "errores": {},
  "fuentes": [
   {
@@ -10,7 +10,7 @@
    "series": 30,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 40,
+   "dias_desde_ultimo": 41,
    "publicado": null,
    "proxima": null,
    "situacion": "posible atraso"
@@ -23,7 +23,7 @@
    "series": 43,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 85,
+   "dias_desde_ultimo": 86,
    "publicado": null,
    "proxima": null,
    "situacion": "posible atraso"
@@ -36,7 +36,7 @@
    "series": 178,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 85,
+   "dias_desde_ultimo": 86,
    "publicado": null,
    "proxima": null,
    "situacion": "posible atraso"
@@ -49,7 +49,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 85,
+   "dias_desde_ultimo": 86,
    "publicado": null,
    "proxima": null,
    "situacion": "posible atraso"
@@ -58,7 +58,7 @@
    "codigo": "ambito-dolar-blue",
    "frecuencia": "D",
    "institucion": "Ámbito Financiero",
-   "en_base": "2026-11-24",
+   "en_base": "2026-11-25",
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
@@ -71,7 +71,7 @@
    "codigo": "ambito-dolar-mep",
    "frecuencia": "D",
    "institucion": "Ámbito Financiero",
-   "en_base": "2026-11-24",
+   "en_base": "2026-11-25",
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
@@ -84,7 +84,7 @@
    "codigo": "ambito-riesgo-pais",
    "frecuencia": "D",
    "institucion": "JP Morgan Chase",
-   "en_base": "2026-11-24",
+   "en_base": "2026-11-25",
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
@@ -101,7 +101,7 @@
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": -36,
+   "dias_desde_ultimo": -35,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -114,7 +114,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 0,
+   "dias_desde_ultimo": 1,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -127,7 +127,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 26,
+   "dias_desde_ultimo": 27,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -140,7 +140,7 @@
    "series": 2,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 0,
+   "dias_desde_ultimo": 1,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -149,11 +149,11 @@
    "codigo": "bcra-dmd",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-20",
+   "en_base": "2026-11-24",
    "series": 154,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 5,
+   "dias_desde_ultimo": 2,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -183,11 +183,11 @@
    "codigo": "bcra-pas",
    "frecuencia": "D",
    "institucion": "BCRA",
-   "en_base": "2026-11-20",
+   "en_base": "2026-11-24",
    "series": 1462,
    "metodo": "regla",
    "tolerancia_dias": 30,
-   "dias_desde_ultimo": 5,
+   "dias_desde_ultimo": 2,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -473,7 +473,7 @@
    "series": 1,
    "metodo": "regla",
    "tolerancia_dias": 110,
-   "dias_desde_ultimo": 85,
+   "dias_desde_ultimo": 86,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -486,7 +486,7 @@
    "series": 204,
    "metodo": "regla",
    "tolerancia_dias": 150,
-   "dias_desde_ultimo": 116,
+   "dias_desde_ultimo": 117,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
@@ -499,7 +499,7 @@
    "series": 100,
    "metodo": "regla",
    "tolerancia_dias": 75,
-   "dias_desde_ultimo": 55,
+   "dias_desde_ultimo": 56,
    "publicado": null,
    "proxima": null,
    "situacion": "al día"
