@@ -43,8 +43,7 @@ fuentes_BD/BCRA/IndicesTipoCambio/ Excel fuente de ITCRM e ITCNM
 fuentes_BD/BCRA/DatosMonetariosDiarios/ Libro oficial de datos monetarios diarios
 fuentes_BD/BCRA/Cotizaciones/      Cotizaciones diarias descargadas de la API cambiaria
 fuentes_BD/BCRA/IRFCL/             Dataset IRFCL del FMI, PDF mensuales y caché de notas
-fuentes_BD/IIEP/TipoCambioReal/    Serie histórica utilizada para el empalme IIEP
-fuentes_BD/IIEP/ReservasInternacionales/ Base histórica del DT-IIEP N° 126
+semillas/                       Semillas históricas: archivos cargados una vez (no se versionan) y registro.json (docs/semillas.md)
 docs/                           Guía para incorporar fuentes y notas de método
 series-tiempo-metadatos.csv     Catálogo de IDs y metadatos de datos.gob.ar
 BD.xlsx                         Datos consolidados

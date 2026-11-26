@@ -1,0 +1,42 @@
+[
+  {
+    "codigo": "iiep",
+    "archivo": "3 Tipo de Cambio Real.xlsx",
+    "sha256": null,
+    "cargada": "2026-09-15",
+    "paso": "Hermes",
+    "caso": "a",
+    "hoja": "IIEP ITCRB EEUU M",
+    "columnas": [
+      "ITCRB Estados Unidos empalmado"
+    ],
+    "desde": "1958-01-01",
+    "hasta": "1996-12-01",
+    "fechas": 468,
+    "nota": "Cargada antes del registro (commit 7e1cd8d), con la hoja «Mes», columna «Importación (implícito)», reescalada en 1997-01 al ITCRB EEUU del BCRA. El archivo está en la PC de Hermes; el sha256 se completa con `python -m tools.semillas registrar` cuando esté en semillas/iiep/."
+  },
+  {
+    "codigo": "iiep-rin",
+    "archivo": "Reservas_internacionales_Argentina_agosto_2026.csv",
+    "sha256": null,
+    "cargada": "2026-10-25",
+    "paso": "Hermes",
+    "caso": "a",
+    "hoja": "IIEP Reservas M",
+    "columnas": [
+      "Reservas brutas",
+      "Custodia",
+      "Reservas propias",
+      "Reservas prestadas",
+      "Reservas netas",
+      "Reservas netas según planilla",
+      "RIN-EFF",
+      "Reservas líquidas",
+      "Reservas propias líquidas"
+    ],
+    "desde": "2000-09-01",
+    "hasta": "2026-08-01",
+    "fechas": 312,
+    "nota": "Cargada antes del registro (commit 5a3ed9b): la base de los autores del DT-IIEP N° 126 hasta CORTE_HISTORICO. RIN-EFF sólo existe en la semilla. El archivo está en la PC de Hermes; el sha256 se completa con `python -m tools.semillas registrar` cuando esté en semillas/iiep-rin/."
+  }
+]

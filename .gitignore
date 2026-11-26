@@ -22,3 +22,6 @@ coyuntura/.trabajo/
 .lote/
 .corrida/
 coyuntura/coyuntura iiep fuentes y esquema.xlsx
+# Semillas históricas: los archivos no se versionan, el registro sí (docs/semillas.md)
+semillas/*
+!semillas/registro.json

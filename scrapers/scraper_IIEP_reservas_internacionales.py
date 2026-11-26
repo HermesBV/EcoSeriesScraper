@@ -6,10 +6,10 @@ son la base publicada por los autores; los posteriores se calculan con su métod
 partir de las hojas ``BCRA IRFCL M`` y ``BCRA Cotizaciones D`` que actualizan los
 scrapers del BCRA, que corren antes que éste.
 
-``fuentes_BD/IIEP/ReservasInternacionales/Reservas_internacionales_Argentina_agosto_2026.csv``
-es una semilla histórica de una sola vez: le dio fuente a la base de los autores, que
-ya quedó en ``BD.xlsx``. No es la fuente que se actualiza y no se versiona; sin el
-archivo, los meses hasta ``CORTE_HISTORICO`` se toman de lo ya publicado.
+``semillas/iiep-rin/Reservas_internacionales_Argentina_agosto_2026.csv`` es una semilla
+histórica (caso a de ``docs/semillas.md``): le dio fuente, una sola vez, a la base de los
+autores, que ya quedó en ``BD.xlsx``. No es la fuente que se actualiza y no se versiona;
+sin el archivo, los meses hasta ``CORTE_HISTORICO`` se toman de lo ya publicado.
 """
 
 from __future__ import annotations
@@ -23,12 +23,12 @@ from scrapers.scraper_BCRA_cotizaciones import SHEET as HOJA_COTIZACIONES, colum
 from scrapers.scraper_BCRA_irfcl import COLUMNAS_NOTAS, SHEET as HOJA_IRFCL
 from scrapers.scraper_IED import guardar_datos_preservando_formato
 from tools import lote
+from tools import semillas
 from tools.generar_codificacion import generar
 
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVO_BD = ROOT / "BD.xlsx"
-DIRECTORY = ROOT / "fuentes_BD" / "IIEP" / "ReservasInternacionales"
-ARCHIVO_HISTORICO = DIRECTORY / "Reservas_internacionales_Argentina_agosto_2026.csv"
+ARCHIVO_HISTORICO = semillas.ruta("iiep-rin", "Reservas_internacionales_Argentina_agosto_2026.csv")
 CORTE_HISTORICO = pd.Timestamp("2026-08-01")
 HOJA = "IIEP Reservas M"
 CODIGO = "iiep-rin"
@@ -94,17 +94,17 @@ SERIES = (
 COLUMNAS = {serie.clave: serie.columna for serie in SERIES}
 
 
+def leer_semilla(ruta: Path) -> pd.DataFrame:
+    datos = pd.read_csv(ruta, parse_dates=["fecha"])
+    faltantes = set(COLUMNAS) - set(datos.columns)
+    if faltantes:
+        raise ValueError(f"La base IIEP no trae las columnas {sorted(faltantes)}")
+    return datos.rename(columns=COLUMNAS)[["fecha", *COLUMNAS.values()]]
+
+
 def leer_historico(ruta: Path = ARCHIVO_HISTORICO) -> pd.DataFrame:
-    """Lee la base del IIEP; sin el archivo, conserva lo ya publicado en BD.xlsx."""
-    if ruta.is_file():
-        datos = pd.read_csv(ruta, parse_dates=["fecha"])
-        faltantes = set(COLUMNAS) - set(datos.columns)
-        if faltantes:
-            raise ValueError(f"La base IIEP no trae las columnas {sorted(faltantes)}")
-        datos = datos.rename(columns=COLUMNAS)[["fecha", *COLUMNAS.values()]]
-    else:
-        datos = lote.leer_hoja(ARCHIVO_BD, HOJA)
-        datos["fecha"] = pd.to_datetime(datos["fecha"])
+    """La base del IIEP hasta ``CORTE_HISTORICO``: de la semilla si está, si no de lo publicado."""
+    datos, _ = semillas.tramo_historico(ruta, leer_semilla, HOJA, ARCHIVO_BD)
     datos["fecha"] = datos["fecha"].dt.to_period("M").dt.to_timestamp()
     return datos[datos["fecha"].le(CORTE_HISTORICO)].sort_values("fecha").reset_index(drop=True)
 

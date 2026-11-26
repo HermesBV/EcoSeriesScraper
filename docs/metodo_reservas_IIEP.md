@@ -27,7 +27,7 @@ Es la reserva neta con la definición del Acuerdo de Facilidades Extendidas (EFF
 ## Actualización
 
 - `scraper_BCRA_cotizaciones.py` y `scraper_BCRA_irfcl.py` corren antes y dejan en `BD.xlsx` las hojas `BCRA Cotizaciones D` y `BCRA IRFCL M`.
-- `scraper_IIEP_reservas_internacionales.py` toma la base de los autores hasta `CORTE_HISTORICO` (2026-08) desde `fuentes_BD/IIEP/ReservasInternacionales/` y calcula los meses siguientes. Si falta ese CSV, conserva lo ya publicado en `BD.xlsx` hasta el corte.
+- `scraper_IIEP_reservas_internacionales.py` toma la base de los autores hasta `CORTE_HISTORICO` (2026-08) desde la semilla `semillas/iiep-rin/` (`docs/semillas.md`) y calcula los meses siguientes. Si falta ese CSV, lo normal, conserva lo ya publicado en `BD.xlsx` hasta el corte.
 - Para ampliar la base con una nueva entrega de los autores: reemplazar el CSV y mover `CORTE_HISTORICO`.
 
 ## Swap con China (líquidas)
