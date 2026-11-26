@@ -241,8 +241,8 @@ def main(argv: list[str] | None = None) -> None:
                         help="no retomar una corrida cortada: correr todos los scrapers")
     parser.add_argument("--retomar-horas", type=float, default=corrida.HORAS_RETOMAR,
                         help=f"retomar una corrida cortada si empezó hace menos de estas horas ({corrida.HORAS_RETOMAR})")
-    parser.add_argument("--tiempo-max", type=float, default=60.0,
-                        help="minutos por scraper antes de cortar su lote (60); el lote suma 15 para escribir "
+    parser.add_argument("--tiempo-max", type=float, default=180.0,
+                        help="minutos por scraper antes de cortar su lote (180); el lote suma 15 para escribir "
                              "la base. También es el tope del Excel de coyuntura")
     parser.add_argument("--lote", nargs="*", metavar="SCRAPER", help=argparse.SUPPRESS)   # uso interno
     parser.add_argument("--estado", type=Path, help=argparse.SUPPRESS)                    # uso interno
