@@ -13,8 +13,9 @@ Lo que se actualiza todos los días viene siempre de una fuente de internet, nun
 | El registro de lo cargado | `semillas/registro.json` | **Sí** |
 | El código que la lee | el scraper (caso a) o `scrapers/semilla_<FUENTE>.py` (caso b) | Sí |
 
-El original se guarda además fuera de la máquina y fuera de git, en una carpeta privada compartida de semillas
-(dónde, lo fija Hermes), con el mismo nombre. El `sha256` del registro permite comprobar que es el que se cargó.
+Dónde guardar los originales fuera de la máquina queda pendiente, sin apuro: por ahora quedan en `semillas/` de la PC
+de Hermes, fuera de git, y la base ya los tiene integrados. El `sha256` del registro permite comprobar que un archivo
+es el que se cargó.
 
 ## Caso a: un tramo histórico de una serie que se sigue actualizando
 
